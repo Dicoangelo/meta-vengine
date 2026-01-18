@@ -1,9 +1,24 @@
-# THE CLOSED LOOP
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1a2e,100:16213e&height=200&section=header&text=THE%20CLOSED%20LOOP&fontSize=50&fontColor=00d9ff&animation=fadeIn&fontAlignY=35&desc=Bidirectional%20Co-Evolution%20%E2%80%A2%20The%20System%20That%20Improves%20Itself&descSize=16&descAlignY=55" />
+</p>
 
-**Codename:** COEVO
-**Status:** Live — Self-referential architecture
-**Origin:** D-Ecosystem · Metaventions AI
-**Date:** 2026-01-17
+<p align="center">
+  <strong>Codename: COEVO</strong>
+</p>
+
+<p align="center">
+  <em>"Let the invention be hidden in your vision"</em>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Live-00d9ff?style=for-the-badge&labelColor=0d1117" alt="Status" />
+  <img src="https://img.shields.io/badge/Architecture-Self--Referential-9945ff?style=for-the-badge&labelColor=0d1117" alt="Architecture" />
+  <img src="https://img.shields.io/badge/Origin-D--Ecosystem-00d9ff?style=for-the-badge&labelColor=0d1117" alt="Origin" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Metaventions_AI-Architected_Intelligence-1a1a2e?style=for-the-badge" alt="Metaventions AI" />
+</p>
 
 ---
 
