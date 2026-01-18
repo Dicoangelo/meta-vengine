@@ -1,0 +1,59 @@
+{
+  "cleanupPeriodDays": 30,
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$(date '+%H:%M:%S') WRITE $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$(date '+%H:%M:%S') EDIT $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$(date '+%H:%M:%S') BASH\" >> ~/.claude/activity.log",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '\n══════════════════════════════════════' >> ~/.claude/activity.log && echo \"SESSION $(date '+%Y-%m-%d %H:%M:%S') PWD:$(pwd)\" >> ~/.claude/activity.log",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"SESSION END $(date '+%H:%M:%S')\" >> ~/.claude/activity.log",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

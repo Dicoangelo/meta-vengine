@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Command Center</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: rgba(255,255,255,0.03);
+      --bg-hover: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.08);
+      --text-primary: #ffffff;
+      --text-secondary: #888;
+      --text-muted: #555;
+      --accent-red: #e94560;
+      --accent-orange: #ff6b6b;
+      --accent-yellow: #feca57;
+      --accent-cyan: #48dbfb;
+      --accent-green: #4ade80;
+      --accent-purple: #a855f7;
+      --gradient-primary: linear-gradient(135deg, #e94560, #ff6b6b);
+      --gradient-secondary: linear-gradient(135deg, #48dbfb, #4ade80);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(233,69,96,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(233,69,96,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      align-items: center;
+      background: rgba(10,10,15,0.95);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      padding: 0 1rem;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      margin-right: 1rem;
+    }
+
+    .nav-logo {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .nav-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-tabs {
+      display: flex;
+      flex: 1;
+    }
+
+    .nav-tab {
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+      border-bottom: 2px solid transparent;
+      position: relative;
+    }
+
+    .nav-tab:hover { color: var(--text-primary); }
+
+    .nav-tab.active {
+      color: var(--accent-red);
+      border-bottom-color: var(--accent-red);
+    }
+
+    .nav-tab .badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--accent-red);
+      color: white;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 10px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1rem;
+    }
+
+    .nav-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    /* Main Content */
+    .main {
+      position: relative;
+      z-index: 1;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .tab-content { display: none; animation: fadeIn 0.3s ease; }
+    .tab-content.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(233,69,96,0.3);
+      box-shadow: 0 0 30px rgba(233,69,96,0.1);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .card h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .card-badge {
+      background: rgba(233,69,96,0.15);
+      color: var(--accent-red);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    /* Proactive Panel (Phase 4 - ProactiveVA) */
+    .proactive-panel {
+      margin-bottom: 1.5rem;
+      animation: slideIn 0.4s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .proactive-card {
+      background: linear-gradient(135deg, rgba(72,219,251,0.08), rgba(74,222,128,0.08));
+      border-color: rgba(72,219,251,0.3);
+    }
+
+    .proactive-card:hover {
+      border-color: rgba(72,219,251,0.5);
+      box-shadow: 0 0 30px rgba(72,219,251,0.15);
+    }
+
+    .proactive-badge {
+      background: rgba(72,219,251,0.2) !important;
+      color: var(--accent-cyan) !important;
+    }
+
+    .suggestions-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .suggestion-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .suggestion-item:hover {
+      background: rgba(72,219,251,0.1);
+      border-color: rgba(72,219,251,0.3);
+      transform: translateY(-2px);
+    }
+
+    .suggestion-type {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-cyan);
+      margin-bottom: 0.25rem;
+    }
+
+    .suggestion-label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .suggestion-desc {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* Stats Grid */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+    }
+
+    .stat-card .icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(233,69,96,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card .value {
+      font-size: 2rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+
+    .stat-card .label {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-card .trend {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    .stat-card .trend.up { background: rgba(74,222,128,0.15); color: var(--accent-green); }
+    .stat-card .trend.down { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+    /* Charts Grid */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .chart-container {
+      height: 280px;
+      position: relative;
+    }
+
+    /* Token Display */
+    .token-bar {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 1rem 0;
+    }
+
+    .token-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      min-width: 130px;
+    }
+
+    .token-item .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .token-item .label {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 0.25rem;
+    }
+
+    /* Memory Tab */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .memory-section { margin-bottom: 0; }
+
+    .memory-item {
+      background: var(--bg-secondary);
+      border-left: 3px solid var(--accent-red);
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      border-radius: 0 12px 12px 0;
+      transition: all 0.2s;
+    }
+
+    .memory-item:hover {
+      background: var(--bg-hover);
+      transform: translateX(5px);
+    }
+
+    .memory-item .content {
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .memory-item .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+
+    .memory-item .time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .memory-item .tags { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+
+    .tag {
+      background: rgba(233,69,96,0.15);
+      color: var(--accent-red);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .tag.cyan { background: rgba(72,219,251,0.15); color: var(--accent-cyan); }
+    .tag.green { background: rgba(74,222,128,0.15); color: var(--accent-green); }
+    .tag.yellow { background: rgba(254,202,87,0.15); color: var(--accent-yellow); }
+
+    /* Activity Tab */
+    .activity-container {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 1000px) {
+      .activity-container { grid-template-columns: 1fr; }
+    }
+
+    .activity-timeline {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+
+    .activity-item:hover { background: var(--bg-hover); }
+
+    .activity-item .time {
+      color: var(--text-muted);
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .activity-item .type {
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      width: 70px;
+      text-align: center;
+      flex-shrink: 0;
+      margin-right: 1rem;
+    }
+
+    .activity-item .type.write { background: rgba(74,222,128,0.15); color: var(--accent-green); }
+    .activity-item .type.edit { background: rgba(254,202,87,0.15); color: var(--accent-yellow); }
+    .activity-item .type.bash { background: rgba(72,219,251,0.15); color: var(--accent-cyan); }
+    .activity-item .type.session { background: rgba(233,69,96,0.15); color: var(--accent-red); }
+
+    .activity-item .detail {
+      color: var(--text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .activity-sidebar .card { margin-bottom: 1rem; }
+
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(24, 1fr);
+      gap: 3px;
+    }
+
+    .heatmap-cell {
+      aspect-ratio: 1;
+      border-radius: 4px;
+      background: var(--bg-secondary);
+      position: relative;
+    }
+
+    .heatmap-cell::after {
+      content: attr(data-hour);
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+
+    .heatmap-cell:nth-child(6n)::after { display: block; }
+    .heatmap-cell:not(:nth-child(6n))::after { display: none; }
+
+    /* Cost Tab */
+    .cost-hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .cost-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .cost-card .amount {
+      font-size: 3rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cost-card.savings .amount {
+      background: var(--gradient-secondary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cost-card .label {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.5rem;
+    }
+
+    .efficiency-bar {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .efficiency-track {
+      height: 24px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .efficiency-fill {
+      height: 100%;
+      background: var(--gradient-secondary);
+      border-radius: 12px;
+      transition: width 1s ease;
+    }
+
+    .efficiency-label {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    /* Projects Tab */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+    }
+
+    .project-card.os-app::before { background: var(--accent-red); }
+    .project-card.career::before { background: var(--accent-cyan); }
+    .project-card.research::before { background: var(--accent-yellow); }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .project-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .project-status {
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .project-status.active { background: rgba(74,222,128,0.15); color: var(--accent-green); }
+
+    .project-stack {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-stats {
+      display: flex;
+      gap: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .project-stat .value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .project-stat .label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Commands Tab */
+    .commands-section {
+      margin-bottom: 2rem;
+    }
+
+    .commands-section h4 {
+      font-size: 1rem;
+      color: var(--accent-red);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .commands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .command-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.2s;
+    }
+
+    .command-card:hover {
+      border-color: var(--accent-red);
+      transform: translateY(-2px);
+    }
+
+    .command-card code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent-green);
+      background: rgba(74,222,128,0.1);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .command-card .desc {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* Search Box */
+    .search-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .search-box input::placeholder { color: var(--text-muted); }
+
+    /* Keyboard Shortcuts */
+    kbd {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+    ::-webkit-scrollbar-thumb { background: var(--accent-red); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-orange); }
+
+    /* Live indicator */
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--accent-green);
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .footer kbd { margin: 0 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <nav class="nav">
+    <div class="nav-brand">
+      <div class="nav-logo">C</div>
+      <div class="nav-title">Command Center</div>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="overview">Overview</button>
+      <button class="nav-tab" data-tab="memory">Memory</button>
+      <button class="nav-tab" data-tab="activity">Activity</button>
+      <button class="nav-tab" data-tab="cost">Cost</button>
+      <button class="nav-tab" data-tab="projects">Projects</button>
+      <button class="nav-tab" data-tab="commands">Commands</button>
+    </div>
+    <div class="nav-actions">
+      <div class="live-indicator">
+        <div class="live-dot"></div>
+        <span>Live</span>
+      </div>
+      <button class="nav-btn" onclick="location.reload()">Refresh</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <!-- OVERVIEW TAB -->
+    <div id="overview" class="tab-content active">
+      <div class="stats-row" id="statsRow"></div>
+
+      <!-- PROACTIVE SUGGESTIONS (Phase 4 - ProactiveVA) -->
+      <div id="proactivePanel" class="proactive-panel" style="display:none;">
+        <div class="card proactive-card">
+          <div class="card-header">
+            <h3><span id="proactiveIcon">🎯</span> <span id="proactiveTitle">Proactive Suggestions</span></h3>
+            <span class="card-badge proactive-badge" id="proactivePattern">Detecting...</span>
+          </div>
+          <div class="proactive-content">
+            <p id="proactiveContext" style="color:var(--text-secondary);margin-bottom:1rem;"></p>
+            <div id="proactiveSuggestions" class="suggestions-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>Messages Over Time</h3>
+            <span class="card-badge">7 Days</span>
+          </div>
+          <div class="chart-container"><canvas id="messagesChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Tool Usage</h3>
+            <span class="card-badge">By Day</span>
+          </div>
+          <div class="chart-container"><canvas id="toolsChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Token Consumption</h3>
+            <span class="card-badge">Trend</span>
+          </div>
+          <div class="chart-container"><canvas id="tokensChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Activity by Hour</h3>
+            <span class="card-badge">Sessions</span>
+          </div>
+          <div class="chart-container"><canvas id="hourChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Token Breakdown</h3>
+          <span class="card-badge" id="modelBadge">Opus 4.5</span>
+        </div>
+        <div class="token-bar" id="tokenBreakdown"></div>
+      </div>
+    </div>
+
+    <!-- MEMORY TAB -->
+    <div id="memory" class="tab-content">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="memorySearch" placeholder="Search memories...">
+      </div>
+      <div class="memory-grid">
+        <div class="card memory-section">
+          <div class="card-header">
+            <h3>Decisions</h3>
+            <span class="card-badge" id="decisionCount">0</span>
+          </div>
+          <div id="memoryDecisions"></div>
+        </div>
+        <div class="card memory-section">
+          <div class="card-header">
+            <h3>Facts</h3>
+            <span class="card-badge" id="factCount">0</span>
+          </div>
+          <div id="memoryFacts"></div>
+        </div>
+        <div class="card memory-section">
+          <div class="card-header">
+            <h3>Patterns</h3>
+            <span class="card-badge" id="patternCount">0</span>
+          </div>
+          <div id="memoryPatterns"></div>
+        </div>
+        <div class="card memory-section">
+          <div class="card-header">
+            <h3>Project Context</h3>
+            <span class="card-badge" id="projectMemCount">0</span>
+          </div>
+          <div id="memoryProjects"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY TAB -->
+    <div id="activity" class="tab-content">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="icon">📝</div>
+          <div class="value" id="todayActions">0</div>
+          <div class="label">Today's Actions</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">✏️</div>
+          <div class="value" id="todayWrites">0</div>
+          <div class="label">Files Written</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">🔧</div>
+          <div class="value" id="todayEdits">0</div>
+          <div class="label">Files Edited</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">💻</div>
+          <div class="value" id="todayBash">0</div>
+          <div class="label">Bash Commands</div>
+        </div>
+      </div>
+
+      <div class="activity-container">
+        <div class="card">
+          <div class="card-header">
+            <h3>Activity Timeline</h3>
+            <span class="card-badge" id="activityCount">0 entries</span>
+          </div>
+          <div class="activity-timeline" id="activityLog"></div>
+        </div>
+        <div class="activity-sidebar">
+          <div class="card">
+            <div class="card-header">
+              <h3>Hour Heatmap</h3>
+            </div>
+            <div class="heatmap-grid" id="heatmapGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COST TAB -->
+    <div id="cost" class="tab-content">
+      <div class="cost-hero">
+        <div class="cost-card">
+          <div class="amount" id="costToday">$0</div>
+          <div class="label">Today</div>
+        </div>
+        <div class="cost-card">
+          <div class="amount" id="costWeek">$0</div>
+          <div class="label">This Week</div>
+        </div>
+        <div class="cost-card">
+          <div class="amount" id="costMonth">$0</div>
+          <div class="label">Projected Month</div>
+        </div>
+        <div class="cost-card savings">
+          <div class="amount" id="costSaved">$0</div>
+          <div class="label">Saved via Cache</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Cache Efficiency</h3>
+          <span class="card-badge" id="efficiencyPercent">0%</span>
+        </div>
+        <div class="efficiency-bar">
+          <div class="efficiency-track">
+            <div class="efficiency-fill" id="efficiencyFill" style="width: 0%"></div>
+          </div>
+          <div class="efficiency-label">
+            <span>0% Cache Miss (Paid)</span>
+            <span>100% Cache Hit (Free)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>Daily Cost Breakdown</h3>
+          </div>
+          <div class="chart-container"><canvas id="costChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Token Efficiency</h3>
+          </div>
+          <div class="chart-container"><canvas id="efficiencyChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS TAB -->
+    <div id="projects" class="tab-content">
+      <div class="projects-grid" id="projectsList"></div>
+    </div>
+
+    <!-- COMMANDS TAB -->
+    <div id="commands" class="tab-content">
+      <div class="commands-section">
+        <h4>🚀 Quick Start</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>cx</code><div class="desc">Start Claude tmux session</div></div>
+          <div class="command-card"><code>ccc</code><div class="desc">Open Command Center</div></div>
+          <div class="command-card"><code>cterm</code><div class="desc">Terminal dashboard</div></div>
+        </div>
+      </div>
+
+      <div class="commands-section">
+        <h4>🤖 Model Selection</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>cq "..."</code><div class="desc">Haiku — quick questions ($0.25/M)</div></div>
+          <div class="command-card"><code>cc</code><div class="desc">Sonnet — standard coding ($3/M)</div></div>
+          <div class="command-card"><code>co</code><div class="desc">Opus — complex reasoning ($15/M)</div></div>
+        </div>
+      </div>
+
+      <div class="commands-section">
+        <h4>⚡ Quick Actions</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>q "..."</code><div class="desc">Quick question, no session</div></div>
+          <div class="command-card"><code>explain ...</code><div class="desc">Explain any concept</div></div>
+          <div class="command-card"><code>fixcmd</code><div class="desc">Fix last failed command</div></div>
+        </div>
+      </div>
+
+      <div class="commands-section">
+        <h4>📦 Git Automation</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>gsave "msg"</code><div class="desc">Stage all + commit</div></div>
+          <div class="command-card"><code>gsync</code><div class="desc">Pull, commit, push</div></div>
+          <div class="command-card"><code>gcheckpoint</code><div class="desc">Checkpoint with optional push</div></div>
+          <div class="command-card"><code>gquick</code><div class="desc">Auto-generate commit message</div></div>
+          <div class="command-card"><code>gbranch name</code><div class="desc">Create and switch branch</div></div>
+          <div class="command-card"><code>glog</code><div class="desc">Recent commits (compact)</div></div>
+        </div>
+      </div>
+
+      <div class="commands-section">
+        <h4>🔬 Research</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>research "topic"</code><div class="desc">Start research session</div></div>
+          <div class="command-card"><code>rlog URL</code><div class="desc">Log URL to session</div></div>
+          <div class="command-card"><code>rstatus</code><div class="desc">Check research status</div></div>
+          <div class="command-card"><code>rsearch query</code><div class="desc">Search archives</div></div>
+          <div class="command-card"><code>prefetch</code><div class="desc">Load project context</div></div>
+          <div class="command-card"><code>rclip</code><div class="desc">Log URL from clipboard</div></div>
+        </div>
+      </div>
+
+      <div class="commands-section">
+        <h4>📊 Monitoring</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>ccost</code><div class="desc">Cost tracker</div></div>
+          <div class="command-card"><code>today</code><div class="desc">Today's activity</div></div>
+          <div class="command-card"><code>cl</code><div class="desc">Live activity log</div></div>
+          <div class="command-card"><code>checkpoint</code><div class="desc">Save session checkpoint</div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Press <kbd>1</kbd>-<kbd>6</kbd> to switch tabs · <kbd>R</kbd> to refresh · Built for terminal-first workflow
+  </footer>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.nav-tab').forEach((tab, i) => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+    });
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      const tabs = ['overview', 'memory', 'activity', 'cost', 'projects', 'commands'];
+      if (e.key >= '1' && e.key <= '6') switchTab(tabs[parseInt(e.key) - 1]);
+      if (e.key.toLowerCase() === 'r') location.reload();
+    });
+
+    // Data injection
+    const STATS_DATA = __STATS_DATA__;
+    const MEMORY_DATA = __MEMORY_DATA__;
+    const ACTIVITY_DATA = __ACTIVITY_DATA__;
+    const PROJECTS_DATA = __PROJECTS_DATA__;
+    const PROACTIVE_DATA = __PROACTIVE_DATA__;
+
+    function formatNumber(n) {
+      if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
+      if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+      if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+      return n?.toString() || '0';
+    }
+
+    function formatCost(n) {
+      if (n >= 1000) return '$' + (n / 1000).toFixed(1) + 'K';
+      if (n >= 1) return '$' + n.toFixed(2);
+      return '$' + n.toFixed(4);
+    }
+
+    // Proactive suggestion executor
+    function executeSuggestion(type, value) {
+      const msg = `Suggestion: ${type} - ${value}\n\nTo use this suggestion:\n`;
+      switch(type) {
+        case 'skill':
+          alert(msg + `Run this in Claude: ${value}`);
+          break;
+        case 'command':
+          alert(msg + `Run in terminal: ${value}`);
+          break;
+        case 'model':
+          alert(msg + `Switch to ${value} model for this task`);
+          break;
+        case 'memory':
+          alert(msg + `Query memory for: ${value}`);
+          break;
+        default:
+          alert(msg + value);
+      }
+    }
+
+    function init() {
+      // Stats row
+      const days = STATS_DATA.dailyActivity?.length || 1;
+      const totalTools = STATS_DATA.dailyActivity?.reduce((s, d) => s + d.toolCallCount, 0) || 0;
+      const avgPerDay = Math.round((STATS_DATA.totalMessages || 0) / days);
+
+      const stats = [
+        { icon: '📊', value: STATS_DATA.totalSessions || 0, label: 'Sessions', trend: '+12%', up: true },
+        { icon: '💬', value: STATS_DATA.totalMessages || 0, label: 'Messages', trend: '+8%', up: true },
+        { icon: '🔧', value: totalTools, label: 'Tool Calls', trend: '+15%', up: true },
+        { icon: '📈', value: avgPerDay, label: 'Avg/Day', trend: null },
+        { icon: '⏱️', value: STATS_DATA.longestSession?.messageCount || 0, label: 'Longest', trend: null },
+      ];
+
+      document.getElementById('statsRow').innerHTML = stats.map(s => `
+        <div class="stat-card">
+          <div class="icon">${s.icon}</div>
+          <div class="value">${formatNumber(s.value)}</div>
+          <div class="label">${s.label}</div>
+          ${s.trend ? `<div class="trend ${s.up ? 'up' : 'down'}">${s.trend}</div>` : ''}
+        </div>
+      `).join('');
+
+      // Proactive suggestions (Phase 4 - ProactiveVA)
+      if (PROACTIVE_DATA.hasContext && PROACTIVE_DATA.suggestions?.length > 0) {
+        const panel = document.getElementById('proactivePanel');
+        const pattern = PROACTIVE_DATA.topPattern || {};
+
+        document.getElementById('proactiveIcon').textContent = pattern.icon || '🎯';
+        document.getElementById('proactiveTitle').textContent = 'Proactive Suggestions';
+        document.getElementById('proactivePattern').textContent = pattern.name || 'Pattern Detected';
+        document.getElementById('proactiveContext').textContent =
+          `Based on your recent activity, you appear to be in a ${pattern.name || 'focused'} session.`;
+
+        document.getElementById('proactiveSuggestions').innerHTML =
+          PROACTIVE_DATA.suggestions.slice(0, 4).map(s => `
+            <div class="suggestion-item" onclick="executeSuggestion('${s.type}', '${s.value}')">
+              <div class="suggestion-type">${s.type}</div>
+              <div class="suggestion-label">${s.label}</div>
+              <div class="suggestion-desc">${s.desc}</div>
+            </div>
+          `).join('');
+
+        panel.style.display = 'block';
+      }
+
+      // Token breakdown
+      const modelData = Object.values(STATS_DATA.modelUsage || {})[0] || {};
+      const tokens = [
+        { label: 'Output', value: modelData.outputTokens || 0, color: 'var(--accent-red)' },
+        { label: 'Input', value: modelData.inputTokens || 0, color: 'var(--accent-orange)' },
+        { label: 'Cache Read', value: modelData.cacheReadInputTokens || 0, color: 'var(--accent-yellow)' },
+        { label: 'Cache Create', value: modelData.cacheCreationInputTokens || 0, color: 'var(--accent-cyan)' }
+      ];
+      document.getElementById('tokenBreakdown').innerHTML = tokens.map(t => `
+        <div class="token-item">
+          <div class="value" style="color: ${t.color}">${formatNumber(t.value)}</div>
+          <div class="label">${t.label}</div>
+        </div>
+      `).join('');
+
+      // Charts
+      Chart.defaults.color = '#888';
+      Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+      Chart.defaults.font.family = 'Inter';
+
+      const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false } },
+          y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      };
+
+      if (STATS_DATA.dailyActivity?.length) {
+        const labels = STATS_DATA.dailyActivity.map(d => d.date.slice(5));
+
+        new Chart(document.getElementById('messagesChart'), {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              data: STATS_DATA.dailyActivity.map(d => d.messageCount),
+              backgroundColor: 'rgba(233,69,96,0.8)',
+              borderRadius: 8,
+              borderSkipped: false
+            }]
+          },
+          options: chartOptions
+        });
+
+        new Chart(document.getElementById('toolsChart'), {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              data: STATS_DATA.dailyActivity.map(d => d.toolCallCount),
+              backgroundColor: 'rgba(254,202,87,0.8)',
+              borderRadius: 8,
+              borderSkipped: false
+            }]
+          },
+          options: chartOptions
+        });
+      }
+
+      if (STATS_DATA.dailyModelTokens?.length) {
+        new Chart(document.getElementById('tokensChart'), {
+          type: 'line',
+          data: {
+            labels: STATS_DATA.dailyModelTokens.map(d => d.date.slice(5)),
+            datasets: [{
+              data: STATS_DATA.dailyModelTokens.map(d => Object.values(d.tokensByModel)[0] || 0),
+              borderColor: 'rgba(72,219,251,1)',
+              backgroundColor: 'rgba(72,219,251,0.1)',
+              fill: true,
+              tension: 0.4,
+              pointRadius: 6,
+              pointBackgroundColor: 'rgba(72,219,251,1)'
+            }]
+          },
+          options: chartOptions
+        });
+      }
+
+      // Hour chart
+      const hourData = Array(24).fill(0);
+      Object.entries(STATS_DATA.hourCounts || {}).forEach(([h, c]) => hourData[parseInt(h)] = c);
+      const maxHour = Math.max(...hourData);
+
+      new Chart(document.getElementById('hourChart'), {
+        type: 'bar',
+        data: {
+          labels: Array.from({length: 24}, (_, i) => i + 'h'),
+          datasets: [{
+            data: hourData,
+            backgroundColor: hourData.map(v => `rgba(233,69,96,${0.2 + (v/maxHour)*0.8})`),
+            borderRadius: 4,
+            borderSkipped: false
+          }]
+        },
+        options: chartOptions
+      });
+
+      // Memory tab
+      const renderMemoryItems = (items, containerId, countId, tagClass = '') => {
+        const container = document.getElementById(containerId);
+        document.getElementById(countId).textContent = items?.length || 0;
+
+        if (!items?.length) {
+          container.innerHTML = '<p style="color:var(--text-muted);padding:1rem;">No items yet</p>';
+          return;
+        }
+
+        container.innerHTML = items.map(item => `
+          <div class="memory-item">
+            <div class="content">${item.content}</div>
+            <div class="meta">
+              <span class="time">${new Date(item.timestamp).toLocaleDateString()}</span>
+              <div class="tags">
+                ${(item.tags || []).map(t => `<span class="tag ${tagClass}">${t}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        `).join('');
+      };
+
+      renderMemoryItems(MEMORY_DATA.decisions, 'memoryDecisions', 'decisionCount');
+      renderMemoryItems(MEMORY_DATA.facts, 'memoryFacts', 'factCount', 'cyan');
+      renderMemoryItems(MEMORY_DATA.patterns, 'memoryPatterns', 'patternCount', 'yellow');
+
+      const projects = MEMORY_DATA.projects || {};
+      document.getElementById('projectMemCount').textContent = Object.keys(projects).length;
+      const projectsContainer = document.getElementById('memoryProjects');
+      if (Object.keys(projects).length) {
+        projectsContainer.innerHTML = Object.entries(projects).map(([key, val]) => `
+          <div class="memory-item">
+            <div class="content"><strong>${key}:</strong> ${val.content}</div>
+            <div class="meta">
+              <span class="time">${new Date(val.timestamp).toLocaleDateString()}</span>
+              <div class="tags">${(val.tags || []).map(t => `<span class="tag green">${t}</span>`).join('')}</div>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        projectsContainer.innerHTML = '<p style="color:var(--text-muted);padding:1rem;">No project context yet</p>';
+      }
+
+      // Memory search
+      document.getElementById('memorySearch').addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        document.querySelectorAll('.memory-item').forEach(item => {
+          const content = item.textContent.toLowerCase();
+          item.style.display = content.includes(query) ? 'block' : 'none';
+        });
+      });
+
+      // Activity tab
+      const activityLog = document.getElementById('activityLog');
+      document.getElementById('activityCount').textContent = ACTIVITY_DATA.length + ' entries';
+
+      activityLog.innerHTML = ACTIVITY_DATA.slice().reverse().map(line => {
+        if (line.includes('SESSION')) {
+          return `<div class="activity-item"><span class="type session">SESSION</span><span class="detail">${line}</span></div>`;
+        }
+        const match = line.match(/^(\d{2}:\d{2}:\d{2})\s+(\w+)\s*(.*)?$/);
+        if (match) {
+          const [, time, type, detail] = match;
+          return `<div class="activity-item">
+            <span class="time">${time}</span>
+            <span class="type ${type.toLowerCase()}">${type}</span>
+            <span class="detail">${detail || ''}</span>
+          </div>`;
+        }
+        return `<div class="activity-item"><span class="detail">${line}</span></div>`;
+      }).join('');
+
+      // Activity stats
+      const todayLines = ACTIVITY_DATA.filter(l => !l.includes('SESSION'));
+      document.getElementById('todayActions').textContent = todayLines.length;
+      document.getElementById('todayWrites').textContent = todayLines.filter(l => l.includes('WRITE')).length;
+      document.getElementById('todayEdits').textContent = todayLines.filter(l => l.includes('EDIT')).length;
+      document.getElementById('todayBash').textContent = todayLines.filter(l => l.includes('BASH')).length;
+
+      // Heatmap
+      const heatmapGrid = document.getElementById('heatmapGrid');
+      heatmapGrid.innerHTML = Array.from({length: 24}, (_, i) => {
+        const intensity = hourData[i] / maxHour;
+        const color = `rgba(233,69,96,${0.1 + intensity * 0.9})`;
+        return `<div class="heatmap-cell" style="background:${color}" data-hour="${i}h" title="${hourData[i]} sessions at ${i}:00"></div>`;
+      }).join('');
+
+      // Cost tab
+      const cacheRead = modelData.cacheReadInputTokens || 0;
+      const inputTokens = modelData.inputTokens || 0;
+      const outputTokens = modelData.outputTokens || 0;
+
+      // Opus pricing per million tokens
+      const inputCostPerM = 15;
+      const outputCostPerM = 75;
+      const cacheReadCostPerM = 1.5; // 90% discount
+
+      const actualInputCost = (inputTokens * inputCostPerM) / 1000000;
+      const actualOutputCost = (outputTokens * outputCostPerM) / 1000000;
+      const actualCost = actualInputCost + actualOutputCost;
+      const savedCost = (cacheRead * (inputCostPerM - cacheReadCostPerM)) / 1000000;
+
+      const efficiency = cacheRead / (cacheRead + inputTokens) * 100 || 0;
+
+      document.getElementById('costToday').textContent = formatCost(actualCost / days);
+      document.getElementById('costWeek').textContent = formatCost(actualCost);
+      document.getElementById('costMonth').textContent = formatCost(actualCost * 4);
+      document.getElementById('costSaved').textContent = formatCost(savedCost);
+      document.getElementById('efficiencyPercent').textContent = efficiency.toFixed(1) + '%';
+      document.getElementById('efficiencyFill').style.width = efficiency + '%';
+
+      // Cost chart
+      if (STATS_DATA.dailyModelTokens?.length) {
+        new Chart(document.getElementById('costChart'), {
+          type: 'bar',
+          data: {
+            labels: STATS_DATA.dailyModelTokens.map(d => d.date.slice(5)),
+            datasets: [{
+              label: 'Daily Cost',
+              data: STATS_DATA.dailyModelTokens.map(d => {
+                const t = Object.values(d.tokensByModel)[0] || 0;
+                return (t * 15 / 1000000).toFixed(2);
+              }),
+              backgroundColor: 'rgba(233,69,96,0.8)',
+              borderRadius: 8
+            }]
+          },
+          options: { ...chartOptions, scales: { ...chartOptions.scales, y: { ...chartOptions.scales.y, ticks: { callback: v => '$' + v } } } }
+        });
+
+        new Chart(document.getElementById('efficiencyChart'), {
+          type: 'doughnut',
+          data: {
+            labels: ['Cache Hit', 'Cache Miss'],
+            datasets: [{
+              data: [cacheRead, inputTokens],
+              backgroundColor: ['rgba(74,222,128,0.8)', 'rgba(233,69,96,0.8)'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { color: '#888' } }
+            }
+          }
+        });
+      }
+
+      // Projects tab
+      document.getElementById('projectsList').innerHTML = PROJECTS_DATA.map(p => `
+        <div class="project-card ${p.class || ''}">
+          <div class="project-header">
+            <div class="project-name">${p.name}</div>
+            <div class="project-status ${p.status}">${p.status}</div>
+          </div>
+          <div class="project-stack">${p.stack}</div>
+          <div class="project-stats">
+            <div class="project-stat">
+              <div class="value">${p.files || '—'}</div>
+              <div class="label">Files</div>
+            </div>
+            <div class="project-stat">
+              <div class="value">${p.commits || '—'}</div>
+              <div class="label">Commits</div>
+            </div>
+            <div class="project-stat">
+              <div class="value">${p.lines || '—'}</div>
+              <div class="label">Lines</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    init();
+  </script>
+</body>
+</html>

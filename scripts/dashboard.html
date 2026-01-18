@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      color: #fff;
+      padding: 2rem;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+    header h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #e94560, #ff6b6b, #feca57);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    header p { color: #888; font-size: 1.1rem; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(233, 69, 96, 0.2);
+    }
+    .stat-card .value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #e94560, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-card .label {
+      color: #888;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .chart-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .chart-card h3 {
+      margin-bottom: 1rem;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    .chart-container {
+      position: relative;
+      height: 300px;
+    }
+
+    .hour-heatmap {
+      display: grid;
+      grid-template-columns: repeat(24, 1fr);
+      gap: 4px;
+      margin-top: 1rem;
+    }
+    .hour-cell {
+      aspect-ratio: 1;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #fff;
+      position: relative;
+    }
+    .hour-cell::after {
+      content: attr(data-hour);
+      position: absolute;
+      bottom: -18px;
+      font-size: 0.6rem;
+      color: #666;
+    }
+
+    .token-breakdown {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .token-item {
+      background: rgba(255,255,255,0.05);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .token-item .value { font-size: 1.5rem; font-weight: 600; }
+    .token-item .label { font-size: 0.8rem; color: #888; }
+
+    .model-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, #e94560, #ff6b6b);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    #loadingOverlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #1a1a2e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 0.5s;
+    }
+    #loadingOverlay.hidden { opacity: 0; pointer-events: none; }
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top-color: #e94560;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .refresh-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(90deg, #e94560, #ff6b6b);
+      border: none;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(233, 69, 96, 0.4);
+      transition: transform 0.3s;
+    }
+    .refresh-btn:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+  <div id="loadingOverlay"><div class="loader"></div></div>
+
+  <div class="container">
+    <header>
+      <h1>Claude Code Dashboard</h1>
+      <p id="dateRange">Loading...</p>
+      <div class="model-badge" id="modelBadge">Opus 4.5</div>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="value" id="totalSessions">-</div>
+        <div class="label">Total Sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="totalMessages">-</div>
+        <div class="label">Total Messages</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="totalTools">-</div>
+        <div class="label">Tool Calls</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="longestSession">-</div>
+        <div class="label">Longest Session</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="avgPerDay">-</div>
+        <div class="label">Avg Msgs/Day</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="totalTokens">-</div>
+        <div class="label">Total Tokens</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Daily Messages</h3>
+        <div class="chart-container">
+          <canvas id="messagesChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Daily Tool Calls</h3>
+        <div class="chart-container">
+          <canvas id="toolsChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Token Usage by Day</h3>
+        <div class="chart-container">
+          <canvas id="tokensChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Sessions by Hour</h3>
+        <div class="chart-container">
+          <canvas id="hourChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Token Breakdown</h3>
+      <div class="token-breakdown" id="tokenBreakdown"></div>
+    </div>
+  </div>
+
+  <button class="refresh-btn" onclick="location.reload()">Refresh</button>
+
+  <script>
+    // Stats data will be injected here by the generator script
+    const STATS_DATA = __STATS_DATA__;
+
+    function formatNumber(n) {
+      if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
+      if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+      if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+      return n.toString();
+    }
+
+    function init() {
+      const data = STATS_DATA;
+
+      // Header
+      const firstDate = data.firstSessionDate.split('T')[0];
+      const days = data.dailyActivity.length;
+      document.getElementById('dateRange').textContent = `${firstDate} → Today (${days} days)`;
+
+      // Stats cards
+      document.getElementById('totalSessions').textContent = data.totalSessions;
+      document.getElementById('totalMessages').textContent = formatNumber(data.totalMessages);
+
+      const totalTools = data.dailyActivity.reduce((sum, d) => sum + d.toolCallCount, 0);
+      document.getElementById('totalTools').textContent = formatNumber(totalTools);
+
+      document.getElementById('longestSession').textContent = data.longestSession.messageCount + ' msgs';
+
+      const avgPerDay = Math.round(data.totalMessages / days);
+      document.getElementById('avgPerDay').textContent = formatNumber(avgPerDay);
+
+      // Token totals
+      const modelData = Object.values(data.modelUsage)[0] || {};
+      const totalTokens = (modelData.inputTokens || 0) + (modelData.outputTokens || 0) +
+                          (modelData.cacheReadInputTokens || 0) + (modelData.cacheCreationInputTokens || 0);
+      document.getElementById('totalTokens').textContent = formatNumber(totalTokens);
+
+      // Token breakdown
+      const tokenBreakdown = document.getElementById('tokenBreakdown');
+      const tokenTypes = [
+        { label: 'Output', value: modelData.outputTokens || 0, color: '#e94560' },
+        { label: 'Input', value: modelData.inputTokens || 0, color: '#ff6b6b' },
+        { label: 'Cache Read', value: modelData.cacheReadInputTokens || 0, color: '#feca57' },
+        { label: 'Cache Create', value: modelData.cacheCreationInputTokens || 0, color: '#48dbfb' }
+      ];
+      tokenBreakdown.innerHTML = tokenTypes.map(t => `
+        <div class="token-item">
+          <div class="value" style="color: ${t.color}">${formatNumber(t.value)}</div>
+          <div class="label">${t.label}</div>
+        </div>
+      `).join('');
+
+      // Chart defaults
+      Chart.defaults.color = '#888';
+      Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
+
+      const gradient1 = document.getElementById('messagesChart').getContext('2d').createLinearGradient(0, 0, 0, 300);
+      gradient1.addColorStop(0, 'rgba(233, 69, 96, 0.8)');
+      gradient1.addColorStop(1, 'rgba(233, 69, 96, 0.1)');
+
+      // Messages chart
+      new Chart(document.getElementById('messagesChart'), {
+        type: 'bar',
+        data: {
+          labels: data.dailyActivity.map(d => d.date.slice(5)),
+          datasets: [{
+            label: 'Messages',
+            data: data.dailyActivity.map(d => d.messageCount),
+            backgroundColor: gradient1,
+            borderColor: '#e94560',
+            borderWidth: 2,
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      // Tools chart
+      const gradient2 = document.getElementById('toolsChart').getContext('2d').createLinearGradient(0, 0, 0, 300);
+      gradient2.addColorStop(0, 'rgba(254, 202, 87, 0.8)');
+      gradient2.addColorStop(1, 'rgba(254, 202, 87, 0.1)');
+
+      new Chart(document.getElementById('toolsChart'), {
+        type: 'bar',
+        data: {
+          labels: data.dailyActivity.map(d => d.date.slice(5)),
+          datasets: [{
+            label: 'Tool Calls',
+            data: data.dailyActivity.map(d => d.toolCallCount),
+            backgroundColor: gradient2,
+            borderColor: '#feca57',
+            borderWidth: 2,
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      // Tokens chart
+      new Chart(document.getElementById('tokensChart'), {
+        type: 'line',
+        data: {
+          labels: data.dailyModelTokens.map(d => d.date.slice(5)),
+          datasets: [{
+            label: 'Tokens',
+            data: data.dailyModelTokens.map(d => Object.values(d.tokensByModel)[0] || 0),
+            borderColor: '#48dbfb',
+            backgroundColor: 'rgba(72, 219, 251, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#48dbfb',
+            pointRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      // Hour chart
+      const hourData = Array(24).fill(0);
+      Object.entries(data.hourCounts || {}).forEach(([h, c]) => hourData[parseInt(h)] = c);
+
+      new Chart(document.getElementById('hourChart'), {
+        type: 'bar',
+        data: {
+          labels: Array.from({length: 24}, (_, i) => i + 'h'),
+          datasets: [{
+            label: 'Sessions',
+            data: hourData,
+            backgroundColor: hourData.map(v => `rgba(233, 69, 96, ${0.3 + (v / Math.max(...hourData)) * 0.7})`),
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      // Hide loader
+      document.getElementById('loadingOverlay').classList.add('hidden');
+    }
+
+    init();
+  </script>
+</body>
+</html>

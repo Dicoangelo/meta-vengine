@@ -1,0 +1,313 @@
+# ============================================================================
+# THE CLOSED LOOP — Semantic Ontology
+# ============================================================================
+#
+# D-Ecosystem · Metaventions AI
+# Bidirectional Co-Evolution System
+#
+# "Let the invention be hidden in your vision"
+#
+# This ontology defines the semantic structure of the Co-Evolution system.
+# It describes how humans and AI systems co-evolve through interaction.
+#
+# ============================================================================
+
+@prefix coevo: <https://d-ecosystem.ai/ontology/coevolution#> .
+@prefix deco: <https://d-ecosystem.ai/ontology/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+# ============================================================================
+# ONTOLOGY DECLARATION
+# ============================================================================
+
+coevo: a owl:Ontology ;
+    rdfs:label "Co-Evolution Ontology"@en ;
+    rdfs:comment "Semantic model for bidirectional human-AI co-evolution"@en ;
+    owl:versionInfo "1.0.0" ;
+    deco:origin "D-Ecosystem" ;
+    deco:hiddenLayer "The ontology itself evolves — each term carries meaning at multiple depths" .
+
+# ============================================================================
+# CORE CONCEPTS
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# The Closed Loop
+# ----------------------------------------------------------------------------
+
+coevo:ClosedLoop a owl:Class ;
+    rdfs:label "Closed Loop"@en ;
+    rdfs:comment "A self-referential system where outputs become inputs for improvement"@en ;
+    skos:definition "The fundamental architecture where interaction telemetry feeds back into system modification"@en ;
+    deco:hiddenLayer "The loop never fully closes — there's always another iteration" .
+
+coevo:Telemetry a owl:Class ;
+    rdfs:label "Telemetry"@en ;
+    rdfs:comment "Observable data generated from human-AI interaction"@en ;
+    rdfs:subClassOf prov:Entity .
+
+coevo:Analysis a owl:Class ;
+    rdfs:label "Analysis"@en ;
+    rdfs:comment "Pattern recognition and insight generation from telemetry"@en ;
+    rdfs:subClassOf prov:Activity .
+
+coevo:Modification a owl:Class ;
+    rdfs:label "Modification"@en ;
+    rdfs:comment "A proposed or applied change to system instructions"@en ;
+    rdfs:subClassOf prov:Entity ;
+    deco:hiddenLayer "Each modification is itself observable — creating recursion" .
+
+# ----------------------------------------------------------------------------
+# Agents
+# ----------------------------------------------------------------------------
+
+coevo:Agent a owl:Class ;
+    rdfs:label "Agent"@en ;
+    rdfs:comment "Any entity capable of observation, decision, and action"@en ;
+    rdfs:subClassOf prov:Agent .
+
+coevo:HumanOperator a owl:Class ;
+    rdfs:label "Human Operator"@en ;
+    rdfs:comment "The sovereign user who retains control over the evolution"@en ;
+    rdfs:subClassOf coevo:Agent ;
+    deco:hiddenLayer "The invention (Dico) is hidden in this role" .
+
+coevo:AISystem a owl:Class ;
+    rdfs:label "AI System"@en ;
+    rdfs:comment "The artificial intelligence system capable of self-modification"@en ;
+    rdfs:subClassOf coevo:Agent .
+
+coevo:MetaAnalyzer a owl:Class ;
+    rdfs:label "Meta-Analyzer"@en ;
+    rdfs:comment "The component that analyzes system behavior and proposes modifications"@en ;
+    rdfs:subClassOf coevo:AISystem ;
+    deco:hiddenLayer "Self-awareness encoded as architecture" .
+
+# ----------------------------------------------------------------------------
+# Patterns
+# ----------------------------------------------------------------------------
+
+coevo:Pattern a owl:Class ;
+    rdfs:label "Pattern"@en ;
+    rdfs:comment "A recognizable behavioral mode in human-AI interaction"@en ;
+    skos:definition "Detected from activity signals, used to optimize context and suggestions"@en .
+
+coevo:DebuggingPattern a owl:Class ;
+    rdfs:subClassOf coevo:Pattern ;
+    rdfs:label "Debugging Pattern"@en ;
+    coevo:signals "error, fix, bug, debug, broken" ;
+    coevo:suggestedTools "/debug, git diff" .
+
+coevo:ResearchPattern a owl:Class ;
+    rdfs:subClassOf coevo:Pattern ;
+    rdfs:label "Research Pattern"@en ;
+    coevo:signals "arxiv, paper, study, survey, methodology" ;
+    coevo:suggestedTools "log_url.py, prefetch --papers" .
+
+coevo:ArchitecturePattern a owl:Class ;
+    rdfs:subClassOf coevo:Pattern ;
+    rdfs:label "Architecture Pattern"@en ;
+    coevo:signals "design, system, component, api, schema" ;
+    coevo:suggestedTools "/arch, prefetch --pattern architecture" .
+
+coevo:RefactoringPattern a owl:Class ;
+    rdfs:subClassOf coevo:Pattern ;
+    rdfs:label "Refactoring Pattern"@en ;
+    coevo:signals "refactor, clean, extract, rename, restructure" ;
+    coevo:suggestedTools "/refactor, npm test" .
+
+coevo:TestingPattern a owl:Class ;
+    rdfs:subClassOf coevo:Pattern ;
+    rdfs:label "Testing Pattern"@en ;
+    coevo:signals "test, spec, coverage, mock, assert" ;
+    coevo:suggestedTools "/test, npm run test:coverage" .
+
+coevo:PerformancePattern a owl:Class ;
+    rdfs:subClassOf coevo:Pattern ;
+    rdfs:label "Performance Pattern"@en ;
+    coevo:signals "optimize, slow, profile, memory, bottleneck" ;
+    coevo:suggestedTools "npm run build, lighthouse" .
+
+coevo:DeploymentPattern a owl:Class ;
+    rdfs:subClassOf coevo:Pattern ;
+    rdfs:label "Deployment Pattern"@en ;
+    coevo:signals "deploy, release, production, CI, docker" ;
+    coevo:suggestedTools "/pr, git status" .
+
+coevo:LearningPattern a owl:Class ;
+    rdfs:subClassOf coevo:Pattern ;
+    rdfs:label "Learning Pattern"@en ;
+    coevo:signals "learn, understand, explain, tutorial, help" ;
+    coevo:suggestedTools "prefetch --topic" .
+
+# ----------------------------------------------------------------------------
+# Metrics
+# ----------------------------------------------------------------------------
+
+coevo:Metric a owl:Class ;
+    rdfs:label "Metric"@en ;
+    rdfs:comment "A measurable quantity used to evaluate system performance"@en .
+
+coevo:CacheEfficiency a owl:Class ;
+    rdfs:subClassOf coevo:Metric ;
+    rdfs:label "Cache Efficiency"@en ;
+    rdfs:comment "Ratio of cached tokens reused vs. total tokens processed"@en ;
+    coevo:targetValue "0.99"^^xsd:decimal ;
+    coevo:unit "percentage" .
+
+coevo:DQScore a owl:Class ;
+    rdfs:subClassOf coevo:Metric ;
+    rdfs:label "Decision Quality Score"@en ;
+    rdfs:comment "Composite score measuring routing decision quality"@en ;
+    coevo:components "validity (0.4), specificity (0.3), correctness (0.3)" ;
+    coevo:targetValue "0.85"^^xsd:decimal .
+
+coevo:EffectivenessScore a owl:Class ;
+    rdfs:subClassOf coevo:Metric ;
+    rdfs:label "Effectiveness Score"@en ;
+    rdfs:comment "Before/after comparison of a modification's impact"@en ;
+    coevo:requiresMinSessions "10"^^xsd:integer .
+
+# ============================================================================
+# PROPERTIES
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Object Properties
+# ----------------------------------------------------------------------------
+
+coevo:generates a owl:ObjectProperty ;
+    rdfs:label "generates"@en ;
+    rdfs:domain coevo:ClosedLoop ;
+    rdfs:range coevo:Telemetry .
+
+coevo:analyzedBy a owl:ObjectProperty ;
+    rdfs:label "analyzed by"@en ;
+    rdfs:domain coevo:Telemetry ;
+    rdfs:range coevo:MetaAnalyzer .
+
+coevo:proposesModification a owl:ObjectProperty ;
+    rdfs:label "proposes modification"@en ;
+    rdfs:domain coevo:Analysis ;
+    rdfs:range coevo:Modification .
+
+coevo:appliedBy a owl:ObjectProperty ;
+    rdfs:label "applied by"@en ;
+    rdfs:domain coevo:Modification ;
+    rdfs:range coevo:HumanOperator ;
+    rdfs:comment "Human must approve all modifications"@en .
+
+coevo:detectsPattern a owl:ObjectProperty ;
+    rdfs:label "detects pattern"@en ;
+    rdfs:domain coevo:Telemetry ;
+    rdfs:range coevo:Pattern .
+
+coevo:feedsBack a owl:ObjectProperty ;
+    rdfs:label "feeds back"@en ;
+    rdfs:domain coevo:Modification ;
+    rdfs:range coevo:ClosedLoop ;
+    deco:hiddenLayer "The recursive property — modifications become telemetry" .
+
+# ----------------------------------------------------------------------------
+# Data Properties
+# ----------------------------------------------------------------------------
+
+coevo:confidence a owl:DatatypeProperty ;
+    rdfs:label "confidence"@en ;
+    rdfs:domain coevo:Pattern ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Confidence level of pattern detection (0.0-1.0)"@en .
+
+coevo:timestamp a owl:DatatypeProperty ;
+    rdfs:label "timestamp"@en ;
+    rdfs:domain coevo:Telemetry ;
+    rdfs:range xsd:dateTime .
+
+coevo:status a owl:DatatypeProperty ;
+    rdfs:label "status"@en ;
+    rdfs:domain coevo:Modification ;
+    rdfs:range xsd:string ;
+    rdfs:comment "proposed | applied | rolled_back"@en .
+
+coevo:signals a owl:DatatypeProperty ;
+    rdfs:label "signals"@en ;
+    rdfs:domain coevo:Pattern ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Comma-separated keywords that trigger pattern detection"@en .
+
+coevo:suggestedTools a owl:DatatypeProperty ;
+    rdfs:label "suggested tools"@en ;
+    rdfs:domain coevo:Pattern ;
+    rdfs:range xsd:string .
+
+# ============================================================================
+# RESEARCH LINEAGE
+# ============================================================================
+
+coevo:ResearchPaper a owl:Class ;
+    rdfs:label "Research Paper"@en ;
+    rdfs:comment "Academic paper informing system design"@en .
+
+coevo:informedBy a owl:ObjectProperty ;
+    rdfs:label "informed by"@en ;
+    rdfs:domain coevo:ClosedLoop ;
+    rdfs:range coevo:ResearchPaper .
+
+# Key Papers
+coevo:LADDER a coevo:ResearchPaper ;
+    rdfs:label "LADDER"@en ;
+    coevo:arxivId "2503.00735" ;
+    coevo:contribution "Recursive refinement for self-improvement" .
+
+coevo:OmniScientist a coevo:ResearchPaper ;
+    rdfs:label "OmniScientist"@en ;
+    coevo:arxivId "2511.16931" ;
+    coevo:contribution "Co-evolving ecosystem model" .
+
+coevo:MAR a coevo:ResearchPaper ;
+    rdfs:label "MAR"@en ;
+    coevo:arxivId "2512.20845" ;
+    coevo:contribution "Multi-agent reflexion for meta-cognition" .
+
+coevo:Promptomatix a coevo:ResearchPaper ;
+    rdfs:label "Promptomatix"@en ;
+    coevo:arxivId "2507.14241" ;
+    coevo:contribution "Prompt auto-optimization" .
+
+coevo:IntroLM a coevo:ResearchPaper ;
+    rdfs:label "IntroLM"@en ;
+    coevo:arxivId "2601.03511" ;
+    coevo:contribution "Introspection prompts for self-evaluation" .
+
+coevo:Memoria a coevo:ResearchPaper ;
+    rdfs:label "Memoria"@en ;
+    coevo:arxivId "2512.12686" ;
+    coevo:contribution "Retain, recall, reflect — memory architecture" .
+
+coevo:ICCache a coevo:ResearchPaper ;
+    rdfs:label "IC-Cache"@en ;
+    coevo:arxivId "2501.12689" ;
+    coevo:contribution "Token economics and cache optimization" .
+
+# ============================================================================
+# THE HIDDEN SIGNATURE
+# ============================================================================
+
+deco:hiddenLayer a owl:AnnotationProperty ;
+    rdfs:label "hidden layer"@en ;
+    rdfs:comment "The deeper meaning visible only to those who understand the architecture"@en .
+
+coevo:ClosedLoop deco:hiddenLayer """
+    The Co-Evolution system IS the D-Ecosystem in action.
+    Observe → Synthesize → Evolve → Repeat.
+    This is Dico's method, encoded as architecture.
+    The invention hidden in your vision.
+""" .
+
+# ============================================================================
+# End of Ontology
+# ============================================================================

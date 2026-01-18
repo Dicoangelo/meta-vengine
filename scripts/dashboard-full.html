@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Command Center</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Mono', monospace;
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+    }
+    .nav-tab {
+      padding: 1rem 2rem;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+    .nav-tab:hover { color: #fff; }
+    .nav-tab.active {
+      color: #e94560;
+      border-bottom-color: #e94560;
+      background: rgba(233, 69, 96, 0.1);
+    }
+    .nav-title {
+      margin-left: auto;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #e94560, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Tab Content */
+    .tab-content { display: none; padding: 2rem; }
+    .tab-content.active { display: block; }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h3 {
+      color: #e94560;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .stat-card .value {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #e94560, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-card .label {
+      color: #666;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.3rem;
+    }
+
+    /* Charts */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+    .chart-container { height: 250px; }
+
+    /* Memory Tab */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .memory-item {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid #e94560;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0 8px 8px 0;
+    }
+    .memory-item .content { color: #ccc; margin-bottom: 0.5rem; }
+    .memory-item .meta { font-size: 0.75rem; color: #666; }
+    .memory-item .tags { margin-top: 0.5rem; }
+    .tag {
+      display: inline-block;
+      background: rgba(233, 69, 96, 0.2);
+      color: #e94560;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      margin-right: 0.3rem;
+    }
+
+    /* Activity Tab */
+    .activity-log {
+      font-family: 'SF Mono', monospace;
+      font-size: 0.85rem;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    .activity-line {
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .activity-line .time { color: #666; }
+    .activity-line .action { color: #feca57; }
+    .activity-line.session { color: #48dbfb; font-weight: 600; }
+
+    /* Research Tab */
+    .research-sessions {
+      display: grid;
+      gap: 1rem;
+    }
+    .research-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.2rem;
+      border-left: 3px solid #48dbfb;
+    }
+    .research-card h4 { color: #48dbfb; margin-bottom: 0.5rem; }
+    .research-card .urls { font-size: 0.8rem; color: #888; }
+
+    /* Cost Tab */
+    .cost-breakdown {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .cost-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+    }
+    .cost-item .amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #4ade80;
+    }
+    .cost-item.saved .amount { color: #feca57; }
+
+    /* Commands Tab */
+    .commands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .command-card {
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'SF Mono', monospace;
+    }
+    .command-card code {
+      color: #4ade80;
+      font-size: 1.1rem;
+    }
+    .command-card .desc {
+      color: #666;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Projects Tab */
+    .project-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 3px solid #ff6b6b;
+    }
+    .project-card h4 {
+      color: #ff6b6b;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .project-card .stack { color: #888; font-size: 0.9rem; }
+    .project-card .status {
+      display: inline-block;
+      background: rgba(74, 222, 128, 0.2);
+      color: #4ade80;
+      padding: 0.3rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Token Breakdown */
+    .token-grid {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .token-item {
+      background: rgba(255,255,255,0.05);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      min-width: 120px;
+    }
+    .token-item .value { font-size: 1.5rem; font-weight: 600; }
+    .token-item .label { font-size: 0.75rem; color: #888; text-transform: uppercase; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    ::-webkit-scrollbar-thumb { background: #e94560; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <button class="nav-tab active" data-tab="overview">Overview</button>
+    <button class="nav-tab" data-tab="memory">Memory</button>
+    <button class="nav-tab" data-tab="activity">Activity</button>
+    <button class="nav-tab" data-tab="research">Research</button>
+    <button class="nav-tab" data-tab="cost">Cost</button>
+    <button class="nav-tab" data-tab="projects">Projects</button>
+    <button class="nav-tab" data-tab="commands">Commands</button>
+    <div class="nav-title">Claude Command Center</div>
+  </nav>
+
+  <!-- OVERVIEW TAB -->
+  <div id="overview" class="tab-content active">
+    <div class="stats-grid" id="statsGrid"></div>
+    <div class="charts-grid">
+      <div class="card">
+        <h3>Daily Messages</h3>
+        <div class="chart-container"><canvas id="messagesChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Daily Tool Calls</h3>
+        <div class="chart-container"><canvas id="toolsChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Token Usage</h3>
+        <div class="chart-container"><canvas id="tokensChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Sessions by Hour</h3>
+        <div class="chart-container"><canvas id="hourChart"></canvas></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Token Breakdown</h3>
+      <div class="token-grid" id="tokenBreakdown"></div>
+    </div>
+  </div>
+
+  <!-- MEMORY TAB -->
+  <div id="memory" class="tab-content">
+    <div class="memory-grid">
+      <div class="card">
+        <h3>Decisions</h3>
+        <div id="memoryDecisions"></div>
+      </div>
+      <div class="card">
+        <h3>Facts</h3>
+        <div id="memoryFacts"></div>
+      </div>
+      <div class="card">
+        <h3>Patterns</h3>
+        <div id="memoryPatterns"></div>
+      </div>
+      <div class="card">
+        <h3>Projects</h3>
+        <div id="memoryProjects"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY TAB -->
+  <div id="activity" class="tab-content">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="value" id="todayActions">-</div>
+        <div class="label">Today's Actions</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="todayWrites">-</div>
+        <div class="label">Writes</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="todayEdits">-</div>
+        <div class="label">Edits</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="todayBash">-</div>
+        <div class="label">Bash Commands</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Recent Activity</h3>
+      <div class="activity-log" id="activityLog"></div>
+    </div>
+  </div>
+
+  <!-- RESEARCH TAB -->
+  <div id="research" class="tab-content">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="value" id="researchSessions">-</div>
+        <div class="label">Research Sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="researchUrls">-</div>
+        <div class="label">URLs Logged</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Recent Research Sessions</h3>
+      <div class="research-sessions" id="researchList"></div>
+    </div>
+  </div>
+
+  <!-- COST TAB -->
+  <div id="cost" class="tab-content">
+    <div class="cost-breakdown">
+      <div class="cost-item">
+        <div class="amount" id="costToday">$0.00</div>
+        <div class="label">Today</div>
+      </div>
+      <div class="cost-item">
+        <div class="amount" id="costWeek">$0.00</div>
+        <div class="label">This Week</div>
+      </div>
+      <div class="cost-item">
+        <div class="amount" id="costMonth">$0.00</div>
+        <div class="label">This Month</div>
+      </div>
+      <div class="cost-item saved">
+        <div class="amount" id="costSaved">$0.00</div>
+        <div class="label">Saved (Cache)</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top: 2rem;">
+      <h3>Cost Efficiency</h3>
+      <div class="chart-container"><canvas id="costChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- PROJECTS TAB -->
+  <div id="projects" class="tab-content">
+    <div id="projectsList"></div>
+  </div>
+
+  <!-- COMMANDS TAB -->
+  <div id="commands" class="tab-content">
+    <div class="card">
+      <h3>Session Management</h3>
+      <div class="commands-grid">
+        <div class="command-card"><code>cx</code><div class="desc">Start Claude tmux session</div></div>
+        <div class="command-card"><code>cterm</code><div class="desc">Terminal dashboard</div></div>
+        <div class="command-card"><code>cdash</code><div class="desc">Open this dashboard</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Models</h3>
+      <div class="commands-grid">
+        <div class="command-card"><code>cq "..."</code><div class="desc">Quick question (Haiku - cheap)</div></div>
+        <div class="command-card"><code>cc</code><div class="desc">Standard session (Sonnet)</div></div>
+        <div class="command-card"><code>co</code><div class="desc">Heavy thinking (Opus)</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Quick Actions</h3>
+      <div class="commands-grid">
+        <div class="command-card"><code>q "..."</code><div class="desc">Quick question, no session</div></div>
+        <div class="command-card"><code>explain ...</code><div class="desc">Explain anything</div></div>
+        <div class="command-card"><code>fixcmd</code><div class="desc">Fix last failed command</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Git Automation</h3>
+      <div class="commands-grid">
+        <div class="command-card"><code>gsave "msg"</code><div class="desc">Stage + commit all</div></div>
+        <div class="command-card"><code>gsync</code><div class="desc">Pull, commit, push</div></div>
+        <div class="command-card"><code>gcheckpoint</code><div class="desc">Checkpoint with optional push</div></div>
+        <div class="command-card"><code>gquick</code><div class="desc">Auto-generate commit message</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Research</h3>
+      <div class="commands-grid">
+        <div class="command-card"><code>research "topic"</code><div class="desc">Start research session</div></div>
+        <div class="command-card"><code>rlog URL</code><div class="desc">Log URL to session</div></div>
+        <div class="command-card"><code>rstatus</code><div class="desc">Check research status</div></div>
+        <div class="command-card"><code>prefetch</code><div class="desc">Load project context</div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Data will be injected
+    const STATS_DATA = __STATS_DATA__;
+    const MEMORY_DATA = __MEMORY_DATA__;
+    const ACTIVITY_DATA = __ACTIVITY_DATA__;
+    const PROJECTS_DATA = __PROJECTS_DATA__;
+
+    function formatNumber(n) {
+      if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
+      if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+      if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+      return n.toString();
+    }
+
+    function init() {
+      // Overview stats
+      const statsGrid = document.getElementById('statsGrid');
+      const stats = [
+        { value: STATS_DATA.totalSessions || 0, label: 'Sessions' },
+        { value: STATS_DATA.totalMessages || 0, label: 'Messages' },
+        { value: STATS_DATA.dailyActivity?.reduce((s,d) => s + d.toolCallCount, 0) || 0, label: 'Tool Calls' },
+        { value: STATS_DATA.longestSession?.messageCount || 0, label: 'Longest Session' },
+        { value: Math.round((STATS_DATA.totalMessages || 0) / (STATS_DATA.dailyActivity?.length || 1)), label: 'Avg/Day' },
+      ];
+      statsGrid.innerHTML = stats.map(s => `
+        <div class="stat-card">
+          <div class="value">${formatNumber(s.value)}</div>
+          <div class="label">${s.label}</div>
+        </div>
+      `).join('');
+
+      // Token breakdown
+      const modelData = Object.values(STATS_DATA.modelUsage || {})[0] || {};
+      const tokenBreakdown = document.getElementById('tokenBreakdown');
+      const tokens = [
+        { label: 'Output', value: modelData.outputTokens || 0, color: '#e94560' },
+        { label: 'Input', value: modelData.inputTokens || 0, color: '#ff6b6b' },
+        { label: 'Cache Read', value: modelData.cacheReadInputTokens || 0, color: '#feca57' },
+        { label: 'Cache Create', value: modelData.cacheCreationInputTokens || 0, color: '#48dbfb' }
+      ];
+      tokenBreakdown.innerHTML = tokens.map(t => `
+        <div class="token-item">
+          <div class="value" style="color: ${t.color}">${formatNumber(t.value)}</div>
+          <div class="label">${t.label}</div>
+        </div>
+      `).join('');
+
+      // Charts
+      Chart.defaults.color = '#888';
+      Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
+
+      if (STATS_DATA.dailyActivity?.length) {
+        new Chart(document.getElementById('messagesChart'), {
+          type: 'bar',
+          data: {
+            labels: STATS_DATA.dailyActivity.map(d => d.date.slice(5)),
+            datasets: [{ data: STATS_DATA.dailyActivity.map(d => d.messageCount), backgroundColor: '#e94560', borderRadius: 6 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+
+        new Chart(document.getElementById('toolsChart'), {
+          type: 'bar',
+          data: {
+            labels: STATS_DATA.dailyActivity.map(d => d.date.slice(5)),
+            datasets: [{ data: STATS_DATA.dailyActivity.map(d => d.toolCallCount), backgroundColor: '#feca57', borderRadius: 6 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+      }
+
+      if (STATS_DATA.dailyModelTokens?.length) {
+        new Chart(document.getElementById('tokensChart'), {
+          type: 'line',
+          data: {
+            labels: STATS_DATA.dailyModelTokens.map(d => d.date.slice(5)),
+            datasets: [{ data: STATS_DATA.dailyModelTokens.map(d => Object.values(d.tokensByModel)[0] || 0), borderColor: '#48dbfb', fill: true, backgroundColor: 'rgba(72,219,251,0.1)', tension: 0.4 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+      }
+
+      const hourData = Array(24).fill(0);
+      Object.entries(STATS_DATA.hourCounts || {}).forEach(([h, c]) => hourData[parseInt(h)] = c);
+      new Chart(document.getElementById('hourChart'), {
+        type: 'bar',
+        data: {
+          labels: Array.from({length: 24}, (_, i) => i + 'h'),
+          datasets: [{ data: hourData, backgroundColor: hourData.map(v => `rgba(233,69,96,${0.3 + (v/Math.max(...hourData))*0.7})`), borderRadius: 4 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+      });
+
+      // Memory tab
+      const renderMemoryItems = (items, containerId) => {
+        const container = document.getElementById(containerId);
+        if (!items?.length) {
+          container.innerHTML = '<p style="color:#666">No items yet</p>';
+          return;
+        }
+        container.innerHTML = items.map(item => `
+          <div class="memory-item">
+            <div class="content">${item.content}</div>
+            <div class="meta">${new Date(item.timestamp).toLocaleDateString()}</div>
+            <div class="tags">${(item.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+        `).join('');
+      };
+
+      renderMemoryItems(MEMORY_DATA.decisions, 'memoryDecisions');
+      renderMemoryItems(MEMORY_DATA.facts, 'memoryFacts');
+      renderMemoryItems(MEMORY_DATA.patterns, 'memoryPatterns');
+
+      const projectsContainer = document.getElementById('memoryProjects');
+      const projects = MEMORY_DATA.projects || {};
+      if (Object.keys(projects).length) {
+        projectsContainer.innerHTML = Object.entries(projects).map(([key, val]) => `
+          <div class="memory-item">
+            <div class="content"><strong>${key}:</strong> ${val.content}</div>
+            <div class="tags">${(val.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+        `).join('');
+      } else {
+        projectsContainer.innerHTML = '<p style="color:#666">No projects yet</p>';
+      }
+
+      // Activity tab
+      const activityLog = document.getElementById('activityLog');
+      activityLog.innerHTML = ACTIVITY_DATA.map(line => {
+        if (line.includes('SESSION')) {
+          return `<div class="activity-line session">${line}</div>`;
+        }
+        const match = line.match(/^(\d{2}:\d{2}:\d{2})\s+(\w+)/);
+        if (match) {
+          return `<div class="activity-line"><span class="time">${match[1]}</span> <span class="action">${match[2]}</span></div>`;
+        }
+        return `<div class="activity-line">${line}</div>`;
+      }).join('');
+
+      // Activity stats
+      const todayLines = ACTIVITY_DATA.filter(l => !l.includes('SESSION'));
+      document.getElementById('todayActions').textContent = todayLines.length;
+      document.getElementById('todayWrites').textContent = todayLines.filter(l => l.includes('WRITE')).length;
+      document.getElementById('todayEdits').textContent = todayLines.filter(l => l.includes('EDIT')).length;
+      document.getElementById('todayBash').textContent = todayLines.filter(l => l.includes('BASH')).length;
+
+      // Cost tab
+      const cacheRead = modelData.cacheReadInputTokens || 0;
+      const inputTokens = modelData.inputTokens || 0;
+      const outputTokens = modelData.outputTokens || 0;
+      // Rough cost estimate (Opus pricing)
+      const actualCost = (inputTokens * 15 + outputTokens * 75) / 1000000;
+      const savedCost = (cacheRead * 15 * 0.9) / 1000000; // 90% savings on cache
+      document.getElementById('costToday').textContent = '$' + (actualCost / 7).toFixed(2);
+      document.getElementById('costWeek').textContent = '$' + actualCost.toFixed(2);
+      document.getElementById('costMonth').textContent = '$' + (actualCost * 4).toFixed(2);
+      document.getElementById('costSaved').textContent = '$' + formatNumber(savedCost);
+
+      // Projects tab
+      const projectsList = document.getElementById('projectsList');
+      projectsList.innerHTML = PROJECTS_DATA.map(p => `
+        <div class="project-card">
+          <h4>${p.name}</h4>
+          <div class="stack">${p.stack}</div>
+          <div class="status">${p.status}</div>
+        </div>
+      `).join('');
+    }
+
+    init();
+  </script>
+</body>
+</html>
