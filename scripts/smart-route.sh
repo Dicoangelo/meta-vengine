@@ -31,6 +31,12 @@ ai() {
       # Log decision
       echo "$(date '+%H:%M:%S') DQ:$dq_score COMPLEXITY:$complexity → $model" >> "$AI_LOG"
 
+      # Track for automated feedback
+      __AI_LAST_QUERY="$query"
+      __AI_LAST_MODEL="$model"
+      __AI_LAST_DQ="$dq_score"
+      __AI_LAST_TIMESTAMP=$(date +%s)
+
       # Log to activity tracker for ProactiveVA
       if [[ -f "$ACTIVITY_TRACKER" ]]; then
         node "$ACTIVITY_TRACKER" query "$query" "$model" "$dq_score" "$complexity" 2>/dev/null &
@@ -106,6 +112,90 @@ ai-bad() {
   if [[ -f "$DQ_SCORER" ]]; then
     node "$DQ_SCORER" feedback "$1" failure
     echo "Feedback recorded: failure"
+  fi
+}
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUTOMATED FEEDBACK LOOP (Phase 4)
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Track last ai() command for automated feedback
+__AI_LAST_QUERY=""
+__AI_LAST_MODEL=""
+__AI_LAST_DQ=""
+__AI_LAST_TIMESTAMP=""
+
+# Automated feedback based on command exit status
+__ai_feedback_auto() {
+  local exit_code=$?
+  local current_time=$(date +%s)
+
+  # Only process if we have a recent AI query (within last 30 seconds)
+  if [[ -z "$__AI_LAST_TIMESTAMP" ]]; then
+    return
+  fi
+
+  local time_diff=$((current_time - __AI_LAST_TIMESTAMP))
+  if [[ $time_diff -gt 30 ]]; then
+    return
+  fi
+
+  # If command failed and we have a recent AI query, record negative feedback
+  if [[ $exit_code -ne 0 && -n "$__AI_LAST_QUERY" ]]; then
+    if [[ -f "$DQ_SCORER" ]]; then
+      # Record failure feedback automatically
+      node "$DQ_SCORER" feedback "$__AI_LAST_QUERY" failure >/dev/null 2>&1
+
+      # Log the auto-feedback
+      echo "$(date '+%H:%M:%S') AUTO-FEEDBACK: failure (exit $exit_code) for query hash $(echo "$__AI_LAST_QUERY" | md5 | head -c 8)" >> "$AI_LOG"
+    fi
+
+    # Clear tracking variables after recording
+    __AI_LAST_QUERY=""
+    __AI_LAST_MODEL=""
+    __AI_LAST_DQ=""
+    __AI_LAST_TIMESTAMP=""
+  fi
+
+  # Positive feedback on success (optional - could be noisy)
+  # Uncomment if you want automatic success tracking
+  # if [[ $exit_code -eq 0 && -n "$__AI_LAST_QUERY" ]]; then
+  #   if [[ -f "$DQ_SCORER" ]]; then
+  #     node "$DQ_SCORER" feedback "$__AI_LAST_QUERY" success >/dev/null 2>&1
+  #   fi
+  # fi
+}
+
+# Enable/disable automated feedback
+ai-feedback-enable() {
+  if [[ "$SHELL" == *"zsh"* ]]; then
+    # Add to precmd hook array if not already present
+    if [[ ! " ${precmd_functions[@]} " =~ " __ai_feedback_auto " ]]; then
+      precmd_functions+=(__ai_feedback_auto)
+      echo "✓ Automated feedback enabled (zsh)"
+    else
+      echo "Automated feedback already enabled"
+    fi
+  elif [[ "$SHELL" == *"bash"* ]]; then
+    # For bash, use PROMPT_COMMAND
+    if [[ ! "$PROMPT_COMMAND" =~ "__ai_feedback_auto" ]]; then
+      PROMPT_COMMAND="__ai_feedback_auto;${PROMPT_COMMAND}"
+      echo "✓ Automated feedback enabled (bash)"
+    else
+      echo "Automated feedback already enabled"
+    fi
+  else
+    echo "⚠ Shell not supported for automated feedback"
+  fi
+}
+
+ai-feedback-disable() {
+  if [[ "$SHELL" == *"zsh"* ]]; then
+    precmd_functions=("${precmd_functions[@]/__ai_feedback_auto}")
+    echo "✓ Automated feedback disabled (zsh)"
+  elif [[ "$SHELL" == *"bash"* ]]; then
+    PROMPT_COMMAND="${PROMPT_COMMAND//__ai_feedback_auto;/}"
+    echo "✓ Automated feedback disabled (bash)"
   fi
 }
 

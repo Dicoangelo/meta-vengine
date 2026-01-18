@@ -10,23 +10,66 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { estimateComplexity } = require('./complexity-analyzer');
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BASELINES LOADING
+// ═══════════════════════════════════════════════════════════════════════════
+
+const BASELINES_PATH = path.join(process.env.HOME, '.claude/kernel/baselines.json');
+
+function loadBaselines() {
+  if (!fs.existsSync(BASELINES_PATH)) {
+    return null;  // Use hardcoded defaults
+  }
+
+  try {
+    const data = fs.readFileSync(BASELINES_PATH, 'utf8');
+    return JSON.parse(data);
+  } catch (e) {
+    console.error('Error loading baselines:', e.message);
+    return null;
+  }
+}
+
+const BASELINES = loadBaselines();
 
 // ═══════════════════════════════════════════════════════════════════════════
 // DQ WEIGHTS (from ACE Framework)
 // ═══════════════════════════════════════════════════════════════════════════
 
-const DQ_WEIGHTS = {
+const DQ_WEIGHTS = BASELINES?.dq_weights || {
   validity: 0.4,      // Does the routing make logical sense?
   specificity: 0.3,   // How precise is the model selection?
   correctness: 0.3    // Historical accuracy of similar queries
 };
 
 // Actionable threshold
-const DQ_THRESHOLD = 0.5;
+const DQ_THRESHOLD = BASELINES?.dq_thresholds?.actionable || 0.5;
 
 // Model capabilities (for validity assessment)
-const MODEL_CAPABILITIES = {
+// Load from baselines if available, otherwise use hardcoded
+const MODEL_CAPABILITIES = BASELINES?.complexity_thresholds ? {
+  haiku: {
+    strengths: ['quick answers', 'simple tasks', 'formatting', 'short responses'],
+    weaknesses: ['complex reasoning', 'long context', 'code generation', 'architecture'],
+    maxComplexity: BASELINES.complexity_thresholds.haiku.range[1],
+    costPerMToken: BASELINES.cost_per_mtok?.haiku || { input: 0.25, output: 1.25 }
+  },
+  sonnet: {
+    strengths: ['code generation', 'analysis', 'moderate reasoning', 'balanced tasks'],
+    weaknesses: ['expert-level problems', 'novel architecture', 'research synthesis'],
+    maxComplexity: BASELINES.complexity_thresholds.sonnet.range[1],
+    costPerMToken: BASELINES.cost_per_mtok?.sonnet || { input: 3, output: 15 }
+  },
+  opus: {
+    strengths: ['complex reasoning', 'novel problems', 'architecture', 'research', 'expert tasks'],
+    weaknesses: ['cost', 'latency for simple tasks'],
+    maxComplexity: BASELINES.complexity_thresholds.opus.range[1],
+    costPerMToken: BASELINES.cost_per_mtok?.opus || { input: 15, output: 75 }
+  }
+} : {
   haiku: {
     strengths: ['quick answers', 'simple tasks', 'formatting', 'short responses'],
     weaknesses: ['complex reasoning', 'long context', 'code generation', 'architecture'],
@@ -216,16 +259,36 @@ function route(query) {
 
   const best = candidates[0];
 
-  // Log the decision
+  // Estimate cost for this routing decision
+  function estimateCost(model, queryText) {
+    const modelCaps = MODEL_CAPABILITIES[model];
+    if (!modelCaps) return 0;
+
+    // Rough estimate: query ~100 tokens, response ~500 tokens
+    const estInputTokens = Math.max(100, queryText.length / 4);
+    const estOutputTokens = 500;
+
+    const cost = (estInputTokens * modelCaps.costPerMToken.input / 1_000_000 +
+                  estOutputTokens * modelCaps.costPerMToken.output / 1_000_000);
+
+    return cost;
+  }
+
+  // Log the decision with enhanced metadata
   const decision = {
     ts: Date.now(),
+    query_hash: crypto.createHash('md5').update(query).digest('hex'),
     query: query.slice(0, 200), // Truncate for storage
+    query_preview: query.slice(0, 50),
     complexity: complexity.score,
+    complexity_reasoning: complexity.reasoning,
     model: best.model,
     dqScore: best.dq.score,
     dqComponents: best.dq.components,
     reasoning: complexity.reasoning,
-    alternatives: candidates.slice(1).map(c => ({ model: c.model, dq: c.dq.score }))
+    alternatives: candidates.slice(1).map(c => ({ model: c.model, dq: c.dq.score })),
+    cost_estimate: estimateCost(best.model, query),
+    baseline_version: BASELINES ? BASELINES.version : 'hardcoded'
   };
 
   saveDecision(decision);
@@ -234,7 +297,9 @@ function route(query) {
     model: best.model,
     complexity: complexity.score,
     dq: best.dq,
-    reasoning: complexity.reasoning
+    reasoning: complexity.reasoning,
+    cost_estimate: decision.cost_estimate,
+    baseline_version: decision.baseline_version
   };
 }
 
