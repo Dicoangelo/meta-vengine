@@ -1,0 +1,46 @@
+{
+  "facts": [
+    {
+      "id": 0,
+      "content": "Antigravity ecosystem: OS-App (Vite+React), CareerCoach (Next.js), researchgravity (Python)",
+      "tags": [
+        "projects",
+        "stack"
+      ],
+      "timestamp": "2026-01-16T16:16:48.510Z"
+    }
+  ],
+  "decisions": [
+    {
+      "id": 0,
+      "content": "User prefers terminal-first workflow, minimal GUI switching",
+      "tags": [
+        "workflow",
+        "preferences"
+      ],
+      "timestamp": "2026-01-16T16:16:36.897Z"
+    }
+  ],
+  "patterns": [
+    {
+      "id": 0,
+      "content": "Use Haiku (cq) for quick questions, Sonnet (cc) for coding, Opus (co) for architecture",
+      "tags": [
+        "cost",
+        "models"
+      ],
+      "timestamp": "2026-01-16T16:16:49.163Z"
+    }
+  ],
+  "context": {},
+  "projects": {
+    "os-app": {
+      "content": "Main platform - Agentic Kernel, 3D visualizations, biometric UI. Stack: Vite, React 19, Zustand, Supabase",
+      "tags": [
+        "active",
+        "main"
+      ],
+      "timestamp": "2026-01-16T16:16:49.896Z"
+    }
+  }
+}

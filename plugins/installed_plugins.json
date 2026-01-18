@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "plugins": {
+    "user-commands": {
+      "path": "/Users/dicoangelo/.claude/plugins/user-commands"
+    }
+  }
+}

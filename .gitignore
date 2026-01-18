@@ -1,0 +1,42 @@
+# Claude Code sensitive/cache files
+cache/
+paste-cache/
+file-history/
+shell-snapshots/
+telemetry/
+statsig/
+debug/
+projects/
+todos/
+plans/
+sessions/
+
+# History files (contains session transcripts)
+history.jsonl
+*.jsonl
+
+# Settings with local overrides
+settings.local.json
+settings.local.json.save
+
+# Stats cache (regenerated)
+stats-cache.json
+activity.log
+
+# Data directory (session-specific)
+data/activity-events.jsonl
+
+# MCP servers (local config)
+mcp-servers/
+
+# Keep these tracked:
+# - CLAUDE.md
+# - init.sh
+# - scripts/
+# - kernel/ (except *.jsonl)
+# - docs/
+# - commands/
+# - skills/
+# - plugins/
+# - memory/
+# - claude-md-history/

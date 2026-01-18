@@ -1,0 +1,277 @@
+{
+  "version": "1.0.0",
+  "schema": "zettelkasten",
+  "created": "2026-01-16T13:30:00.000Z",
+  "lastUpdated": "2026-01-16T18:32:05.442Z",
+  "metadata": {
+    "totalNotes": 5,
+    "totalLinks": 2,
+    "clusters": [
+      {
+        "type": "fact",
+        "count": 2
+      },
+      {
+        "type": "pattern",
+        "count": 1
+      },
+      {
+        "type": "insight",
+        "count": 2
+      }
+    ],
+    "topKeywords": [
+      {
+        "keyword": "react",
+        "count": 4
+      },
+      {
+        "keyword": "components",
+        "count": 4
+      },
+      {
+        "keyword": "composition",
+        "count": 3
+      },
+      {
+        "keyword": "use",
+        "count": 2
+      },
+      {
+        "keyword": "patterns",
+        "count": 2
+      },
+      {
+        "keyword": "over",
+        "count": 1
+      },
+      {
+        "keyword": "inheritance",
+        "count": 1
+      },
+      {
+        "keyword": "better",
+        "count": 1
+      },
+      {
+        "keyword": "reusability",
+        "count": 1
+      },
+      {
+        "keyword": "react,patterns",
+        "count": 1
+      },
+      {
+        "keyword": "hooks",
+        "count": 1
+      },
+      {
+        "keyword": "enable",
+        "count": 1
+      },
+      {
+        "keyword": "functional",
+        "count": 1
+      },
+      {
+        "keyword": "state",
+        "count": 1
+      },
+      {
+        "keyword": "lifecycle",
+        "count": 1
+      },
+      {
+        "keyword": "features",
+        "count": 1
+      },
+      {
+        "keyword": "react,hooks",
+        "count": 1
+      },
+      {
+        "keyword": "allow",
+        "count": 1
+      },
+      {
+        "keyword": "share",
+        "count": 1
+      },
+      {
+        "keyword": "behavior",
+        "count": 1
+      }
+    ]
+  },
+  "notes": {
+    "378092d190bfb211": {
+      "id": "378092d190bfb211",
+      "type": "fact",
+      "content": "React components should use composition over inheritance for better reusability",
+      "context": "[fact] React components should use composition over inheritance for better reusability... Keywords: react, components, use, composition, over\n[Evolved 2026-01-16]: Now connected to \"React components with composition patter...\"",
+      "keywords": [
+        "react",
+        "components",
+        "use",
+        "composition",
+        "over",
+        "inheritance",
+        "better",
+        "reusability",
+        "react,patterns"
+      ],
+      "tags": [
+        "react,patterns"
+      ],
+      "links": [
+        {
+          "targetId": "dc65592969d00219",
+          "relationship": "related",
+          "strength": 0.21428571428571427
+        }
+      ],
+      "created": "2026-01-16T18:30:47.792Z",
+      "evolved": "2026-01-16T18:31:52.912Z",
+      "accessCount": 1,
+      "decayFactor": 1
+    },
+    "ad69bdc0c60f1c55": {
+      "id": "ad69bdc0c60f1c55",
+      "type": "fact",
+      "content": "React hooks enable functional components to use state and lifecycle features",
+      "context": "[fact] React hooks enable functional components to use state and lifecycle features... Keywords: react, hooks, enable, functional, components",
+      "keywords": [
+        "react",
+        "hooks",
+        "enable",
+        "functional",
+        "components",
+        "use",
+        "state",
+        "lifecycle",
+        "features",
+        "react,hooks"
+      ],
+      "tags": [
+        "react,hooks"
+      ],
+      "links": [],
+      "created": "2026-01-16T18:30:56.087Z",
+      "evolved": "2026-01-16T18:30:56.088Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "521967284a0b87a6": {
+      "id": "521967284a0b87a6",
+      "type": "pattern",
+      "content": "React composition patterns allow components to share behavior through higher-order components and render props",
+      "context": "[pattern] React composition patterns allow components to share behavior through higher-order components and re... Keywords: components, react, composition, patterns, allow\n[Evolved 2026-01-16]: Now connected to \"React components with composition patter...\"",
+      "keywords": [
+        "components",
+        "react",
+        "composition",
+        "patterns",
+        "allow",
+        "share",
+        "behavior",
+        "through",
+        "higher",
+        "order",
+        "react,composition"
+      ],
+      "tags": [
+        "react,composition"
+      ],
+      "links": [
+        {
+          "targetId": "dc65592969d00219",
+          "relationship": "related",
+          "strength": 0.26666666666666666
+        }
+      ],
+      "created": "2026-01-16T18:31:06.286Z",
+      "evolved": "2026-01-16T18:31:52.912Z",
+      "accessCount": 1,
+      "decayFactor": 1
+    },
+    "dc65592969d00219": {
+      "id": "dc65592969d00219",
+      "type": "insight",
+      "content": "React components with composition patterns are easier to test and maintain",
+      "context": "[insight] React components with composition patterns are easier to test and maintain... Keywords: react, components, composition, patterns, easier",
+      "keywords": [
+        "react",
+        "components",
+        "composition",
+        "patterns",
+        "easier",
+        "test",
+        "maintain",
+        "react,components,composition"
+      ],
+      "tags": [
+        "react,components,composition"
+      ],
+      "links": [],
+      "created": "2026-01-16T18:31:52.911Z",
+      "evolved": "2026-01-16T18:31:52.912Z",
+      "accessCount": 1,
+      "decayFactor": 1
+    },
+    "a1b2c3d4e5f67890": {
+      "id": "a1b2c3d4e5f67890",
+      "type": "insight",
+      "content": "CRITICAL: Always trace source provenance. When a plan references 'internal frameworks' with file paths, READ those files before implementation to identify original research citations (e.g., arXiv papers). Never treat cited frameworks as black boxes.",
+      "context": "[insight] Source tracing lesson from 2511.15755 incident: The OS-App DQ Framework referenced arXiv:2511.15755 (MyAntFarm.ai) but this was missed because the source file wasn't read. Always follow reference paths to their origin before implementing.",
+      "keywords": [
+        "source-tracing",
+        "provenance",
+        "research",
+        "arxiv",
+        "citations",
+        "methodology",
+        "implementation",
+        "frameworks",
+        "references",
+        "critical-learning"
+      ],
+      "tags": [
+        "methodology",
+        "critical-learning",
+        "source-tracing"
+      ],
+      "links": [],
+      "created": "2026-01-16T19:15:00.000Z",
+      "evolved": "2026-01-16T19:15:00.000Z",
+      "accessCount": 0,
+      "decayFactor": 1,
+      "priority": "critical"
+    }
+  },
+  "links": [
+    {
+      "id": "359ec1e22394b2ca",
+      "source": "dc65592969d00219",
+      "target": "521967284a0b87a6",
+      "relationship": "related",
+      "strength": 0.26666666666666666,
+      "created": "2026-01-16T18:31:52.912Z"
+    },
+    {
+      "id": "427d733074b895bb",
+      "source": "dc65592969d00219",
+      "target": "378092d190bfb211",
+      "relationship": "related",
+      "strength": 0.21428571428571427,
+      "created": "2026-01-16T18:31:52.912Z"
+    }
+  ],
+  "config": {
+    "autoLink": true,
+    "evolutionEnabled": true,
+    "minSimilarityForLink": 0.2,
+    "maxLinksPerNote": 10,
+    "decayEnabled": false,
+    "decayRate": 0.001
+  }
+}

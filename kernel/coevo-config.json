@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "enabled": true,
+  "autoApply": false,
+  "minConfidence": 0.7,
+  "maxModificationsPerDay": 3,
+  "rollbackOnEfficiencyDrop": 0.5,
+  "trackingWindow": {
+    "analysis": 7,
+    "effectiveness": 14,
+    "selfReflection": 30
+  },
+  "weights": {
+    "usagePatterns": 0.3,
+    "dqScores": 0.25,
+    "cacheEfficiency": 0.2,
+    "sessionDiversity": 0.15,
+    "feedbackCorrelation": 0.1
+  },
+  "thresholds": {
+    "significantPattern": 5,
+    "effectivenessCheck": 10,
+    "emergentDetection": 0.15
+  },
+  "evolution": {
+    "selfReferential": true,
+    "analyzeOwnModifications": true,
+    "metaMetricsEnabled": true,
+    "recursionDepth": 2
+  },
+  "proactive": {
+    "predictPatterns": true,
+    "useTemporalContext": true,
+    "peakHourAwareness": true
+  },
+  "sources": {
+    "statsCache": "~/.claude/stats-cache.json",
+    "dqScores": "~/.claude/kernel/dq-scores.jsonl",
+    "activityEvents": "~/.claude/data/activity-events.jsonl",
+    "detectedPatterns": "~/.claude/kernel/detected-patterns.json",
+    "identity": "~/.claude/kernel/identity.json",
+    "learnings": "~/.agent-core/memory/learnings.md",
+    "modifications": "~/.claude/kernel/modifications.jsonl",
+    "effectiveness": "~/.claude/kernel/effectiveness.jsonl"
+  },
+  "research": {
+    "papers": [
+      "2505.02888",
+      "2503.00735",
+      "2511.16931",
+      "2512.20845",
+      "2506.08410",
+      "2507.14241",
+      "2510.24797",
+      "2601.03511",
+      "2512.12686",
+      "2512.12818",
+      "2501.12689",
+      "2502.00299"
+    ],
+    "frameworks": [
+      "LADDER",
+      "OmniScientist",
+      "MAR",
+      "Promptomatix",
+      "IntroLM",
+      "Memoria",
+      "IC-Cache"
+    ]
+  }
+}
