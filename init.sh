@@ -63,6 +63,7 @@ alias routing-cron='~/.claude/scripts/routing-cron-setup.sh'
 alias routing-auto='~/.claude/scripts/routing-auto-update.sh'
 alias routing-docs='cat ~/.claude/ROUTING_DOCS_INDEX.md'
 alias routing-help='cat ~/.claude/ROUTING_QUICK_REFERENCE.md'
+alias ai-feedback-status='~/.claude/scripts/feedback-status.sh'
 
 # ══════════════════════════════════════════════════════════════
 # CO-EVOLUTION SYSTEM (Bidirectional Learning)
