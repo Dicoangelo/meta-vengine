@@ -66,6 +66,59 @@
       letter-spacing: 1px;
     }
 
+    /* Co-Evolution Section */
+    .coevo-section {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 2px solid rgba(0, 217, 255, 0.3);
+    }
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #00d9ff, #9945ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .coevo-card {
+      border-color: rgba(0, 217, 255, 0.3);
+    }
+    .coevo-card:hover {
+      box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+    }
+    .coevo-card .value {
+      background: linear-gradient(90deg, #00d9ff, #9945ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .coevo-status {
+      padding: 1rem;
+    }
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .status-item:last-child {
+      border-bottom: none;
+    }
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #666;
+    }
+    .status-dot.active {
+      background: #00d9ff;
+      box-shadow: 0 0 10px #00d9ff;
+    }
+    .status-dot.warning {
+      background: #feca57;
+      box-shadow: 0 0 10px #feca57;
+    }
+
     .charts-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -244,6 +297,58 @@
       <h3>Token Breakdown</h3>
       <div class="token-breakdown" id="tokenBreakdown"></div>
     </div>
+
+    <!-- CO-EVOLUTION SECTION -->
+    <div class="coevo-section">
+      <h2 class="section-title">⚙️ Meta-Vengine · Co-Evolution</h2>
+      <div class="stats-grid">
+        <div class="stat-card coevo-card">
+          <div class="value" id="cacheEfficiency">-</div>
+          <div class="label">Cache Efficiency</div>
+        </div>
+        <div class="stat-card coevo-card">
+          <div class="value" id="dqScore">-</div>
+          <div class="label">DQ Score</div>
+        </div>
+        <div class="stat-card coevo-card">
+          <div class="value" id="dominantPattern">-</div>
+          <div class="label">Dominant Pattern</div>
+        </div>
+        <div class="stat-card coevo-card">
+          <div class="value" id="modsApplied">-</div>
+          <div class="label">Mods Applied</div>
+        </div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>Pattern Distribution</h3>
+          <div class="chart-container">
+            <canvas id="patternChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>Evolution Status</h3>
+          <div class="coevo-status" id="coevoStatus">
+            <div class="status-item">
+              <span class="status-dot active"></span>
+              <span>Auto-Analyze: <strong id="autoAnalyze">9 AM, 6 PM</strong></span>
+            </div>
+            <div class="status-item">
+              <span class="status-dot" id="autoApplyDot"></span>
+              <span>Auto-Apply: <strong id="autoApply">OFF</strong></span>
+            </div>
+            <div class="status-item">
+              <span class="status-dot active"></span>
+              <span>Min Confidence: <strong id="minConfidence">0.7</strong></span>
+            </div>
+            <div class="status-item">
+              <span class="status-dot active"></span>
+              <span>Flywheel: <strong>Spinning</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <button class="refresh-btn" onclick="location.reload()">Refresh</button>
@@ -251,6 +356,7 @@
   <script>
     // Stats data will be injected here by the generator script
     const STATS_DATA = __STATS_DATA__;
+    const COEVO_DATA = __COEVO_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -402,6 +508,49 @@
           scales: { y: { beginAtZero: true } }
         }
       });
+
+      // CO-EVOLUTION SECTION
+      if (COEVO_DATA && typeof COEVO_DATA === 'object') {
+        const coevo = COEVO_DATA;
+
+        // Stats cards
+        document.getElementById('cacheEfficiency').textContent = coevo.cacheEfficiency + '%';
+        document.getElementById('dqScore').textContent = coevo.dqScore?.toFixed(3) || '0.839';
+        document.getElementById('dominantPattern').textContent = coevo.dominantPattern || 'none';
+        document.getElementById('modsApplied').textContent = coevo.modsApplied || '0';
+
+        // Status items
+        document.getElementById('autoApply').textContent = coevo.autoApply ? 'ON' : 'OFF';
+        document.getElementById('autoApplyDot').classList.toggle('active', coevo.autoApply);
+        document.getElementById('autoApplyDot').classList.toggle('warning', !coevo.autoApply);
+        document.getElementById('minConfidence').textContent = coevo.minConfidence || '0.7';
+
+        // Pattern distribution chart
+        const patterns = coevo.patterns || [];
+        if (patterns.length > 0) {
+          new Chart(document.getElementById('patternChart'), {
+            type: 'doughnut',
+            data: {
+              labels: patterns.map(p => p.name || p.id),
+              datasets: [{
+                data: patterns.map(p => p.confidence || p.totalMatches || 1),
+                backgroundColor: ['#00d9ff', '#9945ff', '#ffd700', '#00ff88', '#ff6b6b', '#48dbfb', '#feca57', '#ff9f43'],
+                borderWidth: 0
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                  labels: { color: '#888', padding: 15 }
+                }
+              }
+            }
+          });
+        }
+      }
 
       // Hide loader
       document.getElementById('loadingOverlay').classList.add('hidden');
