@@ -1,0 +1,135 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-01-18T00:00:00Z",
+  "research_lineage": [
+    {
+      "paper": "arXiv:2512.14142",
+      "title": "Astraea: State-Aware LLM Scheduling Engine",
+      "applied": "2026-01-18",
+      "insight": "Complexity thresholds for model selection based on state-aware scheduling"
+    },
+    {
+      "paper": "arXiv:2511.15755",
+      "title": "MyAntFarm.ai: DQ Framework for Multi-Agent Systems",
+      "applied": "2026-01-18",
+      "insight": "Decision Quality scoring: validity (40%) + specificity (30%) + correctness (30%)"
+    }
+  ],
+
+  "complexity_thresholds": {
+    "haiku": {
+      "range": [0.0, 0.30],
+      "optimal": [0.0, 0.25],
+      "description": "Quick answers, formatting, simple Q&A",
+      "avg_latency_ms": 800,
+      "token_limit": 4096,
+      "use_cases": [
+        "Simple factual questions",
+        "Basic calculations",
+        "Formatting and linting",
+        "Quick explanations"
+      ]
+    },
+    "sonnet": {
+      "range": [0.25, 0.70],
+      "optimal": [0.30, 0.60],
+      "description": "Code generation, analysis, moderate reasoning",
+      "avg_latency_ms": 2000,
+      "token_limit": 200000,
+      "use_cases": [
+        "Code implementation",
+        "Debugging and analysis",
+        "Moderate refactoring",
+        "Technical documentation"
+      ]
+    },
+    "opus": {
+      "range": [0.60, 1.0],
+      "optimal": [0.70, 1.0],
+      "description": "Complex reasoning, architecture, research synthesis",
+      "avg_latency_ms": 4000,
+      "token_limit": 200000,
+      "use_cases": [
+        "System architecture design",
+        "Complex problem solving",
+        "Research paper analysis",
+        "Novel algorithm design"
+      ]
+    }
+  },
+
+  "dq_weights": {
+    "validity": 0.4,
+    "specificity": 0.3,
+    "correctness": 0.3,
+    "notes": "From ACE Framework (MyAntFarm.ai paper arXiv:2511.15755)"
+  },
+
+  "dq_thresholds": {
+    "actionable": 0.5,
+    "high_confidence": 0.7,
+    "cost_tie_breaker": 0.05,
+    "notes": "DQ scores below 0.5 indicate poor routing choice"
+  },
+
+  "performance_targets": {
+    "routing_accuracy": 0.75,
+    "cost_reduction_vs_random": 0.20,
+    "routing_latency_ms": 50,
+    "avg_dq_score": 0.70,
+    "model_distribution_target": {
+      "haiku": 0.35,
+      "sonnet": 0.50,
+      "opus": 0.15
+    }
+  },
+
+  "cost_per_mtok": {
+    "haiku": {
+      "input": 0.25,
+      "output": 1.25
+    },
+    "sonnet": {
+      "input": 3.0,
+      "output": 15.0
+    },
+    "opus": {
+      "input": 15.0,
+      "output": 75.0
+    }
+  },
+
+  "adaptive_thresholds": {
+    "simple": {
+      "complexity_range": [0.0, 0.25],
+      "recommended_model": "haiku",
+      "ace_rounds": 3,
+      "gap_threshold": 2
+    },
+    "moderate": {
+      "complexity_range": [0.25, 0.50],
+      "recommended_model": "sonnet",
+      "ace_rounds": 7,
+      "gap_threshold": 3
+    },
+    "complex": {
+      "complexity_range": [0.50, 0.75],
+      "recommended_model": "sonnet",
+      "ace_rounds": 12,
+      "gap_threshold": 4
+    },
+    "expert": {
+      "complexity_range": [0.75, 1.0],
+      "recommended_model": "opus",
+      "ace_rounds": 15,
+      "gap_threshold": 5
+    }
+  },
+
+  "validation": {
+    "last_validated": "2026-01-18",
+    "accuracy_against_test_set": null,
+    "cost_efficiency_verified": false,
+    "notes": "Baseline configuration, pending validation from actual usage"
+  }
+}

@@ -31,10 +31,14 @@ __kernel_check() {
 # ALIASES
 # ══════════════════════════════════════════════════════════════
 
-# Model shortcuts - using correct model identifiers
-alias cq='claude --model haiku'               # Quick/cheap
-alias cc='claude --model sonnet'              # Standard
-alias co='claude --model opus'                # Heavy thinking
+# Intercept claude command for DQ-powered routing
+export CLAUDE_REAL_BIN="/Users/dicoangelo/.local/bin/claude"
+alias claude='~/.claude/scripts/claude-wrapper.sh'
+
+# Model shortcuts - now act as explicit overrides to DQ routing
+alias cq='claude --model haiku'               # Quick/cheap (explicit override)
+alias cc='claude --model sonnet'              # Standard (explicit override)
+alias co='claude --model opus'                # Heavy thinking (explicit override)
 
 # Session management
 alias cx='tmux new-session -A -s claude-main "cc"'
@@ -50,6 +54,15 @@ alias cfix='cc "fix the last error"'
 alias cterm='~/.claude/scripts/cterm.sh'   # Terminal dashboard
 alias ccost='~/.claude/scripts/cost-tracker.sh' # Cost tracker
 alias ccc='~/.claude/scripts/ccc-generator.sh'  # Command Center (ultimate dashboard)
+
+# Routing system (new)
+alias routing-dash='~/.claude/scripts/routing-dashboard.sh'
+alias routing-report='python3 ~/researchgravity/routing-metrics.py report --days'
+alias routing-targets='python3 ~/researchgravity/routing-metrics.py check-targets'
+alias routing-cron='~/.claude/scripts/routing-cron-setup.sh'
+alias routing-auto='~/.claude/scripts/routing-auto-update.sh'
+alias routing-docs='cat ~/.claude/ROUTING_DOCS_INDEX.md'
+alias routing-help='cat ~/.claude/ROUTING_QUICK_REFERENCE.md'
 
 # ══════════════════════════════════════════════════════════════
 # CO-EVOLUTION SYSTEM (Bidirectional Learning)

@@ -833,6 +833,321 @@ def get_dashboard() -> Dict[str, Any]:
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+# ROUTING OPTIMIZER (Phase 4)
+# ═══════════════════════════════════════════════════════════════════════════
+
+class RoutingOptimizer:
+    """Domain-specific optimizer for CLI routing system"""
+
+    def __init__(self):
+        self.metrics_file = Path.home() / ".claude/data/routing-metrics.jsonl"
+        self.history_file = Path.home() / ".claude/kernel/dq-scores.jsonl"
+        self.baselines_file = Path.home() / ".claude/kernel/baselines.json"
+
+    def analyze_routing_patterns(self, days: int = 30) -> Dict[str, Any]:
+        """Analyze routing patterns and identify optimization opportunities"""
+        metrics = self._load_metrics(days)
+        history = self._load_history()
+
+        if not metrics and not history:
+            return {"error": "No routing data available"}
+
+        opportunities = []
+
+        # Pattern 1: Consistent over-provisioning
+        overprovisioned = self._find_overprovisioned(metrics, history)
+        if overprovisioned:
+            opportunities.append({
+                "type": "threshold_adjustment",
+                "issue": "Frequent over-provisioning detected",
+                "details": overprovisioned,
+                "proposal": "Increase threshold for cheaper model"
+            })
+
+        # Pattern 2: High complexity queries failing
+        failures = self._find_complexity_failures(history)
+        if failures:
+            opportunities.append({
+                "type": "capability_gap",
+                "issue": "High complexity queries underperforming",
+                "details": failures,
+                "proposal": "Route more aggressively to opus"
+            })
+
+        # Pattern 3: Routing accuracy below target
+        accuracy = self._calculate_accuracy(history)
+        if accuracy and accuracy < 0.75:
+            opportunities.append({
+                "type": "accuracy_improvement",
+                "issue": f"Routing accuracy ({accuracy:.1%}) below 75% target",
+                "details": {"current_accuracy": accuracy, "target": 0.75},
+                "proposal": "Adjust DQ weights or complexity thresholds"
+            })
+
+        # Pattern 4: Cost efficiency opportunities
+        cost_analysis = self._analyze_cost_efficiency(metrics)
+        if cost_analysis.get('potential_savings', 0) > 0.10:
+            opportunities.append({
+                "type": "cost_optimization",
+                "issue": f"Potential cost savings: {cost_analysis['potential_savings']:.1%}",
+                "details": cost_analysis,
+                "proposal": "Optimize model selection thresholds"
+            })
+
+        return {
+            "period_days": days,
+            "total_queries": len(metrics),
+            "accuracy": accuracy,
+            "opportunities": opportunities,
+            "confidence": self._calculate_confidence(opportunities, len(metrics))
+        }
+
+    def generate_routing_proposals(self, analysis: Dict) -> List[Dict]:
+        """Generate actionable proposals from routing analysis"""
+        if 'error' in analysis:
+            return []
+
+        baselines = self._load_baselines()
+        if not baselines:
+            return []
+
+        proposals = []
+        opportunities = analysis.get('opportunities', [])
+
+        for opp in opportunities:
+            if opp['type'] == 'threshold_adjustment':
+                # Generate threshold adjustment proposals
+                for model, data in opp['details'].items():
+                    current = baselines['complexity_thresholds'][model]['range'][1]
+                    proposed = min(1.0, current + 0.02)  # Incremental +2% adjustment
+
+                    proposals.append({
+                        "id": f"routing-{len(proposals)+1:03d}",
+                        "type": "threshold_adjustment",
+                        "domain": "routing",
+                        "target": f"complexity_thresholds.{model}.range[1]",
+                        "current": current,
+                        "proposed": proposed,
+                        "rationale": f"Observed {data['overprovisioning_rate']:.1%} over-provisioning for {model} ({data['samples']} samples)",
+                        "expected_impact": "Cost reduction, maintained quality",
+                        "confidence": min(0.9, 0.6 + (data['samples'] / 100) * 0.3),
+                        "ab_test_recommended": True,
+                        "created": datetime.now().isoformat()
+                    })
+
+            elif opp['type'] == 'capability_gap':
+                # Adjust sonnet/opus boundary
+                current = baselines['complexity_thresholds']['sonnet']['range'][1]
+                proposed = max(0.5, current - 0.02)  # Lower threshold to route to opus earlier
+
+                proposals.append({
+                    "id": f"routing-{len(proposals)+1:03d}",
+                    "type": "capability_gap_fix",
+                    "domain": "routing",
+                    "target": "complexity_thresholds.sonnet.range[1]",
+                    "current": current,
+                    "proposed": proposed,
+                    "rationale": f"High complexity queries underperforming (failure rate: {opp['details'].get('failure_rate', 0):.1%})",
+                    "expected_impact": "Improved accuracy for complex queries",
+                    "confidence": 0.75,
+                    "ab_test_recommended": True,
+                    "created": datetime.now().isoformat()
+                })
+
+            elif opp['type'] == 'accuracy_improvement':
+                # Propose DQ weight adjustments
+                proposals.append({
+                    "id": f"routing-{len(proposals)+1:03d}",
+                    "type": "dq_weight_tuning",
+                    "domain": "routing",
+                    "target": "dq_weights",
+                    "current": baselines.get('dq_weights', {}),
+                    "proposed": {
+                        "validity": 0.35,
+                        "specificity": 0.35,
+                        "correctness": 0.30
+                    },
+                    "rationale": f"Routing accuracy ({opp['details']['current_accuracy']:.1%}) below target",
+                    "expected_impact": "Improved routing accuracy",
+                    "confidence": 0.70,
+                    "ab_test_recommended": True,
+                    "created": datetime.now().isoformat()
+                })
+
+        return proposals
+
+    def _load_metrics(self, days: int) -> List[Dict]:
+        """Load routing metrics"""
+        if not self.metrics_file.exists():
+            return []
+
+        cutoff = datetime.now() - timedelta(days=days)
+        metrics = []
+
+        with open(self.metrics_file) as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                try:
+                    entry = json.loads(line)
+                    entry_time = datetime.fromtimestamp(entry['ts'])
+                    if entry_time > cutoff:
+                        metrics.append(entry)
+                except (json.JSONDecodeError, KeyError):
+                    continue
+
+        return metrics
+
+    def _load_history(self) -> List[Dict]:
+        """Load DQ scoring history"""
+        if not self.history_file.exists():
+            return []
+
+        history = []
+        with open(self.history_file) as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                try:
+                    history.append(json.loads(line))
+                except json.JSONDecodeError:
+                    continue
+
+        return history
+
+    def _load_baselines(self) -> Optional[Dict]:
+        """Load baseline configuration"""
+        if not self.baselines_file.exists():
+            return None
+
+        try:
+            return json.loads(self.baselines_file.read_text())
+        except (json.JSONDecodeError, IOError):
+            return None
+
+    def _find_overprovisioned(self, metrics: List[Dict], history: List[Dict]) -> Dict:
+        """Identify models being over-provisioned"""
+        from collections import defaultdict
+
+        # Find cases where cheaper model would have sufficed
+        overprovisioning = defaultdict(lambda: {"count": 0, "total": 0})
+
+        for entry in history:
+            if 'success' not in entry:
+                continue
+
+            model = entry.get('model', 'sonnet')
+            complexity = entry.get('complexity', {}).get('score', 0.5)
+            success = entry.get('success', False)
+
+            overprovisioning[model]['total'] += 1
+
+            # Check if cheaper model could handle this
+            if model == 'opus' and complexity < 0.65 and success:
+                overprovisioning['opus']['count'] += 1
+            elif model == 'sonnet' and complexity < 0.28 and success:
+                overprovisioning['sonnet']['count'] += 1
+
+        # Filter significant over-provisioning (>15%)
+        result = {}
+        for model, data in overprovisioning.items():
+            if data['total'] > 20:  # Minimum sample size
+                rate = data['count'] / data['total']
+                if rate > 0.15:
+                    result[model] = {
+                        "overprovisioning_rate": rate,
+                        "samples": data['total'],
+                        "overprovisioned_count": data['count']
+                    }
+
+        return result
+
+    def _find_complexity_failures(self, history: List[Dict]) -> Optional[Dict]:
+        """Find high complexity queries that failed"""
+        high_complexity_failures = []
+
+        for entry in history:
+            if 'success' not in entry:
+                continue
+
+            complexity = entry.get('complexity', {}).get('score', 0.5)
+            success = entry.get('success', False)
+            model = entry.get('model', 'sonnet')
+
+            if complexity > 0.60 and not success:
+                high_complexity_failures.append({
+                    "complexity": complexity,
+                    "model": model
+                })
+
+        if len(high_complexity_failures) > 5:  # Significant pattern
+            failure_rate = len(high_complexity_failures) / len([h for h in history if h.get('complexity', {}).get('score', 0) > 0.60])
+            return {
+                "failure_rate": failure_rate,
+                "failures": len(high_complexity_failures),
+                "complexity_range": [0.60, 1.0]
+            }
+
+        return None
+
+    def _calculate_accuracy(self, history: List[Dict]) -> Optional[float]:
+        """Calculate routing accuracy from feedback"""
+        with_feedback = [h for h in history if 'success' in h]
+
+        if len(with_feedback) < 10:  # Minimum sample size
+            return None
+
+        successful = [h for h in with_feedback if h['success']]
+        return len(successful) / len(with_feedback)
+
+    def _analyze_cost_efficiency(self, metrics: List[Dict]) -> Dict:
+        """Analyze cost efficiency opportunities"""
+        if not metrics:
+            return {"potential_savings": 0}
+
+        # Simple heuristic: check if we're using more expensive models than necessary
+        model_counts = {"haiku": 0, "sonnet": 0, "opus": 0}
+
+        for m in metrics:
+            model_counts[m.get('model', 'sonnet')] += 1
+
+        total = sum(model_counts.values())
+        if total == 0:
+            return {"potential_savings": 0}
+
+        # Ideal distribution: 35% haiku, 50% sonnet, 15% opus
+        # Current distribution vs ideal gives potential savings
+        current_opus_rate = model_counts['opus'] / total
+        current_sonnet_rate = model_counts['sonnet'] / total
+
+        potential_savings = 0
+        if current_opus_rate > 0.20:  # Using opus too much
+            potential_savings += (current_opus_rate - 0.15) * 0.50
+
+        if current_sonnet_rate > 0.55:  # Using sonnet too much
+            potential_savings += (current_sonnet_rate - 0.50) * 0.20
+
+        return {
+            "potential_savings": min(0.30, potential_savings),
+            "current_distribution": model_counts,
+            "ideal_distribution": {"haiku": 0.35, "sonnet": 0.50, "opus": 0.15}
+        }
+
+    def _calculate_confidence(self, opportunities: List[Dict], sample_size: int) -> float:
+        """Calculate confidence score for analysis"""
+        if not opportunities:
+            return 0.0
+
+        if sample_size < 50:
+            return 0.5  # Low confidence with small sample
+
+        if sample_size < 100:
+            return 0.7  # Medium confidence
+
+        return 0.85  # High confidence with large sample
+
+
+# ═══════════════════════════════════════════════════════════════════════════
 # CLI INTERFACE
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -851,6 +1166,8 @@ def main():
     # propose
     propose_parser = subparsers.add_parser('propose', help='Generate modification proposals')
     propose_parser.add_argument('--json', action='store_true', help='Output as JSON')
+    propose_parser.add_argument('--domain', choices=['general', 'routing'], default='general', help='Domain-specific analysis')
+    propose_parser.add_argument('--days', type=int, default=30, help='Days to analyze (routing only)')
 
     # apply
     apply_parser = subparsers.add_parser('apply', help='Apply a modification')
@@ -906,27 +1223,75 @@ def main():
             print()
 
     elif args.command == 'propose':
-        telemetry = aggregate_telemetry()
-        analysis = analyze_patterns(telemetry)
-        modifications = generate_modifications(analysis, telemetry)
+        # Domain-specific analysis
+        if args.domain == 'routing':
+            optimizer = RoutingOptimizer()
+            analysis = optimizer.analyze_routing_patterns(days=args.days)
 
-        # Save proposals
-        for mod in modifications:
-            with open(MODIFICATIONS_LOG, 'a') as f:
-                f.write(json.dumps(mod) + '\n')
+            if 'error' in analysis:
+                print(f"❌ {analysis['error']}")
+                return
 
-        if args.json:
-            print(json.dumps(modifications, indent=2))
+            modifications = optimizer.generate_routing_proposals(analysis)
+
+            if args.json:
+                print(json.dumps({"analysis": analysis, "proposals": modifications}, indent=2))
+            else:
+                print(f"\n{'='*70}")
+                print("ROUTING OPTIMIZER: Pattern Analysis")
+                print(f"{'='*70}\n")
+
+                print(f"Period: {analysis['period_days']} days")
+                print(f"Total Queries: {analysis['total_queries']}")
+                if analysis.get('accuracy'):
+                    print(f"Routing Accuracy: {analysis['accuracy']:.1%}")
+                print(f"Analysis Confidence: {analysis['confidence']:.2f}")
+
+                print(f"\n--- Optimization Opportunities ---")
+                for opp in analysis.get('opportunities', []):
+                    print(f"\n  Type: {opp['type']}")
+                    print(f"  Issue: {opp['issue']}")
+                    print(f"  Proposal: {opp['proposal']}")
+
+                print(f"\n--- Generated Proposals ({len(modifications)}) ---")
+                for mod in modifications:
+                    print(f"\n  {mod['id']}: {mod['type']}")
+                    print(f"     Target: {mod['target']}")
+                    print(f"     Current: {mod['current']} → Proposed: {mod['proposed']}")
+                    print(f"     Rationale: {mod['rationale']}")
+                    print(f"     Confidence: {mod['confidence']:.2f}")
+                    if mod.get('ab_test_recommended'):
+                        print(f"     ⚠️  A/B test recommended before applying")
+
+                if modifications:
+                    print(f"\nNext steps:")
+                    print(f"  1. Review proposals above")
+                    print(f"  2. Create A/B test: routing-metrics.py ab-test create --config <config.json>")
+                    print(f"  3. Or apply directly: meta-analyzer apply <mod_id> --dry-run")
+
         else:
-            print(f"\nGenerated {len(modifications)} modification proposals:\n")
-            for mod in modifications:
-                print(f"  {mod['id']}: {mod['action']}")
-                print(f"     Type: {mod['type']} | Target: {mod['target']}")
-                print(f"     Confidence: {mod['confidence']} | Impact: {mod.get('impact', 'N/A')}")
-                print()
+            # General analysis
+            telemetry = aggregate_telemetry()
+            analysis = analyze_patterns(telemetry)
+            modifications = generate_modifications(analysis, telemetry)
 
-            print("Apply with: meta-analyzer apply <mod_id>")
-            print("Preview with: meta-analyzer apply <mod_id> --dry-run")
+            # Save proposals
+            for mod in modifications:
+                with open(MODIFICATIONS_LOG, 'a') as f:
+                    f.write(json.dumps(mod) + '\n')
+
+            if args.json:
+                print(json.dumps(modifications, indent=2))
+            else:
+                print(f"\nGenerated {len(modifications)} modification proposals:\n")
+                for mod in modifications:
+                    print(f"  {mod['id']}: {mod['action']}")
+                    print(f"     Type: {mod['type']} | Target: {mod['target']}")
+                    print(f"     Confidence: {mod['confidence']} | Impact: {mod.get('impact', 'N/A')}")
+                    print()
+
+                print("Apply with: meta-analyzer apply <mod_id>")
+                print("Preview with: meta-analyzer apply <mod_id> --dry-run")
 
     elif args.command == 'apply':
         result = apply_modification(args.mod_id, dry_run=args.dry_run)
