@@ -1,8 +1,15 @@
-# QUICKSTART
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0d1117,100:1a1a2e&height=100&section=header&text=QUICKSTART&fontSize=40&fontColor=00d9ff&fontAlignY=50" />
+</p>
 
-**Get the Closed Loop running in 60 seconds.**
+<p align="center">
+  <strong>Get the Closed Loop running in 60 seconds</strong>
+</p>
 
-D-Ecosystem · Metaventions AI
+<p align="center">
+  <img src="https://img.shields.io/badge/Time-60_seconds-00d9ff?style=for-the-badge&labelColor=0d1117" alt="Time" />
+  <img src="https://img.shields.io/badge/Difficulty-Easy-success?style=for-the-badge&labelColor=0d1117" alt="Difficulty" />
+</p>
 
 ---
 

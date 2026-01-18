@@ -1,8 +1,15 @@
-# API REFERENCE
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0d1117,100:1a1a2e&height=100&section=header&text=API%20REFERENCE&fontSize=40&fontColor=00d9ff&fontAlignY=50" />
+</p>
 
-**Complete command and integration reference.**
+<p align="center">
+  <strong>Complete command and integration reference</strong>
+</p>
 
-D-Ecosystem · Metaventions AI
+<p align="center">
+  <img src="https://img.shields.io/badge/Commands-15+-00d9ff?style=for-the-badge&labelColor=0d1117" alt="Commands" />
+  <img src="https://img.shields.io/badge/Integrations-6-9945ff?style=for-the-badge&labelColor=0d1117" alt="Integrations" />
+</p>
 
 ---
 

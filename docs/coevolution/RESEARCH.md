@@ -1,8 +1,16 @@
-# RESEARCH LINEAGE
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0d1117,100:1a1a2e&height=100&section=header&text=RESEARCH%20LINEAGE&fontSize=40&fontColor=00d9ff&fontAlignY=50" />
+</p>
 
-**The foundation of the Closed Loop**
+<p align="center">
+  <strong>The foundation of the Closed Loop</strong>
+</p>
 
-D-Ecosystem · Metaventions AI
+<p align="center">
+  <img src="https://img.shields.io/badge/Papers-40+-00d9ff?style=for-the-badge&labelColor=0d1117" alt="Papers" />
+  <img src="https://img.shields.io/badge/Domains-7-9945ff?style=for-the-badge&labelColor=0d1117" alt="Domains" />
+  <img src="https://img.shields.io/badge/Years-2025--2026-ffd700?style=for-the-badge&labelColor=0d1117" alt="Years" />
+</p>
 
 ---
 

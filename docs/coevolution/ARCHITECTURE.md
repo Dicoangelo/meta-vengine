@@ -1,12 +1,15 @@
-# System Architecture
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0d1117,100:1a1a2e&height=100&section=header&text=ARCHITECTURE&fontSize=40&fontColor=00d9ff&fontAlignY=50" />
+</p>
 
-<div align="center">
+<p align="center">
+  <strong>System Topology · Data Flow · Integration Points</strong>
+</p>
 
-**Bidirectional Co-Evolution System**
-
-Metaventions AI · D-Ecosystem
-
-</div>
+<p align="center">
+  <img src="https://img.shields.io/badge/Meta--Vengine-Architecture-00d9ff?style=for-the-badge&labelColor=0d1117" alt="Architecture" />
+  <img src="https://img.shields.io/badge/D--Ecosystem-Metaventions_AI-9945ff?style=for-the-badge&labelColor=0d1117" alt="D-Ecosystem" />
+</p>
 
 ---
 
