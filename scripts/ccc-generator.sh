@@ -100,8 +100,8 @@ fi
 echo "  🎯 Loading routing metrics..."
 RESEARCHGRAVITY_DIR="$HOME/researchgravity"
 if [[ -f "$RESEARCHGRAVITY_DIR/routing-metrics.py" ]]; then
-  # Get all-time report
-  ROUTING_REPORT=$(python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" report --all-time --format json 2>/dev/null || echo '{"error":"failed"}')
+  # Get all-time report (use days 9999 for all data)
+  ROUTING_REPORT=$(python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" report --days 9999 --format json 2>/dev/null || echo '{"error":"failed"}')
 
   # Get data quality
   DATA_QUALITY=$(python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" check-data-quality --all-time 2>/dev/null || echo "0.0")
@@ -112,27 +112,33 @@ if [[ -f "$RESEARCHGRAVITY_DIR/routing-metrics.py" ]]; then
   # Calculate production readiness
   TOTAL_QUERIES=$(echo "$ROUTING_REPORT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('total_queries', 0))" 2>/dev/null || echo "0")
 
-  # Build routing data
-  ROUTING_DATA=$(python3 << ROUTING_EOF
+  # Build routing data using Python
+  ROUTING_DATA=$(python3 -c "
 import json
-report = $ROUTING_REPORT
+import sys
+
+report_json = '''$ROUTING_REPORT'''
+try:
+    report = json.loads(report_json)
+except:
+    report = {}
+
 routing = {
-  "totalQueries": $TOTAL_QUERIES,
-  "dataQuality": $DATA_QUALITY,
-  "feedbackCount": $FEEDBACK_COUNT,
-  "targetQueries": 200,
-  "targetDataQuality": 0.80,
-  "targetFeedback": 50,
-  "avgDqScore": report.get("avg_dq_score", 0.0),
-  "costReduction": report.get("cost_reduction", 0.0),
-  "routingLatency": report.get("routing_latency", {}).get("p95", 0),
-  "modelDistribution": report.get("model_distribution", {}),
-  "accuracy": report.get("accuracy", 0.0),
-  "productionReady": $TOTAL_QUERIES >= 200 and $DATA_QUALITY >= 0.80 and $FEEDBACK_COUNT >= 50
+  'totalQueries': $TOTAL_QUERIES,
+  'dataQuality': float('$DATA_QUALITY'),
+  'feedbackCount': $FEEDBACK_COUNT,
+  'targetQueries': 200,
+  'targetDataQuality': 0.80,
+  'targetFeedback': 50,
+  'avgDqScore': report.get('avg_dq_score', 0.0),
+  'costReduction': report.get('cost_reduction', 0.0),
+  'routingLatency': (report.get('routing_latency', {}) or {}).get('p95') or 0,
+  'modelDistribution': report.get('model_distribution', {}),
+  'accuracy': report.get('accuracy') or 0.0,
+  'productionReady': $TOTAL_QUERIES >= 200 and float('$DATA_QUALITY') >= 0.80 and $FEEDBACK_COUNT >= 50
 }
 print(json.dumps(routing))
-ROUTING_EOF
-)
+")
 else
   ROUTING_DATA='{"error":"routing-metrics.py not found","totalQueries":0,"dataQuality":0.0,"feedbackCount":0}'
 fi
