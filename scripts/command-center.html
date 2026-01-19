@@ -834,6 +834,131 @@
       font-size: 0.85rem;
     }
 
+    /* Observatory Styles */
+    .sessions-list, .top-commands-list, .failure-patterns-list, .file-activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .session-item, .command-item, .failure-item, .file-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .session-item:hover, .command-item:hover, .failure-item:hover, .file-item:hover {
+      border-color: var(--border-glow);
+      background: rgba(0, 217, 255, 0.02);
+    }
+
+    .session-item .session-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .session-item .session-outcome {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .session-item .session-outcome.success { color: var(--accent-green); }
+    .session-item .session-outcome.partial { color: var(--accent-yellow); }
+    .session-item .session-outcome.error { color: var(--accent-red); }
+    .session-item .session-outcome.abandoned { color: var(--text-muted); }
+    .session-item .session-outcome.research { color: var(--accent-purple); }
+
+    .session-item .session-note {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .session-item .session-quality {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      color: var(--accent-yellow);
+    }
+
+    .assessment-panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .assessment-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .assessment-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .assessment-value {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .git-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.25rem;
+      padding: 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .git-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .git-stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .git-stat-label {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .no-data {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 2rem;
+      font-style: italic;
+    }
+
+    .no-data code {
+      color: var(--accent-cyan);
+      background: rgba(0, 217, 255, 0.1);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-style: normal;
+    }
+
     /* Search Box */
     .search-box {
       background: var(--bg-secondary);
@@ -1226,6 +1351,9 @@
       <button class="nav-tab" data-tab="routing">Routing</button>
       <button class="nav-tab" data-tab="coevo">Co-Evolution</button>
       <button class="nav-tab" data-tab="context-efficiency">Context Packs</button>
+      <button class="nav-tab" data-tab="session-outcomes">Session Outcomes</button>
+      <button class="nav-tab" data-tab="productivity">Productivity</button>
+      <button class="nav-tab" data-tab="tool-analytics">Tool Analytics</button>
     </div>
     <div class="nav-actions">
       <div class="live-indicator">
@@ -1751,10 +1879,253 @@
         </div>
       </div>
     </div>
+
+    <!-- SESSION OUTCOMES TAB (Tab 10) -->
+    <div id="session-outcomes" class="tab-content">
+      <div class="stats-row" id="sessionOutcomesStatsRow">
+        <div class="stat-card">
+          <div class="stat-value" id="sessionSuccessRate">0%</div>
+          <div class="stat-label">Success Rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="sessionAvgQuality">0.0</div>
+          <div class="stat-label">Avg Quality</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="sessionTotalCount">0</div>
+          <div class="stat-label">Total Sessions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="sessionLastQuality">—</div>
+          <div class="stat-label">Last Session</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>📊 Outcome Distribution</h3>
+            <span class="card-badge">Last 30 Days</span>
+          </div>
+          <div class="chart-container"><canvas id="outcomeDistributionChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>⭐ Quality Trend</h3>
+            <span class="card-badge">1-5 Rating</span>
+          </div>
+          <div class="chart-container"><canvas id="qualityTrendChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>📝 Recent Sessions</h3>
+          <span class="card-badge" id="recentSessionsCount">0</span>
+        </div>
+        <div id="recentSessionsList" class="sessions-list">
+          <div class="no-data">No session data available. Use <code>session-rate 5 "note"</code> to track sessions.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>🎯 Session Management Commands</h3>
+        </div>
+        <div class="commands-grid">
+          <div class="command-card"><code>session-rate 5 "Great session!"</code><div class="desc">Rate current session</div></div>
+          <div class="command-card"><code>session-complete success "note"</code><div class="desc">Complete with outcome</div></div>
+          <div class="command-card"><code>session-stats 30</code><div class="desc">View 30-day statistics</div></div>
+          <div class="command-card"><code>obs</code><div class="desc">Unified Observatory report</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTIVITY TAB (Tab 11) -->
+    <div id="productivity" class="tab-content">
+      <div class="stats-row" id="productivityStatsRow">
+        <div class="stat-card">
+          <div class="stat-value" id="readWriteRatio">0:1</div>
+          <div class="stat-label">Read/Write Ratio</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="filesModified">0</div>
+          <div class="stat-label">Files Modified</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="locChanged">0</div>
+          <div class="stat-label">Lines Changed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="codingVelocity">0</div>
+          <div class="stat-label">LOC/Day</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>📈 Productivity Score Trend</h3>
+            <span class="card-badge">Writes/Reads Ratio</span>
+          </div>
+          <div class="chart-container"><canvas id="productivityScoreChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>📊 Read vs Write</h3>
+            <span class="card-badge">Last 7 Days</span>
+          </div>
+          <div class="chart-container"><canvas id="readWriteChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>⚡ Coding Velocity</h3>
+            <span class="card-badge">LOC per Day</span>
+          </div>
+          <div class="chart-container"><canvas id="velocityChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>📂 File Activity</h3>
+            <span class="card-badge">Most Modified</span>
+          </div>
+          <div id="fileActivityList" class="file-activity-list">
+            <div class="no-data">No file activity data available.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>🔍 Productivity Assessment</h3>
+        </div>
+        <div id="productivityAssessment" class="assessment-panel">
+          <div class="assessment-item">
+            <div class="assessment-label">Current Mode:</div>
+            <div class="assessment-value" id="productivityMode">—</div>
+          </div>
+          <div class="assessment-item">
+            <div class="assessment-label">Recommendation:</div>
+            <div class="assessment-value" id="productivityReco">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>⚙️ Productivity Commands</h3>
+        </div>
+        <div class="commands-grid">
+          <div class="command-card"><code>productivity-report 7</code><div class="desc">Weekly productivity metrics</div></div>
+          <div class="command-card"><code>productivity-log</code><div class="desc">Manual snapshot</div></div>
+          <div class="command-card"><code>obs 30</code><div class="desc">30-day unified report</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL ANALYTICS TAB (Tab 12) -->
+    <div id="tool-analytics" class="tab-content">
+      <div class="stats-row" id="toolAnalyticsStatsRow">
+        <div class="stat-card">
+          <div class="stat-value" id="toolOverallSuccess">0%</div>
+          <div class="stat-label">Overall Success</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="toolTotalCount">0</div>
+          <div class="stat-label">Total Commands</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="toolBashSuccess">0%</div>
+          <div class="stat-label">Bash Success</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="toolTestSuccess">0%</div>
+          <div class="stat-label">Test Success</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>✅ Success by Tool Type</h3>
+            <span class="card-badge">Last 7 Days</span>
+          </div>
+          <div class="chart-container"><canvas id="toolSuccessChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>📊 Command Usage</h3>
+            <span class="card-badge">Top Commands</span>
+          </div>
+          <div class="chart-container"><canvas id="commandUsageChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>🔧 Most Used Commands</h3>
+            <span class="card-badge" id="topCommandsCount">0</span>
+          </div>
+          <div id="topCommandsList" class="top-commands-list">
+            <div class="no-data">No command usage data available.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>⚠️ Failure Patterns</h3>
+            <span class="card-badge" id="failurePatternsCount">0</span>
+          </div>
+          <div id="failurePatternsList" class="failure-patterns-list">
+            <div class="no-data">No failure patterns detected.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>🎯 Git Activity</h3>
+          <span class="card-badge">Last 30 Days</span>
+        </div>
+        <div class="git-stats-grid">
+          <div class="git-stat">
+            <div class="git-stat-value" id="gitCommitCount">0</div>
+            <div class="git-stat-label">Commits</div>
+          </div>
+          <div class="git-stat">
+            <div class="git-stat-value" id="gitPushCount">0</div>
+            <div class="git-stat-label">Pushes</div>
+          </div>
+          <div class="git-stat">
+            <div class="git-stat-value" id="gitPrCount">0</div>
+            <div class="git-stat-label">PRs Created</div>
+          </div>
+          <div class="git-stat">
+            <div class="git-stat-value" id="gitVelocity">0</div>
+            <div class="git-stat-label">Commits/Day</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>⚙️ Tool Analytics Commands</h3>
+        </div>
+        <div class="commands-grid">
+          <div class="command-card"><code>tool-stats 7</code><div class="desc">7-day tool success rates</div></div>
+          <div class="command-card"><code>command-stats 7</code><div class="desc">Command usage statistics</div></div>
+          <div class="command-card"><code>git-stats 30</code><div class="desc">30-day git activity</div></div>
+          <div class="command-card"><code>obs</code><div class="desc">Unified analytics report</div></div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="footer">
-    Press <kbd>1</kbd>-<kbd>9</kbd> to switch tabs · <kbd>R</kbd> to refresh · Built for terminal-first workflow
+    Press <kbd>1</kbd>-<kbd>9</kbd> for tabs 1-9 · <kbd>0</kbd>, <kbd>O</kbd>, <kbd>P</kbd> for Observatory tabs · <kbd>R</kbd> to refresh
   </footer>
 
   <script>
@@ -1773,8 +2144,12 @@
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT') return;
-      const tabs = ['overview', 'memory', 'activity', 'cost', 'projects', 'commands', 'routing', 'coevo', 'context-efficiency'];
+      const tabs = ['overview', 'memory', 'activity', 'cost', 'projects', 'commands', 'routing', 'coevo', 'context-efficiency', 'session-outcomes', 'productivity', 'tool-analytics'];
       if (e.key >= '1' && e.key <= '9') switchTab(tabs[parseInt(e.key) - 1]);
+      if (e.key === '0') switchTab('session-outcomes');  // Tab 10
+      if (e.key.toLowerCase() === 'o') switchTab('session-outcomes');  // Tab 10 (O for Outcomes)
+      if (e.key.toLowerCase() === 'p') switchTab('productivity');  // Tab 11
+      if (e.key.toLowerCase() === 't') switchTab('tool-analytics');  // Tab 12
       if (e.key.toLowerCase() === 'r') location.reload();
     });
 
@@ -1787,6 +2162,7 @@
     const COEVO_DATA = __COEVO_DATA__;
     const SUBSCRIPTION_DATA = __SUBSCRIPTION_DATA__;
     const ROUTING_DATA = __ROUTING_DATA__;
+    const OBSERVATORY_DATA = __OBSERVATORY_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -1828,11 +2204,32 @@
       const totalTools = STATS_DATA.dailyActivity?.reduce((s, d) => s + d.toolCallCount, 0) || 0;
       const avgPerDay = Math.round((STATS_DATA.totalMessages || 0) / days);
 
+      // Calculate real trends from dailyActivity
+      const calculateTrend = (metric) => {
+        const daily = STATS_DATA.dailyActivity || [];
+        if (daily.length < 2) return null;
+
+        const half = Math.floor(daily.length / 2);
+        const recent = daily.slice(half);
+        const previous = daily.slice(0, half);
+
+        const recentSum = recent.reduce((s, d) => s + (d[metric] || 0), 0);
+        const prevSum = previous.reduce((s, d) => s + (d[metric] || 0), 0);
+
+        if (prevSum === 0) return null;
+        const change = ((recentSum - prevSum) / prevSum * 100);
+        return change >= 0 ? `+${change.toFixed(1)}%` : `${change.toFixed(1)}%`;
+      };
+
       const roiMultiplier = SUBSCRIPTION_DATA?.multiplier || 0;
+      const sessionTrend = calculateTrend('sessionCount');
+      const messageTrend = calculateTrend('messageCount');
+      const toolTrend = calculateTrend('toolCallCount');
+
       const stats = [
-        { icon: '📊', value: STATS_DATA.totalSessions || 0, label: 'Sessions', trend: '+12%', up: true },
-        { icon: '💬', value: STATS_DATA.totalMessages || 0, label: 'Messages', trend: '+8%', up: true },
-        { icon: '🔧', value: totalTools, label: 'Tool Calls', trend: '+15%', up: true },
+        { icon: '📊', value: STATS_DATA.totalSessions || 0, label: 'Sessions', trend: sessionTrend, up: sessionTrend && sessionTrend.startsWith('+') },
+        { icon: '💬', value: STATS_DATA.totalMessages || 0, label: 'Messages', trend: messageTrend, up: messageTrend && messageTrend.startsWith('+') },
+        { icon: '🔧', value: totalTools, label: 'Tool Calls', trend: toolTrend, up: toolTrend && toolTrend.startsWith('+') },
         { icon: '📈', value: avgPerDay, label: 'Avg/Day', trend: null },
         { icon: '💰', value: roiMultiplier + 'x', label: 'ROI', trend: roiMultiplier > 50 ? '🔥' : null, up: true, raw: true },
         { icon: '⏱️', value: STATS_DATA.longestSession?.messageCount || 0, label: 'Longest', trend: null },
@@ -2333,6 +2730,104 @@
         ].filter(Boolean).length;
 
         document.getElementById('targetsMetBadge').textContent = `${targetsMet}/4`;
+      }
+
+      // Render Observatory Tabs
+      renderObservatoryTabs();
+    }
+
+    // Observatory Tabs Rendering
+    function renderObservatoryTabs() {
+      if (!OBSERVATORY_DATA || !OBSERVATORY_DATA.metrics) {
+        console.log('No Observatory data available');
+        return;
+      }
+
+      const metrics = OBSERVATORY_DATA.metrics;
+
+      // Session Outcomes Tab (Tab 10)
+      if (metrics.sessions) {
+        const sessions = metrics.sessions;
+        document.getElementById('sessionSuccessRate').textContent =
+          ((sessions.success_rate || 0) * 100).toFixed(1) + '%';
+        document.getElementById('sessionAvgQuality').textContent =
+          (sessions.avg_quality || 0).toFixed(1);
+        document.getElementById('sessionTotalCount').textContent =
+          sessions.total_sessions || 0;
+        document.getElementById('sessionLastQuality').textContent =
+          sessions.last_quality ? `⭐ ${sessions.last_quality}/5` : '—';
+      }
+
+      // Productivity Tab (Tab 11)
+      if (metrics.productivity) {
+        const prod = metrics.productivity;
+        const ratio = prod.read_write_ratio || { reads: 0, writes: 1 };
+        document.getElementById('readWriteRatio').textContent =
+          `${ratio.reads}:${ratio.writes}`;
+        document.getElementById('filesModified').textContent =
+          formatNumber(prod.files_modified || 0);
+        document.getElementById('locChanged').textContent =
+          formatNumber(prod.lines_changed || 0);
+        document.getElementById('codingVelocity').textContent =
+          formatNumber(prod.loc_per_day || 0);
+
+        // Productivity Assessment
+        const mode = getProductivityMode(ratio.reads, ratio.writes);
+        document.getElementById('productivityMode').textContent = mode.label;
+        document.getElementById('productivityReco').textContent = mode.recommendation;
+      }
+
+      // Tool Analytics Tab (Tab 12)
+      if (metrics.tools) {
+        const tools = metrics.tools;
+        document.getElementById('toolOverallSuccess').textContent =
+          ((tools.overall_success || 0) * 100).toFixed(1) + '%';
+        document.getElementById('toolTotalCount').textContent =
+          formatNumber(tools.total_commands || 0);
+        document.getElementById('toolBashSuccess').textContent =
+          ((tools.bash_success || 0) * 100).toFixed(1) + '%';
+        document.getElementById('toolTestSuccess').textContent =
+          ((tools.test_success || 0) * 100).toFixed(1) + '%';
+      }
+
+      // Git Activity
+      if (metrics.git) {
+        const git = metrics.git;
+        document.getElementById('gitCommitCount').textContent = git.commits || 0;
+        document.getElementById('gitPushCount').textContent = git.pushes || 0;
+        document.getElementById('gitPrCount').textContent = git.prs || 0;
+        document.getElementById('gitVelocity').textContent =
+          (git.commits_per_day || 0).toFixed(1);
+      }
+    }
+
+    function getProductivityMode(reads, writes) {
+      if (reads === 0 && writes === 0) {
+        return { label: 'No activity', recommendation: 'Start tracking with Observatory commands' };
+      }
+
+      const ratio = reads / Math.max(writes, 1);
+
+      if (ratio > 100) {
+        return {
+          label: 'Read-heavy (exploration mode)',
+          recommendation: 'Consider writing more code or documentation'
+        };
+      } else if (ratio > 20) {
+        return {
+          label: 'Learning/researching',
+          recommendation: 'Good balance for research phase'
+        };
+      } else if (ratio > 10) {
+        return {
+          label: 'Balanced productivity',
+          recommendation: 'Excellent read/write balance'
+        };
+      } else {
+        return {
+          label: 'High productivity mode',
+          recommendation: 'Great coding velocity!'
+        };
       }
     }
 

@@ -151,6 +151,10 @@ else
   COEVO_CONFIG='{"enabled":true,"autoApply":false,"minConfidence":0.7}'
 fi
 
+echo "  🔭 Loading Observatory data..."
+# Load Observatory metrics (ALL TIME)
+OBSERVATORY_DATA=$(python3 "$HOME/.claude/scripts/observatory/analytics-engine.py" export 9999 2>/dev/null || echo '{}')
+
 if [[ -f "$PATTERNS_FILE" ]]; then
   PATTERNS_DATA=$(cat "$PATTERNS_FILE")
 else
@@ -172,6 +176,7 @@ echo "  🎨 Generating dashboard..."
 python3 << EOF
 import json
 import re
+from pathlib import Path
 
 # Read template
 with open('$TEMPLATE', 'r') as f:
@@ -202,10 +207,39 @@ input_tokens = model_data.get('inputTokens', 0)
 total_input = cache_read + cache_create + input_tokens
 cache_efficiency = (cache_read / total_input * 100) if total_input > 0 else 0
 
+# Calculate real DQ score from dq-scores.jsonl
+from datetime import datetime, timedelta
+dq_file = Path.home() / '.claude/kernel/dq-scores.jsonl'
+avg_dq = 0.750  # fallback
+
+if dq_file.exists():
+    scores = []
+    cutoff = datetime.now() - timedelta(days=30)
+
+    with open(dq_file) as f:
+        for line in f:
+            if line.strip():
+                try:
+                    entry = json.loads(line)
+                    ts = entry.get('ts', 0)
+                    if ts > 1e12:
+                        ts = ts / 1000
+                    if datetime.fromtimestamp(ts) > cutoff:
+                        dq = entry.get('dqScore', entry.get('dq', 0))
+                        if isinstance(dq, dict):
+                            dq = dq.get('score', 0)
+                        if dq > 0:
+                            scores.append(dq)
+                except:
+                    continue
+
+    if scores:
+        avg_dq = sum(scores) / len(scores)
+
 # Build coevo data
 coevo_data = {
     "cacheEfficiency": round(cache_efficiency, 2),
-    "dqScore": 0.839,
+    "dqScore": round(avg_dq, 3),
     "dominantPattern": patterns_data.get('patterns', [{}])[0].get('id', 'none') if patterns_data.get('patterns') else 'none',
     "modsApplied": $MODS_COUNT,
     "autoApply": coevo_config.get('autoApply', False),
@@ -227,6 +261,8 @@ subscription_data = {
 }
 
 # Inject data
+observatory = safe_parse('''$OBSERVATORY_DATA''', {})
+
 output = template.replace('__STATS_DATA__', json.dumps(stats))
 output = output.replace('__MEMORY_DATA__', json.dumps(memory))
 output = output.replace('__ACTIVITY_DATA__', json.dumps(activity))
@@ -235,6 +271,7 @@ output = output.replace('__PROACTIVE_DATA__', json.dumps(proactive))
 output = output.replace('__COEVO_DATA__', json.dumps(coevo_data))
 output = output.replace('__SUBSCRIPTION_DATA__', json.dumps(subscription_data))
 output = output.replace('__ROUTING_DATA__', json.dumps(routing))
+output = output.replace('__OBSERVATORY_DATA__', json.dumps(observatory))
 
 # Write output
 with open('$OUTPUT', 'w') as f:

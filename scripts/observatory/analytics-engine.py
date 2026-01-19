@@ -137,6 +137,24 @@ def calculate_comprehensive_metrics(days: int = 30) -> Dict:
             "avg_commits_per_day": round(len(commits) / days, 2)
         }
 
+    # Productivity metrics
+    if data['productivity']:
+        latest = data['productivity'][-1] if data['productivity'] else {}
+        reads = latest.get('reads', 0)
+        writes = latest.get('writes', 0)
+        edits = latest.get('edits', 0)
+        total_writes = writes + edits
+
+        metrics['productivity'] = {
+            "reads": reads,
+            "writes": total_writes,
+            "read_write_ratio": {"reads": reads, "writes": max(total_writes, 1)},
+            "files_modified": latest.get('files_changed', 0),
+            "lines_changed": latest.get('net_loc', 0),
+            "loc_per_day": round(latest.get('productivity_velocity', 0), 1),
+            "productivity_score": round(total_writes / max(reads, 1), 3) if reads > 0 else 0
+        }
+
     # Routing metrics
     if data['routing'] or data['dq_scores']:
         routing_data = data['routing'] if data['routing'] else data['dq_scores']

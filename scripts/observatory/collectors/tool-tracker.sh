@@ -48,13 +48,13 @@ __observatory_track_bash_result() {
   local cmd_type="bash"
   if [[ "$OBSERVATORY_LAST_CMD" =~ ^npm ]]; then
     cmd_type="npm"
-  elif [[ "$OBSERVATORY_LAST_CMD" =~ ^python|pytest ]]; then
+  elif [[ "$OBSERVATORY_LAST_CMD" =~ ^(python|pytest) ]]; then
     cmd_type="python"
   elif [[ "$OBSERVATORY_LAST_CMD" =~ ^git ]]; then
     cmd_type="git"
-  elif [[ "$OBSERVATORY_LAST_CMD" =~ ^make|build ]]; then
+  elif [[ "$OBSERVATORY_LAST_CMD" =~ ^(make|build) ]]; then
     cmd_type="build"
-  elif [[ "$OBSERVATORY_LAST_CMD" =~ test|spec ]]; then
+  elif [[ "$OBSERVATORY_LAST_CMD" =~ (test|spec) ]]; then
     cmd_type="test"
   fi
 
