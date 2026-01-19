@@ -1,0 +1,366 @@
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-18T11:40:17.036177",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 27521,
+      "totalSessions": 104,
+      "cacheEfficiency": 94.04,
+      "dqScoreAvg": 0.839,
+      "dqTrend": "stable"
+    },
+    "patterns": {
+      "detected": [
+        {
+          "id": "debugging",
+          "name": "Debugging Session",
+          "icon": "\ud83d\udd0d",
+          "confidence": 1,
+          "totalMatches": 7,
+          "matchingEvents": [
+            {
+              "timestamp": 1768589317206,
+              "text": "fix the error in my code",
+              "matches": 2
+            },
+            {
+              "timestamp": 1768589317276,
+              "text": "debug this issue",
+              "matches": 3
+            },
+            {
+              "timestamp": 1768589317337,
+              "text": "why is this not working",
+              "matches": 2
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "skill",
+              "value": "/debug",
+              "label": "Run systematic debug",
+              "desc": "Comprehensive debugging workflow"
+            },
+            {
+              "type": "model",
+              "value": "opus",
+              "label": "Switch to Opus",
+              "desc": "Better for complex analysis"
+            },
+            {
+              "type": "memory",
+              "value": "error patterns",
+              "label": "Recall error patterns",
+              "desc": "Load related debugging memories"
+            },
+            {
+              "type": "command",
+              "value": "git diff",
+              "label": "View recent changes",
+              "desc": "Check what changed recently"
+            }
+          ]
+        }
+      ],
+      "distribution": {
+        "debugging": 2
+      },
+      "dominant": "debugging"
+    },
+    "temporal": {
+      "peakHours": [
+        15,
+        14,
+        16
+      ],
+      "hourDistribution": {
+        "0": 1,
+        "2": 1,
+        "3": 1,
+        "5": 1,
+        "6": 4,
+        "7": 4,
+        "8": 5,
+        "9": 2,
+        "10": 7,
+        "11": 7,
+        "12": 3,
+        "13": 3,
+        "14": 8,
+        "15": 18,
+        "16": 8,
+        "17": 6,
+        "18": 2,
+        "19": 4,
+        "20": 8,
+        "21": 3,
+        "22": 6,
+        "23": 2
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "typescript",
+          "react"
+        ],
+        "confidence": {
+          "react": 0.02857142857142857,
+          "typescript": 0.03333333333333333
+        },
+        "lastUpdated": "2026-01-16T19:01:06.594Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "high",
+        "verbosity": "concise",
+        "codeStyle": {
+          "language": "typescript",
+          "framework": "react",
+          "formatting": "prettier",
+          "testing": "vitest"
+        }
+      },
+      "achievements": 2
+    },
+    "rawCounts": {
+      "dqScores": 3,
+      "activityEvents": 3
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-18T11:40:17.036461",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.04,
+        "message": "Cache efficiency at 94.04%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "debugging",
+        "message": "Dominant pattern: debugging (100% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          15,
+          14,
+          16
+        ],
+        "message": "Peak productivity hours: 15:00, 14:00, 16:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "context",
+        "action": "Pre-load debugging-specific context via prefetch --pattern debugging",
+        "impact": "Faster session starts, more relevant suggestions"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 265 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.33
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-18T18:02:59.526538",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 27521,
+      "totalSessions": 104,
+      "cacheEfficiency": 94.04,
+      "dqScoreAvg": 0.931,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [
+        {
+          "id": "debugging",
+          "name": "Debugging Session",
+          "icon": "\ud83d\udd0d",
+          "confidence": 1,
+          "totalMatches": 7,
+          "matchingEvents": [
+            {
+              "timestamp": 1768589317206,
+              "text": "fix the error in my code",
+              "matches": 2
+            },
+            {
+              "timestamp": 1768589317276,
+              "text": "debug this issue",
+              "matches": 3
+            },
+            {
+              "timestamp": 1768589317337,
+              "text": "why is this not working",
+              "matches": 2
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "skill",
+              "value": "/debug",
+              "label": "Run systematic debug",
+              "desc": "Comprehensive debugging workflow"
+            },
+            {
+              "type": "model",
+              "value": "opus",
+              "label": "Switch to Opus",
+              "desc": "Better for complex analysis"
+            },
+            {
+              "type": "memory",
+              "value": "error patterns",
+              "label": "Recall error patterns",
+              "desc": "Load related debugging memories"
+            },
+            {
+              "type": "command",
+              "value": "git diff",
+              "label": "View recent changes",
+              "desc": "Check what changed recently"
+            }
+          ]
+        }
+      ],
+      "distribution": {
+        "debugging": 2
+      },
+      "dominant": "debugging"
+    },
+    "temporal": {
+      "peakHours": [
+        15,
+        14,
+        16
+      ],
+      "hourDistribution": {
+        "0": 1,
+        "2": 1,
+        "3": 1,
+        "5": 1,
+        "6": 4,
+        "7": 4,
+        "8": 5,
+        "9": 2,
+        "10": 7,
+        "11": 7,
+        "12": 3,
+        "13": 3,
+        "14": 8,
+        "15": 18,
+        "16": 8,
+        "17": 6,
+        "18": 2,
+        "19": 4,
+        "20": 8,
+        "21": 3,
+        "22": 6,
+        "23": 2
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "typescript",
+          "react"
+        ],
+        "confidence": {
+          "react": 0.02857142857142857,
+          "typescript": 0.03333333333333333
+        },
+        "lastUpdated": "2026-01-16T19:01:06.594Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "high",
+        "verbosity": "concise",
+        "codeStyle": {
+          "language": "typescript",
+          "framework": "react",
+          "formatting": "prettier",
+          "testing": "vitest"
+        }
+      },
+      "achievements": 2
+    },
+    "rawCounts": {
+      "dqScores": 134,
+      "activityEvents": 3
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-18T18:02:59.526755",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.04,
+        "message": "Cache efficiency at 94.04%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.931,
+        "message": "High decision quality (0.931). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "debugging",
+        "message": "Dominant pattern: debugging (100% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          15,
+          14,
+          16
+        ],
+        "message": "Peak productivity hours: 15:00, 14:00, 16:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "context",
+        "action": "Pre-load debugging-specific context via prefetch --pattern debugging",
+        "impact": "Faster session starts, more relevant suggestions"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 265 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}

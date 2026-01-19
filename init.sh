@@ -64,6 +64,10 @@ alias routing-auto='~/.claude/scripts/routing-auto-update.sh'
 alias routing-docs='cat ~/.claude/ROUTING_DOCS_INDEX.md'
 alias routing-help='cat ~/.claude/ROUTING_QUICK_REFERENCE.md'
 
+# A/B Test: HSRGS vs Keyword DQ
+alias ab-test='python3 ~/.claude/scripts/ab-test-analyzer.py'
+alias ab-test-detailed='python3 ~/.claude/scripts/ab-test-analyzer.py --detailed'
+
 # ══════════════════════════════════════════════════════════════
 # CO-EVOLUTION SYSTEM (Bidirectional Learning)
 # ══════════════════════════════════════════════════════════════
@@ -143,6 +147,12 @@ clog-clear() {
   mv ~/.claude/activity.log "$backup"
   echo "✓ Log archived to $backup"
 }
+
+# ══════════════════════════════════════════════════════════════
+# OBSERVATORY (Comprehensive Metrics & Analytics)
+# ══════════════════════════════════════════════════════════════
+
+[[ -f ~/.claude/scripts/observatory/init.sh ]] && source ~/.claude/scripts/observatory/init.sh
 
 # ══════════════════════════════════════════════════════════════
 # STARTUP
