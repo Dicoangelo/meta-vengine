@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=22&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&multiline=false&repeat=true&width=700&height=40&lines=The+Flywheel+Is+Spinning+%E2%9A%99%EF%B8%8F;Claude+Analyzes+Its+Own+Patterns;The+Loop+Closes+%E2%80%94+Each+Session+Better+Than+The+Last" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=22&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&multiline=false&repeat=true&width=700&height=40&lines=The+Flywheel+Is+Spinning+%E2%9A%99%EF%B8%8F;Multi-Provider+Intelligent+Routing;The+Loop+Closes+%E2%80%94+Each+Session+Better+Than+The+Last" alt="Typing SVG" />
 
 <br/>
 
@@ -14,12 +14,15 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat-square&logo=python&logoColor=white)]()
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=node.js&logoColor=white)]()
+[![Ollama](https://img.shields.io/badge/Ollama-Local-000000?style=flat-square&logo=ollama)]()
+[![Gemini](https://img.shields.io/badge/Gemini-2.0-4285F4?style=flat-square&logo=google)]()
 [![Anthropic](https://img.shields.io/badge/Claude-Opus_4.5-CC785C?style=flat-square)]()
+[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=flat-square&logo=openai)]()
 [![Research](https://img.shields.io/badge/Papers-40+-9945ff?style=flat-square)]()
 
 <br/>
 
-*A bidirectional co-evolution system where Claude analyzes its own usage patterns and modifies its own instructions.*
+*A bidirectional co-evolution system with multi-provider intelligent routing (Ollama • Gemini • Claude • OpenAI) that analyzes usage patterns and self-modifies.*
 
 **The invention hidden in your vision.**
 
@@ -74,7 +77,7 @@ flowchart TB
         direction TB
 
         subgraph INTERACTION["🔄 INTERACTION LAYER"]
-            QUERY["Query → Claude → Response"]
+            QUERY["Query → uni-ai Router → Best Model"]
         end
 
         subgraph DATA["💾 DATA LAYER"]
@@ -261,7 +264,7 @@ ab-test-detailed                 # With query breakdown
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                                                                             │
 │   1. WORK                                                                   │
-│      Use Claude as normal. Telemetry accumulates.                          │
+│      Use uni-ai as normal. Routes to best provider. Telemetry accumulates. │
 │                                        ↓                                    │
 │   2. ANALYZE                                                                │
 │      Run `coevo-analyze`. See patterns emerge.                             │
