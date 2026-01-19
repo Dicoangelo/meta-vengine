@@ -63,7 +63,6 @@ alias routing-cron='~/.claude/scripts/routing-cron-setup.sh'
 alias routing-auto='~/.claude/scripts/routing-auto-update.sh'
 alias routing-docs='cat ~/.claude/ROUTING_DOCS_INDEX.md'
 alias routing-help='cat ~/.claude/ROUTING_QUICK_REFERENCE.md'
-alias ai-feedback-status='~/.claude/scripts/feedback-status.sh'
 
 # ══════════════════════════════════════════════════════════════
 # CO-EVOLUTION SYSTEM (Bidirectional Learning)
@@ -109,6 +108,25 @@ fixcmd() {
 today() {
   echo "═══ TODAY'S CLAUDE ACTIVITY ═══"
   grep "$(date '+%Y-%m-%d')" ~/.claude/activity.log 2>/dev/null || echo "No activity today"
+}
+
+# Check feedback status (has access to shell variables)
+ai-feedback-status() {
+  if [[ " ${precmd_functions[@]} " =~ " __ai_feedback_auto " ]]; then
+    echo "✓ Automated feedback is ACTIVE"
+    echo ""
+    echo "How it works:"
+    echo "  - Monitors command exit codes after AI queries"
+    echo "  - Records failures within 30 seconds of query"
+    echo "  - Automatically improves routing decisions"
+    echo "  - Logs to: ~/.claude/data/ai-routing.log"
+    echo ""
+    echo "To disable: ai-feedback-disable"
+  else
+    echo "✗ Automated feedback is NOT active"
+    echo ""
+    echo "To enable: ai-feedback-enable"
+  fi
 }
 
 # Clear context reminder
