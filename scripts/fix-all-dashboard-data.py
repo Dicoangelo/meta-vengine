@@ -36,15 +36,21 @@ print("STEP 1: Scanning transcripts...")
 daily_stats = defaultdict(lambda: {"messages": 0, "sessions": 0, "tools": 0})
 model_counts = Counter()
 tool_counts = Counter()
+hour_counts = Counter()  # Track activity by hour
 total_sessions = 0
 total_messages = 0
 total_tools = 0
+
+# Track longest session
+longest_session = {"messageCount": 0, "date": None, "sessionId": None}
+all_sessions = []  # For tracking individual session stats
 
 for transcript in PROJECTS_DIR.glob("**/*.jsonl"):
     try:
         session_date = None
         session_messages = 0
         session_tools = 0
+        session_hours = set()  # Track hours active in this session
 
         with open(transcript, 'r', errors='ignore') as f:
             for line in f:
@@ -52,8 +58,15 @@ for transcript in PROJECTS_DIR.glob("**/*.jsonl"):
                     entry = json.loads(line)
                     ts = entry.get('timestamp')
 
-                    if ts and session_date is None:
-                        session_date = ts[:10]
+                    if ts:
+                        if session_date is None:
+                            session_date = ts[:10]
+                        # Extract hour from timestamp (format: 2026-01-19T14:30:00)
+                        try:
+                            hour = int(ts[11:13])
+                            session_hours.add(hour)
+                        except:
+                            pass
 
                     if entry.get('type') == 'user':
                         session_messages += 1
@@ -88,6 +101,24 @@ for transcript in PROJECTS_DIR.glob("**/*.jsonl"):
             total_messages += session_messages
             total_tools += session_tools
 
+            # Track hour activity
+            for hour in session_hours:
+                hour_counts[hour] += 1
+
+            # Track longest session
+            if session_messages > longest_session["messageCount"]:
+                longest_session = {
+                    "messageCount": session_messages,
+                    "date": session_date,
+                    "sessionId": str(transcript.name)[:20]
+                }
+
+            all_sessions.append({
+                "date": session_date,
+                "messages": session_messages,
+                "tools": session_tools
+            })
+
     except:
         pass
 
@@ -103,6 +134,9 @@ print()
 
 print("STEP 2: Fixing stats-cache.json...")
 
+# Sort daily data chronologically (oldest first) for proper chart display
+sorted_daily = sorted(daily_stats.items())[-30:]  # Last 30 days, chronological
+
 stats = {
     "version": 1,
     "lastComputedDate": datetime.now().strftime('%Y-%m-%d'),
@@ -117,6 +151,8 @@ stats = {
             "cacheCreationInputTokens": model_counts['opus'] * 300
         }
     },
+    "hourCounts": dict(hour_counts),  # Activity by hour (0-23)
+    "longestSession": longest_session,  # Session with most messages
     "dailyActivity": [
         {
             "date": d,
@@ -124,7 +160,7 @@ stats = {
             "sessionCount": v["sessions"],
             "toolCallCount": v["tools"]
         }
-        for d, v in sorted(daily_stats.items(), reverse=True)[:30]
+        for d, v in sorted_daily  # Chronological order for charts
     ],
     "dailyModelTokens": [
         {
@@ -133,7 +169,7 @@ stats = {
                 "opus": v["messages"] * 2300  # ~1500 input + 800 output avg
             }
         }
-        for d, v in sorted(daily_stats.items(), reverse=True)[:30]
+        for d, v in sorted_daily  # Chronological order for charts
     ],
     "totals": {
         "sessions": total_sessions,

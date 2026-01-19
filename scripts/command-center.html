@@ -2259,35 +2259,45 @@
       const totalTools = STATS_DATA.dailyActivity?.reduce((s, d) => s + d.toolCallCount, 0) || 0;
       const avgPerDay = Math.round((STATS_DATA.totalMessages || 0) / days);
 
-      // Calculate real trends from dailyActivity
-      const calculateTrend = (metric) => {
+      // Calculate week-over-week trends from dailyActivity
+      const calculateWeekTrend = (metric) => {
         const daily = STATS_DATA.dailyActivity || [];
-        if (daily.length < 2) return null;
+        if (daily.length < 8) return null;
 
-        const half = Math.floor(daily.length / 2);
-        const recent = daily.slice(half);
-        const previous = daily.slice(0, half);
+        // Last 7 days vs previous 7 days
+        const thisWeek = daily.slice(-7);
+        const lastWeek = daily.slice(-14, -7);
 
-        const recentSum = recent.reduce((s, d) => s + (d[metric] || 0), 0);
-        const prevSum = previous.reduce((s, d) => s + (d[metric] || 0), 0);
+        if (lastWeek.length < 7) return null;
 
-        if (prevSum === 0) return null;
-        const change = ((recentSum - prevSum) / prevSum * 100);
-        return change >= 0 ? `+${change.toFixed(1)}%` : `${change.toFixed(1)}%`;
+        const thisSum = thisWeek.reduce((s, d) => s + (d[metric] || 0), 0);
+        const lastSum = lastWeek.reduce((s, d) => s + (d[metric] || 0), 0);
+
+        if (lastSum === 0) return { value: null, label: '' };
+        const change = ((thisSum - lastSum) / lastSum * 100);
+        return {
+          value: change >= 0 ? `+${change.toFixed(0)}%` : `${change.toFixed(0)}%`,
+          label: 'vs last wk',
+          up: change >= 0
+        };
       };
 
       const roiMultiplier = SUBSCRIPTION_DATA?.multiplier || 0;
-      const sessionTrend = calculateTrend('sessionCount');
-      const messageTrend = calculateTrend('messageCount');
-      const toolTrend = calculateTrend('toolCallCount');
+      const sessionTrend = calculateWeekTrend('sessionCount');
+      const messageTrend = calculateWeekTrend('messageCount');
+      const toolTrend = calculateWeekTrend('toolCallCount');
+
+      // Get longest session info
+      const longest = STATS_DATA.longestSession || {};
+      const longestLabel = longest.messageCount > 0 ? `${longest.messageCount} msgs` : '—';
 
       const stats = [
-        { icon: '📊', value: STATS_DATA.totalSessions || 0, label: 'Sessions', trend: sessionTrend, up: sessionTrend && sessionTrend.startsWith('+') },
-        { icon: '💬', value: STATS_DATA.totalMessages || 0, label: 'Messages', trend: messageTrend, up: messageTrend && messageTrend.startsWith('+') },
-        { icon: '🔧', value: totalTools, label: 'Tool Calls', trend: toolTrend, up: toolTrend && toolTrend.startsWith('+') },
+        { icon: '📊', value: STATS_DATA.totalSessions || 0, label: 'Sessions', trend: sessionTrend?.value, trendLabel: sessionTrend?.label, up: sessionTrend?.up },
+        { icon: '💬', value: STATS_DATA.totalMessages || 0, label: 'Messages', trend: messageTrend?.value, trendLabel: messageTrend?.label, up: messageTrend?.up },
+        { icon: '🔧', value: totalTools, label: 'Tool Calls', trend: toolTrend?.value, trendLabel: toolTrend?.label, up: toolTrend?.up },
         { icon: '📈', value: avgPerDay, label: 'Avg/Day', trend: null },
         { icon: '💰', value: roiMultiplier + 'x', label: 'ROI', trend: roiMultiplier > 50 ? '🔥' : null, up: true, raw: true },
-        { icon: '⏱️', value: STATS_DATA.longestSession?.messageCount || 0, label: 'Longest', trend: null },
+        { icon: '⏱️', value: longestLabel, label: 'Longest Session', trend: null, raw: true },
       ];
 
       document.getElementById('statsRow').innerHTML = stats.map(s => `
@@ -2295,7 +2305,7 @@
           <div class="icon">${s.icon}</div>
           <div class="value">${s.raw ? s.value : formatNumber(s.value)}</div>
           <div class="label">${s.label}</div>
-          ${s.trend ? `<div class="trend ${s.up ? 'up' : 'down'}">${s.trend}</div>` : ''}
+          ${s.trend ? `<div class="trend ${s.up ? 'up' : 'down'}">${s.trend}${s.trendLabel ? ` <span style="font-size:0.7em;opacity:0.7">${s.trendLabel}</span>` : ''}</div>` : ''}
         </div>
       `).join('');
 
