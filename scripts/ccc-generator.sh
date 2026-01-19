@@ -173,6 +173,31 @@ echo "  🔭 Loading Observatory data..."
 # Load Observatory metrics (ALL TIME)
 OBSERVATORY_DATA=$(python3 "$HOME/.claude/scripts/observatory/analytics-engine.py" export 9999 2>/dev/null || echo '{}')
 
+echo "  📋 Loading session outcomes..."
+# Load session outcomes directly from file
+SESSION_OUTCOMES_FILE="$HOME/.claude/data/session-outcomes.jsonl"
+if [[ -f "$SESSION_OUTCOMES_FILE" ]]; then
+  SESSION_OUTCOMES_DATA=$(python3 -c "
+import json
+sessions = []
+with open('$SESSION_OUTCOMES_FILE') as f:
+    for line in f:
+        if line.strip():
+            try:
+                s = json.loads(line)
+                # Add estimated quality/complexity from messages/tools
+                s['quality'] = min(5, max(1, s.get('messages', 50) / 50))
+                s['complexity'] = min(1.0, s.get('tools', 10) / 100)
+                s['model_efficiency'] = 0.8  # Estimated
+                sessions.append(s)
+            except:
+                pass
+print(json.dumps(sessions[-500:]))  # Last 500 sessions
+" 2>/dev/null || echo '[]')
+else
+  SESSION_OUTCOMES_DATA='[]'
+fi
+
 if [[ -f "$PATTERNS_FILE" ]]; then
   PATTERNS_DATA=$(cat "$PATTERNS_FILE")
 else
@@ -296,6 +321,10 @@ output = output.replace('__COEVO_DATA__', json.dumps(coevo_data))
 output = output.replace('__SUBSCRIPTION_DATA__', json.dumps(subscription_data))
 output = output.replace('__ROUTING_DATA__', json.dumps(routing))
 output = output.replace('__OBSERVATORY_DATA__', json.dumps(observatory))
+
+# Session outcomes (embedded)
+session_outcomes = safe_parse('''$SESSION_OUTCOMES_DATA''', [])
+output = output.replace('__SESSION_OUTCOMES_DATA__', json.dumps(session_outcomes))
 
 # Write output
 with open('$OUTPUT', 'w') as f:

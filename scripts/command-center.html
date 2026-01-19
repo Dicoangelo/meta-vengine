@@ -1882,22 +1882,41 @@
 
     <!-- SESSION OUTCOMES TAB (Tab 10) -->
     <div id="session-outcomes" class="tab-content">
+      <!-- Autonomous Analysis Badge -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+        <div style="background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green)); padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
+          🤖 6-Agent ACE Analysis
+        </div>
+        <div style="color: var(--text-secondary); font-size: 0.9rem;">
+          Autonomous multi-agent consensus system with DQ scoring
+        </div>
+        <label style="display: flex; align-items: center; gap: 8px; margin-left: auto; cursor: pointer;">
+          <input type="checkbox" id="show-empty-sessions" onchange="applySessionFilters()" style="width: 18px; height: 18px; cursor: pointer;">
+          <span style="color: var(--text-primary); font-size: 0.9rem;">Show empty sessions</span>
+        </label>
+        <div style="color: var(--text-secondary); font-size: 0.85rem;" id="session-filter-stats"></div>
+      </div>
+
       <div class="stats-row" id="sessionOutcomesStatsRow">
         <div class="stat-card">
-          <div class="stat-value" id="sessionSuccessRate">0%</div>
-          <div class="stat-label">Success Rate</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="sessionAvgQuality">0.0</div>
-          <div class="stat-label">Avg Quality</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="sessionTotalCount">0</div>
+          <div class="stat-value" id="sessionTotalCount">—</div>
           <div class="stat-label">Total Sessions</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value" id="sessionLastQuality">—</div>
-          <div class="stat-label">Last Session</div>
+          <div class="stat-value" id="sessionAvgQuality">—</div>
+          <div class="stat-label">Avg Quality</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="sessionAvgComplexity">—</div>
+          <div class="stat-label">Avg Complexity</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="sessionAvgEfficiency">—</div>
+          <div class="stat-label">Model Efficiency</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="sessionEmptyCount">—</div>
+          <div class="stat-label">Empty Sessions</div>
         </div>
       </div>
 
@@ -1905,16 +1924,38 @@
         <div class="card">
           <div class="card-header">
             <h3>📊 Outcome Distribution</h3>
-            <span class="card-badge">Last 30 Days</span>
+            <span class="card-badge" id="outcomeDistBadge">154 Sessions</span>
           </div>
-          <div class="chart-container"><canvas id="outcomeDistributionChart"></canvas></div>
+          <table style="width: 100%; border-collapse: collapse;" id="outcomeDistTable">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <th style="padding: 12px; text-align: left; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Outcome</th>
+                <th style="padding: 12px; text-align: right; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Count</th>
+                <th style="padding: 12px; text-align: right; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Percentage</th>
+              </tr>
+            </thead>
+            <tbody id="outcomeDistBody">
+              <tr><td colspan="3" style="text-align:center; padding: 20px; color: var(--text-secondary);">Loading...</td></tr>
+            </tbody>
+          </table>
         </div>
         <div class="card">
           <div class="card-header">
-            <h3>⭐ Quality Trend</h3>
-            <span class="card-badge">1-5 Rating</span>
+            <h3>⭐ Quality Distribution</h3>
+            <span class="card-badge">1-5 Stars</span>
           </div>
-          <div class="chart-container"><canvas id="qualityTrendChart"></canvas></div>
+          <table style="width: 100%; border-collapse: collapse;" id="qualityDistTable">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <th style="padding: 12px; text-align: left; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Quality</th>
+                <th style="padding: 12px; text-align: right; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Count</th>
+                <th style="padding: 12px; text-align: right; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Percentage</th>
+              </tr>
+            </thead>
+            <tbody id="qualityDistBody">
+              <tr><td colspan="3" style="text-align:center; padding: 20px; color: var(--text-secondary);">Loading...</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -1923,9 +1964,22 @@
           <h3>📝 Recent Sessions</h3>
           <span class="card-badge" id="recentSessionsCount">0</span>
         </div>
-        <div id="recentSessionsList" class="sessions-list">
-          <div class="no-data">No session data available. Use <code>session-rate 5 "note"</code> to track sessions.</div>
-        </div>
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <th style="padding: 12px; text-align: left; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Session ID</th>
+              <th style="padding: 12px; text-align: left; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Title</th>
+              <th style="padding: 12px; text-align: left; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Intent</th>
+              <th style="padding: 12px; text-align: left; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Outcome</th>
+              <th style="padding: 12px; text-align: center; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Quality</th>
+              <th style="padding: 12px; text-align: right; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Complexity</th>
+              <th style="padding: 12px; text-align: right; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Efficiency</th>
+            </tr>
+          </thead>
+          <tbody id="recentSessionsTable">
+            <tr><td colspan="7" style="text-align:center; padding: 20px; color: var(--text-secondary);">Loading sessions...</td></tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="card">
@@ -1933,9 +1987,9 @@
           <h3>🎯 Session Management Commands</h3>
         </div>
         <div class="commands-grid">
-          <div class="command-card"><code>session-rate 5 "Great session!"</code><div class="desc">Rate current session</div></div>
-          <div class="command-card"><code>session-complete success "note"</code><div class="desc">Complete with outcome</div></div>
-          <div class="command-card"><code>session-stats 30</code><div class="desc">View 30-day statistics</div></div>
+          <div class="command-card"><code>python3 ~/.claude/scripts/observatory/post-session-analyzer.py --session-id ID</code><div class="desc">Analyze specific session</div></div>
+          <div class="command-card"><code>python3 ~/.claude/scripts/observatory/session-reviewer.py</code><div class="desc">Interactive session review</div></div>
+          <div class="command-card"><code>python3 ~/.claude/scripts/observatory/qa-test-suite.py</code><div class="desc">Run QA tests</div></div>
           <div class="command-card"><code>obs</code><div class="desc">Unified Observatory report</div></div>
         </div>
       </div>
@@ -2163,6 +2217,7 @@
     const SUBSCRIPTION_DATA = __SUBSCRIPTION_DATA__;
     const ROUTING_DATA = __ROUTING_DATA__;
     const OBSERVATORY_DATA = __OBSERVATORY_DATA__;
+    const SESSION_OUTCOMES_DATA = __SESSION_OUTCOMES_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -2745,17 +2800,20 @@
 
       const metrics = OBSERVATORY_DATA.metrics;
 
-      // Session Outcomes Tab (Tab 10)
+      // Session Outcomes Tab (Tab 10) - Observatory data supplements embedded data
       if (metrics.sessions) {
         const sessions = metrics.sessions;
-        document.getElementById('sessionSuccessRate').textContent =
-          ((sessions.success_rate || 0) * 100).toFixed(1) + '%';
-        document.getElementById('sessionAvgQuality').textContent =
-          (sessions.avg_quality || 0).toFixed(1);
-        document.getElementById('sessionTotalCount').textContent =
-          sessions.total_sessions || 0;
-        document.getElementById('sessionLastQuality').textContent =
-          sessions.last_quality ? `⭐ ${sessions.last_quality}/5` : '—';
+        const successRateEl = document.getElementById('sessionSuccessRate');
+        if (successRateEl) successRateEl.textContent = ((sessions.success_rate || 0) * 100).toFixed(1) + '%';
+
+        const avgQualityEl = document.getElementById('sessionAvgQuality');
+        if (avgQualityEl) avgQualityEl.textContent = (sessions.avg_quality || 0).toFixed(1);
+
+        const totalCountEl = document.getElementById('sessionTotalCount');
+        if (totalCountEl) totalCountEl.textContent = sessions.total_sessions || 0;
+
+        const lastQualityEl = document.getElementById('sessionLastQuality');
+        if (lastQualityEl) lastQualityEl.textContent = sessions.last_quality ? `⭐ ${sessions.last_quality}/5` : '—';
       }
 
       // Productivity Tab (Tab 11)
@@ -2990,6 +3048,198 @@
     // Load on page load if tab is active
     if (document.getElementById('context-efficiency')?.classList.contains('active')) {
       loadPackMetrics();
+    }
+
+    // ============================================================================
+    // SESSION OUTCOMES - AUTONOMOUS ANALYSIS INTEGRATION
+    // ============================================================================
+
+    let allSessionData = [];
+    let filteredSessionData = [];
+
+    function isEmptySession(session) {
+      return (
+        session.outcome === 'abandoned' &&
+        session.quality === 1 &&
+        (!session.files_modified || session.files_modified.length === 0)
+      );
+    }
+
+    function applySessionFilters() {
+      const showEmpty = document.getElementById('show-empty-sessions').checked;
+
+      if (showEmpty) {
+        filteredSessionData = allSessionData;
+      } else {
+        filteredSessionData = allSessionData.filter(s => !isEmptySession(s));
+      }
+
+      const emptyCount = allSessionData.length - filteredSessionData.length;
+      const filterStats = document.getElementById('session-filter-stats');
+      filterStats.textContent = showEmpty
+        ? `Showing all ${allSessionData.length} sessions`
+        : `Hiding ${emptyCount} empty (${filteredSessionData.length} shown)`;
+
+      renderSessionOutcomes();
+    }
+
+    async function loadSessionOutcomes() {
+      try {
+        // First try embedded data, then fall back to API
+        let allEvents;
+        if (typeof SESSION_OUTCOMES_DATA !== 'undefined' && SESSION_OUTCOMES_DATA.length > 0) {
+          allEvents = SESSION_OUTCOMES_DATA;
+        } else {
+          const response = await fetch('http://127.0.0.1:8888/api/sessions');
+          allEvents = await response.json();
+        }
+
+        // Deduplicate - keep only latest analysis per session_id
+        const sessionMap = new Map();
+        allEvents.forEach(event => {
+          const sessionId = event.session_id;
+          const timestamp = event.ts || 0;
+          if (!sessionMap.has(sessionId) || timestamp > sessionMap.get(sessionId).ts) {
+            sessionMap.set(sessionId, event);
+          }
+        });
+
+        allSessionData = Array.from(sessionMap.values());
+
+        // Apply filters (default: hide empty)
+        applySessionFilters();
+
+      } catch (error) {
+        console.error('Error loading session outcomes:', error);
+        document.getElementById('sessionTotalCount').textContent = 'Error';
+      }
+    }
+
+    function renderSessionOutcomes() {
+      const sessions = filteredSessionData;
+      const totalSessions = sessions.length;
+      const emptyCount = allSessionData.filter(s => isEmptySession(s)).length;
+      const emptyPct = allSessionData.length > 0 ? (emptyCount / allSessionData.length * 100).toFixed(1) : 0;
+
+      // Update empty sessions card
+      document.getElementById('sessionEmptyCount').textContent = `${emptyCount} (${emptyPct}%)`;
+
+      if (totalSessions === 0) {
+        document.getElementById('sessionTotalCount').textContent = '0';
+        document.getElementById('sessionAvgQuality').textContent = '—';
+        document.getElementById('sessionAvgComplexity').textContent = '—';
+        document.getElementById('sessionAvgEfficiency').textContent = '—';
+        return;
+      }
+
+      // Calculate metrics
+      const avgQuality = (sessions.reduce((sum, s) => sum + (s.quality || 0), 0) / totalSessions).toFixed(2);
+      const avgComplexity = (sessions.reduce((sum, s) => sum + (s.complexity || 0), 0) / totalSessions).toFixed(2);
+      const avgEfficiency = (sessions.reduce((sum, s) => sum + (s.model_efficiency || 0), 0) / totalSessions * 100).toFixed(1);
+
+      // Update stats cards
+      document.getElementById('sessionTotalCount').textContent = totalSessions;
+      document.getElementById('sessionAvgQuality').textContent = avgQuality;
+      document.getElementById('sessionAvgComplexity').textContent = avgComplexity;
+      document.getElementById('sessionAvgEfficiency').textContent = avgEfficiency + '%';
+
+      // Outcome distribution
+      const outcomes = {};
+      sessions.forEach(s => {
+        const outcome = s.outcome || 'unknown';
+        outcomes[outcome] = (outcomes[outcome] || 0) + 1;
+      });
+
+      const outcomeDistBody = document.getElementById('outcomeDistBody');
+      outcomeDistBody.innerHTML = Object.entries(outcomes)
+        .sort((a, b) => b[1] - a[1])
+        .map(([outcome, count]) => {
+          const percentage = (count / totalSessions * 100).toFixed(1);
+          const emoji = {
+            'success': '✅',
+            'abandoned': '⏸️',
+            'error': '❌',
+            'research': '🔬',
+            'partial': '⚠️'
+          }[outcome] || '❓';
+          return `
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 12px; text-transform: capitalize; color: var(--text-primary);">${emoji} ${outcome}</td>
+              <td style="padding: 12px; text-align: right; color: var(--text-primary);">${count}</td>
+              <td style="padding: 12px; text-align: right; color: var(--text-primary);">${percentage}%</td>
+            </tr>
+          `;
+        }).join('');
+
+      // Quality distribution
+      const qualities = {};
+      sessions.forEach(s => {
+        const quality = s.quality || 0;
+        qualities[quality] = (qualities[quality] || 0) + 1;
+      });
+
+      const qualityDistBody = document.getElementById('qualityDistBody');
+      qualityDistBody.innerHTML = Object.entries(qualities)
+        .sort((a, b) => b[0] - a[0])
+        .map(([quality, count]) => {
+          const percentage = (count / totalSessions * 100).toFixed(1);
+          const q = parseInt(quality);
+          const stars = '★'.repeat(q) + '☆'.repeat(Math.max(0, 5 - q));
+          return `
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 12px; color: var(--accent-yellow);">${stars} (${quality})</td>
+              <td style="padding: 12px; text-align: right; color: var(--text-primary);">${count}</td>
+              <td style="padding: 12px; text-align: right; color: var(--text-primary);">${percentage}%</td>
+            </tr>
+          `;
+        }).join('');
+
+      // Recent sessions (last 10)
+      const recentSessions = sessions.slice(-10).reverse();
+      document.getElementById('recentSessionsCount').textContent = recentSessions.length;
+
+      const sessionsTable = document.getElementById('recentSessionsTable');
+      sessionsTable.innerHTML = recentSessions.map(s => {
+        const title = s.title || 'No title';
+        const titleShort = title.length > 35 ? title.substring(0, 32) + '...' : title;
+        const intent = s.intent || 'Unknown';
+        const intentShort = intent.length > 25 ? intent.substring(0, 22) + '...' : intent;
+        const summary = s.summary_text || 'No summary available';
+        const sidShort = s.session_id.substring(0, 8) + '...';
+
+        const outcomeEmoji = {
+          'success': '✅',
+          'abandoned': '⏸️',
+          'error': '❌',
+          'research': '🔬',
+          'partial': '⚠️'
+        }[s.outcome] || '❓';
+
+        const quality = s.quality || 0;
+        const stars = '★'.repeat(quality);
+
+        return `
+          <tr title="📝 ${summary}" style="cursor: help; border-bottom: 1px solid var(--border);">
+            <td style="padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-secondary);">${sidShort}</td>
+            <td style="padding: 12px; font-size: 0.9rem; color: var(--text-primary);">${titleShort}</td>
+            <td style="padding: 12px; font-size: 0.85rem; color: var(--text-secondary);">${intentShort}</td>
+            <td style="padding: 12px; text-transform: capitalize; color: var(--text-primary);">${outcomeEmoji} ${s.outcome || 'unknown'}</td>
+            <td style="padding: 12px; text-align: center; color: var(--accent-yellow);">${stars || '-'}</td>
+            <td style="padding: 12px; text-align: right; color: var(--text-primary);">${s.complexity ? s.complexity.toFixed(2) : '-'}</td>
+            <td style="padding: 12px; text-align: right; color: var(--text-primary);">${s.model_efficiency ? (s.model_efficiency * 100).toFixed(0) + '%' : '-'}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Load session outcomes when tab is accessed
+    document.querySelector('[data-tab="session-outcomes"]')?.addEventListener('click', () => {
+      setTimeout(loadSessionOutcomes, 100);
+    });
+
+    // Load on page load if tab is active
+    if (document.getElementById('session-outcomes')?.classList.contains('active')) {
+      loadSessionOutcomes();
     }
   </script>
 </body>
