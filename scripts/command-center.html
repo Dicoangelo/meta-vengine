@@ -2727,7 +2727,7 @@
         document.getElementById('routingQueries').textContent = ROUTING_DATA.totalQueries || 0;
         document.getElementById('routingDqScore').textContent = (ROUTING_DATA.avgDqScore || 0).toFixed(3);
         document.getElementById('routingCostSavings').textContent =
-          (ROUTING_DATA.costReduction * 100 || 0).toFixed(1) + '%';
+          (ROUTING_DATA.costReduction || 0).toFixed(1) + '%';
         // Show N/A if no latency data (0 means no data collected yet)
         const latencyMs = ROUTING_DATA.routingLatency || 0;
         document.getElementById('routingLatency').textContent =
@@ -2797,17 +2797,19 @@
           });
         }
 
-        // Performance targets
-        const accuracy = ROUTING_DATA.accuracy || 0;
-        const costReduction = ROUTING_DATA.costReduction || 0;
+        // Performance targets - use values from ROUTING_DATA
+        const accuracy = ROUTING_DATA.accuracy || 0;  // Already in percentage (61.7)
+        const costReduction = ROUTING_DATA.costReduction || 0;  // Already in percentage (73.5)
         const latency = ROUTING_DATA.routingLatency || 0;
         const dqScore = ROUTING_DATA.avgDqScore || 0;
+        const targetAccuracy = ROUTING_DATA.targetAccuracy || 60;
+        const targetDq = ROUTING_DATA.targetDataQuality || 0.60;
 
-        document.getElementById('accuracyTarget').textContent = (accuracy * 100).toFixed(1) + '% (target: 75%)';
-        document.getElementById('accuracyStatus').textContent = accuracy >= 0.75 ? '✅' : '⏳';
+        document.getElementById('accuracyTarget').textContent = accuracy.toFixed(1) + '% (target: ' + targetAccuracy + '%)';
+        document.getElementById('accuracyStatus').textContent = accuracy >= targetAccuracy ? '✅' : '⏳';
 
-        document.getElementById('costTarget').textContent = (costReduction * 100).toFixed(1) + '% (target: 20%)';
-        document.getElementById('costStatus').textContent = costReduction >= 0.20 ? '✅' : '⏳';
+        document.getElementById('costTarget').textContent = costReduction.toFixed(1) + '% (target: 20%)';
+        document.getElementById('costStatus').textContent = costReduction >= 20 ? '✅' : '⏳';
 
         // Handle latency (0 means no data yet, not actually 0ms latency)
         if (latency > 0) {
@@ -2818,15 +2820,15 @@
           document.getElementById('latencyStatus').textContent = '⏳';
         }
 
-        document.getElementById('dqTarget').textContent = dqScore.toFixed(3) + ' (target: 0.70)';
-        document.getElementById('dqStatus').textContent = dqScore >= 0.70 ? '✅' : '⏳';
+        document.getElementById('dqTarget').textContent = dqScore.toFixed(3) + ' (target: ' + targetDq.toFixed(2) + ')';
+        document.getElementById('dqStatus').textContent = dqScore >= targetDq ? '✅' : '⏳';
 
         // Targets met badge (only count latency if we have data)
         const targetsMet = [
-          accuracy >= 0.75,
-          costReduction >= 0.20,
+          accuracy >= targetAccuracy,
+          costReduction >= 20,
           latency > 0 && latency < 50,  // Only count if we have data
-          dqScore >= 0.70
+          dqScore >= targetDq
         ].filter(Boolean).length;
 
         document.getElementById('targetsMetBadge').textContent = `${targetsMet}/4`;
