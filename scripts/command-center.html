@@ -666,17 +666,20 @@
 
     .efficiency-track {
       height: 24px;
-      background: var(--bg-card);
+      background: linear-gradient(90deg, rgba(233, 69, 96, 0.6) 0%, rgba(233, 69, 96, 0.4) 100%);
       border-radius: 12px;
       overflow: hidden;
       position: relative;
+      border: 1px solid rgba(233, 69, 96, 0.3);
     }
 
     .efficiency-fill {
       height: 100%;
-      background: var(--gradient-secondary);
+      background: linear-gradient(90deg, rgba(0, 230, 118, 0.8) 0%, rgba(74, 222, 128, 0.9) 100%);
       border-radius: 12px;
       transition: width 1s ease;
+      position: absolute;
+      right: 0;
     }
 
     .efficiency-label {
@@ -1553,23 +1556,31 @@
             <div class="efficiency-fill" id="efficiencyFill" style="width: 0%"></div>
           </div>
           <div class="efficiency-label">
-            <span>0% Cache Miss (Paid)</span>
-            <span>100% Cache Hit (Free)</span>
+            <span id="cacheMissLabel">0% Cache Miss (Paid)</span>
+            <span id="cacheHitLabel">100% Cache Hit (Free)</span>
           </div>
+        </div>
+        <div class="efficiency-details" style="display: flex; justify-content: space-between; margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-muted);">
+          <span>Input Tokens: <span id="inputTokensDisplay">0</span></span>
+          <span>Cache Read: <span id="cacheReadDisplay">0</span></span>
         </div>
       </div>
 
       <div class="charts-grid">
         <div class="card">
           <div class="card-header">
-            <h3>Daily Cost Breakdown</h3>
+            <h3>Estimated Daily API Cost</h3>
+            <span class="card-badge">Opus Pricing</span>
           </div>
+          <div class="chart-subtitle" style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Based on token usage × $15/M input + $75/M output</div>
           <div class="chart-container"><canvas id="costChart"></canvas></div>
         </div>
         <div class="card">
           <div class="card-header">
-            <h3>Token Efficiency</h3>
+            <h3>Token Distribution</h3>
+            <span class="card-badge">Input Tokens</span>
           </div>
+          <div class="chart-subtitle" style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Cache hits save 90% on input costs</div>
           <div class="chart-container"><canvas id="efficiencyChart"></canvas></div>
         </div>
       </div>
@@ -2574,6 +2585,13 @@
       document.getElementById('costSaved').textContent = formatCost(savedCost);
       document.getElementById('efficiencyPercent').textContent = efficiency.toFixed(1) + '%';
       document.getElementById('efficiencyFill').style.width = efficiency + '%';
+
+      // Update dynamic cache labels
+      const missPercent = (100 - efficiency).toFixed(1);
+      document.getElementById('cacheMissLabel').textContent = missPercent + '% Cache Miss (Paid)';
+      document.getElementById('cacheHitLabel').textContent = efficiency.toFixed(1) + '% Cache Hit (Free)';
+      document.getElementById('inputTokensDisplay').textContent = formatNumber(inputTokens);
+      document.getElementById('cacheReadDisplay').textContent = formatNumber(cacheRead);
 
       // Cost chart
       if (STATS_DATA.dailyModelTokens?.length) {
