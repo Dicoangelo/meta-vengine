@@ -210,6 +210,8 @@ flowchart TB
 | 📊 | `dq-scorer.js` | Decision quality scoring + model routing | `Active` |
 | 🪪 | `identity-manager.js` | Expertise tracking + evolution | `Active` |
 | 📝 | `CLAUDE.md` | Auto-generated learned patterns section | `Evolving` |
+| ⚡ | `hsrgs.py` | **NEW** Homeomorphic Self-Routing Gödel System | `A/B Testing` |
+| 📈 | `ab-test-analyzer.py` | **NEW** HSRGS vs Keyword DQ comparison | `Active` |
 
 <br/>
 
@@ -242,6 +244,11 @@ coevo-dashboard
 prefetch --proactive
 prefetch --pattern debugging
 prefetch --suggest
+
+# HSRGS (Homeomorphic Self-Routing Gödel System)
+uni-ai "your query"              # Auto-routed via HSRGS
+ab-test                          # Compare HSRGS vs keyword DQ
+ab-test-detailed                 # With query breakdown
 ```
 
 <br/>
