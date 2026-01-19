@@ -1752,7 +1752,7 @@
   </main>
 
   <footer class="footer">
-    Press <kbd>1</kbd>-<kbd>8</kbd> to switch tabs · <kbd>R</kbd> to refresh · Built for terminal-first workflow
+    Press <kbd>1</kbd>-<kbd>9</kbd> to switch tabs · <kbd>R</kbd> to refresh · Built for terminal-first workflow
   </footer>
 
   <script>
@@ -2229,8 +2229,10 @@
         document.getElementById('routingDqScore').textContent = (ROUTING_DATA.avgDqScore || 0).toFixed(3);
         document.getElementById('routingCostSavings').textContent =
           (ROUTING_DATA.costReduction * 100 || 0).toFixed(1) + '%';
+        // Show N/A if no latency data (0 means no data collected yet)
+        const latencyMs = ROUTING_DATA.routingLatency || 0;
         document.getElementById('routingLatency').textContent =
-          (ROUTING_DATA.routingLatency || 0).toFixed(0) + 'ms';
+          latencyMs > 0 ? latencyMs.toFixed(0) + 'ms' : 'N/A';
 
         // Production readiness progress
         const queryProgress = Math.min(100, (ROUTING_DATA.totalQueries / ROUTING_DATA.targetQueries) * 100);
@@ -2308,17 +2310,23 @@
         document.getElementById('costTarget').textContent = (costReduction * 100).toFixed(1) + '% (target: 20%)';
         document.getElementById('costStatus').textContent = costReduction >= 0.20 ? '✅' : '⏳';
 
-        document.getElementById('latencyTarget').textContent = latency.toFixed(0) + 'ms (target: <50ms)';
-        document.getElementById('latencyStatus').textContent = latency < 50 ? '✅' : '⏳';
+        // Handle latency (0 means no data yet, not actually 0ms latency)
+        if (latency > 0) {
+          document.getElementById('latencyTarget').textContent = latency.toFixed(0) + 'ms (target: <50ms)';
+          document.getElementById('latencyStatus').textContent = latency < 50 ? '✅' : '⏳';
+        } else {
+          document.getElementById('latencyTarget').textContent = 'N/A (target: <50ms)';
+          document.getElementById('latencyStatus').textContent = '⏳';
+        }
 
         document.getElementById('dqTarget').textContent = dqScore.toFixed(3) + ' (target: 0.70)';
         document.getElementById('dqStatus').textContent = dqScore >= 0.70 ? '✅' : '⏳';
 
-        // Targets met badge
+        // Targets met badge (only count latency if we have data)
         const targetsMet = [
           accuracy >= 0.75,
           costReduction >= 0.20,
-          latency < 50,
+          latency > 0 && latency < 50,  // Only count if we have data
           dqScore >= 0.70
         ].filter(Boolean).length;
 
