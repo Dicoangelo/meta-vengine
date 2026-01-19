@@ -36,13 +36,15 @@ mkdir -p "$KERNEL_DIR" "$DATA_DIR" "$LOGS_DIR"
 DEFAULT_CONFIG='{
   "enabled": false,
   "approved_by_user": false,
-  "stability_period_days": 30,
   "min_queries_required": 200,
-  "targets_must_meet_consecutively": 7,
+  "min_feedback_count": 50,
+  "data_quality_threshold": 0.80,
+  "recent_queries_sample": 50,
   "auto_rollback_on_drop": true,
   "rollback_threshold_pct": 0.10,
   "require_ab_test_validation": true,
-  "max_auto_updates_per_month": 2,
+  "max_auto_updates_per_period": 2,
+  "update_window_queries": 500,
   "last_enabled": null,
   "first_auto_update_completed": false
 }'
@@ -65,106 +67,78 @@ save_config() {
 # ═══════════════════════════════════════════════════════════════════════════
 
 check_production_readiness() {
-  local stability_days="${1:-30}"
+  local config=$(load_config)
+  local min_queries=$(echo "$config" | python3 -c "import sys, json; print(json.load(sys.stdin).get('min_queries_required', 200))")
+  local min_feedback=$(echo "$config" | python3 -c "import sys, json; print(json.load(sys.stdin).get('min_feedback_count', 50))")
+  local data_quality_thresh=$(echo "$config" | python3 -c "import sys, json; print(json.load(sys.stdin).get('data_quality_threshold', 0.80))")
+  local recent_sample=$(echo "$config" | python3 -c "import sys, json; print(json.load(sys.stdin).get('recent_queries_sample', 50))")
 
-  echo "Checking production readiness (${stability_days}-day stability period)..."
-  echo ""
+  echo "Checking production readiness (usage-based validation)..." >&2
+  echo "" >&2
 
-  local validation_result='{"ready": false, "checks": [], "confidence": 0}'
+  local validation='{"ready": false, "checks": []}'
 
-  # Check 1: Sufficient sample size
-  local query_count=$(python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" report --days "$stability_days" --format json 2>/dev/null | python3 -c "import sys, json; print(json.load(sys.stdin).get('total_queries', 0))" 2>/dev/null || echo "0")
+  # Check 1: Query count
+  local query_count=$(python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" report --days 999 --format json 2>/dev/null | python3 -c "import sys, json; print(json.load(sys.stdin).get('total_queries', 0))" || echo "0")
 
-  if [[ "$query_count" -ge 200 ]]; then
-    validation_result=$(echo "$validation_result" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-data['checks'].append({'name': 'sample_size', 'status': 'pass', 'value': $query_count, 'threshold': 200})
-print(json.dumps(data))
-")
-    echo "  ✓ Sample size: $query_count queries (>= 200 required)"
+  if [[ "$query_count" -ge "$min_queries" ]]; then
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'query_count','status':'pass','value':$query_count}); print(json.dumps(d))")
+    echo "  ✓ Query count: $query_count (>= $min_queries)" >&2
   else
-    validation_result=$(echo "$validation_result" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-data['checks'].append({'name': 'sample_size', 'status': 'fail', 'value': $query_count, 'threshold': 200})
-print(json.dumps(data))
-")
-    echo "  ✗ Sample size: $query_count queries (need >= 200)"
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'query_count','status':'fail','value':$query_count}); print(json.dumps(d))")
+    echo "  ✗ Query count: $query_count (need $min_queries)" >&2
   fi
 
-  # Check 2: All targets met
-  if python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" check-targets --days "$stability_days" >/dev/null 2>&1; then
-    validation_result=$(echo "$validation_result" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-data['checks'].append({'name': 'targets_met', 'status': 'pass'})
-print(json.dumps(data))
-")
-    echo "  ✓ All performance targets met"
+  # Check 2: Feedback count
+  local feedback_count=$(wc -l < "$KERNEL_DIR/dq-scores.jsonl" 2>/dev/null | tr -d ' ' || echo "0")
+
+  if [[ "$feedback_count" -ge "$min_feedback" ]]; then
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'feedback_count','status':'pass','value':$feedback_count}); print(json.dumps(d))")
+    echo "  ✓ Feedback count: $feedback_count (>= $min_feedback)" >&2
   else
-    validation_result=$(echo "$validation_result" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-data['checks'].append({'name': 'targets_met', 'status': 'fail'})
-print(json.dumps(data))
-")
-    echo "  ✗ Performance targets not met"
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'feedback_count','status':'fail','value':$feedback_count}); print(json.dumps(d))")
+    echo "  ✗ Feedback count: $feedback_count (need $min_feedback)" >&2
   fi
 
-  # Check 3: Consecutive stability (last 7 days must also pass)
-  if python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" check-targets --days 7 >/dev/null 2>&1; then
-    validation_result=$(echo "$validation_result" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-data['checks'].append({'name': 'recent_stability', 'status': 'pass'})
-print(json.dumps(data))
-")
-    echo "  ✓ Recent stability (last 7 days)"
+  # Check 3: Data quality
+  local data_quality=$(python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" check-data-quality --all-time 2>/dev/null || echo "0.0")
+
+  if (( $(echo "$data_quality >= $data_quality_thresh" | bc -l 2>/dev/null || echo "0") )); then
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'data_quality','status':'pass','value':$data_quality}); print(json.dumps(d))")
+    echo "  ✓ Data quality: $data_quality (>= $data_quality_thresh)" >&2
   else
-    validation_result=$(echo "$validation_result" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-data['checks'].append({'name': 'recent_stability', 'status': 'fail'})
-print(json.dumps(data))
-")
-    echo "  ✗ Recent stability check failed"
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'data_quality','status':'fail','value':$data_quality}); print(json.dumps(d))")
+    echo "  ✗ Data quality: $data_quality (need $data_quality_thresh)" >&2
   fi
 
-  # Check 4: No degradation trend
-  local report=$(python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" report --days "$stability_days" --format json 2>/dev/null)
-  local accuracy=$(echo "$report" | python3 -c "import sys, json; print(json.load(sys.stdin).get('accuracy', 0) or 0)" 2>/dev/null || echo "0")
-
-  if (( $(echo "$accuracy > 0.75" | bc -l 2>/dev/null || echo "0") )); then
-    validation_result=$(echo "$validation_result" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-data['checks'].append({'name': 'accuracy_threshold', 'status': 'pass', 'value': $accuracy})
-print(json.dumps(data))
-")
-    echo "  ✓ Accuracy: ${accuracy} (>= 0.75)"
+  # Check 4: Recent performance (last N queries)
+  if python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" check-targets --last-n-queries "$recent_sample" >/dev/null 2>&1; then
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'recent_performance','status':'pass'}); print(json.dumps(d))")
+    echo "  ✓ Recent performance: Last $recent_sample queries meet targets" >&2
   else
-    validation_result=$(echo "$validation_result" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-data['checks'].append({'name': 'accuracy_threshold', 'status': 'fail', 'value': $accuracy})
-print(json.dumps(data))
-")
-    echo "  ✗ Accuracy: ${accuracy} (need >= 0.75)"
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'recent_performance','status':'fail'}); print(json.dumps(d))")
+    echo "  ✗ Recent performance: Last $recent_sample queries below targets" >&2
   fi
 
-  # Calculate overall readiness
-  local passed_checks=$(echo "$validation_result" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-passed = sum(1 for c in data['checks'] if c.get('status') == 'pass')
-total = len(data['checks'])
-data['ready'] = (passed == total)
-data['confidence'] = passed / total if total > 0 else 0
-print(json.dumps(data))
-")
+  # Check 5: Overall targets
+  if python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" check-targets --all-time >/dev/null 2>&1; then
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'overall_targets','status':'pass'}); print(json.dumps(d))")
+    echo "  ✓ Overall targets met" >&2
+  else
+    validation=$(echo "$validation" | python3 -c "import sys, json; d=json.load(sys.stdin); d['checks'].append({'name':'overall_targets','status':'fail'}); print(json.dumps(d))")
+    echo "  ✗ Overall targets not met" >&2
+  fi
 
-  echo "$passed_checks"
+  # Calculate readiness
+  echo "$validation" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+passed = sum(1 for c in d['checks'] if c.get('status') == 'pass')
+total = len(d['checks'])
+d['ready'] = (passed == total)
+d['confidence'] = passed / total if total > 0 else 0
+print(json.dumps(d))
+"
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -314,21 +288,23 @@ cmd_status() {
 
   echo ""
   echo "═══════════════════════════════════════════════════════════════════════════"
-  echo "  AUTO-UPDATE STATUS"
+  echo "  AUTO-UPDATE STATUS (USAGE-BASED)"
   echo "═══════════════════════════════════════════════════════════════════════════"
   echo ""
 
   local enabled=$(echo "$config" | python3 -c "import sys, json; print('Enabled' if json.load(sys.stdin).get('enabled', False) else 'Disabled')")
   local approved=$(echo "$config" | python3 -c "import sys, json; print('Yes' if json.load(sys.stdin).get('approved_by_user', False) else 'No')")
-  local stability_days=$(echo "$config" | python3 -c "import sys, json; print(json.load(sys.stdin).get('stability_period_days', 30))")
+  local min_queries=$(echo "$config" | python3 -c "import sys, json; print(json.load(sys.stdin).get('min_queries_required', 200))")
+  local min_feedback=$(echo "$config" | python3 -c "import sys, json; print(json.load(sys.stdin).get('min_feedback_count', 50))")
+  local data_quality_thresh=$(echo "$config" | python3 -c "import sys, json; print(json.load(sys.stdin).get('data_quality_threshold', 0.80))")
 
   echo "Status: $enabled"
   echo "User Approved: $approved"
-  echo "Stability Period: $stability_days days"
+  echo "Validation: Usage-based (query count, feedback, data quality)"
   echo ""
 
   # Check production readiness
-  local validation=$(check_production_readiness "$stability_days")
+  local validation=$(check_production_readiness)
   echo ""
 
   local ready=$(echo "$validation" | python3 -c "import sys, json; print(json.load(sys.stdin).get('ready', False))" | tr '[:upper:]' '[:lower:]')
@@ -339,11 +315,12 @@ cmd_status() {
   else
     echo "Production Ready: ⚠️  No (Confidence: $confidence)"
     echo ""
-    echo "Requirements for production readiness:"
-    echo "  - 30 days of stable operation"
-    echo "  - 200+ queries processed"
+    echo "Requirements for production readiness (usage-based):"
+    echo "  - ${min_queries}+ queries processed (all-time)"
+    echo "  - ${min_feedback}+ queries with feedback"
+    echo "  - Data quality >= ${data_quality_thresh}"
     echo "  - All performance targets met"
-    echo "  - Last 7 days also passing targets"
+    echo "  - Recent performance stable (last 50 queries)"
   fi
 
   echo ""
@@ -478,12 +455,13 @@ main() {
       echo "  apply      Apply approved updates (manual trigger)"
       echo "  help       Show this help message"
       echo ""
-      echo "Safety Features:"
-      echo "  - Requires 30 days of stable operation before first auto-update"
+      echo "Safety Features (Usage-Based):"
+      echo "  - Requires 200+ queries and 50+ feedback samples"
+      echo "  - Data quality threshold (>= 0.80)"
       echo "  - Only applies high-confidence proposals (>= 0.80)"
-      echo "  - Validates all performance targets before updating"
+      echo "  - Validates performance targets before updating"
       echo "  - Auto-rolls back on >10% performance degradation"
-      echo "  - Limits to 2 auto-updates per month"
+      echo "  - Limits to 2 auto-updates per 500-query period"
       echo ""
       ;;
 
