@@ -805,8 +805,9 @@
       border-radius: 14px;
       padding: 1.125rem 1.5rem;
       display: flex;
-      align-items: center;
-      gap: 1.25rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.625rem;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -818,12 +819,13 @@
 
     .command-card code {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--accent-cyan);
       background: rgba(0, 217, 255, 0.1);
       padding: 0.45rem 0.9rem;
       border-radius: 8px;
-      white-space: nowrap;
+      word-break: break-word;
+      max-width: 100%;
       border: 1px solid rgba(0, 217, 255, 0.15);
     }
 
