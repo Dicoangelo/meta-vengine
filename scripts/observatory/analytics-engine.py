@@ -85,17 +85,24 @@ def calculate_comprehensive_metrics(days: int = 30) -> Dict:
 
     # Session metrics
     if data['sessions']:
-        completed = [s for s in data['sessions'] if s.get('event') == 'session_complete']
+        # Handle both formats: with 'event' field or direct 'outcome' field
+        completed = [s for s in data['sessions'] if s.get('event') == 'session_complete' or s.get('outcome')]
         if completed:
-            outcomes = Counter(s['outcome'] for s in completed)
-            avg_quality = sum(s.get('quality', 3) for s in completed) / len(completed)
-            avg_duration = sum(s.get('duration_sec', 0) for s in completed) / len(completed) / 60
+            outcomes = Counter(s.get('outcome', 'unknown') for s in completed)
+            # Estimate quality from messages (more messages = higher quality session)
+            avg_quality = sum(min(5, max(1, s.get('quality', s.get('messages', 50) / 50))) for s in completed) / len(completed)
+            avg_duration = sum(s.get('duration_sec', s.get('messages', 0) * 30) for s in completed) / len(completed) / 60
+            # Estimate complexity from tools used
+            avg_complexity = sum(min(1.0, s.get('complexity', s.get('tools', 10) / 100)) for s in completed) / len(completed)
 
             metrics['sessions'] = {
                 "total": len(completed),
+                "total_sessions": len(completed),
                 "success_rate": outcomes.get('success', 0) / len(completed) if completed else 0,
                 "avg_quality": round(avg_quality, 2),
+                "avg_complexity": round(avg_complexity, 2),
                 "avg_duration_min": round(avg_duration, 1),
+                "last_quality": round(completed[-1].get('quality', avg_quality), 1) if completed else 0,
                 "outcomes": dict(outcomes)
             }
 
