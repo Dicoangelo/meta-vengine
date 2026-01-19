@@ -1,0 +1,28 @@
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 131
+
+📊 Model Distribution:
+  haiku   :  63.4%
+  sonnet  :  34.4%
+  opus    :   2.3%
+
+📈 Performance Metrics:
+  Avg DQ Score:   0.933
+  Avg Complexity: 0.240
+
+⏱️  Routing Latency:
+
+🎯 Quality & Cost:
+  Accuracy:       N/A (no feedback yet)
+  Cost Reduction: 74.6% vs random
+
+✅ Targets Met:
+  2/2 targets
+    ✓ cost_reduction
+    ✓ avg_dq
+
+════════════════════════════════════════════════════════════

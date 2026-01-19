@@ -1,0 +1,74 @@
+{
+  "version": "1.0.0",
+  "enabled": true,
+  "collectors": {
+    "session_outcomes": {
+      "enabled": true,
+      "file": "~/.claude/data/session-outcomes.jsonl",
+      "auto_detect": true
+    },
+    "cost_tracking": {
+      "enabled": true,
+      "file": "~/.claude/data/cost-tracking.jsonl",
+      "realtime": true,
+      "budget": {
+        "monthly": 200,
+        "daily": 10,
+        "alert_threshold": 0.8
+      }
+    },
+    "command_usage": {
+      "enabled": true,
+      "file": "~/.claude/data/command-usage.jsonl",
+      "track_aliases": true,
+      "track_skills": true
+    },
+    "tool_success": {
+      "enabled": true,
+      "file": "~/.claude/data/tool-success.jsonl",
+      "track_retries": true,
+      "track_latency": true
+    },
+    "productivity": {
+      "enabled": true,
+      "file": "~/.claude/data/productivity.jsonl",
+      "metrics": ["read_write_ratio", "files_modified", "loc_changed"]
+    },
+    "session_classification": {
+      "enabled": true,
+      "file": "~/.claude/data/session-types.jsonl",
+      "ml_model": "~/.claude/observatory/models/session-classifier.pkl",
+      "auto_classify": true
+    },
+    "git_activity": {
+      "enabled": true,
+      "file": "~/.claude/data/git-activity.jsonl",
+      "track_commits": true,
+      "track_prs": true,
+      "track_branches": true
+    },
+    "code_quality": {
+      "enabled": true,
+      "file": "~/.claude/data/code-quality.jsonl",
+      "run_linters": false,
+      "track_tests": true,
+      "track_builds": true
+    },
+    "research_integration": {
+      "enabled": true,
+      "file": "~/.claude/data/research-links.jsonl",
+      "link_to_researchgravity": true
+    }
+  },
+  "analysis": {
+    "daily_report": true,
+    "weekly_digest": true,
+    "anomaly_detection": true,
+    "predictive_insights": true
+  },
+  "privacy": {
+    "anonymize_queries": false,
+    "retain_days": 90,
+    "export_enabled": true
+  }
+}
