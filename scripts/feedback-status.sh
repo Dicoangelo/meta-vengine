@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # Check automated feedback status
 
 if [[ " ${precmd_functions[@]} " =~ " __ai_feedback_auto " ]]; then
