@@ -37,14 +37,24 @@ fi
 # DQ-POWERED ROUTING
 # ═══════════════════════════════════════════════════════════════════════════
 
-# Measure routing latency
-start_time=$(date +%s%3N 2>/dev/null || echo $(($(date +%s) * 1000)))
+# Measure routing latency (milliseconds)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS: use python for microsecond precision
+  start_time=$(python3 -c 'import time; print(int(time.time() * 1000))')
+else
+  # Linux: date +%s%3N works
+  start_time=$(date +%s%3N)
+fi
 
 # Route via DQ scorer
 result=$(node "$DQ_SCORER" route "$query" 2>/dev/null)
 
 # Calculate latency
-end_time=$(date +%s%3N 2>/dev/null || echo $(($(date +%s) * 1000)))
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  end_time=$(python3 -c 'import time; print(int(time.time() * 1000))')
+else
+  end_time=$(date +%s%3N)
+fi
 routing_latency=$((end_time - start_time))
 
 # Parse routing decision
@@ -81,6 +91,16 @@ fi
 
 # Show decision to user (stderr so it doesn't interfere with output)
 echo "[DQ:$dq_score C:$complexity] → $model" >&2
+
+# ═══════════════════════════════════════════════════════════════════════════
+# FEEDBACK TRACKING (for automated learning)
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Export variables for feedback hook to detect failures
+export __AI_LAST_QUERY="$query"
+export __AI_LAST_MODEL="$model"
+export __AI_LAST_DQ="$dq_score"
+export __AI_LAST_TIMESTAMP=$(date +%s)
 
 # ═══════════════════════════════════════════════════════════════════════════
 # INVOKE CLAUDE WITH SELECTED MODEL
