@@ -347,7 +347,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"$(date '+%H:%M:%S') WRITE $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log",
+            "command": "echo \"$(date '+%H:%M:%S') WRITE $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"tool\":\"Write\",\"file\":\"'$CLAUDE_FILE_PATH'\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
             "timeout": 5
           }
         ]
@@ -357,7 +357,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"$(date '+%H:%M:%S') EDIT $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log",
+            "command": "echo \"$(date '+%H:%M:%S') EDIT $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"tool\":\"Edit\",\"file\":\"'$CLAUDE_FILE_PATH'\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
             "timeout": 5
           }
         ]
@@ -367,8 +367,68 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"$(date '+%H:%M:%S') BASH\" >> ~/.claude/activity.log",
+            "command": "echo \"$(date '+%H:%M:%S') BASH\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"tool\":\"Bash\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
             "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"Read\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "timeout": 3
+          }
+        ]
+      },
+      {
+        "matcher": "Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"Grep\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "timeout": 3
+          }
+        ]
+      },
+      {
+        "matcher": "Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"Glob\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "timeout": 3
+          }
+        ]
+      },
+      {
+        "matcher": "Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"Task\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "timeout": 3
+          }
+        ]
+      },
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"WebFetch\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "timeout": 3
+          }
+        ]
+      },
+      {
+        "matcher": "WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"WebSearch\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "timeout": 3
           }
         ]
       }
@@ -378,7 +438,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '\n══════════════════════════════════════' >> ~/.claude/activity.log && echo \"SESSION $(date '+%Y-%m-%d %H:%M:%S') PWD:$(pwd)\" >> ~/.claude/activity.log",
+            "command": "echo '\n══════════════════════════════════════' >> ~/.claude/activity.log && echo \"SESSION $(date '+%Y-%m-%d %H:%M:%S') PWD:$(pwd)\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"event\":\"session_start\",\"pwd\":\"'$(pwd)'\"}' >> ~/.claude/data/session-events.jsonl && node ~/.claude/kernel/activity-tracker.js start 2>/dev/null &",
             "timeout": 5
           }
         ]
@@ -389,12 +449,27 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"SESSION END $(date '+%H:%M:%S')\" >> ~/.claude/activity.log",
+            "command": "echo \"SESSION END $(date '+%H:%M:%S')\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"event\":\"session_end\",\"pwd\":\"'$(pwd)'\"}' >> ~/.claude/data/session-events.jsonl",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "cd ~/researchgravity && python3 archive_session.py 2>/dev/null || true",
+            "command": "node ~/.claude/kernel/activity-tracker.js end 2>/dev/null || true",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/scripts/research-auto-capture.sh 2>/dev/null || true",
+            "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/scripts/meta-analyzer.py analyze --quiet 2>/dev/null || true",
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/scripts/kernel-feeder.sh 2>/dev/null || true",
             "timeout": 30
           }
         ]

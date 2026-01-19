@@ -49,11 +49,20 @@ def load_data_source(source_name: str, days: int = 30) -> List[Dict]:
                 continue
             try:
                 entry = json.loads(line)
-                # Handle both ms and seconds timestamps
+                # Handle ts (timestamp), date string, or timestamp field
                 ts = entry.get('ts', 0)
-                if ts > 1e12:  # Milliseconds
-                    ts = ts / 1000
-                if datetime.fromtimestamp(ts) > cutoff:
+                date_str = entry.get('date', '')
+
+                if ts:
+                    if ts > 1e12:  # Milliseconds
+                        ts = ts / 1000
+                    entry_date = datetime.fromtimestamp(ts)
+                elif date_str:
+                    entry_date = datetime.strptime(date_str[:10], '%Y-%m-%d')
+                else:
+                    entry_date = datetime.now()  # No date, include it
+
+                if entry_date > cutoff:
                     data.append(entry)
             except:
                 continue
@@ -117,18 +126,44 @@ def calculate_comprehensive_metrics(days: int = 30) -> Dict:
 
     # Tool success metrics
     if data['tools']:
-        successful = sum(1 for t in data['tools'] if t.get('success', False))
-        total = len(data['tools'])
+        # Handle both formats: boolean success or count-based success
+        total_success = 0
+        total_count = 0
+        bash_success = 0
+        bash_total = 0
+
+        for t in data['tools']:
+            if isinstance(t.get('success'), bool):
+                # Boolean format
+                total_count += 1
+                if t['success']:
+                    total_success += 1
+                if t.get('tool') == 'Bash':
+                    bash_total += 1
+                    if t['success']:
+                        bash_success += 1
+            else:
+                # Count format: success and total are numbers
+                total_count += t.get('total', 0)
+                total_success += t.get('success', 0)
+                if t.get('tool') == 'Bash':
+                    bash_total += t.get('total', 0)
+                    bash_success += t.get('success', 0)
 
         metrics['tools'] = {
-            "total_operations": total,
-            "success_rate": round(successful / total, 3) if total > 0 else 0,
-            "failure_rate": round((total - successful) / total, 3) if total > 0 else 0
+            "total_operations": total_count,
+            "total_commands": total_count,
+            "success_rate": round(total_success / total_count, 3) if total_count > 0 else 0,
+            "overall_success": round(total_success / total_count, 3) if total_count > 0 else 0,
+            "bash_success": round(bash_success / bash_total, 3) if bash_total > 0 else 0,
+            "test_success": 0,  # No test data tracked
+            "failure_rate": round((total_count - total_success) / total_count, 3) if total_count > 0 else 0
         }
 
     # Git metrics
     if data['git']:
-        commits = [g for g in data['git'] if g.get('event') == 'commit']
+        # Handle both formats: with 'event' field or with 'hash' field (backfilled data)
+        commits = [g for g in data['git'] if g.get('event') == 'commit' or g.get('hash')]
         prs = [g for g in data['git'] if g.get('event') == 'pr_created']
 
         metrics['git'] = {
@@ -139,20 +174,20 @@ def calculate_comprehensive_metrics(days: int = 30) -> Dict:
 
     # Productivity metrics
     if data['productivity']:
-        latest = data['productivity'][-1] if data['productivity'] else {}
-        reads = latest.get('reads', 0)
-        writes = latest.get('writes', 0)
-        edits = latest.get('edits', 0)
-        total_writes = writes + edits
+        # Sum up recent productivity data
+        total_reads = sum(p.get('reads', 0) for p in data['productivity'])
+        total_writes = sum(p.get('writes', 0) + p.get('edits', 0) for p in data['productivity'])
+        total_files = sum(p.get('files', p.get('files_changed', 0)) for p in data['productivity'])
+        total_loc = sum(p.get('loc', p.get('net_loc', 0)) for p in data['productivity'])
 
         metrics['productivity'] = {
-            "reads": reads,
+            "reads": total_reads,
             "writes": total_writes,
-            "read_write_ratio": {"reads": reads, "writes": max(total_writes, 1)},
-            "files_modified": latest.get('files_changed', 0),
-            "lines_changed": latest.get('net_loc', 0),
-            "loc_per_day": round(latest.get('productivity_velocity', 0), 1),
-            "productivity_score": round(total_writes / max(reads, 1), 3) if reads > 0 else 0
+            "read_write_ratio": {"reads": total_reads, "writes": max(total_writes, 1)},
+            "files_modified": total_files,
+            "lines_changed": total_loc,
+            "loc_per_day": round(total_loc / max(days, 1), 1),
+            "productivity_score": round(total_writes / max(total_reads, 1), 3) if total_reads > 0 else 0
         }
 
     # Routing metrics
