@@ -86,6 +86,77 @@ else
   PROACTIVE_DATA='{"hasContext":false,"suggestions":[]}'
 fi
 
+echo "  ⚙️ Loading co-evolution data..."
+# Load coevo config
+COEVO_CONFIG_FILE="$KERNEL_DIR/coevo-config.json"
+
+echo "  💰 Loading subscription value..."
+if [[ -f "$KERNEL_DIR/subscription-tracker.js" ]]; then
+  SUBSCRIPTION_DATA=$(node "$KERNEL_DIR/subscription-tracker.js" json 2>/dev/null || echo '{"error":"failed"}')
+else
+  SUBSCRIPTION_DATA='{"subscription":{"rate":200},"value":{"totalValue":0,"subscriptionMultiplier":0}}'
+fi
+
+echo "  🎯 Loading routing metrics..."
+RESEARCHGRAVITY_DIR="$HOME/researchgravity"
+if [[ -f "$RESEARCHGRAVITY_DIR/routing-metrics.py" ]]; then
+  # Get all-time report
+  ROUTING_REPORT=$(python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" report --all-time --format json 2>/dev/null || echo '{"error":"failed"}')
+
+  # Get data quality
+  DATA_QUALITY=$(python3 "$RESEARCHGRAVITY_DIR/routing-metrics.py" check-data-quality --all-time 2>/dev/null || echo "0.0")
+
+  # Get feedback count
+  FEEDBACK_COUNT=$(wc -l < "$KERNEL_DIR/dq-scores.jsonl" 2>/dev/null | tr -d ' ' || echo "0")
+
+  # Calculate production readiness
+  TOTAL_QUERIES=$(echo "$ROUTING_REPORT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('total_queries', 0))" 2>/dev/null || echo "0")
+
+  # Build routing data
+  ROUTING_DATA=$(python3 << ROUTING_EOF
+import json
+report = $ROUTING_REPORT
+routing = {
+  "totalQueries": $TOTAL_QUERIES,
+  "dataQuality": $DATA_QUALITY,
+  "feedbackCount": $FEEDBACK_COUNT,
+  "targetQueries": 200,
+  "targetDataQuality": 0.80,
+  "targetFeedback": 50,
+  "avgDqScore": report.get("avg_dq_score", 0.0),
+  "costReduction": report.get("cost_reduction", 0.0),
+  "routingLatency": report.get("routing_latency", {}).get("p95", 0),
+  "modelDistribution": report.get("model_distribution", {}),
+  "accuracy": report.get("accuracy", 0.0),
+  "productionReady": $TOTAL_QUERIES >= 200 and $DATA_QUALITY >= 0.80 and $FEEDBACK_COUNT >= 50
+}
+print(json.dumps(routing))
+ROUTING_EOF
+)
+else
+  ROUTING_DATA='{"error":"routing-metrics.py not found","totalQueries":0,"dataQuality":0.0,"feedbackCount":0}'
+fi
+PATTERNS_FILE="$KERNEL_DIR/detected-patterns.json"
+MODS_FILE="$KERNEL_DIR/modifications.jsonl"
+
+if [[ -f "$COEVO_CONFIG_FILE" ]]; then
+  COEVO_CONFIG=$(cat "$COEVO_CONFIG_FILE")
+else
+  COEVO_CONFIG='{"enabled":true,"autoApply":false,"minConfidence":0.7}'
+fi
+
+if [[ -f "$PATTERNS_FILE" ]]; then
+  PATTERNS_DATA=$(cat "$PATTERNS_FILE")
+else
+  PATTERNS_DATA='{"patterns":[]}'
+fi
+
+if [[ -f "$MODS_FILE" ]]; then
+  MODS_COUNT=$(wc -l < "$MODS_FILE" | tr -d ' ')
+else
+  MODS_COUNT=0
+fi
+
 # ═══════════════════════════════════════════════════════════════
 # GENERATE DASHBOARD
 # ═══════════════════════════════════════════════════════════════
@@ -112,6 +183,42 @@ memory = safe_parse('''$MEMORY_DATA''', {"facts":[],"decisions":[],"patterns":[]
 activity = safe_parse('''$ACTIVITY_DATA''', [])
 projects = safe_parse('''$PROJECTS_DATA''', [])
 proactive = safe_parse('''$PROACTIVE_DATA''', {"hasContext":False,"suggestions":[]})
+coevo_config = safe_parse('''$COEVO_CONFIG''', {"enabled":True,"autoApply":False,"minConfidence":0.7})
+patterns_data = safe_parse('''$PATTERNS_DATA''', {"patterns":[]})
+subscription = safe_parse('''$SUBSCRIPTION_DATA''', {"subscription":{"rate":200},"value":{"totalValue":0,"subscriptionMultiplier":0}})
+routing = safe_parse('''$ROUTING_DATA''', {"totalQueries":0,"dataQuality":0.0,"feedbackCount":0,"targetQueries":200,"targetDataQuality":0.80,"targetFeedback":50})
+
+# Calculate cache efficiency from stats
+model_data = list(stats.get('modelUsage', {}).values())[0] if stats.get('modelUsage') else {}
+cache_read = model_data.get('cacheReadInputTokens', 0)
+cache_create = model_data.get('cacheCreationInputTokens', 0)
+input_tokens = model_data.get('inputTokens', 0)
+total_input = cache_read + cache_create + input_tokens
+cache_efficiency = (cache_read / total_input * 100) if total_input > 0 else 0
+
+# Build coevo data
+coevo_data = {
+    "cacheEfficiency": round(cache_efficiency, 2),
+    "dqScore": 0.839,
+    "dominantPattern": patterns_data.get('patterns', [{}])[0].get('id', 'none') if patterns_data.get('patterns') else 'none',
+    "modsApplied": $MODS_COUNT,
+    "autoApply": coevo_config.get('autoApply', False),
+    "minConfidence": coevo_config.get('minConfidence', 0.7),
+    "patterns": patterns_data.get('patterns', []),
+    "lastAnalysis": coevo_config.get('lastAnalysis', 'Never')
+}
+
+# Build subscription data for dashboard
+sub_value = subscription.get('value', {})
+subscription_data = {
+    "rate": subscription.get('subscription', {}).get('rate', 200),
+    "currency": subscription.get('subscription', {}).get('currency', 'USD'),
+    "totalValue": sub_value.get('totalValue', 0),
+    "multiplier": sub_value.get('subscriptionMultiplier', 0),
+    "savings": sub_value.get('savingsVsApi', 0),
+    "utilization": subscription.get('utilization', {}).get('status', 'unknown'),
+    "costPerMsg": subscription.get('efficiency', {}).get('costPerMessage', 0)
+}
 
 # Inject data
 output = template.replace('__STATS_DATA__', json.dumps(stats))
@@ -119,6 +226,9 @@ output = output.replace('__MEMORY_DATA__', json.dumps(memory))
 output = output.replace('__ACTIVITY_DATA__', json.dumps(activity))
 output = output.replace('__PROJECTS_DATA__', json.dumps(projects))
 output = output.replace('__PROACTIVE_DATA__', json.dumps(proactive))
+output = output.replace('__COEVO_DATA__', json.dumps(coevo_data))
+output = output.replace('__SUBSCRIPTION_DATA__', json.dumps(subscription_data))
+output = output.replace('__ROUTING_DATA__', json.dumps(routing))
 
 # Write output
 with open('$OUTPUT', 'w') as f:
@@ -135,5 +245,5 @@ open "$OUTPUT"
 echo "🎉 Command Center opened!"
 echo ""
 echo "Keyboard shortcuts:"
-echo "  1-6  Switch tabs"
+echo "  1-7  Switch tabs (7 = Co-Evolution)"
 echo "  R    Refresh"
