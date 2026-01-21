@@ -1473,6 +1473,7 @@
       <button class="nav-tab" data-tab="productivity">Productivity</button>
       <button class="nav-tab" data-tab="tool-analytics">Tool Analytics</button>
       <button class="nav-tab" data-tab="supermemory">Supermemory</button>
+      <button class="nav-tab" data-tab="cognitive">Cognitive</button>
     </div>
     <div class="nav-actions">
       <div class="live-indicator">
@@ -2518,10 +2519,112 @@
         </div>
       </div>
     </div>
+
+    <!-- COGNITIVE OS TAB -->
+    <div id="cognitive" class="tab-content">
+      <div class="stats-row" id="cognitiveStatsRow">
+        <div class="stat-card cyan">
+          <div class="stat-value" id="cognitiveMode">—</div>
+          <div class="stat-label">Current Mode</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-value" id="cognitiveEnergy">—</div>
+          <div class="stat-label">Energy Level</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-value" id="cognitiveFlow">—</div>
+          <div class="stat-label">Flow State</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-value" id="cognitiveFate">—</div>
+          <div class="stat-label">Session Fate</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>Weekly Energy Map</h3>
+            <span class="card-badge">By Day</span>
+          </div>
+          <div id="weeklyEnergyMap" style="padding:1rem;">
+            <div style="display:flex;flex-direction:column;gap:0.5rem;" id="energyBars"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Flow State History</h3>
+            <span class="card-badge">Recent</span>
+          </div>
+          <div class="chart-container"><canvas id="flowChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Model Routing</h3>
+            <span class="card-badge">Cognitive</span>
+          </div>
+          <div class="chart-container"><canvas id="cognitiveRoutingChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Fate Predictions</h3>
+            <span class="card-badge">Accuracy</span>
+          </div>
+          <div id="fateAccuracy" style="padding:1rem;text-align:center;">
+            <div style="font-size:3rem;font-weight:700;color:var(--accent-cyan);" id="fateAccuracyValue">—</div>
+            <div style="color:var(--text-secondary);">Prediction Accuracy</div>
+            <div style="margin-top:1rem;display:flex;justify-content:center;gap:2rem;">
+              <div><span id="fateCorrect" style="color:var(--accent-green);font-weight:600;">0</span> correct</div>
+              <div><span id="fateTotal" style="color:var(--text-secondary);">0</span> total</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Today's Cognitive Brief</h3>
+          <span class="card-badge" id="cognitiveDay">—</span>
+        </div>
+        <div style="padding:1rem;">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;">
+            <div style="background:var(--bg-glass);padding:1rem;border-radius:8px;">
+              <div style="color:var(--text-secondary);font-size:0.75rem;margin-bottom:0.5rem;">RECOMMENDED TASKS</div>
+              <div id="cognitiveRecommendedTasks" style="color:var(--text-primary);font-size:0.9rem;">—</div>
+            </div>
+            <div style="background:var(--bg-glass);padding:1rem;border-radius:8px;">
+              <div style="color:var(--text-secondary);font-size:0.75rem;margin-bottom:0.5rem;">RECOMMENDED MODEL</div>
+              <div id="cognitiveRecommendedModel" style="color:var(--accent-cyan);font-size:0.9rem;font-weight:600;">—</div>
+            </div>
+            <div style="background:var(--bg-glass);padding:1rem;border-radius:8px;">
+              <div style="color:var(--text-secondary);font-size:0.75rem;margin-bottom:0.5rem;">PEAK HOURS</div>
+              <div id="cognitivePeakHours" style="color:var(--accent-yellow);font-size:0.9rem;">—</div>
+            </div>
+          </div>
+          <div id="cognitiveWarnings" style="color:var(--accent-orange);font-size:0.85rem;"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Cognitive OS Commands</h3>
+        </div>
+        <div class="commands-grid">
+          <div class="command-card"><code>cos state</code><div class="desc">Current cognitive mode</div></div>
+          <div class="command-card"><code>cos flow</code><div class="desc">Flow state detection</div></div>
+          <div class="command-card"><code>cos fate</code><div class="desc">Session outcome prediction</div></div>
+          <div class="command-card"><code>cos route "task"</code><div class="desc">Cognitive model routing</div></div>
+          <div class="command-card"><code>cos weekly</code><div class="desc">Weekly energy map</div></div>
+          <div class="command-card"><code>cos schedule "tasks"</code><div class="desc">Task scheduling suggestions</div></div>
+          <div class="command-card"><code>cos status</code><div class="desc">Full system status</div></div>
+          <div class="command-card"><code>cos analyze</code><div class="desc">Pattern analysis</div></div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="footer">
-    Press <kbd>1</kbd>-<kbd>9</kbd> for tabs 1-9 · <kbd>0</kbd>, <kbd>O</kbd>, <kbd>P</kbd>, <kbd>S</kbd> for extra tabs · <kbd>R</kbd> to refresh
+    Press <kbd>1</kbd>-<kbd>9</kbd> for tabs 1-9 · <kbd>0</kbd>, <kbd>O</kbd>, <kbd>P</kbd>, <kbd>S</kbd>, <kbd>C</kbd> for extra tabs · <kbd>R</kbd> to refresh
   </footer>
 
   <script>
@@ -2547,6 +2650,7 @@
       if (e.key.toLowerCase() === 'p') switchTab('productivity');  // Tab 11
       if (e.key.toLowerCase() === 't') switchTab('tool-analytics');  // Tab 12
       if (e.key.toLowerCase() === 's') switchTab('supermemory');  // Tab 13
+      if (e.key.toLowerCase() === 'c') switchTab('cognitive');  // Tab 14
       if (e.key.toLowerCase() === 'r') location.reload();
     });
 
@@ -2566,6 +2670,7 @@
     const FILE_ACTIVITY_DATA = __FILE_ACTIVITY_DATA__;
     const PRICING_DATA = __PRICING_DATA__;
     const SUPERMEMORY_DATA = __SUPERMEMORY_DATA__;
+    const COGNITIVE_DATA = __COGNITIVE_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -3937,6 +4042,160 @@
 
     // Render supermemory on load
     renderSupermemory();
+
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // COGNITIVE OS TAB
+    // ═══════════════════════════════════════════════════════════════════════════════
+
+    function renderCognitive() {
+      const data = COGNITIVE_DATA || {};
+
+      // Current state
+      const state = data.current_state || {};
+      document.getElementById('cognitiveMode').textContent = state.mode || '—';
+      document.getElementById('cognitiveEnergy').textContent = state.energy_level ? Math.round(state.energy_level * 100) + '%' : '—';
+
+      // Flow state
+      const flow = data.flow || {};
+      const flowEl = document.getElementById('cognitiveFlow');
+      flowEl.textContent = flow.state || '—';
+      if (flow.in_flow) {
+        flowEl.style.color = 'var(--accent-green)';
+      }
+
+      // Fate prediction
+      const fate = data.fate || {};
+      const fateEl = document.getElementById('cognitiveFate');
+      fateEl.textContent = fate.predicted_outcome || '—';
+      if (fate.predicted_outcome === 'success') {
+        fateEl.style.color = 'var(--accent-green)';
+      } else if (fate.predicted_outcome === 'abandon') {
+        fateEl.style.color = 'var(--accent-red)';
+      } else {
+        fateEl.style.color = 'var(--accent-yellow)';
+      }
+
+      // Weekly energy map
+      const weekly = data.weekly || {};
+      const energyBars = document.getElementById('energyBars');
+      const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+      const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+
+      energyBars.innerHTML = days.map(day => {
+        const dayData = weekly[day] || { level: 0.5, energy: 'MED' };
+        const level = dayData.level || 0.5;
+        const isToday = day === today;
+        const color = level >= 0.7 ? 'var(--accent-green)' : level >= 0.5 ? 'var(--accent-yellow)' : 'var(--accent-red)';
+        const width = Math.round(level * 100);
+        const stats = dayData.stats || {};
+        const successRate = stats.success_rate ? ` (${Math.round(stats.success_rate * 100)}%)` : '';
+
+        return `
+          <div style="display:flex;align-items:center;gap:1rem;${isToday ? 'background:var(--bg-glass);padding:0.5rem;border-radius:6px;' : ''}">
+            <span style="width:100px;color:${isToday ? 'var(--accent-cyan)' : 'var(--text-secondary)'};font-size:0.85rem;">${day}${isToday ? ' ←' : ''}</span>
+            <div style="flex:1;height:20px;background:var(--bg-secondary);border-radius:4px;overflow:hidden;">
+              <div style="width:${width}%;height:100%;background:${color};border-radius:4px;transition:width 0.3s;"></div>
+            </div>
+            <span style="width:60px;text-align:right;color:var(--text-muted);font-size:0.8rem;">${dayData.energy}${successRate}</span>
+          </div>
+        `;
+      }).join('');
+
+      // Today's cognitive brief
+      document.getElementById('cognitiveDay').textContent = today;
+      document.getElementById('cognitiveRecommendedTasks').textContent = (state.recommended_tasks || []).slice(0, 3).join(', ') || '—';
+
+      const routing = data.routing || {};
+      document.getElementById('cognitiveRecommendedModel').textContent = routing.recommended_model || '—';
+      document.getElementById('cognitivePeakHours').textContent = (data.peak_hours || []).map(h => h + ':00').join(', ') || '20:00, 19:00, 3:00';
+
+      // Warnings
+      const warnings = state.warnings || [];
+      const warningsEl = document.getElementById('cognitiveWarnings');
+      if (warnings.length > 0) {
+        warningsEl.innerHTML = warnings.map(w => `<div>⚠️ ${w}</div>`).join('');
+      } else {
+        warningsEl.innerHTML = '';
+      }
+
+      // Fate accuracy
+      const accuracy = data.fate_accuracy || {};
+      const total = accuracy.total || 0;
+      const correct = accuracy.correct || 0;
+      const rate = total > 0 ? Math.round((correct / total) * 100) : 0;
+      document.getElementById('fateAccuracyValue').textContent = rate + '%';
+      document.getElementById('fateCorrect').textContent = correct;
+      document.getElementById('fateTotal').textContent = total;
+
+      // Flow chart
+      const flowHistory = data.flow_history || [];
+      if (flowHistory.length > 0) {
+        const chartOptions = {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { display: true, min: 0, max: 1, ticks: { color: 'rgba(255,255,255,0.4)' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+            x: { display: true, ticks: { color: 'rgba(255,255,255,0.4)' }, grid: { display: false } }
+          }
+        };
+
+        const ctx = document.getElementById('flowChart');
+        if (ctx && !ctx._chartInstance) {
+          ctx._chartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: flowHistory.map((_, i) => i + 1),
+              datasets: [{
+                data: flowHistory.map(f => f.flow_score || 0),
+                borderColor: 'rgba(0, 217, 255, 1)',
+                backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: flowHistory.map(f => f.in_flow ? 'rgba(0, 255, 136, 1)' : 'rgba(255, 77, 106, 1)')
+              }]
+            },
+            options: chartOptions
+          });
+        }
+      }
+
+      // Routing distribution chart
+      const routingHistory = data.routing_history || [];
+      if (routingHistory.length > 0) {
+        const modelCounts = { haiku: 0, sonnet: 0, opus: 0 };
+        routingHistory.forEach(r => {
+          const model = r.recommended_model || 'sonnet';
+          modelCounts[model] = (modelCounts[model] || 0) + 1;
+        });
+
+        const ctx2 = document.getElementById('cognitiveRoutingChart');
+        if (ctx2 && !ctx2._chartInstance) {
+          ctx2._chartInstance = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+              labels: ['Haiku', 'Sonnet', 'Opus'],
+              datasets: [{
+                data: [modelCounts.haiku, modelCounts.sonnet, modelCounts.opus],
+                backgroundColor: ['rgba(0, 255, 136, 0.8)', 'rgba(0, 217, 255, 0.8)', 'rgba(177, 78, 255, 0.8)'],
+                borderWidth: 0
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.7)', padding: 20 } }
+              }
+            }
+          });
+        }
+      }
+    }
+
+    // Render cognitive on load
+    renderCognitive();
   </script>
 </body>
 </html>

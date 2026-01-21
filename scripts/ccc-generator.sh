@@ -388,6 +388,189 @@ except: pass
 print(json.dumps(result))
 SMEOF
 
+echo "  🧠 Loading Cognitive OS data..."
+# Load Cognitive OS state and metrics
+COGNITIVE_TMP="/tmp/cognitive-data-$$.json"
+python3 << 'COGEOF' > "$COGNITIVE_TMP"
+import json
+from pathlib import Path
+from datetime import datetime
+
+home = Path.home()
+cos_dir = home / ".claude" / "kernel" / "cognitive-os"
+cos_script = home / ".claude" / "kernel" / "cognitive-os.py"
+flow_state_file = cos_dir / "flow-state.json"
+fate_file = cos_dir / "fate-predictions.jsonl"
+routing_file = cos_dir / "routing-decisions.jsonl"
+energy_file = cos_dir / "weekly-energy.json"
+current_state_file = cos_dir / "current-state.json"
+
+# Best tasks by mode
+best_for_map = {
+    "morning": ["planning", "setup", "reviews"],
+    "peak": ["architecture", "complex coding", "debugging"],
+    "dip": ["documentation", "emails", "routine tasks"],
+    "evening": ["creative work", "design", "exploration"],
+    "deep_night": ["deep focus", "research", "refactoring"]
+}
+
+# Model recommendations by mode
+model_map = {
+    "morning": "sonnet",
+    "peak": "opus",
+    "dip": "haiku",
+    "evening": "sonnet",
+    "deep_night": "opus"
+}
+
+# Initialize result with structure matching renderCognitive()
+result = {
+    "status": "not_configured",
+    "current_state": {
+        "mode": "unknown",
+        "energy_level": 0.5,
+        "recommended_tasks": [],
+        "warnings": []
+    },
+    "flow": {"state": "unknown", "score": 0, "in_flow": False},
+    "fate": {"predicted_outcome": "partial"},
+    "weekly": {},
+    "routing": {"recommended_model": "sonnet"},
+    "peak_hours": [20, 19, 3],
+    "fate_accuracy": {"total": 0, "correct": 0},
+    "flowHistory": [],
+    "routingHistory": []
+}
+
+if not cos_script.exists():
+    print(json.dumps(result))
+    exit()
+
+result["status"] = "active"
+
+# Determine cognitive mode from hour
+hour = datetime.now().hour
+if 5 <= hour < 9:
+    mode = "morning"
+elif 9 <= hour < 12 or 14 <= hour < 18:
+    mode = "peak"
+elif 12 <= hour < 14:
+    mode = "dip"
+elif 18 <= hour < 22:
+    mode = "evening"
+else:
+    mode = "deep_night"
+
+# Load weekly energy for today's energy level
+weekly_raw = {}
+if energy_file.exists():
+    try:
+        with open(energy_file) as f:
+            weekly_raw = json.load(f)
+    except: pass
+
+# Build weekly data with correct structure
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+today = datetime.now().strftime('%A')
+today_energy = weekly_raw.get(today, 0.6)
+
+for day in days:
+    level = weekly_raw.get(day, 0.5)
+    energy_label = "HIGH" if level >= 0.7 else "MED" if level >= 0.5 else "LOW"
+    result["weekly"][day] = {
+        "level": level,
+        "energy": energy_label,
+        "stats": {"success_rate": level}  # Use energy as proxy for success rate
+    }
+
+# Set current state
+result["current_state"] = {
+    "mode": mode,
+    "energy_level": today_energy,
+    "recommended_tasks": best_for_map.get(mode, []),
+    "warnings": []
+}
+
+# Add warning if energy is low
+if today_energy < 0.5:
+    result["current_state"]["warnings"].append("Low energy day - consider lighter tasks")
+if mode == "dip":
+    result["current_state"]["warnings"].append("Post-lunch dip - avoid complex architecture")
+
+# Set routing recommendation
+result["routing"]["recommended_model"] = model_map.get(mode, "sonnet")
+
+# Load flow state from file
+if flow_state_file.exists():
+    try:
+        with open(flow_state_file) as f:
+            flow_data = json.load(f)
+        result["flow"] = {
+            "state": flow_data.get("state", "unknown"),
+            "score": flow_data.get("score", 0),
+            "in_flow": flow_data.get("in_flow", False)
+        }
+    except: pass
+
+# Load flow history (last 20 entries)
+flow_history_file = cos_dir / "flow-history.jsonl"
+if flow_history_file.exists():
+    try:
+        history = []
+        with open(flow_history_file) as f:
+            for line in f:
+                if line.strip():
+                    try:
+                        history.append(json.loads(line))
+                    except: pass
+        result["flow_history"] = [
+            {"timestamp": h.get("timestamp", ""), "flow_score": h.get("score", 0), "state": h.get("state", ""), "in_flow": h.get("score", 0) >= 0.75}
+            for h in history[-20:]
+        ]
+    except: pass
+
+# Load routing decisions (last 20)
+if routing_file.exists():
+    try:
+        routing = []
+        with open(routing_file) as f:
+            for line in f:
+                if line.strip():
+                    try:
+                        routing.append(json.loads(line))
+                    except: pass
+        result["routing_history"] = [
+            {"timestamp": r.get("timestamp", ""), "recommended_model": r.get("recommended_model", ""),
+             "cognitive_mode": r.get("cognitive_mode", ""), "dq_score": r.get("dq_score", 0)}
+            for r in routing[-20:]
+        ]
+    except: pass
+
+# Load fate predictions and calculate accuracy
+if fate_file.exists():
+    try:
+        predictions = []
+        with open(fate_file) as f:
+            for line in f:
+                if line.strip():
+                    try:
+                        predictions.append(json.loads(line))
+                    except: pass
+
+        # Get latest prediction for display
+        if predictions:
+            latest = predictions[-1]
+            result["fate"]["predicted_outcome"] = latest.get("predicted", "partial")
+
+        # Calculate accuracy
+        correct = sum(1 for p in predictions if p.get("correct", False))
+        total = len(predictions)
+        result["fate_accuracy"] = {"total": total, "correct": correct}
+    except: pass
+
+print(json.dumps(result))
+COGEOF
+
 echo "  📂 Loading file activity..."
 # Collect recent file changes from git across main projects
 FILE_ACTIVITY_TMP="/tmp/file-activity-$$.json"
@@ -560,6 +743,11 @@ with open('$FILE_ACTIVITY_TMP', 'r') as f:
     file_activity = safe_parse(f.read(), [])
 output = output.replace('__FILE_ACTIVITY_DATA__', json.dumps(file_activity))
 
+# Cognitive OS data
+with open('$COGNITIVE_TMP', 'r') as f:
+    cognitive = safe_parse(f.read(), {"status":"not_configured"})
+output = output.replace('__COGNITIVE_DATA__', json.dumps(cognitive))
+
 # Pricing data from centralized config
 pricing_file = os.path.expanduser('~/.claude/config/pricing.json')
 if os.path.exists(pricing_file):
@@ -588,4 +776,4 @@ echo "  1-9  Switch tabs (7 = Routing, 8 = Co-Evolution)"
 echo "  R    Refresh"
 
 # Cleanup temp files
-rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" "$SUPERMEMORY_TMP" 2>/dev/null
+rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" "$SUPERMEMORY_TMP" "$COGNITIVE_TMP" 2>/dev/null

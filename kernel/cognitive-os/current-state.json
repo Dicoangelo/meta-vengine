@@ -1,32 +1,13 @@
 {
-  "timestamp": "2026-01-21T05:22:53.203386",
-  "greeting": "Good morning. HIGH energy day ahead.",
-  "cognitive_state": {
-    "mode": "morning",
-    "energy_level": 0.6,
-    "focus_quality": 0.47,
-    "is_personal_peak": false
-  },
-  "day_context": {
-    "day": "Wednesday",
-    "energy": "HIGH",
-    "optimal_tasks": [
-      "debug",
-      "iterate",
-      "refine"
-    ]
-  },
-  "predictions": {
-    "initial_fate": "partial",
-    "success_probability": 0.304
-  },
-  "routing": {
-    "recommended_model": "haiku",
-    "reasoning": "Cognitive mode: morning | Task complexity: simple | Energy level: 0.6"
-  },
-  "warnings": [],
-  "recommendations": [
-    "Best for now: documentation, routine_fixes",
-    "High energy day! Tackle your hardest problems: debug, iterate"
-  ]
+  "mode": "morning",
+  "focus_quality": 0.83,
+  "best_for": [
+    "planning",
+    "setup",
+    "reviews"
+  ],
+  "cognitive_load": "high",
+  "hour": 5,
+  "day": "Wednesday",
+  "updated": "2026-01-21T05:55:05.967304"
 }
