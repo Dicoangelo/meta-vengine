@@ -101,4 +101,50 @@ if $contains_error; then
 
     # Auto-suggest solution for detected error
     suggest_error_solution "$error_snippet"
+
+    # ══════════════════════════════════════════════════════════════
+    # AUTO-RECOVERY: Trigger recovery engine for high-severity errors
+    # ══════════════════════════════════════════════════════════════
+    trigger_recovery() {
+        local error_snippet="$1"
+        local category="$2"
+        local recovery_engine="$HOME/.claude/kernel/recovery-engine.py"
+
+        # Run recovery engine in background (non-blocking)
+        if [ -f "$recovery_engine" ]; then
+            (
+                python3 "$recovery_engine" \
+                    recover \
+                    --error "$error_snippet" \
+                    ${category:+--category "$category"} \
+                    2>/dev/null
+            ) &
+        fi
+    }
+
+    # Detect category for targeted recovery
+    detect_category() {
+        local snippet="$1"
+        if echo "$snippet" | grep -qiE "(fatal:|git|repository|merge)"; then
+            echo "git"
+        elif echo "$snippet" | grep -qiE "(lock|race|parallel|session)"; then
+            echo "concurrency"
+        elif echo "$snippet" | grep -qiE "(permission denied|EACCES|chmod)"; then
+            echo "permissions"
+        elif echo "$snippet" | grep -qiE "(quota|rate limit|exceeded)"; then
+            echo "quota"
+        elif echo "$snippet" | grep -qiE "(SIGKILL|segfault|killed)"; then
+            echo "crash"
+        elif echo "$snippet" | grep -qiE "(overflow|recursion|maximum call)"; then
+            echo "recursion"
+        elif echo "$snippet" | grep -qiE "(SyntaxError|TypeError|parse)"; then
+            echo "syntax"
+        fi
+    }
+
+    # Only trigger for high-severity errors
+    if echo "$error_snippet" | grep -qiE "(fatal|permission denied|race condition|lock|SIGKILL|EACCES|index\.lock|another.*process)"; then
+        detected_category=$(detect_category "$error_snippet")
+        trigger_recovery "$error_snippet" "$detected_category"
+    fi
 fi
