@@ -22,10 +22,18 @@ import json
 import hashlib
 import time
 import math
+import sys
 from pathlib import Path
 from typing import Optional, Dict, List, Tuple, Any
 from dataclasses import dataclass, field, asdict
 import numpy as np
+
+# Import centralized pricing
+sys.path.insert(0, str(Path.home() / ".claude/config"))
+try:
+    from pricing import PRICING as _CENTRALIZED_PRICING
+except ImportError:
+    _CENTRALIZED_PRICING = {"opus": {"input": 5}, "sonnet": {"input": 3}, "haiku": {"input": 0.8}}
 
 # Lazy load heavy dependencies
 _encoder = None
@@ -60,17 +68,17 @@ DEFAULT_CONFIG = {
     "version": "1.0.0"
 }
 
-# Model characteristics (will be learned over time)
+# Model characteristics (costs from centralized config, others learned over time)
 MODEL_PROFILES = {
     "local": {"cost": 0.0, "latency": 0.1, "capability": 0.3, "tier": 0},
     "local-fast": {"cost": 0.0, "latency": 0.05, "capability": 0.2, "tier": 0},
     "flash": {"cost": 0.075, "latency": 0.3, "capability": 0.5, "tier": 1},
-    "haiku": {"cost": 0.25, "latency": 0.4, "capability": 0.6, "tier": 2},
+    "haiku": {"cost": _CENTRALIZED_PRICING.get("haiku", {}).get("input", 0.8), "latency": 0.4, "capability": 0.6, "tier": 2},
     "gpt-mini": {"cost": 0.15, "latency": 0.35, "capability": 0.55, "tier": 2},
-    "sonnet": {"cost": 3.0, "latency": 0.8, "capability": 0.85, "tier": 3},
+    "sonnet": {"cost": _CENTRALIZED_PRICING.get("sonnet", {}).get("input", 3.0), "latency": 0.8, "capability": 0.85, "tier": 3},
     "gpt-4o": {"cost": 2.5, "latency": 0.7, "capability": 0.82, "tier": 3},
     "pro": {"cost": 1.25, "latency": 0.6, "capability": 0.75, "tier": 3},
-    "opus": {"cost": 5.0, "latency": 1.5, "capability": 1.0, "tier": 4},  # Updated Jan 2026 for Opus 4.5
+    "opus": {"cost": _CENTRALIZED_PRICING.get("opus", {}).get("input", 5.0), "latency": 1.5, "capability": 1.0, "tier": 4},
 }
 
 

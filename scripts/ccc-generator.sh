@@ -474,6 +474,15 @@ with open('$FILE_ACTIVITY_TMP', 'r') as f:
     file_activity = safe_parse(f.read(), [])
 output = output.replace('__FILE_ACTIVITY_DATA__', json.dumps(file_activity))
 
+# Pricing data from centralized config
+pricing_file = os.path.expanduser('~/.claude/config/pricing.json')
+if os.path.exists(pricing_file):
+    with open(pricing_file, 'r') as f:
+        pricing_data = safe_parse(f.read(), {})
+else:
+    pricing_data = {"models":{"opus":{"input":5,"output":25,"cache_read":0.5},"sonnet":{"input":3,"output":15},"haiku":{"input":0.8,"output":4}}}
+output = output.replace('__PRICING_DATA__', json.dumps(pricing_data))
+
 # Write output
 with open('$OUTPUT', 'w') as f:
     f.write(output)

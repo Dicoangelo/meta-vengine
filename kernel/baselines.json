@@ -85,6 +85,7 @@
   },
 
   "cost_per_mtok": {
+    "_note": "Keep in sync with ~/.claude/config/pricing.json",
     "haiku": {
       "input": 0.80,
       "output": 4.0

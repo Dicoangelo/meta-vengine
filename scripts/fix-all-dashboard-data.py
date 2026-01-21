@@ -6,14 +6,26 @@ Comprehensive repair of all data sources used by ccc-generator.sh
 
 import json
 import os
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 from collections import defaultdict, Counter
 
-print("=" * 70)
-print("FIX ALL DASHBOARD DATA")
-print("=" * 70)
-print()
+# Import centralized pricing
+sys.path.insert(0, str(Path.home() / ".claude/config"))
+from pricing import ESTIMATES as COSTS_PER_MSG, VERSION as PRICING_VERSION
+
+# Quiet mode for hooks
+QUIET = '--quiet' in sys.argv or '-q' in sys.argv
+
+def log(msg=""):
+    if not QUIET:
+        print(msg)
+
+log("=" * 70)
+log("FIX ALL DASHBOARD DATA")
+log("=" * 70)
+log()
 
 HOME = Path.home()
 CLAUDE_DIR = HOME / ".claude"
@@ -31,7 +43,7 @@ MEMORY_DIR.mkdir(parents=True, exist_ok=True)
 # STEP 1: SCAN ALL TRANSCRIPTS FOR RAW DATA
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 1: Scanning transcripts...")
+log("STEP 1: Scanning transcripts...")
 
 daily_stats = defaultdict(lambda: {"messages": 0, "sessions": 0, "tools": 0})
 model_counts = Counter()
@@ -172,17 +184,17 @@ for transcript in PROJECTS_DIR.glob("**/*.jsonl"):
     except:
         pass
 
-print(f"  Sessions: {total_sessions}")
-print(f"  Messages: {total_messages}")
-print(f"  Tools: {total_tools}")
-print(f"  Model usage: {dict(model_counts)}")
-print()
+log(f"  Sessions: {total_sessions}")
+log(f"  Messages: {total_messages}")
+log(f"  Tools: {total_tools}")
+log(f"  Model usage: {dict(model_counts)}")
+log()
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 2: FIX stats-cache.json
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 2: Fixing stats-cache.json...")
+log("STEP 2: Fixing stats-cache.json...")
 
 # Sort daily data chronologically (oldest first) for proper chart display
 sorted_daily = sorted(daily_stats.items())  # All time, chronological
@@ -232,13 +244,13 @@ stats = {
     }
 }
 (CLAUDE_DIR / "stats-cache.json").write_text(json.dumps(stats, indent=2))
-print("  ✅ Done")
+log("  ✅ Done")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 3: FIX memory/knowledge.json
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 3: Fixing memory/knowledge.json...")
+log("STEP 3: Fixing memory/knowledge.json...")
 
 knowledge_file = MEMORY_DIR / "knowledge.json"
 if not knowledge_file.exists() or knowledge_file.stat().st_size < 50:
@@ -251,13 +263,13 @@ if not knowledge_file.exists() or knowledge_file.stat().st_size < 50:
         "updated": datetime.now().isoformat()
     }
     knowledge_file.write_text(json.dumps(knowledge, indent=2))
-print("  ✅ Done")
+log("  ✅ Done")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 4: FIX activity-timeline.json
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 4: Fixing activity-timeline.json...")
+log("STEP 4: Fixing activity-timeline.json...")
 
 # Get git commits
 git_commits = defaultdict(int)
@@ -293,19 +305,15 @@ timeline = {
     }
 }
 (KERNEL_DIR / "activity-timeline.json").write_text(json.dumps(timeline, indent=2))
-print("  ✅ Done")
+log("  ✅ Done")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 5: FIX subscription-data.json (for subscription-tracker.js fallback)
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 5: Fixing subscription-data.json...")
+log("STEP 5: Fixing subscription-data.json...")
 
-# Cost calculation - REALISTIC per-message costs (avg ~2K tokens/msg)
-# API rates (Jan 2026 - Opus 4.5): Opus $5/M input + $25/M output, Sonnet $3/M + $15/M, Haiku $0.80/M + $4/M
-# Average message: ~1.5K input + ~0.8K output tokens
-# Per-message cost: Opus ~$0.027, Sonnet ~$0.017, Haiku ~$0.004
-COSTS_PER_MSG = {'opus': 0.027, 'sonnet': 0.017, 'haiku': 0.004}
+# Cost calculation using centralized pricing config
 total_value = sum(model_counts[m] * COSTS_PER_MSG[m] for m in COSTS_PER_MSG)
 
 sub_data = {
@@ -321,25 +329,25 @@ sub_data = {
     "lastUpdated": datetime.now().isoformat()
 }
 (KERNEL_DIR / "subscription-data.json").write_text(json.dumps(sub_data, indent=2))
-print(f"  ✅ Value: ${total_value:,.0f} ({sub_data['roiMultiplier']}x ROI)")
+log(f"  ✅ Value: ${total_value:,.0f} ({sub_data['roiMultiplier']}x ROI)")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 6: FIX dq-scores.jsonl
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 6: Checking dq-scores.jsonl...")
+log("STEP 6: Checking dq-scores.jsonl...")
 
 dq_file = KERNEL_DIR / "dq-scores.jsonl"
 dq_count = 0
 if dq_file.exists():
     dq_count = sum(1 for _ in open(dq_file))
-print(f"  ✅ {dq_count} entries")
+log(f"  ✅ {dq_count} entries")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 7: FIX routing-metrics.jsonl
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 7: Fixing routing-metrics.jsonl...")
+log("STEP 7: Fixing routing-metrics.jsonl...")
 
 routing_file = DATA_DIR / "routing-metrics.jsonl"
 entries = []
@@ -367,13 +375,13 @@ if dq_file.exists():
 with open(routing_file, 'w') as f:
     for e in entries:
         f.write(json.dumps(e) + '\n')
-print(f"  ✅ {len(entries)} entries")
+log(f"  ✅ {len(entries)} entries")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 8: FIX detected-patterns.json
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 8: Fixing detected-patterns.json...")
+log("STEP 8: Fixing detected-patterns.json...")
 
 patterns_file = KERNEL_DIR / "detected-patterns.json"
 if not patterns_file.exists() or patterns_file.stat().st_size < 50:
@@ -390,17 +398,17 @@ if not patterns_file.exists() or patterns_file.stat().st_size < 50:
         "lastDetected": datetime.now().isoformat()
     }
     patterns_file.write_text(json.dumps(patterns, indent=2))
-print("  ✅ Done")
+log("  ✅ Done")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 9: FIX coevo-config.json
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 9: Checking coevo-config.json...")
+log("STEP 9: Checking coevo-config.json...")
 
 coevo_file = KERNEL_DIR / "coevo-config.json"
 if coevo_file.exists():
-    print("  ✅ Exists")
+    log("  ✅ Exists")
 else:
     coevo = {
         "enabled": True,
@@ -409,25 +417,25 @@ else:
         "lastRun": datetime.now().isoformat()
     }
     coevo_file.write_text(json.dumps(coevo, indent=2))
-    print("  ✅ Created")
+    log("  ✅ Created")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 10: FIX modifications.jsonl
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 10: Checking modifications.jsonl...")
+log("STEP 10: Checking modifications.jsonl...")
 
 mods_file = KERNEL_DIR / "modifications.jsonl"
 mods_count = 0
 if mods_file.exists():
     mods_count = sum(1 for _ in open(mods_file))
-print(f"  ✅ {mods_count} entries")
+log(f"  ✅ {mods_count} entries")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 11: FIX identity.json statistics
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 11: Fixing identity.json...")
+log("STEP 11: Fixing identity.json...")
 
 identity_file = KERNEL_DIR / "identity.json"
 if identity_file.exists():
@@ -441,13 +449,13 @@ if identity_file.exists():
         "lastUpdated": datetime.now().isoformat()
     }
     identity_file.write_text(json.dumps(identity, indent=2))
-print("  ✅ Done")
+log("  ✅ Done")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 12: FIX tool-summary.json
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 12: Fixing tool-summary.json...")
+log("STEP 12: Fixing tool-summary.json...")
 
 tool_summary = {
     "totalCalls": sum(tool_counts.values()),
@@ -456,13 +464,13 @@ tool_summary = {
     "updated": datetime.now().isoformat()
 }
 (KERNEL_DIR / "tool-summary.json").write_text(json.dumps(tool_summary, indent=2))
-print(f"  ✅ {tool_summary['totalCalls']} calls")
+log(f"  ✅ {tool_summary['totalCalls']} calls")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 13: FIX cost-summary.json
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 13: Fixing cost-summary.json...")
+log("STEP 13: Fixing cost-summary.json...")
 
 cost_summary = {
     "totalCost": round(total_value, 2),
@@ -479,13 +487,13 @@ cost_summary = {
     "lastUpdated": datetime.now().isoformat()
 }
 (KERNEL_DIR / "cost-summary.json").write_text(json.dumps(cost_summary, indent=2))
-print(f"  ✅ ${total_value:,.2f} total")
+log(f"  ✅ ${total_value:,.2f} total")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 14: FIX session-outcomes.jsonl with enhanced data (preserving quality)
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 14: Fixing session-outcomes.jsonl...")
+log("STEP 14: Fixing session-outcomes.jsonl...")
 
 session_outcomes_file = DATA_DIR / "session-outcomes.jsonl"
 
@@ -521,13 +529,13 @@ with open(session_outcomes_file, 'w') as f:
 
 # Count outcomes
 outcome_counts = Counter(s['outcome'] for s in all_sessions)
-print(f"  ✅ {len(all_sessions)} sessions: {dict(outcome_counts)}")
+log(f"  ✅ {len(all_sessions)} sessions: {dict(outcome_counts)}")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # STEP 15: FIX pack-metrics.json daily_trend with actual session cost data
 # ═══════════════════════════════════════════════════════════════════════════
 
-print("STEP 15: Fixing pack-metrics.json daily_trend...")
+log("STEP 15: Fixing pack-metrics.json daily_trend...")
 
 pack_metrics_file = DATA_DIR / "pack-metrics.json"
 pack_metrics = {}
@@ -572,13 +580,43 @@ pack_metrics["status"] = "active"
 pack_metrics["generated"] = datetime.now().isoformat()
 
 pack_metrics_file.write_text(json.dumps(pack_metrics, indent=2))
-print(f"  ✅ {len(daily_trend)} days of cost data")
+log(f"  ✅ {len(daily_trend)} days of cost data")
 
-print()
-print("=" * 70)
-print("ALL DASHBOARD DATA FIXED")
-print("=" * 70)
-print(f"""
+# ═══════════════════════════════════════════════════════════════════════════
+# STEP 16: SYNC TO SQLITE (unified datastore)
+# ═══════════════════════════════════════════════════════════════════════════
+
+log("STEP 16: Syncing to SQLite...")
+
+try:
+    from datastore import Datastore
+    db = Datastore()
+
+    # Sync daily stats
+    for date_str, day_data in daily_stats.items():
+        opus_msgs = sum(1 for s in all_sessions if s.get('date') == date_str and s.get('model') == 'opus')
+        sonnet_msgs = sum(1 for s in all_sessions if s.get('date') == date_str and s.get('model') == 'sonnet')
+        haiku_msgs = sum(1 for s in all_sessions if s.get('date') == date_str and s.get('model') == 'haiku')
+
+        db.update_daily_stats(
+            date=date_str,
+            opus_messages=day_data['messages'] if model_counts['opus'] > model_counts['sonnet'] else 0,
+            sonnet_messages=day_data['messages'] if model_counts['sonnet'] >= model_counts['opus'] else 0,
+            haiku_messages=0,
+            session_count=day_data['sessions'],
+            tool_calls=day_data['tools'],
+            cost_estimate=day_data['messages'] * 0.027  # Mostly Opus
+        )
+
+    log("  ✅ SQLite synced")
+except Exception as e:
+    log(f"  ⚠️ SQLite sync skipped: {e}")
+
+log()
+log("=" * 70)
+log("ALL DASHBOARD DATA FIXED")
+log("=" * 70)
+log(f"""
 Summary:
   Sessions:     {total_sessions:,}
   Messages:     {total_messages:,}

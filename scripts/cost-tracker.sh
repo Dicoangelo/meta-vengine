@@ -5,6 +5,9 @@
 COST_LOG="$HOME/.claude/data/cost-log.jsonl"
 COST_SUMMARY="$HOME/.claude/data/cost-summary.json"
 
+# Source centralized pricing
+source "$HOME/.claude/config/pricing.sh"
+
 # Initialize if needed
 mkdir -p "$(dirname "$COST_LOG")"
 touch "$COST_LOG"
@@ -17,15 +20,14 @@ log_cost() {
   local cache_read="${4:-0}"
   local cache_write="${5:-0}"
 
-  # Cost per million tokens (approximate)
+  # Cost per million tokens from centralized config
   local input_cost=0
   local output_cost=0
 
-  # Updated Jan 2026 for Opus 4.5 pricing
   case "$model" in
-    *haiku*) input_cost=0.80; output_cost=4 ;;
-    *sonnet*) input_cost=3; output_cost=15 ;;
-    *opus*) input_cost=5; output_cost=25 ;;
+    *haiku*) input_cost=$HAIKU_INPUT; output_cost=$HAIKU_OUTPUT ;;
+    *sonnet*) input_cost=$SONNET_INPUT; output_cost=$SONNET_OUTPUT ;;
+    *opus*) input_cost=$OPUS_INPUT; output_cost=$OPUS_OUTPUT ;;
   esac
 
   # Calculate cost in dollars

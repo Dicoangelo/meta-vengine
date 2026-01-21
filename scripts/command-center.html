@@ -2455,6 +2455,7 @@
     const PACK_DATA = __PACK_DATA__;
     const SESSION_WINDOW_DATA = __SESSION_WINDOW_DATA__;
     const FILE_ACTIVITY_DATA = __FILE_ACTIVITY_DATA__;
+    const PRICING_DATA = __PRICING_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -2816,10 +2817,10 @@
       const inputTokens = modelData.inputTokens || 0;
       const outputTokens = modelData.outputTokens || 0;
 
-      // Opus 4.5 pricing per million tokens (Jan 2026)
-      const inputCostPerM = 5;
-      const outputCostPerM = 25;
-      const cacheReadCostPerM = 0.5; // 90% discount
+      // Pricing from centralized config (mostly Opus usage)
+      const inputCostPerM = PRICING_DATA?.models?.opus?.input || 5;
+      const outputCostPerM = PRICING_DATA?.models?.opus?.output || 25;
+      const cacheReadCostPerM = PRICING_DATA?.models?.opus?.cache_read || 0.5;
 
       const actualInputCost = (inputTokens * inputCostPerM) / 1000000;
       const actualOutputCost = (outputTokens * outputCostPerM) / 1000000;
