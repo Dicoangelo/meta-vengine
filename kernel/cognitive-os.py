@@ -69,6 +69,7 @@ COS_DIR = KERNEL_DIR / "cognitive-os"
 COS_STATE_FILE = COS_DIR / "current-state.json"
 COS_PREDICTIONS_FILE = COS_DIR / "fate-predictions.jsonl"
 COS_FLOW_LOG = COS_DIR / "flow-states.jsonl"
+COS_FLOW_STATE_FILE = COS_DIR / "flow-state.json"  # Quick-access flow state
 COS_ROUTING_LOG = COS_DIR / "routing-decisions.jsonl"
 COS_LEARNING_FILE = COS_DIR / "learned-weights.json"
 
@@ -638,6 +639,15 @@ class FlowStateProtector:
 
         # Log flow state
         append_jsonl(COS_FLOW_LOG, result)
+
+        # Save quick-access flow state for hooks
+        save_json(COS_FLOW_STATE_FILE, {
+            "in_flow": result["in_flow"],
+            "state": state,
+            "score": result["flow_score"],
+            "protections": protections,
+            "updated": now.isoformat()
+        })
 
         return result
 
@@ -1551,6 +1561,104 @@ def main():
     elif command == "status":
         status = cos.get_status()
         print_status(status, quiet)
+
+    elif command == "schedule":
+        # Schedule tasks to optimal days
+        tasks = " ".join(args[1:]).split(",") if len(args) > 1 else []
+        tasks = [t.strip() for t in tasks if t.strip()]
+
+        if not tasks:
+            if not quiet:
+                print("\n  Usage: cos schedule \"task1, task2, task3\"")
+                print("  Example: cos schedule \"architecture review, write docs, fix bugs\"")
+            sys.exit(1)
+
+        suggestions = cos.energy_mapper.suggest_schedule(tasks)
+        if not quiet:
+            print("\n" + "=" * 60)
+            print("  TASK SCHEDULING SUGGESTIONS")
+            print("=" * 60)
+            for s in suggestions:
+                print(f"\n  {s['task']}")
+                print(f"    → Best day: {s['best_day']} (confidence: {s['confidence']:.0%})")
+            print("\n" + "=" * 60 + "\n")
+
+    elif command == "check-flow":
+        # Silent flow check for hooks - returns exit code
+        # 0 = in flow (suppress interrupts), 1 = not in flow (allow interrupts)
+        flow = cos.flow_protector.detect_flow()
+        if flow["in_flow"]:
+            if not quiet:
+                print("IN_FLOW")
+            sys.exit(0)  # In flow - suppress
+        else:
+            if not quiet:
+                print("NOT_IN_FLOW")
+            sys.exit(1)  # Not in flow - allow
+
+    elif command == "cognitive-route":
+        # Combined cognitive + DQ routing for shell integration
+        # Returns just the model name for easy shell parsing
+        import subprocess
+
+        task = " ".join(args[1:]) if len(args) > 1 else ""
+
+        # Get cognitive recommendation
+        cognitive_route = cos.model_router.route(task)
+        cognitive_model = cognitive_route["recommended_model"]
+        cognitive_mode = cognitive_route["cognitive_mode"]
+        energy = cognitive_route["energy_level"]
+
+        # Get DQ recommendation if available
+        dq_model = None
+        dq_score = 0
+        try:
+            result = subprocess.run(
+                ["node", str(KERNEL_DIR / "dq-scorer.js"), "route", task],
+                capture_output=True, text=True, timeout=5
+            )
+            if result.returncode == 0:
+                import json as json_module
+                dq_result = json_module.loads(result.stdout)
+                dq_model = dq_result.get("model")
+                dq_score = dq_result.get("dq", {}).get("score", 0)
+        except:
+            pass
+
+        # Combine recommendations
+        # If both agree, use that model
+        # If they disagree, prefer cognitive during low energy, DQ during high energy
+        if dq_model and dq_model != cognitive_model:
+            if energy >= 0.7:
+                # High energy - trust DQ more (you can handle complexity)
+                final_model = dq_model
+                reason = f"DQ override (high energy {energy:.0%})"
+            elif energy <= 0.4:
+                # Low energy - trust cognitive more (protect yourself)
+                final_model = cognitive_model
+                reason = f"Cognitive override (low energy {energy:.0%})"
+            else:
+                # Medium energy - prefer cheaper model
+                models_cost = {"haiku": 0, "sonnet": 1, "opus": 2}
+                if models_cost.get(cognitive_model, 1) <= models_cost.get(dq_model, 1):
+                    final_model = cognitive_model
+                    reason = "Cognitive (cost-efficient)"
+                else:
+                    final_model = dq_model
+                    reason = "DQ (task complexity)"
+        else:
+            final_model = cognitive_model
+            reason = "Cognitive + DQ agree" if dq_model else "Cognitive only"
+
+        if quiet:
+            # Just output the model for shell parsing
+            print(final_model)
+        else:
+            print(f"\n  Final Model: {final_model}")
+            print(f"  Cognitive: {cognitive_model} ({cognitive_mode}, {energy:.0%} energy)")
+            if dq_model:
+                print(f"  DQ Score: {dq_model} (DQ: {dq_score:.2f})")
+            print(f"  Reason: {reason}")
 
     else:
         print(f"Unknown command: {command}")

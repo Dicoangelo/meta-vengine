@@ -127,5 +127,17 @@ if [ -n "$BRIEF_STATUS" ]; then
     echo "$BRIEF_STATUS"
 fi
 
-# Show project detection
-echo "Project: $PROJECT | Memory: queried"
+# Show flow state if available
+FLOW_STATE_FILE="$KERNEL_DIR/cognitive-os/flow-state.json"
+if [ -f "$FLOW_STATE_FILE" ]; then
+    FLOW_STATE=$(grep -o '"state": *"[^"]*"' "$FLOW_STATE_FILE" 2>/dev/null | sed 's/"state": *"\([^"]*\)"/\1/')
+    FLOW_SCORE=$(grep -o '"score": *[0-9.]*' "$FLOW_STATE_FILE" 2>/dev/null | sed 's/"score": *//')
+    if [ -n "$FLOW_STATE" ]; then
+        echo "Project: $PROJECT | Memory: queried"
+        echo "Flow: $FLOW_STATE ($FLOW_SCORE)"
+    else
+        echo "Project: $PROJECT | Memory: queried"
+    fi
+else
+    echo "Project: $PROJECT | Memory: queried"
+fi

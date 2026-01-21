@@ -21,6 +21,55 @@ AI_LOG="$HOME/.claude/data/ai-routing.log"
 ai() {
   local query="$*"
 
+  # Check if Cognitive OS is available for enhanced routing
+  local COS_SCRIPT="$HOME/.claude/kernel/cognitive-os.py"
+
+  if [[ -f "$COS_SCRIPT" ]]; then
+    # Use Cognitive OS + DQ combined routing
+    local model=$(python3 "$COS_SCRIPT" cognitive-route --quiet "$query" 2>/dev/null)
+
+    if [[ -n "$model" && "$model" =~ ^(haiku|sonnet|opus)$ ]]; then
+      # Get DQ score for display
+      local dq_info=""
+      if [[ -f "$DQ_SCORER" ]]; then
+        local dq_result=$(node "$DQ_SCORER" route "$query" 2>/dev/null)
+        local dq_score=$(echo "$dq_result" | grep -o '"score": *[0-9.]*' | head -1 | sed 's/"score": *//')
+        dq_info=" DQ:$dq_score"
+      fi
+
+      # Get cognitive state for display
+      local cog_state=$(python3 "$COS_SCRIPT" state --quiet 2>/dev/null | head -1 | awk '{print $3}')
+
+      # Log decision
+      echo "$(date '+%H:%M:%S') COGNITIVE:$cog_state$dq_info → $model" >> "$AI_LOG"
+
+      # Track for feedback
+      __AI_LAST_QUERY="$query"
+      __AI_LAST_MODEL="$model"
+      __AI_LAST_TIMESTAMP=$(date +%s)
+
+      export __AI_KERNEL_ACTIVE=1
+
+      # Route to model
+      case "$model" in
+        haiku)
+          echo "[COS:$cog_state$dq_info] → haiku"
+          cq -p "$query"
+          ;;
+        opus)
+          echo "[COS:$cog_state$dq_info] → opus"
+          co -p "$query"
+          ;;
+        *)
+          echo "[COS:$cog_state$dq_info] → sonnet"
+          cc -p "$query"
+          ;;
+      esac
+      return
+    fi
+  fi
+
+  # Fallback to DQ-only routing if Cognitive OS unavailable
   # Check if kernel is available
   if [[ -f "$DQ_SCORER" ]]; then
     # Use DQ-powered routing
