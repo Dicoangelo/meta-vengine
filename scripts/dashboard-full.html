@@ -597,9 +597,9 @@
       const cacheRead = modelData.cacheReadInputTokens || 0;
       const inputTokens = modelData.inputTokens || 0;
       const outputTokens = modelData.outputTokens || 0;
-      // Rough cost estimate (Opus pricing)
-      const actualCost = (inputTokens * 15 + outputTokens * 75) / 1000000;
-      const savedCost = (cacheRead * 15 * 0.9) / 1000000; // 90% savings on cache
+      // Rough cost estimate (Opus 4.5 pricing - Jan 2026)
+      const actualCost = (inputTokens * 5 + outputTokens * 25) / 1000000;
+      const savedCost = (cacheRead * 5 * 0.9) / 1000000; // 90% savings on cache
       document.getElementById('costToday').textContent = '$' + (actualCost / 7).toFixed(2);
       document.getElementById('costWeek').textContent = '$' + actualCost.toFixed(2);
       document.getElementById('costMonth').textContent = '$' + (actualCost * 4).toFixed(2);

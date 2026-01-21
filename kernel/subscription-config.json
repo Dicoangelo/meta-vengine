@@ -4,16 +4,16 @@
   "billingCycleStart": 1,
   "apiPricing": {
     "haiku": {
-      "input": 0.25,
-      "output": 1.25
+      "input": 0.80,
+      "output": 4
     },
     "sonnet": {
       "input": 3,
       "output": 15
     },
     "opus": {
-      "input": 15,
-      "output": 75
+      "input": 5,
+      "output": 25
     }
   },
   "alerts": {

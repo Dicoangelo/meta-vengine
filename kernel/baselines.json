@@ -86,16 +86,16 @@
 
   "cost_per_mtok": {
     "haiku": {
-      "input": 0.25,
-      "output": 1.25
+      "input": 0.80,
+      "output": 4.0
     },
     "sonnet": {
       "input": 3.0,
       "output": 15.0
     },
     "opus": {
-      "input": 15.0,
-      "output": 75.0
+      "input": 5.0,
+      "output": 25.0
     }
   },
 

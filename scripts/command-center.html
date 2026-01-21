@@ -2816,10 +2816,10 @@
       const inputTokens = modelData.inputTokens || 0;
       const outputTokens = modelData.outputTokens || 0;
 
-      // Opus pricing per million tokens
-      const inputCostPerM = 15;
-      const outputCostPerM = 75;
-      const cacheReadCostPerM = 1.5; // 90% discount
+      // Opus 4.5 pricing per million tokens (Jan 2026)
+      const inputCostPerM = 5;
+      const outputCostPerM = 25;
+      const cacheReadCostPerM = 0.5; // 90% discount
 
       const actualInputCost = (inputTokens * inputCostPerM) / 1000000;
       const actualOutputCost = (outputTokens * outputCostPerM) / 1000000;

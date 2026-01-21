@@ -369,8 +369,10 @@
       const data = STATS_DATA;
 
       // Header
-      const firstDate = data.firstSessionDate.split('T')[0];
       const days = data.dailyActivity.length;
+      const firstDate = data.dailyActivity.length > 0
+        ? data.dailyActivity[data.dailyActivity.length - 1].date
+        : new Date().toISOString().split('T')[0];
       document.getElementById('dateRange').textContent = `${firstDate} → Today (${days} days)`;
 
       // Stats cards
