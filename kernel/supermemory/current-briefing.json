@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-01-21T04:55:32.063642",
+  "predictions": {
+    "timestamp": "2026-01-21T04:55:32.064149",
+    "factors": [],
+    "recommendations": [],
+    "confidence": 0.5
+  },
+  "recent_learnings": [],
+  "recommendations": [],
+  "context": {
+    "capacity_tier": "MODERATE",
+    "opus_remaining": 0,
+    "sonnet_remaining": 0,
+    "expertise": [
+      "react",
+      "typescript",
+      "architecture",
+      "debugging",
+      "routing"
+    ],
+    "preferences": {
+      "defaultModel": "sonnet",
+      "autoRoute": true,
+      "proactiveAssist": true,
+      "memoryEvolution": true,
+      "tokenOptimization": true,
+      "costAwareness": "medium",
+      "verbosity": "concise"
+    }
+  },
+  "warnings": []
+}
