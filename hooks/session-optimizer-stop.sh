@@ -66,3 +66,14 @@ supermemory_sync() {
 }
 
 supermemory_sync
+
+# ══════════════════════════════════════════════════════════════
+# AUTOMATED MITIGATIONS: Cleanup
+# ══════════════════════════════════════════════════════════════
+
+cleanup_session() {
+    [ -f "$HOME/.claude/scripts/session-lock.sh" ] && source "$HOME/.claude/scripts/session-lock.sh"
+    release_session_lock "$$" 2>/dev/null
+}
+
+cleanup_session

@@ -141,3 +141,21 @@ if [ -f "$FLOW_STATE_FILE" ]; then
 else
     echo "Project: $PROJECT | Memory: queried"
 fi
+
+# ══════════════════════════════════════════════════════════════
+# AUTOMATED MITIGATIONS: Non-blocking pre-flight checks
+# ══════════════════════════════════════════════════════════════
+
+run_preflight_checks() {
+    [ -f "$HOME/.claude/scripts/session-lock.sh" ] && source "$HOME/.claude/scripts/session-lock.sh"
+    [ -f "$HOME/.claude/scripts/permission-check.sh" ] && source "$HOME/.claude/scripts/permission-check.sh"
+
+    # Run checks in background to not block session start
+    (
+        acquire_session_lock "$$" 2>/dev/null
+        check_claude_paths 2>/dev/null
+        check_parallel_sessions 2>/dev/null
+    ) &
+}
+
+run_preflight_checks
