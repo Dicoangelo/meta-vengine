@@ -1628,15 +1628,15 @@
       <div class="cost-hero">
         <div class="cost-card">
           <div class="amount" id="costToday">$0</div>
-          <div class="label">Today</div>
+          <div class="label">Avg/Day</div>
         </div>
         <div class="cost-card">
           <div class="amount" id="costWeek">$0</div>
-          <div class="label">This Week</div>
+          <div class="label">All Time</div>
         </div>
         <div class="cost-card">
           <div class="amount" id="costMonth">$0</div>
-          <div class="label">Projected Month</div>
+          <div class="label">Monthly Rate</div>
         </div>
         <div class="cost-card savings">
           <div class="amount" id="costSaved">$0</div>
@@ -2828,9 +2828,10 @@
 
       const efficiency = cacheRead / (cacheRead + inputTokens) * 100 || 0;
 
-      document.getElementById('costToday').textContent = formatCost(actualCost / days);
+      const dailyAvg = actualCost / days;
+      document.getElementById('costToday').textContent = formatCost(dailyAvg);
       document.getElementById('costWeek').textContent = formatCost(actualCost);
-      document.getElementById('costMonth').textContent = formatCost(actualCost * 4);
+      document.getElementById('costMonth').textContent = formatCost(dailyAvg * 30);
       document.getElementById('costSaved').textContent = formatCost(savedCost);
       document.getElementById('efficiencyPercent').textContent = efficiency.toFixed(1) + '%';
       document.getElementById('efficiencyFill').style.width = efficiency + '%';
