@@ -2,6 +2,9 @@
 # Claude Observatory - Git Activity Tracker
 # Tracks commits, PRs, branches, and code review activity
 
+# Clear conflicting aliases (prevents parse errors on re-source)
+unalias git-stats gcommit gpush 2>/dev/null
+
 DATA_FILE="$HOME/.claude/data/git-activity.jsonl"
 mkdir -p "$(dirname "$DATA_FILE")"
 
@@ -174,11 +177,4 @@ if commits:
 EOF
 }
 
-# Export functions
-export -f __track_git_commit
-export -f __track_git_push
-export -f __track_git_pr
-export -f gcommit
-export -f gpush
-export -f create-tracked-pr
-export -f git-stats
+# Note: export -f removed for zsh compatibility (bash-only feature)

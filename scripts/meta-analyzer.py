@@ -126,13 +126,28 @@ def load_stats_cache() -> Dict[str, Any]:
 
 
 def load_dq_scores() -> List[Dict[str, Any]]:
-    """Load DQ score history."""
+    """Load DQ score history, filtering out test data."""
+    VALID_MODELS = {'haiku', 'sonnet', 'opus'}
     scores = []
     if DQ_SCORES.exists():
         for line in DQ_SCORES.read_text().strip().split('\n'):
             if line:
                 try:
-                    scores.append(json.loads(line))
+                    score = json.loads(line)
+                    # Filter out test data
+                    model = score.get('model', '')
+                    query = score.get('query', '').strip()
+                    dq = score.get('dqScore', 0)
+
+                    # Skip invalid entries
+                    if model not in VALID_MODELS:
+                        continue
+                    if not query or len(query) < 3:
+                        continue
+                    if dq == 0:
+                        continue
+
+                    scores.append(score)
                 except:
                     pass
     return scores
@@ -621,6 +636,47 @@ def apply_modification(mod_id: str, dry_run: bool = False) -> Dict[str, Any]:
             result['message'] = f"Would update CLAUDE.md (backup at {backup_path})"
             result['preview'] = changes.get('content', '')[:500]
 
+    elif change_type == 'note':
+        # Notes are behavioral reminders - log them for awareness tracking
+        if not dry_run:
+            _log_modification(mod_id, 'applied')
+            # Add to a notes file for reference
+            notes_file = DATA_DIR / 'applied-notes.jsonl'
+            note_entry = {
+                "ts": datetime.now().isoformat(),
+                "mod_id": mod_id,
+                "note": changes.get('content', mod.get('action', '')),
+                "impact": mod.get('impact', '')
+            }
+            with open(notes_file, 'a') as f:
+                f.write(json.dumps(note_entry) + '\n')
+            result['success'] = True
+            result['message'] = f"Note applied: {changes.get('content', '')[:100]}"
+        else:
+            result['success'] = True
+            result['message'] = f"Would log note: {changes.get('content', '')[:100]}"
+
+    elif change_type == 'add_instruction':
+        # Add instruction to CLAUDE.md section
+        section = changes.get('section', 'Learned Patterns')
+        instruction = changes.get('content', '')
+
+        backup_path = _backup_claude_md()
+        result['backup'] = str(backup_path)
+
+        if not dry_run:
+            success = _add_instruction_to_section(section, instruction)
+            if success:
+                _log_modification(mod_id, 'applied', backup_path)
+                result['success'] = True
+                result['message'] = f"Added instruction to {section}"
+            else:
+                result['success'] = False
+                result['error'] = f"Failed to add instruction to {section}"
+        else:
+            result['success'] = True
+            result['message'] = f"Would add to {section}: {instruction[:100]}"
+
     else:
         result['success'] = False
         result['error'] = f"Unknown change type: {change_type}"
@@ -629,20 +685,35 @@ def apply_modification(mod_id: str, dry_run: bool = False) -> Dict[str, Any]:
 
 
 def _find_modification(mod_id: str) -> Optional[Dict[str, Any]]:
-    """Find a modification by ID."""
+    """Find a modification by ID (proposal or applied entry)."""
     if not MODIFICATIONS_LOG.exists():
         return None
+
+    proposal = None
+    applied_info = None
 
     for line in MODIFICATIONS_LOG.read_text().strip().split('\n'):
         if line:
             try:
                 mod = json.loads(line)
+                # Check both 'id' (proposal) and 'mod_id' (applied entry)
                 if mod.get('id') == mod_id:
-                    return mod
+                    proposal = mod
+                elif mod.get('mod_id') == mod_id and mod.get('status') == 'applied':
+                    applied_info = mod
             except:
                 pass
 
-    return None
+    # Merge proposal with applied info
+    if proposal:
+        if applied_info:
+            proposal['appliedAt'] = applied_info.get('appliedAt')
+            proposal['backup'] = applied_info.get('backup')
+            proposal['status'] = 'applied'
+        return proposal
+
+    # Return applied entry if no proposal found
+    return applied_info
 
 
 def _backup_claude_md() -> Path:
@@ -688,6 +759,40 @@ def _update_claude_md_section(new_content: str) -> bool:
 
     CLAUDE_MD.write_text(content)
     return True
+
+
+def _add_instruction_to_section(section: str, instruction: str) -> bool:
+    """Add an instruction to a specific section in CLAUDE.md."""
+    if not CLAUDE_MD.exists():
+        return False
+
+    content = CLAUDE_MD.read_text()
+
+    # Find the section
+    section_pattern = rf"(## {re.escape(section)}\s*\n)"
+    match = re.search(section_pattern, content)
+
+    if match:
+        # Find end of section (next ## or end of file)
+        section_start = match.end()
+        next_section = re.search(r'\n## ', content[section_start:])
+        if next_section:
+            insert_pos = section_start + next_section.start()
+        else:
+            insert_pos = len(content)
+
+        # Insert instruction before the end marker if in Learned Patterns
+        if section == "Learned Patterns" and LEARNED_END in content[section_start:insert_pos]:
+            end_marker_pos = content.find(LEARNED_END, section_start)
+            new_content = content[:end_marker_pos] + f"- {instruction}\n" + content[end_marker_pos:]
+        else:
+            # Add at end of section
+            new_content = content[:insert_pos].rstrip() + f"\n- {instruction}\n" + content[insert_pos:]
+
+        CLAUDE_MD.write_text(new_content)
+        return True
+
+    return False
 
 
 def _log_modification(mod_id: str, status: str, backup_path: Optional[Path] = None):
@@ -1162,12 +1267,15 @@ def main():
     analyze_parser = subparsers.add_parser('analyze', help='Run analysis and show insights')
     analyze_parser.add_argument('--days', '-d', type=int, default=7, help='Days to analyze')
     analyze_parser.add_argument('--json', action='store_true', help='Output as JSON')
+    analyze_parser.add_argument('--quiet', '-q', action='store_true', help='Suppress output (for background jobs)')
 
     # propose
     propose_parser = subparsers.add_parser('propose', help='Generate modification proposals')
     propose_parser.add_argument('--json', action='store_true', help='Output as JSON')
     propose_parser.add_argument('--domain', choices=['general', 'routing'], default='general', help='Domain-specific analysis')
     propose_parser.add_argument('--days', type=int, default=30, help='Days to analyze (routing only)')
+    propose_parser.add_argument('--auto-apply', action='store_true', help='Automatically apply high-confidence proposals')
+    propose_parser.add_argument('--min-confidence', type=float, default=0.9, help='Minimum confidence for auto-apply')
 
     # apply
     apply_parser = subparsers.add_parser('apply', help='Apply a modification')
@@ -1180,8 +1288,9 @@ def main():
 
     # evaluate
     eval_parser = subparsers.add_parser('evaluate', help='Evaluate modification effectiveness')
-    eval_parser.add_argument('mod_id', help='Modification ID')
+    eval_parser.add_argument('mod_id', nargs='?', default=None, help='Modification ID (optional, evaluates all recent if omitted)')
     eval_parser.add_argument('--sessions', type=int, default=10, help='Sessions to compare')
+    eval_parser.add_argument('--all', action='store_true', help='Evaluate all applied modifications')
 
     # dashboard
     dash_parser = subparsers.add_parser('dashboard', help='View system dashboard')
@@ -1197,7 +1306,10 @@ def main():
         telemetry = aggregate_telemetry(days=args.days)
         analysis = analyze_patterns(telemetry)
 
-        if args.json:
+        if args.quiet:
+            # Silent mode for background jobs - just run the analysis
+            pass
+        elif args.json:
             print(json.dumps({"telemetry": telemetry, "analysis": analysis}, indent=2))
         else:
             print(f"\n{'='*60}")
@@ -1293,6 +1405,20 @@ def main():
                 print("Apply with: meta-analyzer apply <mod_id>")
                 print("Preview with: meta-analyzer apply <mod_id> --dry-run")
 
+            # Auto-apply high-confidence modifications if requested
+            if args.auto_apply:
+                applied_count = 0
+                for mod in modifications:
+                    if mod.get('confidence', 0) >= args.min_confidence:
+                        result = apply_modification(mod['id'], dry_run=False)
+                        if result.get('success'):
+                            applied_count += 1
+                            print(f"  ✅ Auto-applied: {mod['id']}")
+                        else:
+                            print(f"  ❌ Failed: {mod['id']} - {result.get('error', 'Unknown error')}")
+                if applied_count > 0:
+                    print(f"\nAuto-applied {applied_count} modifications with confidence >= {args.min_confidence}")
+
     elif args.command == 'apply':
         result = apply_modification(args.mod_id, dry_run=args.dry_run)
         print(json.dumps(result, indent=2))
@@ -1302,8 +1428,36 @@ def main():
         print(json.dumps(result, indent=2))
 
     elif args.command == 'evaluate':
-        result = evaluate_effectiveness(args.mod_id, sessions=args.sessions)
-        print(json.dumps(result, indent=2))
+        if args.mod_id:
+            # Evaluate specific modification
+            result = evaluate_effectiveness(args.mod_id, sessions=args.sessions)
+            print(json.dumps(result, indent=2))
+        else:
+            # Evaluate all applied modifications
+            results = []
+            if MODIFICATIONS_LOG.exists():
+                applied_mods = set()
+                for line in MODIFICATIONS_LOG.read_text().strip().split('\n'):
+                    if line:
+                        try:
+                            mod = json.loads(line)
+                            if mod.get('status') == 'applied':
+                                mod_id = mod.get('mod_id') or mod.get('id')
+                                if mod_id and mod_id not in applied_mods:
+                                    applied_mods.add(mod_id)
+                                    result = evaluate_effectiveness(mod_id, sessions=args.sessions)
+                                    results.append({'mod_id': mod_id, 'result': result})
+                        except:
+                            pass
+
+            if results:
+                print(f"Evaluated {len(results)} applied modifications:")
+                for r in results:
+                    improvement = r['result'].get('improvement', 0)
+                    status = '✅' if improvement > 0 else '⚠️' if improvement == 0 else '❌'
+                    print(f"  {status} {r['mod_id']}: {improvement:+.2f}% improvement")
+            else:
+                print("No applied modifications to evaluate")
 
     elif args.command == 'dashboard':
         dashboard = get_dashboard()

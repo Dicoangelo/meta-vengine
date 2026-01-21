@@ -1,6 +1,204 @@
 {
   "facts": [
     {
+      "content": "OS-App started as Agentic Kernel platform with 3D visualizations",
+      "tags": [
+        "history",
+        "os-app"
+      ],
+      "timestamp": "2026-01-05T00:00:00Z",
+      "id": 29
+    },
+    {
+      "content": "Claude Code usage since 2026-01-05 (351 sessions)",
+      "tags": [
+        "history",
+        "usage"
+      ],
+      "id": 13,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Most frequent work: api work, testing, research workflow, dashboard, debugging",
+      "tags": [
+        "history",
+        "patterns"
+      ],
+      "id": 14,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Most used tools: ",
+      "tags": [
+        "tools",
+        "usage"
+      ],
+      "id": 15,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Routing system development started Jan 13-14, 2026",
+      "tags": [
+        "history",
+        "routing"
+      ],
+      "id": 16,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Observatory system developed Jan 15-16, 2026",
+      "tags": [
+        "history",
+        "observatory"
+      ],
+      "id": 17,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Co-evolution/meta-analyzer developed Jan 16-17, 2026",
+      "tags": [
+        "history",
+        "coevo"
+      ],
+      "id": 18,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Session optimizer developed Jan 18-19, 2026",
+      "tags": [
+        "history",
+        "session"
+      ],
+      "id": 19,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Command Center dashboard (ccc) evolved through multiple iterations",
+      "tags": [
+        "history",
+        "dashboard"
+      ],
+      "id": 20,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "CareerCoach uses Next.js 14 with AI agent architecture",
+      "tags": [
+        "history",
+        "careercoach"
+      ],
+      "timestamp": "2026-01-08T00:00:00Z",
+      "id": 30
+    },
+    {
+      "content": "Research workflow: init_session -> log_url -> archive_session",
+      "tags": [
+        "workflow",
+        "research"
+      ],
+      "timestamp": "2026-01-09T00:00:00Z",
+      "id": 28
+    },
+    {
+      "content": "ResearchGravity created for systematic URL/paper tracking",
+      "tags": [
+        "history",
+        "research"
+      ],
+      "timestamp": "2026-01-09T00:00:00Z",
+      "id": 31
+    },
+    {
+      "content": "FocusProof extension migration documented",
+      "tags": [
+        "research",
+        "os-app"
+      ],
+      "timestamp": "2026-01-10T00:00:00Z",
+      "id": 27
+    },
+    {
+      "content": "Unified ~/.agent-core/ data store established Jan 2026",
+      "tags": [
+        "history",
+        "architecture"
+      ],
+      "timestamp": "2026-01-10T00:00:00Z",
+      "id": 32
+    },
+    {
+      "content": "OS-App 10x adaptive UI research completed",
+      "tags": [
+        "research",
+        "os-app"
+      ],
+      "timestamp": "2026-01-12T00:00:00Z",
+      "id": 26
+    },
+    {
+      "content": "Claude Code wrapper with model aliases (cq/cc/co) created",
+      "tags": [
+        "history",
+        "tooling"
+      ],
+      "timestamp": "2026-01-12T00:00:00Z",
+      "id": 33
+    },
+    {
+      "content": "DQ-based auto-routing replaced manual model selection",
+      "tags": [
+        "history",
+        "routing"
+      ],
+      "timestamp": "2026-01-13T00:00:00Z",
+      "id": 34
+    },
+    {
+      "content": "CAPER paper (arXiv:2408.15620) - Ternary User-Position-Company relationships for career graphs",
+      "tags": [
+        "research",
+        "careercoach"
+      ],
+      "timestamp": "2026-01-14T00:00:00Z",
+      "id": 21
+    },
+    {
+      "content": "CareerScape paper (arXiv:2509.19677) - Graph-based resume validation",
+      "tags": [
+        "research",
+        "careercoach"
+      ],
+      "timestamp": "2026-01-14T00:00:00Z",
+      "id": 22
+    },
+    {
+      "content": "Multi-agent voting captures most gains (arXiv:2508.17536)",
+      "tags": [
+        "research",
+        "agents"
+      ],
+      "timestamp": "2026-01-15T00:00:00Z",
+      "id": 23
+    },
+    {
+      "content": "Agentic File System (AFS) concept from arXiv:2512.05470",
+      "tags": [
+        "research",
+        "architecture"
+      ],
+      "timestamp": "2026-01-15T00:00:00Z",
+      "id": 24
+    },
+    {
+      "content": "Metaventions precision-bridge thesis developed Jan 15, 2026",
+      "tags": [
+        "research",
+        "metaventions"
+      ],
+      "timestamp": "2026-01-15T00:00:00Z",
+      "id": 25
+    },
+    {
       "id": 0,
       "content": "Antigravity ecosystem: OS-App (Vite+React), CareerCoach (Next.js), researchgravity (Python)",
       "tags": [
@@ -8,9 +206,210 @@
         "stack"
       ],
       "timestamp": "2026-01-16T16:16:48.510Z"
+    },
+    {
+      "content": "GitHub username: Dicoangelo",
+      "tags": [
+        "identity",
+        "github"
+      ],
+      "id": 1,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Uses Claude Max subscription ($200/month)",
+      "tags": [
+        "subscription",
+        "cost"
+      ],
+      "id": 2,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Peak productivity hours: 14:00-16:00",
+      "tags": [
+        "productivity",
+        "schedule"
+      ],
+      "id": 3,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Autonomous routing system active - auto-routes to Haiku/Sonnet/Opus based on DQ scoring",
+      "tags": [
+        "routing",
+        "system"
+      ],
+      "id": 4,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Observatory system tracks: sessions, costs, tools, commands, git, productivity",
+      "tags": [
+        "observatory",
+        "metrics"
+      ],
+      "id": 5,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Co-evolution system auto-applies high-confidence optimizations",
+      "tags": [
+        "coevo",
+        "system"
+      ],
+      "id": 6,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Session optimizer tracks window position, budget, and capacity",
+      "tags": [
+        "session",
+        "optimizer"
+      ],
+      "id": 7,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "ResearchGravity used for research session tracking and URL logging",
+      "tags": [
+        "research",
+        "workflow"
+      ],
+      "id": 8,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Prefetch system loads project-specific context from learnings.md",
+      "tags": [
+        "context",
+        "prefetch"
+      ],
+      "id": 9,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "ACE (Adaptive Consensus Engine) uses 6-agent multi-agent analysis",
+      "tags": [
+        "ace",
+        "agents"
+      ],
+      "id": 10,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "DQ Score = Validity (40%) + Specificity (30%) + Correctness (30%)",
+      "tags": [
+        "dq",
+        "scoring"
+      ],
+      "id": 11,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "10 active projects in Antigravity ecosystem",
+      "tags": [
+        "projects",
+        "ecosystem"
+      ],
+      "id": 12,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "id": 35,
+      "content": "SDK integration test - API server responding correctly",
+      "type": "finding",
+      "tags": [
+        "test",
+        "sdk"
+      ],
+      "source": null,
+      "project": "os-app",
+      "timestamp": "2026-01-19T21:36:26.596494Z"
     }
   ],
   "decisions": [
+    {
+      "content": "Adopted DQ scoring from MyAntFarm.ai research (arXiv:2511.15755)",
+      "tags": [
+        "history",
+        "research"
+      ],
+      "id": 8,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Multi-agent ACE consensus chosen over single-agent analysis",
+      "tags": [
+        "history",
+        "architecture"
+      ],
+      "id": 9,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Kernel-based architecture for session state management",
+      "tags": [
+        "history",
+        "architecture"
+      ],
+      "id": 10,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "JSONL format for all event/activity logging",
+      "tags": [
+        "history",
+        "data"
+      ],
+      "id": 11,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Hooks system for session lifecycle automation",
+      "tags": [
+        "history",
+        "automation"
+      ],
+      "id": 12,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "JSONL chosen over SQLite for append-only event logging",
+      "tags": [
+        "history",
+        "data"
+      ],
+      "timestamp": "2026-01-10T00:00:00Z",
+      "id": 13
+    },
+    {
+      "content": "Bash+Python hybrid for CLI tooling (fast startup + rich processing)",
+      "tags": [
+        "history",
+        "architecture"
+      ],
+      "timestamp": "2026-01-11T00:00:00Z",
+      "id": 14
+    },
+    {
+      "content": "HTML dashboard over TUI for rich visualizations",
+      "tags": [
+        "history",
+        "dashboard"
+      ],
+      "timestamp": "2026-01-14T00:00:00Z",
+      "id": 16
+    },
+    {
+      "content": "Hooks-based automation over cron for session events",
+      "tags": [
+        "history",
+        "automation"
+      ],
+      "timestamp": "2026-01-16T00:00:00Z",
+      "id": 17
+    },
     {
       "id": 0,
       "content": "User prefers terminal-first workflow, minimal GUI switching",
@@ -19,9 +418,117 @@
         "preferences"
       ],
       "timestamp": "2026-01-16T16:16:36.897Z"
+    },
+    {
+      "content": "Node.js kernel for real-time state (session-engine.js)",
+      "tags": [
+        "history",
+        "architecture"
+      ],
+      "timestamp": "2026-01-18T00:00:00Z",
+      "id": 15
+    },
+    {
+      "content": "Session Window panel placed in Session Outcomes tab for logical grouping",
+      "tags": [
+        "dashboard",
+        "ui"
+      ],
+      "id": 1,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Observatory data written to temp file to avoid shell escaping issues",
+      "tags": [
+        "ccc",
+        "fix"
+      ],
+      "id": 2,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Commands tab expanded to include 70+ commands across all systems",
+      "tags": [
+        "dashboard",
+        "commands"
+      ],
+      "id": 3,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Auto-apply mutations only with confidence >= 0.7",
+      "tags": [
+        "coevo",
+        "safety"
+      ],
+      "id": 4,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Use Opus sparingly - reserve for complex architecture tasks",
+      "tags": [
+        "cost",
+        "models"
+      ],
+      "id": 5,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Checkpoint summaries after major task completions",
+      "tags": [
+        "workflow",
+        "checkpoints"
+      ],
+      "id": 6,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Batch 3+ sequential small requests for efficiency",
+      "tags": [
+        "workflow",
+        "batching"
+      ],
+      "id": 7,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
     }
   ],
   "patterns": [
+    {
+      "content": "Dashboard work most common topic (48 sessions)",
+      "tags": [
+        "history",
+        "patterns"
+      ],
+      "id": 7,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Debugging sessions: 47 occurrences",
+      "tags": [
+        "history",
+        "debugging"
+      ],
+      "id": 8,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Session transcript archival to ~/.agent-core/sessions/",
+      "tags": [
+        "history",
+        "archival"
+      ],
+      "id": 9,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
+    {
+      "content": "Research sessions archived with URL logs and findings",
+      "tags": [
+        "history",
+        "research"
+      ],
+      "id": 10,
+      "timestamp": "2026-01-05T07:45:54.175560Z"
+    },
     {
       "id": 0,
       "content": "Use Haiku (cq) for quick questions, Sonnet (cc) for coding, Opus (co) for architecture",
@@ -30,6 +537,60 @@
         "models"
       ],
       "timestamp": "2026-01-16T16:16:49.163Z"
+    },
+    {
+      "content": "Dominant session type: debugging (observed from session history)",
+      "tags": [
+        "sessions",
+        "patterns"
+      ],
+      "id": 1,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Average session length: ~276 messages before context clear recommended",
+      "tags": [
+        "sessions",
+        "length"
+      ],
+      "id": 2,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Cache efficiency typically 93%+ - maintain by reusing context",
+      "tags": [
+        "cache",
+        "efficiency"
+      ],
+      "id": 3,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Tool success rate near 100% for Read, Write, Edit, Bash",
+      "tags": [
+        "tools",
+        "success"
+      ],
+      "id": 4,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Git activity: commits tracked via gsave, gsync, gcheckpoint aliases",
+      "tags": [
+        "git",
+        "workflow"
+      ],
+      "id": 5,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    {
+      "content": "Research workflow: status.py -> init_session.py -> log_url.py -> archive_session.py",
+      "tags": [
+        "research",
+        "workflow"
+      ],
+      "id": 6,
+      "timestamp": "2026-01-19T15:27:44.099981Z"
     }
   ],
   "context": {},
@@ -41,6 +602,70 @@
         "main"
       ],
       "timestamp": "2026-01-16T16:16:49.896Z"
+    },
+    "careercoach": {
+      "content": "Career governance system with AI agents. Stack: Next.js 14, React 18, Zustand",
+      "tags": [
+        "active",
+        "career"
+      ],
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    "researchgravity": {
+      "content": "Research session tracking and auto-capture framework. Stack: Python 3.8+",
+      "tags": [
+        "active",
+        "research"
+      ],
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    "agent-core": {
+      "content": "Unified research index, session archives, project registry at ~/.agent-core/",
+      "tags": [
+        "active",
+        "data"
+      ],
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    "meta-vengine": {
+      "content": "Meta engine system for autonomous improvements",
+      "tags": [
+        "active",
+        "meta"
+      ],
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    "metaventions-landing": {
+      "content": "Metaventions AI landing page",
+      "tags": [
+        "active",
+        "landing"
+      ],
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    "the-decosystem": {
+      "content": "Ecosystem framework for interconnected projects",
+      "tags": [
+        "active",
+        "ecosystem"
+      ],
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    "blackamethyst-ai": {
+      "content": "AI profile and identity system",
+      "tags": [
+        "active",
+        "ai"
+      ],
+      "timestamp": "2026-01-19T15:27:44.099981Z"
+    },
+    "chrome-history": {
+      "content": "Browser history export tool",
+      "tags": [
+        "tool",
+        "utility"
+      ],
+      "timestamp": "2026-01-19T15:27:44.099981Z"
     }
   }
 }

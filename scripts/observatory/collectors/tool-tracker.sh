@@ -2,6 +2,9 @@
 # Claude Observatory - Tool Success Tracker
 # Tracks Bash exit codes, test results, build success, and tool effectiveness
 
+# Clear conflicting aliases (prevents parse errors on re-source)
+unalias tool-stats tool-report 2>/dev/null
+
 DATA_FILE="$HOME/.claude/data/tool-success.jsonl"
 mkdir -p "$(dirname "$DATA_FILE")"
 
@@ -271,11 +274,4 @@ if bash_events:
 EOF
 }
 
-# Export functions
-export -f __observatory_preexec
-export -f __observatory_track_bash_result
-export -f __track_test_result
-export -f __track_build_result
-export -f run-tracked-tests
-export -f run-tracked-build
-export -f tool-stats
+# Note: export -f removed for zsh compatibility (bash-only feature)
