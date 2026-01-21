@@ -40,3 +40,5 @@ mcp-servers/
 # - plugins/
 # - memory/
 # - claude-md-history/
+*/__pycache__/
+*.pyc
