@@ -2,6 +2,9 @@
 # Claude Observatory - Session Outcome Tracker
 # Tracks session outcomes, quality, and completion status
 
+# Clear conflicting aliases (prevents parse errors on re-source)
+unalias session-start session-complete session-rate session-stats 2>/dev/null
+
 OBSERVATORY_DIR="$HOME/.claude/scripts/observatory"
 CONFIG_FILE="$OBSERVATORY_DIR/config.json"
 DATA_FILE="$HOME/.claude/data/session-outcomes.jsonl"
@@ -65,6 +68,15 @@ EOF
 )
 
   echo "$entry" >> "$DATA_FILE"
+
+  # Store in memory-linker if there's a meaningful note
+  local MEMORY_LINKER="$HOME/.claude/kernel/memory-linker.js"
+  if [[ -n "$note" && -f "$MEMORY_LINKER" && ${#note} -gt 10 ]]; then
+    local note_type="insight"
+    [[ "$outcome" == "error" ]] && note_type="pattern"
+    [[ "$outcome" == "success" ]] && note_type="fact"
+    node "$MEMORY_LINKER" store "$note" "$note_type" "session" "$outcome" 2>/dev/null &
+  fi
 
   # Show summary
   local duration_min=$((duration / 60))
@@ -210,12 +222,4 @@ __observatory_session_init() {
   fi
 }
 
-# Export functions
-export -f session-start
-export -f session-complete
-export -f session-abandon
-export -f session-error
-export -f session-success
-export -f session-auto-complete
-export -f session-rate
-export -f session-stats
+# Note: export -f removed for zsh compatibility (bash-only feature)

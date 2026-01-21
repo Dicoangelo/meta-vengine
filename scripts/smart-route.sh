@@ -3,6 +3,9 @@
 # Based on: Astraea, ACE DQ Framework, ProactiveVA
 # Usage: ai "your question"
 
+# Clear conflicting aliases (prevents parse errors on re-source)
+unalias ai-good ai-bad ai-feedback-enable ai-feedback-status ai-feedback-disable 2>/dev/null
+
 KERNEL_DIR="$HOME/.claude/kernel"
 DQ_SCORER="$KERNEL_DIR/dq-scorer.js"
 COMPLEXITY_ANALYZER="$KERNEL_DIR/complexity-analyzer.js"
@@ -46,6 +49,9 @@ ai() {
       if [[ -f "$IDENTITY_MANAGER" ]]; then
         node "$IDENTITY_MANAGER" learn "$query" "$model" "$dq_score" 2>/dev/null &
       fi
+
+      # Set flag to prevent double-logging in cq/cc/co
+      export __AI_KERNEL_ACTIVE=1
 
       # Route to model
       case "$model" in

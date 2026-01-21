@@ -2,6 +2,9 @@
 # Claude Observatory - Command Usage Tracker
 # Tracks which aliases, skills, and commands are actually used
 
+# Clear conflicting aliases (prevents parse errors on re-source)
+unalias command-stats cq cc co claude ccc routing-dash cterm gsave gsync ai-good ai-bad 2>/dev/null
+
 DATA_FILE="$HOME/.claude/data/command-usage.jsonl"
 mkdir -p "$(dirname "$DATA_FILE")"
 
@@ -31,13 +34,97 @@ __wrap_command() {
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
+# KERNEL INTEGRATION HOOK
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Notify all kernel systems of Claude invocation
+# This ensures activity tracker, identity manager get data regardless of entry point
+__kernel_hook() {
+  local model="$1"
+  local query="$2"
+  local dq_score="${3:-0.5}"  # Default for direct model calls
+
+  local KERNEL_DIR="$HOME/.claude/kernel"
+  local ACTIVITY_TRACKER="$KERNEL_DIR/activity-tracker.js"
+  local IDENTITY_MANAGER="$KERNEL_DIR/identity-manager.js"
+  local DQ_SCORES="$KERNEL_DIR/dq-scores.jsonl"
+  local AI_LOG="$HOME/.claude/data/ai-routing.log"
+
+  # Skip if called from ai() function (it handles kernel logging itself)
+  [[ -n "$__AI_KERNEL_ACTIVE" ]] && return
+
+  # Skip if no query (interactive session start)
+  [[ -z "$query" ]] && return
+
+  # Calculate complexity based on model choice (heuristic)
+  local complexity="0.3"
+  [[ "$model" == "sonnet" ]] && complexity="0.5"
+  [[ "$model" == "opus" ]] && complexity="0.8"
+
+  # Estimate DQ score based on model (users choose appropriate model)
+  # Higher DQ for opus (complex queries), lower for haiku (simple queries)
+  local estimated_dq="0.5"
+  [[ "$model" == "haiku" ]] && estimated_dq="0.3"
+  [[ "$model" == "sonnet" ]] && estimated_dq="0.6"
+  [[ "$model" == "opus" ]] && estimated_dq="0.85"
+
+  # Log to DQ scores for routing metrics (background)
+  local ts=$(date +%s)
+  local dq_entry="{\"ts\":$ts,\"query\":\"${query:0:100}\",\"model\":\"$model\",\"dqScore\":$estimated_dq,\"complexity\":$complexity,\"source\":\"direct\"}"
+  echo "$dq_entry" >> "$DQ_SCORES" 2>/dev/null &
+
+  # Log to activity tracker (background)
+  if [[ -f "$ACTIVITY_TRACKER" ]]; then
+    node "$ACTIVITY_TRACKER" query "$query" "$model" "$estimated_dq" "$complexity" 2>/dev/null &
+  fi
+
+  # Update identity manager (background)
+  if [[ -f "$IDENTITY_MANAGER" ]]; then
+    node "$IDENTITY_MANAGER" learn "$query" "$model" "$estimated_dq" 2>/dev/null &
+  fi
+
+  # Log decision
+  echo "$(date '+%H:%M:%S') DIRECT:$model DQ:$estimated_dq C:$complexity query:${query:0:50}" >> "$AI_LOG"
+}
+
+# Claude wrapper functions (not aliases) to capture queries
+__claude_with_kernel() {
+  local model="$1"
+  shift
+  local args="$*"
+
+  # Track the command
+  __track_command "c${model:0:1}" "$args" "alias"
+
+  # Extract query if using -p flag
+  local query=""
+  if [[ "$args" == *"-p"* ]]; then
+    # Parse query after -p flag
+    query=$(echo "$args" | sed -n 's/.*-p[[:space:]]*["'\'']\{0,1\}\([^"'\'']*\)["'\'']\{0,1\}.*/\1/p')
+    if [[ -z "$query" ]]; then
+      # Try without quotes
+      query=$(echo "$args" | sed 's/.*-p[[:space:]]*//')
+    fi
+  fi
+
+  # Notify kernel systems
+  __kernel_hook "$model" "$query"
+
+  # Run Claude
+  claude --model "$model" $args
+}
+
+# Note: export -f is bash-only and causes function dumps in zsh
+# Functions are available in sourced context without export
+
+# ═══════════════════════════════════════════════════════════════════════════
 # TRACKED ALIASES (wrap existing aliases)
 # ═══════════════════════════════════════════════════════════════════════════
 
-# Model selection
-alias cq='__track_command cq "$*" alias && claude --model haiku'
-alias cc='__track_command cc "$*" alias && claude --model sonnet'
-alias co='__track_command co "$*" alias && claude --model opus'
+# Model selection - now with kernel integration
+cq() { __claude_with_kernel haiku "$@"; }
+cc() { __claude_with_kernel sonnet "$@"; }
+co() { __claude_with_kernel opus "$@"; }
 alias claude='__track_command claude "$*" alias && ~/.claude/scripts/claude-wrapper.sh'
 
 # Dashboards
@@ -79,9 +166,7 @@ __track_skill() {
   __track_command "$skill" "" "skill"
 }
 
-# Export tracking function
-export -f __track_command
-export -f __track_skill
+# Note: export -f is bash-only, removed for zsh compatibility
 
 # ═══════════════════════════════════════════════════════════════════════════
 # ANALYTICS
@@ -133,5 +218,4 @@ for ctx, count in contexts.most_common():
 EOF
 }
 
-# Export analytics function
-export -f command-stats
+# Note: export -f removed for zsh compatibility

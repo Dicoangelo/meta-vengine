@@ -100,3 +100,54 @@ prefetch-topic() {
 backfill-learnings() {
   python3 "$RESEARCHGRAVITY_DIR/backfill_learnings.py" "$@"
 }
+
+# ============================================================
+# TOKEN OPTIMIZER - Intelligent Memory Retrieval
+# ============================================================
+
+TOKEN_OPTIMIZER="$HOME/.claude/kernel/token-optimizer.js"
+
+# Get optimized memories for a query/topic
+# Usage: prefetch-memories "query or topic" [budget]
+prefetch-memories() {
+  local query="$1"
+  local budget="${2:-2000}"
+
+  if [[ -z "$query" ]]; then
+    echo "Usage: prefetch-memories \"query\" [budget]"
+    return 1
+  fi
+
+  if [[ -f "$TOKEN_OPTIMIZER" ]]; then
+    node "$TOKEN_OPTIMIZER" inject "$query" "$budget"
+  else
+    echo "Token optimizer not available"
+    return 1
+  fi
+}
+
+# Auto-prefetch with both project context AND relevant memories
+# Usage: prefetch-full [project] [query]
+prefetch-full() {
+  local project="${1:-$__CLAUDE_CURRENT_PROJECT}"
+  local query="${2:-$project}"
+
+  if [[ -z "$project" ]]; then
+    echo "Usage: prefetch-full [project] [query]"
+    return 1
+  fi
+
+  echo "═══ FULL CONTEXT PREFETCH ═══"
+  echo ""
+
+  # Standard project prefetch
+  echo "📚 Project Context:"
+  python3 "$RESEARCHGRAVITY_DIR/prefetch.py" --project "$project" --days 14 --quiet 2>/dev/null
+
+  # Token-optimized memories
+  if [[ -f "$TOKEN_OPTIMIZER" ]]; then
+    echo ""
+    echo "🧠 Relevant Memories:"
+    node "$TOKEN_OPTIMIZER" inject "$query" 1500 2>/dev/null
+  fi
+}

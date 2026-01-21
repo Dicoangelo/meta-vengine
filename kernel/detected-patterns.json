@@ -1,57 +1,6 @@
 {
-  "detectedAt": "2026-01-16T18:48:47.411Z",
+  "detectedAt": "2026-01-21T08:34:00.783Z",
   "windowMinutes": 30,
-  "activityCount": 3,
-  "patterns": [
-    {
-      "id": "debugging",
-      "name": "Debugging Session",
-      "icon": "🔍",
-      "confidence": 1,
-      "totalMatches": 7,
-      "matchingEvents": [
-        {
-          "timestamp": 1768589317206,
-          "text": "fix the error in my code",
-          "matches": 2
-        },
-        {
-          "timestamp": 1768589317276,
-          "text": "debug this issue",
-          "matches": 3
-        },
-        {
-          "timestamp": 1768589317337,
-          "text": "why is this not working",
-          "matches": 2
-        }
-      ],
-      "suggestions": [
-        {
-          "type": "skill",
-          "value": "/debug",
-          "label": "Run systematic debug",
-          "desc": "Comprehensive debugging workflow"
-        },
-        {
-          "type": "model",
-          "value": "opus",
-          "label": "Switch to Opus",
-          "desc": "Better for complex analysis"
-        },
-        {
-          "type": "memory",
-          "value": "error patterns",
-          "label": "Recall error patterns",
-          "desc": "Load related debugging memories"
-        },
-        {
-          "type": "command",
-          "value": "git diff",
-          "label": "View recent changes",
-          "desc": "Check what changed recently"
-        }
-      ]
-    }
-  ]
+  "activityCount": 1,
+  "patterns": []
 }

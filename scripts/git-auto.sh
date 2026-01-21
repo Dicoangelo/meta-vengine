@@ -1,6 +1,9 @@
 #!/bin/bash
 # Git automation for Claude terminal workflow
 
+# Clear conflicting aliases (prevents parse errors on re-source)
+unalias gsave gsync gquick gstage gcheckpoint 2>/dev/null
+
 # Auto-stage and show status
 gstage() {
   git add -A
