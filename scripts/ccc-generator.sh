@@ -608,6 +608,116 @@ top_files = [{'file': f.split(':', 1)[1], 'project': f.split(':')[0], 'count': c
 print(json.dumps(top_files))
 PYEOF
 
+echo "  🩹 Loading recovery data..."
+RECOVERY_TMP="/tmp/recovery-data-$$.json"
+python3 << 'RECOVERYEOF' > "$RECOVERY_TMP"
+import json
+from pathlib import Path
+from datetime import datetime, timedelta
+from collections import Counter, defaultdict
+
+home = Path.home()
+outcomes_file = home / ".claude" / "data" / "recovery-outcomes.jsonl"
+
+result = {
+    "stats": {"total": 0, "autoFix": 0, "autoFixRate": 0, "successRate": 0},
+    "categories": {},
+    "outcomes": [],
+    "timeline": [],
+    "successByCategory": {},
+    "matrix": []
+}
+
+if not outcomes_file.exists():
+    print(json.dumps(result))
+    exit()
+
+# Load outcomes
+outcomes = []
+try:
+    with open(outcomes_file) as f:
+        for line in f:
+            if line.strip():
+                try:
+                    outcomes.append(json.loads(line))
+                except:
+                    pass
+except:
+    pass
+
+if not outcomes:
+    print(json.dumps(result))
+    exit()
+
+# Calculate stats
+total = len(outcomes)
+auto_fix = sum(1 for o in outcomes if o.get("auto", False))
+success = sum(1 for o in outcomes if o.get("success", False))
+
+result["stats"] = {
+    "total": total,
+    "autoFix": auto_fix,
+    "autoFixRate": round(auto_fix / total * 100, 1) if total > 0 else 0,
+    "successRate": round(success / total * 100, 1) if total > 0 else 0
+}
+
+# Category distribution
+category_counts = Counter(o.get("category", "unknown") for o in outcomes)
+result["categories"] = dict(category_counts)
+
+# Recent outcomes (newest first)
+result["outcomes"] = sorted(outcomes, key=lambda x: x.get("ts", 0), reverse=True)[:20]
+
+# Timeline (last 7 days)
+now = datetime.now()
+timeline = defaultdict(lambda: {"autoFix": 0, "suggested": 0})
+for o in outcomes:
+    ts = o.get("ts", 0)
+    if ts:
+        date = datetime.fromtimestamp(ts)
+        if (now - date).days <= 7:
+            day_str = date.strftime("%m/%d")
+            if o.get("auto", False):
+                timeline[day_str]["autoFix"] += 1
+            else:
+                timeline[day_str]["suggested"] += 1
+
+# Sort by date and convert to list
+sorted_days = sorted(timeline.keys())
+result["timeline"] = [{"date": d, "autoFix": timeline[d]["autoFix"], "suggested": timeline[d]["suggested"]} for d in sorted_days]
+
+# Success by category
+category_success = defaultdict(lambda: {"success": 0, "total": 0})
+for o in outcomes:
+    cat = o.get("category", "unknown")
+    category_success[cat]["total"] += 1
+    if o.get("success", False):
+        category_success[cat]["success"] += 1
+
+result["successByCategory"] = {
+    cat: round(data["success"] / data["total"] * 100, 1) if data["total"] > 0 else 0
+    for cat, data in category_success.items()
+}
+
+# Recovery matrix (static + dynamic counts)
+matrix_data = {
+    "git": {"errors": 560, "autoFix": "username, locks", "suggestOnly": "merge conflicts, force push"},
+    "concurrency": {"errors": 55, "autoFix": "stale locks, zombies", "suggestOnly": "parallel sessions"},
+    "permissions": {"errors": 40, "autoFix": "safe paths", "suggestOnly": "system paths"},
+    "quota": {"errors": 25, "autoFix": "cache", "suggestOnly": "model switch"},
+    "crash": {"errors": 15, "autoFix": "corrupt state", "suggestOnly": "restore backup"},
+    "recursion": {"errors": 3, "autoFix": "kill runaway", "suggestOnly": "—"},
+    "syntax": {"errors": 2, "autoFix": "—", "suggestOnly": "always suggest"}
+}
+
+result["matrix"] = [
+    {"category": cat.capitalize(), "errors": data["errors"], "autoFix": data["autoFix"], "suggestOnly": data["suggestOnly"]}
+    for cat, data in matrix_data.items()
+]
+
+print(json.dumps(result))
+RECOVERYEOF
+
 # ═══════════════════════════════════════════════════════════════
 # GENERATE DASHBOARD
 # ═══════════════════════════════════════════════════════════════
@@ -748,6 +858,11 @@ with open('$COGNITIVE_TMP', 'r') as f:
     cognitive = safe_parse(f.read(), {"status":"not_configured"})
 output = output.replace('__COGNITIVE_DATA__', json.dumps(cognitive))
 
+# Recovery data
+with open('$RECOVERY_TMP', 'r') as f:
+    recovery = safe_parse(f.read(), {"stats":{"total":0,"autoFixed":0,"suggestions":0,"successRate":0},"categories":{},"outcomes":[],"timeline":[],"successByCategory":{},"matrix":[]})
+output = output.replace('__RECOVERY_DATA__', json.dumps(recovery))
+
 # Pricing data from centralized config
 pricing_file = os.path.expanduser('~/.claude/config/pricing.json')
 if os.path.exists(pricing_file):
@@ -776,4 +891,4 @@ echo "  1-9  Switch tabs (7 = Routing, 8 = Co-Evolution)"
 echo "  R    Refresh"
 
 # Cleanup temp files
-rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" "$SUPERMEMORY_TMP" "$COGNITIVE_TMP" 2>/dev/null
+rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" "$SUPERMEMORY_TMP" "$COGNITIVE_TMP" "$RECOVERY_TMP" 2>/dev/null

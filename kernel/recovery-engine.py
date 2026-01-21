@@ -13,6 +13,32 @@ DATA_DIR = Path.home() / ".claude" / "data"
 KERNEL_DIR = Path.home() / ".claude" / "kernel"
 DB_PATH = Path.home() / ".claude" / "memory" / "supermemory.db"
 
+
+def notify_recovery(action: str, category: str, success: bool):
+    """Show terminal notification and optionally macOS notification for auto-recovery."""
+    # Terminal notification with box
+    status = "FIXED" if success else "ATTEMPTED"
+    color = "\033[32m" if success else "\033[33m"  # Green or yellow
+    reset = "\033[0m"
+
+    print(f"""
+{color}╔══════════════════════════════════════════════════════════════╗
+║  🩹 AUTO-RECOVERY {status:8}                                  ║
+╠══════════════════════════════════════════════════════════════╣
+║  Category: {category:15} Action: {action:20} ║
+╚══════════════════════════════════════════════════════════════╝{reset}
+""")
+
+    # macOS notification (non-blocking)
+    if success:
+        try:
+            subprocess.run([
+                "osascript", "-e",
+                f'display notification "Auto-fixed: {action}" with title "🩹 Recovery Engine" subtitle "{category} error resolved"'
+            ], capture_output=True, timeout=2)
+        except:
+            pass  # Silently fail if notification fails
+
 # Actions safe for auto-execution (>90% historical success)
 SAFE_ACTIONS = {
     "git": ["fix_username_case", "clear_git_locks"],
@@ -241,9 +267,9 @@ class RecoveryEngine:
             result["action"] = action_name
             result["category"] = category
             if result.get("success"):
-                print(f"\033[32m Auto-recovered: {action_name}\033[0m")
+                notify_recovery(action_name, category, success=True)
             else:
-                print(f"\033[33m Auto-recovery attempted: {action_name}\033[0m")
+                notify_recovery(action_name, category, success=False)
                 reason = result.get("reason", "unknown")
                 if reason and reason != "unknown":
                     print(f"  Result: {reason}")
