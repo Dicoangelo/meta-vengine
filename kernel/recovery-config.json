@@ -1,0 +1,38 @@
+{
+  "enabled": true,
+  "async": true,
+  "auto_fix_threshold": 0.90,
+  "demote_threshold": 0.70,
+  "max_recovery_time_ms": 5000,
+  "safe_paths": [
+    "~/.claude/",
+    "~/.agent-core/",
+    "~/.antigravity/"
+  ],
+  "category_overrides": {
+    "syntax": {
+      "auto_fix": false,
+      "reason": "Syntax errors require human judgment"
+    },
+    "git": {
+      "merge_conflict": {
+        "auto_fix": false,
+        "reason": "Merge conflicts require manual resolution"
+      },
+      "force_push": {
+        "auto_fix": false,
+        "reason": "Force push is destructive"
+      }
+    }
+  },
+  "protected_processes": [
+    "kernel_task",
+    "WindowServer",
+    "loginwindow",
+    "launchd",
+    "claude"
+  ],
+  "lock_stale_threshold_seconds": 3600,
+  "git_lock_age_threshold_seconds": 5,
+  "cache_age_threshold_seconds": 86400
+}
