@@ -21,10 +21,11 @@ log_cost() {
   local input_cost=0
   local output_cost=0
 
+  # Updated Jan 2026 for Opus 4.5 pricing
   case "$model" in
-    *haiku*) input_cost=0.25; output_cost=1.25 ;;
+    *haiku*) input_cost=0.80; output_cost=4 ;;
     *sonnet*) input_cost=3; output_cost=15 ;;
-    *opus*) input_cost=15; output_cost=75 ;;
+    *opus*) input_cost=5; output_cost=25 ;;
   esac
 
   # Calculate cost in dollars

@@ -26,10 +26,10 @@ const DEFAULT_CONFIG = {
   currency: 'USD',
   billingCycleStart: 1,  // Day of month billing resets
   apiPricing: {
-    // Per million tokens (blended input/output estimate)
-    haiku: { input: 0.25, output: 1.25 },
+    // Per million tokens - Updated Jan 2026 for Opus 4.5
+    haiku: { input: 0.80, output: 4.0 },
     sonnet: { input: 3.0, output: 15.0 },
-    opus: { input: 15.0, output: 75.0 }
+    opus: { input: 5.0, output: 25.0 }
   },
   alerts: {
     lowUtilizationThreshold: 0.3,  // Alert if using < 30% of typical usage
@@ -170,7 +170,7 @@ function calculateMetrics() {
     }
     // Cache reads would cost full input price on API (huge savings!)
     // Estimate cache value at blended rate (mostly Opus given usage pattern)
-    cacheValue = (tokenData.cacheReads / 1_000_000) * 15; // Opus input rate
+    cacheValue = (tokenData.cacheReads / 1_000_000) * 5; // Opus 4.5 input rate (Jan 2026)
     subscriptionMultiplier = (apiEquivalent + cacheValue) > 0 ? (apiEquivalent + cacheValue) / rate : 0;
   }
 

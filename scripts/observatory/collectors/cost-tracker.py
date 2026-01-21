@@ -20,13 +20,13 @@ DATA_FILE = HOME / ".claude/data/cost-tracking.jsonl"
 SESSIONS_DIR = HOME / ".claude/projects"
 STATS_CACHE = HOME / ".claude/stats-cache.json"
 
-# Pricing (USD per million tokens) - Opus 4.5
+# Pricing (USD per million tokens) - Updated Jan 2026 for Opus 4.5
 PRICING = {
     "claude-opus-4-5-20251101": {
-        "input": 15.00,
-        "output": 75.00,
-        "cache_read": 1.50,  # 10x cheaper than input
-        "cache_create": 18.75  # 1.25x input cost
+        "input": 5.00,
+        "output": 25.00,
+        "cache_read": 0.50,  # 10x cheaper than input
+        "cache_create": 6.25  # 1.25x input cost
     },
     "claude-sonnet-4-5-20250929": {
         "input": 3.00,
@@ -35,10 +35,10 @@ PRICING = {
         "cache_create": 3.75
     },
     "claude-haiku-4-0-20250115": {
-        "input": 0.25,
-        "output": 1.25,
-        "cache_read": 0.025,
-        "cache_create": 0.3125
+        "input": 0.80,
+        "output": 4.00,
+        "cache_read": 0.08,
+        "cache_create": 1.00
     }
 }
 

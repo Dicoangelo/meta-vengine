@@ -70,7 +70,7 @@ MODEL_PROFILES = {
     "sonnet": {"cost": 3.0, "latency": 0.8, "capability": 0.85, "tier": 3},
     "gpt-4o": {"cost": 2.5, "latency": 0.7, "capability": 0.82, "tier": 3},
     "pro": {"cost": 1.25, "latency": 0.6, "capability": 0.75, "tier": 3},
-    "opus": {"cost": 15.0, "latency": 1.5, "capability": 1.0, "tier": 4},
+    "opus": {"cost": 5.0, "latency": 1.5, "capability": 1.0, "tier": 4},  # Updated Jan 2026 for Opus 4.5
 }
 
 
@@ -451,7 +451,7 @@ class PressureFieldSelector:
 
         # Cost pressure: higher for expensive models, but REDUCED for complex queries
         # Complex queries NEED expensive models, so cost pressure drops
-        base_cost = profile["cost"] / 15.0  # Normalize by opus cost
+        base_cost = profile["cost"] / 5.0  # Normalize by opus cost (Opus 4.5 pricing)
         difficulty_discount = math.exp(-3 * difficulty)  # Exponential decay with difficulty
         cost_pressure = base_cost * difficulty_discount / budget
 

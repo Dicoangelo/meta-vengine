@@ -67,14 +67,15 @@ const MODEL_CAPABILITIES = BASELINES?.complexity_thresholds ? {
     strengths: ['complex reasoning', 'novel problems', 'architecture', 'research', 'expert tasks'],
     weaknesses: ['cost', 'latency for simple tasks'],
     maxComplexity: BASELINES.complexity_thresholds.opus.range[1],
-    costPerMToken: BASELINES.cost_per_mtok?.opus || { input: 15, output: 75 }
+    costPerMToken: BASELINES.cost_per_mtok?.opus || { input: 5, output: 25 }
   }
 } : {
+  // Fallback values - Updated Jan 2026 for Opus 4.5
   haiku: {
     strengths: ['quick answers', 'simple tasks', 'formatting', 'short responses'],
     weaknesses: ['complex reasoning', 'long context', 'code generation', 'architecture'],
     maxComplexity: 0.30,
-    costPerMToken: { input: 0.25, output: 1.25 }
+    costPerMToken: { input: 0.80, output: 4 }
   },
   sonnet: {
     strengths: ['code generation', 'analysis', 'moderate reasoning', 'balanced tasks'],
@@ -86,7 +87,7 @@ const MODEL_CAPABILITIES = BASELINES?.complexity_thresholds ? {
     strengths: ['complex reasoning', 'novel problems', 'architecture', 'research', 'expert tasks'],
     weaknesses: ['cost', 'latency for simple tasks'],
     maxComplexity: 1.0,
-    costPerMToken: { input: 15, output: 75 }
+    costPerMToken: { input: 5, output: 25 }
   }
 };
 

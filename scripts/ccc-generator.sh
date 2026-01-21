@@ -8,7 +8,8 @@ STATS_FILE="$HOME/.claude/stats-cache.json"
 MEMORY_FILE="$HOME/.claude/memory/knowledge.json"
 ACTIVITY_LOG="$HOME/.claude/activity.log"
 TEMPLATE="$HOME/.claude/scripts/command-center.html"
-OUTPUT="/tmp/claude-command-center.html"
+OUTPUT="$HOME/.claude/dashboard/claude-command-center.html"
+mkdir -p "$HOME/.claude/dashboard"
 
 echo "🚀 Building Command Center..."
 
@@ -71,12 +72,23 @@ get_project_stats() {
   fi
 }
 
-# Collect project data
+# Collect project data - All projects
 OS_APP_STATS=$(get_project_stats "$HOME/OS-App" "OS-App" "Vite + React 19 + Zustand + Supabase" "os-app")
 CAREER_STATS=$(get_project_stats "$HOME/CareerCoachAntigravity" "CareerCoach" "Next.js 14 + React 18 + Zustand" "career")
 RESEARCH_STATS=$(get_project_stats "$HOME/researchgravity" "ResearchGravity" "Python 3.8+ Research Framework" "research")
+AGENT_CORE_STATS=$(get_project_stats "$HOME/agent-core" "Agent Core" "Unified Agent Data Store" "agent")
+BLACKAMETHYST_STATS=$(get_project_stats "$HOME/Blackamethyst-ai-profile" "Blackamethyst AI" "AI Profile System" "ai")
+CHROME_HISTORY_STATS=$(get_project_stats "$HOME/chrome-history-export" "Chrome History" "Browser History Export" "tool")
+DICOANGELO_STATS=$(get_project_stats "$HOME/Dicoangelo" "Dicoangelo" "GitHub Profile" "profile")
+META_VENGINE_STATS=$(get_project_stats "$HOME/meta-vengine" "Meta-Vengine" "Meta Engine System" "meta")
+METAVENTIONS_STATS=$(get_project_stats "$HOME/Metaventions-AI-Landing" "Metaventions Landing" "AI Landing Page" "landing")
+DECOSYSTEM_STATS=$(get_project_stats "$HOME/The-Decosystem" "The Decosystem" "Ecosystem Framework" "ecosystem")
+CPB_CORE_STATS=$(get_project_stats "$HOME/cpb-core" "CPB Core" "Career Precision Bridge Core" "cpb")
+CPB_DEMO_STATS=$(get_project_stats "$HOME/cpb-demo" "CPB Demo" "Career Precision Bridge Demo" "cpb-demo")
+CAREER_MVP_STATS=$(get_project_stats "$HOME/career-coach-mvp" "Career Coach MVP" "Career Coach Minimum Viable Product" "career-mvp")
+VOICE_NEXUS_STATS=$(get_project_stats "$HOME/voice-nexus" "Voice Nexus" "Voice Integration System" "voice")
 
-PROJECTS_DATA="[$OS_APP_STATS,$CAREER_STATS,$RESEARCH_STATS]"
+PROJECTS_DATA="[$OS_APP_STATS,$CAREER_STATS,$RESEARCH_STATS,$AGENT_CORE_STATS,$BLACKAMETHYST_STATS,$CHROME_HISTORY_STATS,$DICOANGELO_STATS,$META_VENGINE_STATS,$METAVENTIONS_STATS,$DECOSYSTEM_STATS,$CPB_CORE_STATS,$CPB_DEMO_STATS,$CAREER_MVP_STATS,$VOICE_NEXUS_STATS]"
 
 echo "  🎯 Loading proactive suggestions..."
 KERNEL_DIR="$HOME/.claude/kernel"
@@ -113,6 +125,76 @@ elif [[ -f "$KERNEL_DIR/subscription-tracker.js" ]]; then
   SUBSCRIPTION_DATA=$(node "$KERNEL_DIR/subscription-tracker.js" json 2>/dev/null || echo '{"error":"failed"}')
 else
   SUBSCRIPTION_DATA='{"subscription":{"rate":200},"value":{"totalValue":0,"subscriptionMultiplier":0}}'
+fi
+
+echo "  📦 Loading pack metrics..."
+# Generate fresh pack metrics from context-packs infrastructure
+python3 "$HOME/.claude/scripts/generate-pack-metrics.py" 2>/dev/null || true
+
+PACK_METRICS_FILE="$HOME/.claude/data/pack-metrics.json"
+if [[ -f "$PACK_METRICS_FILE" ]]; then
+  PACK_DATA=$(cat "$PACK_METRICS_FILE")
+else
+  PACK_DATA='{"status":"not_configured","global":{"total_sessions":0},"top_packs":[],"daily_trend":[],"pack_inventory":[]}'
+fi
+
+echo "  ⚡ Loading session window data..."
+# Get session window data from session-engine.js
+SESSION_STATE_FILE="$KERNEL_DIR/session-state.json"
+TASK_QUEUE_FILE="$KERNEL_DIR/task-queue.json"
+
+if [[ -f "$SESSION_STATE_FILE" ]]; then
+  SESSION_WINDOW_DATA=$(python3 -c "
+import json
+from pathlib import Path
+
+state_file = Path.home() / '.claude/kernel/session-state.json'
+queue_file = Path.home() / '.claude/kernel/task-queue.json'
+
+result = {
+    'window': {},
+    'budget': {},
+    'capacity': {},
+    'queue': {'pending': 0},
+    'recommendations': []
+}
+
+if state_file.exists():
+    with open(state_file) as f:
+        state = json.load(f)
+    result['window'] = state.get('window', {})
+    result['budget'] = state.get('budget', {})
+    result['capacity'] = state.get('capacity', {})
+
+if queue_file.exists():
+    with open(queue_file) as f:
+        queue = json.load(f)
+    pending = [t for t in queue.get('tasks', []) if t.get('status') == 'pending']
+    result['queue'] = {'pending': len(pending)}
+
+# Generate recommendations
+tier = result['capacity'].get('tier', 'UNKNOWN')
+position = result['window'].get('positionPercent', 0)
+budget_used = result['budget'].get('utilizationPercent', 0)
+
+recs = []
+if tier == 'CRITICAL':
+    recs.append('Switch to Haiku for remaining tasks')
+elif tier == 'LOW':
+    recs.append('Avoid Opus unless critical')
+if position > 80:
+    recs.append('Late in window - prioritize completion')
+if budget_used > 85:
+    recs.append('Budget pressure - consider model downgrade')
+if result['queue']['pending'] > 5:
+    recs.append('Batch similar tasks for efficiency')
+
+result['recommendations'] = recs if recs else ['Session healthy - proceed normally']
+
+print(json.dumps(result))
+" 2>/dev/null || echo '{"window":{},"budget":{},"capacity":{},"queue":{"pending":0},"recommendations":[]}')
+else
+  SESSION_WINDOW_DATA='{"window":{},"budget":{},"capacity":{},"queue":{"pending":0},"recommendations":[]}'
 fi
 
 echo "  🎯 Loading routing metrics..."
@@ -185,32 +267,33 @@ else
 fi
 
 echo "  🔭 Loading Observatory data..."
-# Load Observatory metrics (ALL TIME)
-OBSERVATORY_DATA=$(python3 "$HOME/.claude/scripts/observatory/analytics-engine.py" export 9999 2>/dev/null || echo '{}')
+# Load Observatory metrics (ALL TIME) - write to temp file to avoid shell escaping issues
+OBSERVATORY_TMP="/tmp/observatory-data-$$.json"
+python3 "$HOME/.claude/scripts/observatory/analytics-engine.py" export 9999 > "$OBSERVATORY_TMP" 2>/dev/null || echo '{}' > "$OBSERVATORY_TMP"
 
 echo "  📋 Loading session outcomes..."
-# Load session outcomes directly from file
+# Load session outcomes to temp file to avoid shell escaping issues
+SESSION_OUTCOMES_TMP="/tmp/session-outcomes-data-$$.json"
 SESSION_OUTCOMES_FILE="$HOME/.claude/data/session-outcomes.jsonl"
 if [[ -f "$SESSION_OUTCOMES_FILE" ]]; then
-  SESSION_OUTCOMES_DATA=$(python3 -c "
+  python3 -c "
 import json
 sessions = []
-with open('$SESSION_OUTCOMES_FILE') as f:
+with open('$HOME/.claude/data/session-outcomes.jsonl') as f:
     for line in f:
         if line.strip():
             try:
                 s = json.loads(line)
-                # Add estimated quality/complexity from messages/tools
                 s['quality'] = min(5, max(1, s.get('messages', 50) / 50))
                 s['complexity'] = min(1.0, s.get('tools', 10) / 100)
-                s['model_efficiency'] = 0.8  # Estimated
+                s['model_efficiency'] = 0.8
                 sessions.append(s)
             except:
                 pass
-print(json.dumps(sessions[-500:]))  # Last 500 sessions
-" 2>/dev/null || echo '[]')
+print(json.dumps(sessions[-500:]))
+" > "$SESSION_OUTCOMES_TMP" 2>/dev/null || echo '[]' > "$SESSION_OUTCOMES_TMP"
 else
-  SESSION_OUTCOMES_DATA='[]'
+  echo '[]' > "$SESSION_OUTCOMES_TMP"
 fi
 
 if [[ -f "$PATTERNS_FILE" ]]; then
@@ -224,6 +307,43 @@ if [[ -f "$MODS_FILE" ]]; then
 else
   MODS_COUNT=0
 fi
+
+echo "  📂 Loading file activity..."
+# Collect recent file changes from git across main projects
+FILE_ACTIVITY_TMP="/tmp/file-activity-$$.json"
+python3 << 'PYEOF' > "$FILE_ACTIVITY_TMP"
+import subprocess
+import json
+from pathlib import Path
+from collections import Counter
+
+projects = [
+    ('OS-App', Path.home() / 'OS-App'),
+    ('CareerCoach', Path.home() / 'CareerCoachAntigravity'),
+    ('ResearchGravity', Path.home() / 'researchgravity'),
+]
+
+file_counts = Counter()
+for name, path in projects:
+    if path.exists() and (path / '.git').exists():
+        try:
+            result = subprocess.run(
+                ['git', 'log', '--oneline', '--name-only', '-50'],
+                cwd=path, capture_output=True, text=True, timeout=5
+            )
+            for line in result.stdout.split('\n'):
+                if '.' in line and '/' in line:
+                    ext = line.rsplit('.', 1)[-1] if '.' in line else ''
+                    if ext in ['ts', 'tsx', 'js', 'jsx', 'py', 'sh', 'json', 'md']:
+                        file_counts[f"{name}:{line}"] += 1
+        except:
+            pass
+
+# Top 15 most modified files
+top_files = [{'file': f.split(':', 1)[1], 'project': f.split(':')[0], 'count': c}
+             for f, c in file_counts.most_common(15)]
+print(json.dumps(top_files))
+PYEOF
 
 # ═══════════════════════════════════════════════════════════════
 # GENERATE DASHBOARD
@@ -324,8 +444,10 @@ subscription_data = {
     "costPerMsg": subscription.get('efficiency', {}).get('costPerMessage', 0)
 }
 
-# Inject data
-observatory = safe_parse('''$OBSERVATORY_DATA''', {})
+# Inject data - read Observatory from temp file to avoid escaping issues
+with open('$OBSERVATORY_TMP', 'r') as f:
+    observatory = safe_parse(f.read(), {})
+pack_metrics = safe_parse('''$PACK_DATA''', {"status":"not_configured","global":{"total_sessions":0}})
 
 output = template.replace('__STATS_DATA__', json.dumps(stats))
 output = output.replace('__MEMORY_DATA__', json.dumps(memory))
@@ -336,10 +458,21 @@ output = output.replace('__COEVO_DATA__', json.dumps(coevo_data))
 output = output.replace('__SUBSCRIPTION_DATA__', json.dumps(subscription_data))
 output = output.replace('__ROUTING_DATA__', json.dumps(routing))
 output = output.replace('__OBSERVATORY_DATA__', json.dumps(observatory))
+output = output.replace('__PACK_DATA__', json.dumps(pack_metrics))
 
-# Session outcomes (embedded)
-session_outcomes = safe_parse('''$SESSION_OUTCOMES_DATA''', [])
+# Session outcomes (embedded) - read from temp file to avoid escaping issues
+with open('$SESSION_OUTCOMES_TMP', 'r') as f:
+    session_outcomes = safe_parse(f.read(), [])
 output = output.replace('__SESSION_OUTCOMES_DATA__', json.dumps(session_outcomes))
+
+# Session window data
+session_window = safe_parse('''$SESSION_WINDOW_DATA''', {"window":{},"budget":{},"capacity":{},"queue":{"pending":0},"recommendations":[]})
+output = output.replace('__SESSION_WINDOW_DATA__', json.dumps(session_window))
+
+# File activity data
+with open('$FILE_ACTIVITY_TMP', 'r') as f:
+    file_activity = safe_parse(f.read(), [])
+output = output.replace('__FILE_ACTIVITY_DATA__', json.dumps(file_activity))
 
 # Write output
 with open('$OUTPUT', 'w') as f:
@@ -358,3 +491,6 @@ echo ""
 echo "Keyboard shortcuts:"
 echo "  1-9  Switch tabs (7 = Routing, 8 = Co-Evolution)"
 echo "  R    Refresh"
+
+# Cleanup temp files
+rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" 2>/dev/null
