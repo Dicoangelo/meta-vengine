@@ -516,6 +516,11 @@
             "type": "command",
             "command": "python3 ~/.claude/scripts/fix-all-dashboard-data.py --quiet 2>/dev/null || true",
             "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/scripts/daily-memory-log.py --quiet 2>/dev/null || true",
+            "timeout": 30
           }
         ]
       }
