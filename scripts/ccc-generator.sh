@@ -308,6 +308,86 @@ else
   MODS_COUNT=0
 fi
 
+echo "  🧠 Loading supermemory data..."
+# Load supermemory stats from SQLite database
+SUPERMEMORY_TMP="/tmp/supermemory-data-$$.json"
+python3 << 'SMEOF' > "$SUPERMEMORY_TMP"
+import json
+import sqlite3
+import subprocess
+from pathlib import Path
+from datetime import datetime
+
+home = Path.home()
+supermemory_dir = home / ".claude" / "supermemory"
+db_path = home / ".claude" / "memory" / "supermemory.db"
+hooks_dir = home / ".claude" / "hooks"
+
+result = {
+    "status": "not_configured",
+    "totals": {"memory_items": 0, "learnings": 0, "error_patterns": 0, "review_items": 0},
+    "review": {"due_count": 0, "items": []},
+    "recent_learnings": [],
+    "error_patterns": [],
+    "projects": {},
+    "last_sync": None,
+    "automations": {"session_sync": False, "error_lookup": False, "daily_cron": False, "weekly_rollup": False}
+}
+
+if db_path.exists():
+    result["status"] = "active"
+    try:
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+
+        # Get totals
+        result["totals"]["memory_items"] = conn.execute("SELECT COUNT(*) FROM memory_items").fetchone()[0]
+        result["totals"]["learnings"] = conn.execute("SELECT COUNT(*) FROM learnings").fetchone()[0]
+        result["totals"]["error_patterns"] = conn.execute("SELECT COUNT(*) FROM error_patterns").fetchone()[0]
+        result["totals"]["review_items"] = conn.execute("SELECT COUNT(*) FROM reviews").fetchone()[0]
+
+        # Get project breakdown
+        rows = conn.execute("SELECT project, COUNT(*) as cnt FROM memory_items WHERE project IS NOT NULL GROUP BY project").fetchall()
+        result["projects"] = {row["project"]: row["cnt"] for row in rows}
+
+        # Get recent learnings (last 10)
+        rows = conn.execute("SELECT content, category, project, date FROM learnings ORDER BY date DESC LIMIT 10").fetchall()
+        result["recent_learnings"] = [{"content": r["content"], "category": r["category"], "project": r["project"], "date": r["date"]} for r in rows]
+
+        # Get top error patterns
+        rows = conn.execute("SELECT category, pattern, count, solution FROM error_patterns ORDER BY count DESC LIMIT 5").fetchall()
+        result["error_patterns"] = [{"category": r["category"], "pattern": r["pattern"], "count": r["count"], "solution": r["solution"]} for r in rows]
+
+        # Get due reviews
+        today = datetime.now().strftime("%Y-%m-%d")
+        result["review"]["due_count"] = conn.execute("SELECT COUNT(*) FROM reviews WHERE next_review <= ?", (today,)).fetchone()[0]
+        rows = conn.execute("SELECT id, content, category, next_review FROM reviews WHERE next_review <= ? ORDER BY next_review LIMIT 5", (today,)).fetchall()
+        result["review"]["items"] = [{"id": r["id"], "content": r["content"], "category": r["category"], "next_review": r["next_review"]} for r in rows]
+
+        conn.close()
+    except Exception as e:
+        result["error"] = str(e)
+
+# Check automations
+stop_hook = hooks_dir / "session-optimizer-stop.sh"
+if stop_hook.exists():
+    result["automations"]["session_sync"] = "supermemory" in stop_hook.read_text().lower()
+
+error_hook = hooks_dir / "error-capture.sh"
+if error_hook.exists():
+    result["automations"]["error_lookup"] = "supermemory" in error_hook.read_text().lower()
+
+cron_script = home / ".claude" / "scripts" / "supermemory-cron.sh"
+result["automations"]["daily_cron"] = cron_script.exists()
+
+try:
+    cron = subprocess.run(['crontab', '-l'], capture_output=True, text=True, timeout=5)
+    result["automations"]["weekly_rollup"] = "supermemory-cron.sh weekly" in cron.stdout
+except: pass
+
+print(json.dumps(result))
+SMEOF
+
 echo "  📂 Loading file activity..."
 # Collect recent file changes from git across main projects
 FILE_ACTIVITY_TMP="/tmp/file-activity-$$.json"
@@ -450,6 +530,10 @@ with open('$OBSERVATORY_TMP', 'r') as f:
     observatory = safe_parse(f.read(), {})
 pack_metrics = safe_parse('''$PACK_DATA''', {"status":"not_configured","global":{"total_sessions":0}})
 
+# Supermemory data
+with open('$SUPERMEMORY_TMP', 'r') as f:
+    supermemory = safe_parse(f.read(), {"status":"not_configured"})
+
 output = template.replace('__STATS_DATA__', json.dumps(stats))
 output = output.replace('__MEMORY_DATA__', json.dumps(memory))
 output = output.replace('__ACTIVITY_DATA__', json.dumps(activity))
@@ -460,6 +544,7 @@ output = output.replace('__SUBSCRIPTION_DATA__', json.dumps(subscription_data))
 output = output.replace('__ROUTING_DATA__', json.dumps(routing))
 output = output.replace('__OBSERVATORY_DATA__', json.dumps(observatory))
 output = output.replace('__PACK_DATA__', json.dumps(pack_metrics))
+output = output.replace('__SUPERMEMORY_DATA__', json.dumps(supermemory))
 
 # Session outcomes (embedded) - read from temp file to avoid escaping issues
 with open('$SESSION_OUTCOMES_TMP', 'r') as f:
@@ -503,4 +588,4 @@ echo "  1-9  Switch tabs (7 = Routing, 8 = Co-Evolution)"
 echo "  R    Refresh"
 
 # Cleanup temp files
-rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" 2>/dev/null
+rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" "$SUPERMEMORY_TMP" 2>/dev/null

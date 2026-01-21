@@ -51,3 +51,18 @@ if [ -f "$KERNEL_DIR/session-engine.js" ]; then
 fi
 
 log "Session optimizer stop hook completed"
+
+# ══════════════════════════════════════════════════════════════
+# SUPERMEMORY: Incremental sync on session end
+# ══════════════════════════════════════════════════════════════
+
+supermemory_sync() {
+    local supermemory="$HOME/.claude/supermemory/cli.py"
+    if [ -f "$supermemory" ]; then
+        # Background sync to not block session end
+        (python3 "$supermemory" sync &) 2>/dev/null
+        log "Supermemory sync triggered"
+    fi
+}
+
+supermemory_sync

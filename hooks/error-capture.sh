@@ -80,4 +80,25 @@ if $contains_error; then
     # Signal that an error was detected (for other hooks)
     echo "ERROR_DETECTED" > ~/.claude/data/.last-error-flag
     echo "$error_snippet" > ~/.claude/data/.last-error-snippet
+
+    # ══════════════════════════════════════════════════════════════
+    # SUPERMEMORY: Auto-suggest solutions for errors
+    # ══════════════════════════════════════════════════════════════
+    suggest_error_solution() {
+        local error_text="$1"
+        local supermemory="$HOME/.claude/supermemory/cli.py"
+
+        if [ -f "$supermemory" ] && [ -n "$error_text" ]; then
+            local solution=$(python3 "$supermemory" errors "$error_text" 2>/dev/null | head -5)
+            if [ -n "$solution" ]; then
+                echo ""
+                echo "━━━ Supermemory Suggestion ━━━"
+                echo "$solution"
+                echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            fi
+        fi
+    }
+
+    # Auto-suggest solution for detected error
+    suggest_error_solution "$error_snippet"
 fi
