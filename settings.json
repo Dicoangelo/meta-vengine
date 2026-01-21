@@ -349,6 +349,11 @@
             "type": "command",
             "command": "echo \"$(date '+%H:%M:%S') WRITE $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"tool\":\"Write\",\"file\":\"'$CLAUDE_FILE_PATH'\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/auto-version-bump.sh 2>/dev/null || true",
+            "timeout": 5
           }
         ]
       },
@@ -358,6 +363,11 @@
           {
             "type": "command",
             "command": "echo \"$(date '+%H:%M:%S') EDIT $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"tool\":\"Edit\",\"file\":\"'$CLAUDE_FILE_PATH'\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/auto-version-bump.sh 2>/dev/null || true",
             "timeout": 5
           }
         ]
@@ -369,6 +379,11 @@
             "type": "command",
             "command": "echo \"$(date '+%H:%M:%S') BASH\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"tool\":\"Bash\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/error-capture.sh 2>/dev/null || true",
+            "timeout": 3
           }
         ]
       },
@@ -440,6 +455,16 @@
             "type": "command",
             "command": "echo '\n══════════════════════════════════════' >> ~/.claude/activity.log && echo \"SESSION $(date '+%Y-%m-%d %H:%M:%S') PWD:$(pwd)\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"event\":\"session_start\",\"pwd\":\"'$(pwd)'\"}' >> ~/.claude/data/session-events.jsonl && node ~/.claude/kernel/activity-tracker.js start 2>/dev/null &",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/session-optimizer-start.sh 2>/dev/null || true",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/username-check.sh 2>/dev/null || true",
+            "timeout": 5
           }
         ]
       }
@@ -447,6 +472,11 @@
     "SessionEnd": [
       {
         "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/scripts/session-save.sh 2>/dev/null || true",
+            "timeout": 30
+          },
           {
             "type": "command",
             "command": "echo \"SESSION END $(date '+%H:%M:%S')\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"event\":\"session_end\",\"pwd\":\"'$(pwd)'\"}' >> ~/.claude/data/session-events.jsonl",
@@ -471,6 +501,16 @@
             "type": "command",
             "command": "bash ~/.claude/scripts/kernel-feeder.sh 2>/dev/null || true",
             "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/session-optimizer-stop.sh 2>/dev/null || true",
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/scripts/error-summary.sh summary 2>/dev/null || true",
+            "timeout": 10
           }
         ]
       }
