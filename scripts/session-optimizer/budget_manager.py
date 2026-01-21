@@ -11,9 +11,14 @@ Integrates with subscription-tracker.js to:
 
 import json
 import subprocess
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional
+
+# Import centralized pricing
+sys.path.insert(0, str(Path.home() / ".claude/config"))
+from pricing import PRICING
 
 
 class BudgetManager:
@@ -26,11 +31,10 @@ class BudgetManager:
         self.stats_cache = Path.home() / ".claude" / "stats-cache.json"
         self.subscription_tracker = self.kernel_dir / "subscription-tracker.js"
 
-        # Model costs (per million tokens) - Updated Jan 2026 for Opus 4.5
+        # Model costs from centralized config
         self.model_costs = {
-            "opus": {"input": 5.0, "output": 25.0},
-            "sonnet": {"input": 3.0, "output": 15.0},
-            "haiku": {"input": 0.80, "output": 4.0}
+            model: {"input": data["input"], "output": data["output"]}
+            for model, data in PRICING.items()
         }
 
         # Average tokens per task by complexity

@@ -12,6 +12,9 @@
 const fs = require('fs');
 const path = require('path');
 
+// Import centralized pricing
+const { PRICING, SUBSCRIPTION } = require(path.join(process.env.HOME, '.claude/config/pricing.js'));
+
 // ═══════════════════════════════════════════════════════════════════════════
 // CONFIGURATION
 // ═══════════════════════════════════════════════════════════════════════════
@@ -21,15 +24,15 @@ const STATS_CACHE = path.join(__dirname, '..', 'stats-cache.json');
 const HISTORY_FILE = path.join(__dirname, '..', 'history.jsonl');
 const VALUE_LOG = path.join(__dirname, 'subscription-value.jsonl');
 
+// Build default config from centralized pricing
 const DEFAULT_CONFIG = {
-  monthlyRate: 200,
-  currency: 'USD',
+  monthlyRate: SUBSCRIPTION.monthly_rate || 200,
+  currency: SUBSCRIPTION.currency || 'USD',
   billingCycleStart: 1,  // Day of month billing resets
   apiPricing: {
-    // Per million tokens - Updated Jan 2026 for Opus 4.5
-    haiku: { input: 0.80, output: 4.0 },
-    sonnet: { input: 3.0, output: 15.0 },
-    opus: { input: 5.0, output: 25.0 }
+    haiku: { input: PRICING.haiku.input, output: PRICING.haiku.output },
+    sonnet: { input: PRICING.sonnet.input, output: PRICING.sonnet.output },
+    opus: { input: PRICING.opus.input, output: PRICING.opus.output }
   },
   alerts: {
     lowUtilizationThreshold: 0.3,  // Alert if using < 30% of typical usage

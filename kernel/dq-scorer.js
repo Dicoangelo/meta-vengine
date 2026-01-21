@@ -12,6 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { estimateComplexity } = require('./complexity-analyzer');
+const { PRICING } = require(path.join(process.env.HOME, '.claude/config/pricing.js'));
 
 // ═══════════════════════════════════════════════════════════════════════════
 // BASELINES LOADING
@@ -70,24 +71,24 @@ const MODEL_CAPABILITIES = BASELINES?.complexity_thresholds ? {
     costPerMToken: BASELINES.cost_per_mtok?.opus || { input: 5, output: 25 }
   }
 } : {
-  // Fallback values - Updated Jan 2026 for Opus 4.5
+  // Fallback values from centralized pricing config
   haiku: {
     strengths: ['quick answers', 'simple tasks', 'formatting', 'short responses'],
     weaknesses: ['complex reasoning', 'long context', 'code generation', 'architecture'],
     maxComplexity: 0.30,
-    costPerMToken: { input: 0.80, output: 4 }
+    costPerMToken: { input: PRICING.haiku.input, output: PRICING.haiku.output }
   },
   sonnet: {
     strengths: ['code generation', 'analysis', 'moderate reasoning', 'balanced tasks'],
     weaknesses: ['expert-level problems', 'novel architecture', 'research synthesis'],
     maxComplexity: 0.70,
-    costPerMToken: { input: 3, output: 15 }
+    costPerMToken: { input: PRICING.sonnet.input, output: PRICING.sonnet.output }
   },
   opus: {
     strengths: ['complex reasoning', 'novel problems', 'architecture', 'research', 'expert tasks'],
     weaknesses: ['cost', 'latency for simple tasks'],
     maxComplexity: 1.0,
-    costPerMToken: { input: 5, output: 25 }
+    costPerMToken: { input: PRICING.opus.input, output: PRICING.opus.output }
   }
 };
 

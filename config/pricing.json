@@ -1,0 +1,45 @@
+{
+  "_meta": {
+    "version": "2026-01",
+    "updated": "2026-01-21",
+    "source": "https://docs.anthropic.com/en/docs/about-claude/models/all-models",
+    "notes": "Opus 4.5 released Jan 2026. All prices per million tokens."
+  },
+  "models": {
+    "opus": {
+      "id": "claude-opus-4-5-20251101",
+      "display": "Opus 4.5",
+      "input": 5.00,
+      "output": 25.00,
+      "cache_read": 0.50,
+      "cache_write": 6.25
+    },
+    "sonnet": {
+      "id": "claude-sonnet-4-20250514",
+      "display": "Sonnet 4",
+      "input": 3.00,
+      "output": 15.00,
+      "cache_read": 0.30,
+      "cache_write": 3.75
+    },
+    "haiku": {
+      "id": "claude-haiku-3-5-20241022",
+      "display": "Haiku 3.5",
+      "input": 0.80,
+      "output": 4.00,
+      "cache_read": 0.08,
+      "cache_write": 1.00
+    }
+  },
+  "estimates": {
+    "_notes": "Average cost per message assuming ~1.5K input + ~0.8K output tokens",
+    "opus": 0.027,
+    "sonnet": 0.017,
+    "haiku": 0.004
+  },
+  "subscription": {
+    "plan": "Max 20x",
+    "monthly_rate": 280,
+    "currency": "CAD"
+  }
+}

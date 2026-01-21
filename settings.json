@@ -511,6 +511,11 @@
             "type": "command",
             "command": "bash ~/.claude/scripts/error-summary.sh summary 2>/dev/null || true",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/scripts/fix-all-dashboard-data.py --quiet 2>/dev/null || true",
+            "timeout": 60
           }
         ]
       }

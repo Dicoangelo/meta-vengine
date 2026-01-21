@@ -11,6 +11,10 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 import glob
 
+# Import centralized pricing
+sys.path.insert(0, str(Path.home() / ".claude/config"))
+from pricing import PRICING as _PRICING, SUBSCRIPTION
+
 # ═══════════════════════════════════════════════════════════════════════════
 # CONFIGURATION
 # ═══════════════════════════════════════════════════════════════════════════
@@ -20,29 +24,29 @@ DATA_FILE = HOME / ".claude/data/cost-tracking.jsonl"
 SESSIONS_DIR = HOME / ".claude/projects"
 STATS_CACHE = HOME / ".claude/stats-cache.json"
 
-# Pricing (USD per million tokens) - Updated Jan 2026 for Opus 4.5
+# Build PRICING dict from centralized config (keyed by model ID for compatibility)
 PRICING = {
     "claude-opus-4-5-20251101": {
-        "input": 5.00,
-        "output": 25.00,
-        "cache_read": 0.50,  # 10x cheaper than input
-        "cache_create": 6.25  # 1.25x input cost
+        "input": _PRICING["opus"]["input"],
+        "output": _PRICING["opus"]["output"],
+        "cache_read": _PRICING["opus"]["cache_read"],
+        "cache_create": _PRICING["opus"]["cache_write"]
     },
     "claude-sonnet-4-5-20250929": {
-        "input": 3.00,
-        "output": 15.00,
-        "cache_read": 0.30,
-        "cache_create": 3.75
+        "input": _PRICING["sonnet"]["input"],
+        "output": _PRICING["sonnet"]["output"],
+        "cache_read": _PRICING["sonnet"]["cache_read"],
+        "cache_create": _PRICING["sonnet"]["cache_write"]
     },
     "claude-haiku-4-0-20250115": {
-        "input": 0.80,
-        "output": 4.00,
-        "cache_read": 0.08,
-        "cache_create": 1.00
+        "input": _PRICING["haiku"]["input"],
+        "output": _PRICING["haiku"]["output"],
+        "cache_read": _PRICING["haiku"]["cache_read"],
+        "cache_create": _PRICING["haiku"]["cache_write"]
     }
 }
 
-SUBSCRIPTION_COST = 200.0  # Monthly Pro subscription
+SUBSCRIPTION_COST = SUBSCRIPTION.get("monthly_rate", 200.0)
 
 # ═══════════════════════════════════════════════════════════════════════════
 # COST CALCULATION
