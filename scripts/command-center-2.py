@@ -442,6 +442,99 @@ def get_pricing_data() -> Dict:
     })
 
 
+def get_supermemory_data() -> Dict:
+    """Get supermemory statistics and status from SQLite database."""
+    import sqlite3
+
+    db_path = MEMORY_DIR / "supermemory.db"
+    hooks_dir = CLAUDE_DIR / "hooks"
+    cron_script = CLAUDE_DIR / "scripts" / "supermemory-cron.sh"
+
+    result = {
+        "status": "not_configured",
+        "totals": {
+            "memory_items": 0,
+            "learnings": 0,
+            "error_patterns": 0,
+            "review_items": 0
+        },
+        "review": {
+            "due_count": 0,
+            "items": []
+        },
+        "recent_learnings": [],
+        "error_patterns": [],
+        "projects": {},
+        "last_sync": None,
+        "automations": {
+            "session_sync": False,
+            "error_lookup": False,
+            "daily_cron": False,
+            "weekly_rollup": False
+        }
+    }
+
+    if not db_path.exists():
+        return result
+
+    result["status"] = "active"
+
+    try:
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+
+        # Get totals
+        result["totals"]["memory_items"] = conn.execute("SELECT COUNT(*) FROM memory_items").fetchone()[0]
+        result["totals"]["learnings"] = conn.execute("SELECT COUNT(*) FROM learnings").fetchone()[0]
+        result["totals"]["error_patterns"] = conn.execute("SELECT COUNT(*) FROM error_patterns").fetchone()[0]
+        result["totals"]["review_items"] = conn.execute("SELECT COUNT(*) FROM reviews").fetchone()[0]
+
+        # Get project breakdown
+        rows = conn.execute("SELECT project, COUNT(*) as cnt FROM memory_items WHERE project IS NOT NULL GROUP BY project").fetchall()
+        result["projects"] = {row["project"]: row["cnt"] for row in rows}
+
+        # Get recent learnings (last 10)
+        rows = conn.execute("SELECT content, category, project, date FROM learnings ORDER BY date DESC LIMIT 10").fetchall()
+        result["recent_learnings"] = [{"content": r["content"], "category": r["category"], "project": r["project"], "date": r["date"]} for r in rows]
+
+        # Get top error patterns
+        rows = conn.execute("SELECT category, pattern, count, solution FROM error_patterns ORDER BY count DESC LIMIT 5").fetchall()
+        result["error_patterns"] = [{"category": r["category"], "pattern": r["pattern"], "count": r["count"], "solution": r["solution"]} for r in rows]
+
+        # Get due reviews
+        today = datetime.now().strftime("%Y-%m-%d")
+        result["review"]["due_count"] = conn.execute("SELECT COUNT(*) FROM reviews WHERE next_review <= ?", (today,)).fetchone()[0]
+        rows = conn.execute("SELECT id, content, category, next_review FROM reviews WHERE next_review <= ? ORDER BY next_review LIMIT 5", (today,)).fetchall()
+        result["review"]["items"] = [{"id": r["id"], "content": r["content"], "category": r["category"], "next_review": r["next_review"]} for r in rows]
+
+        conn.close()
+    except Exception as e:
+        result["error"] = str(e)
+
+    # Check automation status
+    stop_hook = hooks_dir / "session-optimizer-stop.sh"
+    if stop_hook.exists():
+        content = stop_hook.read_text()
+        result["automations"]["session_sync"] = "supermemory" in content.lower()
+
+    error_hook = hooks_dir / "error-capture.sh"
+    if error_hook.exists():
+        content = error_hook.read_text()
+        result["automations"]["error_lookup"] = "supermemory" in content.lower()
+
+    # Check cron jobs
+    result["automations"]["daily_cron"] = cron_script.exists()
+
+    try:
+        cron_result = subprocess.run(['crontab', '-l'], capture_output=True, text=True, timeout=5)
+        if cron_result.returncode == 0:
+            result["automations"]["weekly_rollup"] = "supermemory-cron.sh weekly" in cron_result.stdout
+    except:
+        pass
+
+    return result
+
+
 def is_session_active() -> bool:
     """Check if there's an active Claude session."""
     activity_log = CLAUDE_DIR / "activity.log"
@@ -630,6 +723,10 @@ async def api_file_activity():
 async def api_pricing():
     return get_pricing_data()
 
+@app.get("/api/supermemory")
+async def api_supermemory():
+    return get_supermemory_data()
+
 @app.get("/api/status")
 async def api_status():
     """Get current session status."""
@@ -652,6 +749,7 @@ async def api_all():
         "proactive": get_proactive_data(),
         "fileActivity": get_file_activity_data(),
         "pricing": get_pricing_data(),
+        "supermemory": get_supermemory_data(),
         "status": {"active": is_session_active()}
     }
 

@@ -1472,6 +1472,7 @@
       <button class="nav-tab" data-tab="session-outcomes">Session Outcomes</button>
       <button class="nav-tab" data-tab="productivity">Productivity</button>
       <button class="nav-tab" data-tab="tool-analytics">Tool Analytics</button>
+      <button class="nav-tab" data-tab="supermemory">Supermemory</button>
     </div>
     <div class="nav-actions">
       <div class="live-indicator">
@@ -2410,10 +2411,117 @@
         </div>
       </div>
     </div>
+
+    <!-- SUPERMEMORY TAB -->
+    <div id="supermemory" class="tab-content">
+      <div class="section-header">
+        <h2>🧠 Supermemory - Intelligent Memory Layer</h2>
+        <div class="section-actions">
+          <span id="supermemoryStatus" class="status-badge">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Stats Overview -->
+      <div class="stats-row" id="supermemoryStats">
+        <div class="stat-card">
+          <div class="stat-value" id="smMemoryItems">—</div>
+          <div class="stat-label">Memory Items</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="smLearnings">—</div>
+          <div class="stat-label">Learnings</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="smErrorPatterns">—</div>
+          <div class="stat-label">Error Patterns</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="smReviewDue">—</div>
+          <div class="stat-label">Review Due</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <!-- Automations Status -->
+        <div class="card">
+          <div class="card-header">
+            <h3>⚡ Automations Status</h3>
+          </div>
+          <div class="card-body">
+            <table style="width: 100%; border-collapse: collapse;" id="smAutomationsTable">
+              <thead>
+                <tr>
+                  <th style="text-align: left; padding: 8px; border-bottom: 1px solid var(--border);">Automation</th>
+                  <th style="text-align: center; padding: 8px; border-bottom: 1px solid var(--border);">Status</th>
+                  <th style="text-align: left; padding: 8px; border-bottom: 1px solid var(--border);">Trigger</th>
+                </tr>
+              </thead>
+              <tbody id="smAutomationsBody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Review Queue -->
+        <div class="card">
+          <div class="card-header">
+            <h3>📚 Review Queue</h3>
+          </div>
+          <div class="card-body">
+            <div id="smReviewList" style="max-height: 300px; overflow-y: auto;">
+              <p style="color: var(--text-muted);">No items due for review</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <!-- Recent Learnings -->
+        <div class="card">
+          <div class="card-header">
+            <h3>💡 Recent Learnings</h3>
+          </div>
+          <div class="card-body">
+            <div id="smLearningsList" style="max-height: 350px; overflow-y: auto;">
+              <p style="color: var(--text-muted);">No learnings recorded</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Error Patterns -->
+        <div class="card">
+          <div class="card-header">
+            <h3>🔴 Top Error Patterns</h3>
+          </div>
+          <div class="card-body">
+            <div id="smErrorsList" style="max-height: 350px; overflow-y: auto;">
+              <p style="color: var(--text-muted);">No error patterns recorded</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commands -->
+      <div class="card">
+        <div class="card-header">
+          <h3>⚙️ Supermemory Commands</h3>
+        </div>
+        <div class="commands-grid">
+          <div class="command-card"><code>sm stats</code><div class="desc">Show memory statistics</div></div>
+          <div class="command-card"><code>sm context</code><div class="desc">Generate session context</div></div>
+          <div class="command-card"><code>sm errors "text"</code><div class="desc">Find past error solutions</div></div>
+          <div class="command-card"><code>sm review</code><div class="desc">Start spaced repetition review</div></div>
+          <div class="command-card"><code>sm sync</code><div class="desc">Sync all data sources</div></div>
+          <div class="command-card"><code>sm rollup</code><div class="desc">Generate weekly summary</div></div>
+          <div class="command-card"><code>sm project os-app</code><div class="desc">Get project-specific memory</div></div>
+          <div class="command-card"><code>sm-due</code><div class="desc">Check review items due</div></div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="footer">
-    Press <kbd>1</kbd>-<kbd>9</kbd> for tabs 1-9 · <kbd>0</kbd>, <kbd>O</kbd>, <kbd>P</kbd> for Observatory tabs · <kbd>R</kbd> to refresh
+    Press <kbd>1</kbd>-<kbd>9</kbd> for tabs 1-9 · <kbd>0</kbd>, <kbd>O</kbd>, <kbd>P</kbd>, <kbd>S</kbd> for extra tabs · <kbd>R</kbd> to refresh
   </footer>
 
   <script>
@@ -2438,6 +2546,7 @@
       if (e.key.toLowerCase() === 'o') switchTab('session-outcomes');  // Tab 10 (O for Outcomes)
       if (e.key.toLowerCase() === 'p') switchTab('productivity');  // Tab 11
       if (e.key.toLowerCase() === 't') switchTab('tool-analytics');  // Tab 12
+      if (e.key.toLowerCase() === 's') switchTab('supermemory');  // Tab 13
       if (e.key.toLowerCase() === 'r') location.reload();
     });
 
@@ -2456,6 +2565,7 @@
     const SESSION_WINDOW_DATA = __SESSION_WINDOW_DATA__;
     const FILE_ACTIVITY_DATA = __FILE_ACTIVITY_DATA__;
     const PRICING_DATA = __PRICING_DATA__;
+    const SUPERMEMORY_DATA = __SUPERMEMORY_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -3724,6 +3834,109 @@
     if (document.getElementById('session-outcomes')?.classList.contains('active')) {
       loadSessionOutcomes();
     }
+
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // SUPERMEMORY TAB
+    // ═══════════════════════════════════════════════════════════════════════════════
+
+    function renderSupermemory() {
+      const data = SUPERMEMORY_DATA || {};
+
+      // Status badge
+      const statusEl = document.getElementById('supermemoryStatus');
+      if (data.status === 'active') {
+        statusEl.textContent = '✅ Active';
+        statusEl.style.background = 'rgba(0, 255, 136, 0.2)';
+        statusEl.style.color = 'var(--accent-green)';
+      } else {
+        statusEl.textContent = '⚠️ Not Configured';
+        statusEl.style.background = 'rgba(255, 170, 0, 0.2)';
+        statusEl.style.color = 'var(--accent-yellow)';
+      }
+
+      // Stats cards
+      const totals = data.totals || {};
+      document.getElementById('smMemoryItems').textContent = formatNumber(totals.memory_items || 0);
+      document.getElementById('smLearnings').textContent = formatNumber(totals.learnings || 0);
+      document.getElementById('smErrorPatterns').textContent = formatNumber(totals.error_patterns || 0);
+
+      const dueCount = data.review?.due_count || 0;
+      const dueEl = document.getElementById('smReviewDue');
+      dueEl.textContent = dueCount;
+      if (dueCount > 0) {
+        dueEl.style.color = 'var(--accent-yellow)';
+      }
+
+      // Automations table
+      const automations = data.automations || {};
+      const automationRows = [
+        { name: 'Session Sync', key: 'session_sync', trigger: 'Session end hook' },
+        { name: 'Error Lookup', key: 'error_lookup', trigger: 'Error detection hook' },
+        { name: 'Daily Sync', key: 'daily_cron', trigger: 'LaunchD @ 6am' },
+        { name: 'Weekly Rollup', key: 'weekly_rollup', trigger: 'Cron @ Sunday 8pm' }
+      ];
+
+      const automationsBody = document.getElementById('smAutomationsBody');
+      automationsBody.innerHTML = automationRows.map(row => {
+        const enabled = automations[row.key];
+        const statusIcon = enabled ? '✅' : '❌';
+        const statusText = enabled ? 'Enabled' : 'Disabled';
+        const statusColor = enabled ? 'var(--accent-green)' : 'var(--accent-red)';
+        return `
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 10px; color: var(--text-primary);">${row.name}</td>
+            <td style="padding: 10px; text-align: center; color: ${statusColor};">${statusIcon} ${statusText}</td>
+            <td style="padding: 10px; color: var(--text-secondary); font-size: 0.85rem;">${row.trigger}</td>
+          </tr>
+        `;
+      }).join('');
+
+      // Review queue
+      const reviewItems = data.review?.items || [];
+      const reviewList = document.getElementById('smReviewList');
+      if (reviewItems.length > 0) {
+        reviewList.innerHTML = reviewItems.map(item => `
+          <div style="padding: 10px; margin-bottom: 8px; background: var(--card-bg); border-radius: 6px; border-left: 3px solid var(--accent-yellow);">
+            <div style="color: var(--text-primary); font-size: 0.9rem;">${item.content || item.text || 'Unknown item'}</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem; margin-top: 4px;">Due: ${item.next_review || 'Now'}</div>
+          </div>
+        `).join('');
+      } else if (dueCount === 0) {
+        reviewList.innerHTML = '<p style="color: var(--accent-green);">🎉 All caught up! No items due for review.</p>';
+      }
+
+      // Recent learnings
+      const learnings = data.recent_learnings || [];
+      const learningsList = document.getElementById('smLearningsList');
+      if (learnings.length > 0) {
+        learningsList.innerHTML = learnings.slice().reverse().map(learning => `
+          <div style="padding: 10px; margin-bottom: 8px; background: var(--card-bg); border-radius: 6px; border-left: 3px solid var(--accent-blue);">
+            <div style="color: var(--text-primary); font-size: 0.9rem;">${learning.content || learning.text || learning}</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem; margin-top: 4px;">
+              ${learning.source || ''} ${learning.date ? '• ' + learning.date : ''}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Error patterns
+      const errors = data.error_patterns || [];
+      const errorsList = document.getElementById('smErrorsList');
+      if (errors.length > 0) {
+        errorsList.innerHTML = errors.map(err => `
+          <div style="padding: 10px; margin-bottom: 8px; background: var(--card-bg); border-radius: 6px; border-left: 3px solid var(--accent-red);">
+            <div style="color: var(--text-primary); font-size: 0.9rem; font-family: 'JetBrains Mono', monospace;">${err.pattern || err.error || err}</div>
+            <div style="display: flex; justify-content: space-between; margin-top: 6px;">
+              <span style="color: var(--text-muted); font-size: 0.75rem;">Count: ${err.count || 1}</span>
+              ${err.solution ? `<span style="color: var(--accent-green); font-size: 0.75rem;">Has solution</span>` : ''}
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Render supermemory on load
+    renderSupermemory();
   </script>
 </body>
 </html>
