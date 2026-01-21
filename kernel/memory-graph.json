@@ -2,104 +2,104 @@
   "version": "1.0.0",
   "schema": "zettelkasten",
   "created": "2026-01-16T13:30:00.000Z",
-  "lastUpdated": "2026-01-16T18:32:05.442Z",
+  "lastUpdated": "2026-01-21T10:15:57.082Z",
   "metadata": {
-    "totalNotes": 5,
-    "totalLinks": 2,
+    "totalNotes": 38,
+    "totalLinks": 100,
     "clusters": [
       {
         "type": "fact",
-        "count": 2
+        "count": 3
       },
       {
         "type": "pattern",
-        "count": 1
+        "count": 3
       },
       {
         "type": "insight",
-        "count": 2
+        "count": 32
       }
     ],
     "topKeywords": [
       {
-        "keyword": "react",
-        "count": 4
+        "keyword": "research",
+        "count": 28
       },
       {
-        "keyword": "components",
-        "count": 4
+        "keyword": "auto-capture",
+        "count": 27
       },
       {
-        "keyword": "composition",
-        "count": 3
+        "keyword": "2026",
+        "count": 21
       },
       {
-        "keyword": "use",
-        "count": 2
+        "keyword": "https",
+        "count": 13
       },
       {
-        "keyword": "patterns",
-        "count": 2
+        "keyword": "session",
+        "count": 13
       },
       {
-        "keyword": "over",
-        "count": 1
+        "keyword": "findings",
+        "count": 11
       },
       {
-        "keyword": "inheritance",
-        "count": 1
+        "keyword": "key",
+        "count": 10
       },
       {
-        "keyword": "better",
-        "count": 1
+        "keyword": "com",
+        "count": 9
       },
       {
-        "keyword": "reusability",
-        "count": 1
+        "keyword": "git",
+        "count": 6
       },
       {
-        "keyword": "react,patterns",
-        "count": 1
+        "keyword": "app",
+        "count": 6
       },
       {
-        "keyword": "hooks",
-        "count": 1
+        "keyword": "github",
+        "count": 6
       },
       {
-        "keyword": "enable",
-        "count": 1
+        "keyword": "blackamethyst",
+        "count": 6
       },
       {
-        "keyword": "functional",
-        "count": 1
+        "keyword": "f4e77d1d",
+        "count": 6
       },
       {
-        "keyword": "state",
-        "count": 1
+        "keyword": "202",
+        "count": 5
       },
       {
-        "keyword": "lifecycle",
-        "count": 1
+        "keyword": "8765",
+        "count": 5
       },
       {
-        "keyword": "features",
-        "count": 1
+        "keyword": "model",
+        "count": 5
       },
       {
-        "keyword": "react,hooks",
-        "count": 1
+        "keyword": "audited",
+        "count": 5
       },
       {
-        "keyword": "allow",
-        "count": 1
+        "keyword": "careercoachantigravity",
+        "count": 5
       },
       {
-        "keyword": "share",
-        "count": 1
+        "keyword": "urls",
+        "count": 5
       },
       {
-        "keyword": "behavior",
-        "count": 1
+        "keyword": "referenced",
+        "count": 5
       }
     ]
   },
@@ -246,6 +246,1517 @@
       "accessCount": 0,
       "decayFactor": 1,
       "priority": "critical"
+    },
+    "bb6883035b658e7e": {
+      "id": "bb6883035b658e7e",
+      "type": "fact",
+      "content": "Co-evolution system uses auto-apply with confidence threshold 0.7 to automatically apply high-confidence mutations to CLAUDE.md",
+      "context": "[fact] Co-evolution system uses auto-apply with confidence threshold 0.7 to automatically apply high-confid... Keywords: apply, confidence, evolution, system, uses",
+      "keywords": [
+        "apply",
+        "confidence",
+        "evolution",
+        "system",
+        "uses",
+        "auto",
+        "threshold",
+        "automatically",
+        "high",
+        "mutations",
+        "co-evolution",
+        "automation"
+      ],
+      "tags": [
+        "co-evolution",
+        "automation"
+      ],
+      "links": [],
+      "created": "2026-01-19T13:18:26.163Z",
+      "evolved": "2026-01-19T13:18:26.164Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "442a9b1da87253c5": {
+      "id": "442a9b1da87253c5",
+      "type": "pattern",
+      "content": "Kernel hook in command-tracker.sh ensures all Claude invocations (cq/cc/co) feed data to activity tracker, identity manager, and DQ scores",
+      "context": "[pattern] Kernel hook in command-tracker.sh ensures all Claude invocations (cq/cc/co) feed data to activity tr... Keywords: tracker, kernel, hook, command, ensures",
+      "keywords": [
+        "tracker",
+        "kernel",
+        "hook",
+        "command",
+        "ensures",
+        "claude",
+        "invocations",
+        "feed",
+        "data",
+        "activity",
+        "architecture",
+        "integration"
+      ],
+      "tags": [
+        "architecture",
+        "integration"
+      ],
+      "links": [],
+      "created": "2026-01-19T13:18:26.247Z",
+      "evolved": "2026-01-19T13:18:26.247Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "8e7958151cb74690": {
+      "id": "8e7958151cb74690",
+      "type": "insight",
+      "content": "Direct model calls estimate DQ scores: haiku=0.3, sonnet=0.6, opus=0.85 based on user's implicit complexity assessment",
+      "context": "[insight] Direct model calls estimate DQ scores: haiku=0.3, sonnet=0.6, opus=0.85 based on user's implicit com... Keywords: direct, model, calls, estimate, scores",
+      "keywords": [
+        "direct",
+        "model",
+        "calls",
+        "estimate",
+        "scores",
+        "haiku",
+        "sonnet",
+        "opus",
+        "based",
+        "user",
+        "routing",
+        "dq-scoring"
+      ],
+      "tags": [
+        "routing",
+        "dq-scoring"
+      ],
+      "links": [],
+      "created": "2026-01-19T13:18:26.330Z",
+      "evolved": "2026-01-19T13:18:26.331Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "d6296e186319f6dd": {
+      "id": "d6296e186319f6dd",
+      "type": "pattern",
+      "content": "Primary development focus areas: what, with, files, explore, understand",
+      "context": "[pattern] Primary development focus areas: what, with, files, explore, understand... Keywords: primary, development, focus, areas, files",
+      "keywords": [
+        "primary",
+        "development",
+        "focus",
+        "areas",
+        "files",
+        "explore",
+        "understand"
+      ],
+      "tags": [
+        "development",
+        "focus"
+      ],
+      "links": [],
+      "created": "2026-01-19T13:20:00.424Z",
+      "evolved": "2026-01-19T13:20:00.426Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "dc8d0e86ef89e73d": {
+      "id": "dc8d0e86ef89e73d",
+      "type": "insight",
+      "content": "Testing-related queries represent significant portion of work (keywords: test, debug, fix)",
+      "context": "[insight] Testing-related queries represent significant portion of work (keywords: test, debug, fix)... Keywords: testing, related, queries, represent, significant",
+      "keywords": [
+        "testing",
+        "related",
+        "queries",
+        "represent",
+        "significant",
+        "portion",
+        "work",
+        "keywords",
+        "test",
+        "debug",
+        "quality"
+      ],
+      "tags": [
+        "testing",
+        "quality"
+      ],
+      "links": [],
+      "created": "2026-01-19T13:20:00.511Z",
+      "evolved": "2026-01-19T13:20:00.512Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "fd084be384456e4f": {
+      "id": "fd084be384456e4f",
+      "type": "insight",
+      "content": "Architecture and system design queries indicate complex project work",
+      "context": "[insight] Architecture and system design queries indicate complex project work... Keywords: architecture, system, design, queries, indicate",
+      "keywords": [
+        "architecture",
+        "system",
+        "design",
+        "queries",
+        "indicate",
+        "complex",
+        "project",
+        "work"
+      ],
+      "tags": [
+        "architecture",
+        "design"
+      ],
+      "links": [],
+      "created": "2026-01-19T13:20:00.601Z",
+      "evolved": "2026-01-19T13:20:00.602Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "7cf61de4d64c0525": {
+      "id": "7cf61de4d64c0525",
+      "type": "insight",
+      "content": "Key Findings - optimal model depths and widths exist for creative performance within fixed compute budgets  --- ",
+      "context": "[insight] Key Findings - optimal model depths and widths exist for creative performance within fixed compute b... Keywords: key, findings, optimal, model, depths\n[Evolved 2026-01-19]: Now connected to \"- optimal model depths and widths exist ...\"\n[Evolved 2026-01-19]: Now connected to \"- optimal model depths and widths exist ...\"\n[Evolved 2026-01-19]: Now connected to \"- optimal model depths and widths exist ...\"\n[Evolved 2026-01-19]: Now connected to \"- URLs referenced: 243   ## 2026-01-19 1...\"\n[Evolved 2026-01-19]: Now connected to \"## 2026-01-19 17:41 - Session 3ad110fa #...\"\n[Evolved 2026-01-21]: Now connected to \"- `search_learnings(query, limit)`   ## ...\"\n[Evolved 2026-01-21]: Now connected to \"- Mapping bracket numbers to source indi...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:48 - Session 800807bf #...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "key",
+        "findings",
+        "optimal",
+        "model",
+        "depths",
+        "widths",
+        "exist",
+        "creative",
+        "performance",
+        "within",
+        "research",
+        "auto-capture",
+        "audited",
+        "202",
+        "2026"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "66e6165d5a5f694d",
+          "relationship": "related",
+          "strength": 0.6
+        },
+        {
+          "targetId": "cca069b8677b1aba",
+          "relationship": "related",
+          "strength": 0.8
+        },
+        {
+          "targetId": "48b52a6560ab9254",
+          "relationship": "related",
+          "strength": 0.8
+        },
+        {
+          "targetId": "8048e8c40557db92",
+          "relationship": "related",
+          "strength": 0.25
+        },
+        {
+          "targetId": "d8fd3ae57313594e",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "2358f4e65b1e21ef",
+          "relationship": "related",
+          "strength": 0.25
+        },
+        {
+          "targetId": "dd0c7114b097169f",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "1e496473a5fd767b",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.25
+        }
+      ],
+      "created": "2026-01-19T13:41:52.586Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "a2b0c2e179abdc3e": {
+      "id": "a2b0c2e179abdc3e",
+      "type": "insight",
+      "content": "2026-01-15 - - ✅ Audited CareerCoachAntigravity upload/storage (`backfill--audited-careercoach-20260115-112252-24a7`)  #",
+      "context": "[insight] 2026-01-15 - - ✅ Audited CareerCoachAntigravity upload/storage (`backfill--audited-careercoach-20260... Keywords: audited, 2026, 112252, 20260115, careercoachantigravity\n[Evolved 2026-01-19]: Now connected to \"- optimal model depths and widths exist ...\"\n[Evolved 2026-01-19]: Now connected to \"- optimal model depths and widths exist ...\"\n[Evolved 2026-01-19]: Now connected to \"- optimal model depths and widths exist ...\"",
+      "keywords": [
+        "audited",
+        "2026",
+        "112252",
+        "20260115",
+        "careercoachantigravity",
+        "upload",
+        "storage",
+        "backfill",
+        "careercoach",
+        "24a7",
+        "research",
+        "auto-capture",
+        "202"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "66e6165d5a5f694d",
+          "relationship": "related",
+          "strength": 0.2
+        },
+        {
+          "targetId": "cca069b8677b1aba",
+          "relationship": "related",
+          "strength": 0.25
+        },
+        {
+          "targetId": "48b52a6560ab9254",
+          "relationship": "related",
+          "strength": 0.25
+        }
+      ],
+      "created": "2026-01-19T13:41:52.668Z",
+      "evolved": "2026-01-19T19:36:59.478Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "b9dcad31ffaa7967": {
+      "id": "b9dcad31ffaa7967",
+      "type": "insight",
+      "content": "Tools & Repositories - [Dicoangelo/OS-App.git](https://github.com/Dicoangelo/OS-App.git) - [Dicoangelo/CareerCoachAntigravity.git](https://github.com/Dicoangelo/CareerCoachAntigravity.git) - [Dicoange",
+      "context": "[insight] Tools & Repositories - [Dicoangelo/OS-App.git](https://github.com/Dicoangelo/OS-App.git) - [Dicoange... Keywords: dicoangelo, git, app, https, github\n[Evolved 2026-01-19]: Now connected to \"- [Dicoangelo/The-Decosystem.git](https:...\"\n[Evolved 2026-01-20]: Now connected to \"- [Blackamethyst-ai/CareerCoachAntigravi...\"\n[Evolved 2026-01-20]: Now connected to \"- [Dicoangelo/CareerCoachAntigravity.git...\"\n[Evolved 2026-01-21]: Now connected to \"**Project:** careercoach  ### Tools & Re...\"\n[Evolved 2026-01-21]: Now connected to \"**Project:** careercoach  ### Tools & Re...\"",
+      "keywords": [
+        "dicoangelo",
+        "git",
+        "app",
+        "https",
+        "github",
+        "com",
+        "careercoachantigravity",
+        "tools",
+        "repositories",
+        "dicoange",
+        "research",
+        "auto-capture",
+        "decosystem",
+        "blackamethyst"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "cca1024602fa2042",
+          "relationship": "related",
+          "strength": 0.4117647058823529
+        },
+        {
+          "targetId": "dba3e2d8bab6714a",
+          "relationship": "related",
+          "strength": 0.4375
+        },
+        {
+          "targetId": "d40abf107763fb4a",
+          "relationship": "related",
+          "strength": 0.4444444444444444
+        },
+        {
+          "targetId": "7553738f9f3b4270",
+          "relationship": "related",
+          "strength": 0.625
+        },
+        {
+          "targetId": "5ca72ec8dc6846ce",
+          "relationship": "related",
+          "strength": 0.625
+        }
+      ],
+      "created": "2026-01-19T13:41:52.748Z",
+      "evolved": "2026-01-21T02:54:28.331Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "807819b101ae4a6c": {
+      "id": "807819b101ae4a6c",
+      "type": "insight",
+      "content": "- **[2511.18298](https://arxiv.org/abs/2511.18298)** — ombinatorial Creativity 2. https://arxiv.org/abs/2509.21043 - Combinatorial Crea  ### Tools & Repositories - [Dicoangelo/agent-core.git](https://",
+      "context": "[insight] - **[2511.18298](https://arxiv.org/abs/2511.18298)** — ombinatorial Creativity 2. https://arxiv.org/... Keywords: https, 2511, 18298, arxiv, org\n[Evolved 2026-01-21]: Now connected to \"- https://arxiv.org/html/2601.07577v1 - ...\"\n[Evolved 2026-01-21]: Now connected to \"- https://arxiv.org/html/2601.07577v1 - ...\"",
+      "keywords": [
+        "https",
+        "2511",
+        "18298",
+        "arxiv",
+        "org",
+        "abs",
+        "2509",
+        "21043",
+        "ombinatorial",
+        "creativity",
+        "research",
+        "auto-capture",
+        "1141"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "1333d98b9b8cd19f",
+          "relationship": "related",
+          "strength": 0.2631578947368421
+        },
+        {
+          "targetId": "830095b8ffdc7f00",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        }
+      ],
+      "created": "2026-01-19T13:42:26.580Z",
+      "evolved": "2026-01-21T09:20:24.978Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "66e6165d5a5f694d": {
+      "id": "66e6165d5a5f694d",
+      "type": "insight",
+      "content": "- optimal model depths and widths exist for creative performance within fixed compute budgets  --- ## 2026-01-15 - - ✅ Audited CareerCoachAntigravity upload/storage (`backfill--audited-careercoach-202",
+      "context": "[insight] - optimal model depths and widths exist for creative performance within fixed compute budgets  --- #... Keywords: audited, 202, 2026, optimal, model\n[Evolved 2026-01-19]: Now connected to \"- optimal model depths and widths exist ...\"\n[Evolved 2026-01-19]: Now connected to \"- optimal model depths and widths exist ...\"",
+      "keywords": [
+        "audited",
+        "202",
+        "2026",
+        "optimal",
+        "model",
+        "depths",
+        "widths",
+        "exist",
+        "creative",
+        "performance",
+        "research",
+        "auto-capture"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "cca069b8677b1aba",
+          "relationship": "related",
+          "strength": 1
+        },
+        {
+          "targetId": "48b52a6560ab9254",
+          "relationship": "related",
+          "strength": 1
+        }
+      ],
+      "created": "2026-01-19T19:13:38.687Z",
+      "evolved": "2026-01-19T19:36:59.478Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "cca069b8677b1aba": {
+      "id": "cca069b8677b1aba",
+      "type": "insight",
+      "content": "- optimal model depths and widths exist for creative performance within fixed compute budgets  --- ## 2026-01-15 - - ✅ Audited CareerCoachAntigravity upload/storage (`backfill--audited-careercoach-202",
+      "context": "[insight] - optimal model depths and widths exist for creative performance within fixed compute budgets  --- #... Keywords: audited, 202, 2026, optimal, model\n[Evolved 2026-01-19]: Now connected to \"- optimal model depths and widths exist ...\"",
+      "keywords": [
+        "audited",
+        "202",
+        "2026",
+        "optimal",
+        "model",
+        "depths",
+        "widths",
+        "exist",
+        "creative",
+        "performance",
+        "research",
+        "auto-capture"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "48b52a6560ab9254",
+          "relationship": "related",
+          "strength": 1
+        }
+      ],
+      "created": "2026-01-19T19:23:18.039Z",
+      "evolved": "2026-01-19T19:36:59.478Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "48b52a6560ab9254": {
+      "id": "48b52a6560ab9254",
+      "type": "insight",
+      "content": "- optimal model depths and widths exist for creative performance within fixed compute budgets  --- ## 2026-01-15 - - ✅ Audited CareerCoachAntigravity upload/storage (`backfill--audited-careercoach-202",
+      "context": "[insight] - optimal model depths and widths exist for creative performance within fixed compute budgets  --- #... Keywords: audited, 202, 2026, optimal, model",
+      "keywords": [
+        "audited",
+        "202",
+        "2026",
+        "optimal",
+        "model",
+        "depths",
+        "widths",
+        "exist",
+        "creative",
+        "performance",
+        "research",
+        "auto-capture"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [],
+      "created": "2026-01-19T19:36:59.477Z",
+      "evolved": "2026-01-19T19:36:59.478Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "cca1024602fa2042": {
+      "id": "cca1024602fa2042",
+      "type": "insight",
+      "content": "- [Dicoangelo/The-Decosystem.git](https://github.com/Dicoangelo/The-Decosystem.git) - [Dicoangelo/chrome-history-export.git](https://github.com/Dicoangelo/chrome-history-export.git)  --- ## 2026-01-19",
+      "context": "[insight] - [Dicoangelo/The-Decosystem.git](https://github.com/Dicoangelo/The-Decosystem.git) - [Dicoangelo/ch... Keywords: dicoangelo, git, decosystem, https, github\n[Evolved 2026-01-20]: Now connected to \"- [Blackamethyst-ai/CareerCoachAntigravi...\"\n[Evolved 2026-01-20]: Now connected to \"- [Dicoangelo/CareerCoachAntigravity.git...\"\n[Evolved 2026-01-21]: Now connected to \"**Project:** careercoach  ### Tools & Re...\"\n[Evolved 2026-01-21]: Now connected to \"**Project:** careercoach  ### Tools & Re...\"\n[Evolved 2026-01-21]: Now connected to \"--- ## 2026-01-20 21:54 - Session f4e77d...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"",
+      "keywords": [
+        "dicoangelo",
+        "git",
+        "decosystem",
+        "https",
+        "github",
+        "com",
+        "chrome",
+        "history",
+        "export",
+        "2026",
+        "research",
+        "auto-capture",
+        "blackamethyst",
+        "careercoachantigravity",
+        "app"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "dba3e2d8bab6714a",
+          "relationship": "related",
+          "strength": 0.375
+        },
+        {
+          "targetId": "d40abf107763fb4a",
+          "relationship": "related",
+          "strength": 0.4444444444444444
+        },
+        {
+          "targetId": "7553738f9f3b4270",
+          "relationship": "related",
+          "strength": 0.3684210526315789
+        },
+        {
+          "targetId": "5ca72ec8dc6846ce",
+          "relationship": "related",
+          "strength": 0.42105263157894735
+        },
+        {
+          "targetId": "3f8b9414f34854d4",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "04d68e8f9f42f99c",
+          "relationship": "related",
+          "strength": 0.23809523809523808
+        },
+        {
+          "targetId": "21ff05850e92a3af",
+          "relationship": "related",
+          "strength": 0.23809523809523808
+        }
+      ],
+      "created": "2026-01-19T20:47:02.290Z",
+      "evolved": "2026-01-21T07:27:38.015Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "8048e8c40557db92": {
+      "id": "8048e8c40557db92",
+      "type": "insight",
+      "content": "- URLs referenced: 243   ## 2026-01-19 15:47 - Session f0cd4b51 ### Key Findings ",
+      "context": "[insight] - URLs referenced: 243   ## 2026-01-19 15:47 - Session f0cd4b51 ### Key Findings ... Keywords: 243, 2026, urls, referenced, session\n[Evolved 2026-01-19]: Now connected to \"## 2026-01-19 17:41 - Session 3ad110fa #...\"\n[Evolved 2026-01-20]: Now connected to \"### Key Findings **Status:** Iteration 1...\"\n[Evolved 2026-01-21]: Now connected to \"--- ## 2026-01-20 21:54 - Session f4e77d...\"\n[Evolved 2026-01-21]: Now connected to \"- `search_learnings(query, limit)`   ## ...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \"- Mapping bracket numbers to source indi...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:48 - Session 800807bf #...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "243",
+        "2026",
+        "urls",
+        "referenced",
+        "session",
+        "f0cd4b51",
+        "key",
+        "findings",
+        "research",
+        "auto-capture",
+        "306",
+        "351",
+        "status",
+        "f4e77d1d",
+        "search_learnings"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "d8fd3ae57313594e",
+          "relationship": "related",
+          "strength": 0.375
+        },
+        {
+          "targetId": "f2acf4a2b27e17ad",
+          "relationship": "related",
+          "strength": 0.2
+        },
+        {
+          "targetId": "3f8b9414f34854d4",
+          "relationship": "related",
+          "strength": 0.3888888888888889
+        },
+        {
+          "targetId": "2358f4e65b1e21ef",
+          "relationship": "related",
+          "strength": 0.3333333333333333
+        },
+        {
+          "targetId": "04d68e8f9f42f99c",
+          "relationship": "related",
+          "strength": 0.3
+        },
+        {
+          "targetId": "21ff05850e92a3af",
+          "relationship": "related",
+          "strength": 0.3
+        },
+        {
+          "targetId": "dd0c7114b097169f",
+          "relationship": "related",
+          "strength": 0.2857142857142857
+        },
+        {
+          "targetId": "1e496473a5fd767b",
+          "relationship": "related",
+          "strength": 0.2857142857142857
+        },
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.42105263157894735
+        },
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        }
+      ],
+      "created": "2026-01-19T22:41:09.142Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "d8fd3ae57313594e": {
+      "id": "d8fd3ae57313594e",
+      "type": "insight",
+      "content": "## 2026-01-19 17:41 - Session 3ad110fa ### Key Findings - ResearchGravity (351 sessions, 306+ papers, UCW schema) - Meta-Vengine (self-improving system, HSRGS embeddings) - ACE Consensus (6 agents, DQ",
+      "context": "[insight] ## 2026-01-19 17:41 - Session 3ad110fa ### Key Findings - ResearchGravity (351 sessions, 306+ papers... Keywords: 306, 351, 2026, session, 3ad110fa\n[Evolved 2026-01-20]: Now connected to \"### Key Findings **Status:** Iteration 1...\"\n[Evolved 2026-01-21]: Now connected to \"--- ## 2026-01-20 21:54 - Session f4e77d...\"\n[Evolved 2026-01-21]: Now connected to \"- `search_learnings(query, limit)`   ## ...\"\n[Evolved 2026-01-21]: Now connected to \"- Mapping bracket numbers to source indi...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:48 - Session 800807bf #...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "306",
+        "351",
+        "2026",
+        "session",
+        "3ad110fa",
+        "key",
+        "findings",
+        "researchgravity",
+        "sessions",
+        "papers",
+        "research",
+        "auto-capture",
+        "status",
+        "f4e77d1d",
+        "search_learnings"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "f2acf4a2b27e17ad",
+          "relationship": "related",
+          "strength": 0.2
+        },
+        {
+          "targetId": "3f8b9414f34854d4",
+          "relationship": "related",
+          "strength": 0.25
+        },
+        {
+          "targetId": "2358f4e65b1e21ef",
+          "relationship": "related",
+          "strength": 0.3333333333333333
+        },
+        {
+          "targetId": "dd0c7114b097169f",
+          "relationship": "related",
+          "strength": 0.2857142857142857
+        },
+        {
+          "targetId": "1e496473a5fd767b",
+          "relationship": "related",
+          "strength": 0.35
+        },
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.2857142857142857
+        },
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        }
+      ],
+      "created": "2026-01-19T22:43:59.563Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "dba3e2d8bab6714a": {
+      "id": "dba3e2d8bab6714a",
+      "type": "insight",
+      "content": "- [Blackamethyst-ai/CareerCoachAntigravity.git](https://github.com/Blackamethyst-ai/CareerCoachAntigravity.git) - [blackamethyst-ai/researchgravity.git](https://github.com/blackamethyst-ai/researchgra",
+      "context": "[insight] - [Blackamethyst-ai/CareerCoachAntigravity.git](https://github.com/Blackamethyst-ai/CareerCoachAntig... Keywords: blackamethyst, git, careercoachantigravity, https, github\n[Evolved 2026-01-20]: Now connected to \"- [Dicoangelo/CareerCoachAntigravity.git...\"\n[Evolved 2026-01-21]: Now connected to \"**Project:** careercoach  ### Tools & Re...\"\n[Evolved 2026-01-21]: Now connected to \"**Project:** careercoach  ### Tools & Re...\"\n[Evolved 2026-01-21]: Now connected to \"--- ## 2026-01-20 21:54 - Session f4e77d...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"",
+      "keywords": [
+        "blackamethyst",
+        "git",
+        "careercoachantigravity",
+        "https",
+        "github",
+        "com",
+        "researchgravity",
+        "researchgra",
+        "research",
+        "auto-capture",
+        "dicoangelo",
+        "app",
+        "2026",
+        "session",
+        "f4e77d1d"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "d40abf107763fb4a",
+          "relationship": "related",
+          "strength": 0.4666666666666667
+        },
+        {
+          "targetId": "7553738f9f3b4270",
+          "relationship": "related",
+          "strength": 0.4375
+        },
+        {
+          "targetId": "5ca72ec8dc6846ce",
+          "relationship": "related",
+          "strength": 0.5
+        },
+        {
+          "targetId": "3f8b9414f34854d4",
+          "relationship": "related",
+          "strength": 0.2
+        },
+        {
+          "targetId": "04d68e8f9f42f99c",
+          "relationship": "related",
+          "strength": 0.3
+        },
+        {
+          "targetId": "21ff05850e92a3af",
+          "relationship": "related",
+          "strength": 0.3
+        }
+      ],
+      "created": "2026-01-20T03:15:30.919Z",
+      "evolved": "2026-01-21T07:27:38.014Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "f2acf4a2b27e17ad": {
+      "id": "f2acf4a2b27e17ad",
+      "type": "insight",
+      "content": "### Key Findings **Status:** Iteration 1 - Raw Planning **Scope:** Unified Second Brain Architecture for OS-App, CareerCoach, ResearchGravity **Key Insight:** You've nailed Patterns 1-3. The plan focu",
+      "context": "[insight] ### Key Findings **Status:** Iteration 1 - Raw Planning **Scope:** Unified Second Brain Architecture... Keywords: key, findings, status, iteration, raw\n[Evolved 2026-01-21]: Now connected to \"- `search_learnings(query, limit)`   ## ...\"\n[Evolved 2026-01-21]: Now connected to \"- Mapping bracket numbers to source indi...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:48 - Session 800807bf #...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "key",
+        "findings",
+        "status",
+        "iteration",
+        "raw",
+        "planning",
+        "scope",
+        "unified",
+        "second",
+        "brain",
+        "research",
+        "auto-capture",
+        "2026",
+        "search_learnings",
+        "query"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "2358f4e65b1e21ef",
+          "relationship": "related",
+          "strength": 0.2222222222222222
+        },
+        {
+          "targetId": "dd0c7114b097169f",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "1e496473a5fd767b",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.25
+        }
+      ],
+      "created": "2026-01-20T03:51:48.302Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "d40abf107763fb4a": {
+      "id": "d40abf107763fb4a",
+      "type": "insight",
+      "content": "- [Dicoangelo/CareerCoachAntigravity.git](https://github.com/Dicoangelo/CareerCoachAntigravity.git)  ### Gap Identified > Analysis\" level=\"3\"\\n    uid=5_42 StaticText \"View skill gaps via Career Intel",
+      "context": "[insight] - [Dicoangelo/CareerCoachAntigravity.git](https://github.com/Dicoangelo/CareerCoachAntigravity.git) ... Keywords: dicoangelo, careercoachantigravity, git, https, github\n[Evolved 2026-01-21]: Now connected to \" ### Gap Identified > ≥ target gap (typi...\"\n[Evolved 2026-01-21]: Now connected to \" ### Gap Identified > ≥ target gap (typi...\"\n[Evolved 2026-01-21]: Now connected to \"**Project:** careercoach  ### Tools & Re...\"\n[Evolved 2026-01-21]: Now connected to \"**Project:** careercoach  ### Tools & Re...\"",
+      "keywords": [
+        "dicoangelo",
+        "careercoachantigravity",
+        "git",
+        "https",
+        "github",
+        "com",
+        "gap",
+        "identified",
+        "analysis",
+        "level",
+        "research",
+        "auto-capture",
+        "target",
+        "blackamethyst",
+        "app"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "10bce42a18ebc87a",
+          "relationship": "related",
+          "strength": 0.2
+        },
+        {
+          "targetId": "44c6fe7b333f1212",
+          "relationship": "related",
+          "strength": 0.25
+        },
+        {
+          "targetId": "7553738f9f3b4270",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        },
+        {
+          "targetId": "5ca72ec8dc6846ce",
+          "relationship": "related",
+          "strength": 0.42105263157894735
+        }
+      ],
+      "created": "2026-01-20T08:58:43.196Z",
+      "evolved": "2026-01-21T02:54:28.332Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "10bce42a18ebc87a": {
+      "id": "10bce42a18ebc87a",
+      "type": "insight",
+      "content": " ### Gap Identified > ≥ target gap (typically 3-5 votes)\\n   - Max rounds: 3 (simple) to 15 (expert)\\n   - 150ms inter-round delay for rate limiting\\n\\n4. **Phase 4: Scoring & Learning**\\n   - Scores ",
+      "context": "[insight]  ### Gap Identified > ≥ target gap (typically 3-5 votes)\\n   - Max rounds: 3 (simple) to 15 (expert)... Keywords: gap, identified, target, typically, votes\n[Evolved 2026-01-21]: Now connected to \" ### Gap Identified > ≥ target gap (typi...\"",
+      "keywords": [
+        "gap",
+        "identified",
+        "target",
+        "typically",
+        "votes",
+        "max",
+        "rounds",
+        "simple",
+        "expert",
+        "150ms",
+        "research",
+        "auto-capture"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "44c6fe7b333f1212",
+          "relationship": "related",
+          "strength": 1
+        }
+      ],
+      "created": "2026-01-21T02:41:21.286Z",
+      "evolved": "2026-01-21T02:44:25.291Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "44c6fe7b333f1212": {
+      "id": "44c6fe7b333f1212",
+      "type": "insight",
+      "content": " ### Gap Identified > ≥ target gap (typically 3-5 votes)\\n   - Max rounds: 3 (simple) to 15 (expert)\\n   - 150ms inter-round delay for rate limiting\\n\\n4. **Phase 4: Scoring & Learning**\\n   - Scores ",
+      "context": "[insight]  ### Gap Identified > ≥ target gap (typically 3-5 votes)\\n   - Max rounds: 3 (simple) to 15 (expert)... Keywords: gap, identified, target, typically, votes",
+      "keywords": [
+        "gap",
+        "identified",
+        "target",
+        "typically",
+        "votes",
+        "max",
+        "rounds",
+        "simple",
+        "expert",
+        "150ms",
+        "research",
+        "auto-capture"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [],
+      "created": "2026-01-21T02:44:25.290Z",
+      "evolved": "2026-01-21T02:44:25.290Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "7553738f9f3b4270": {
+      "id": "7553738f9f3b4270",
+      "type": "insight",
+      "content": "**Project:** careercoach  ### Tools & Repositories - [Blackamethyst-ai/OS-App.git](https://github.com/Blackamethyst-ai/OS-App.git) - [Blackamethyst-ai/CareerCoachAntigravity.git](https://github.com/Bl",
+      "context": "[insight] **Project:** careercoach  ### Tools & Repositories - [Blackamethyst-ai/OS-App.git](https://github.co... Keywords: blackamethyst, git, app, https, github\n[Evolved 2026-01-21]: Now connected to \"**Project:** careercoach  ### Tools & Re...\"\n[Evolved 2026-01-21]: Now connected to \"--- ## 2026-01-20 21:54 - Session f4e77d...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"",
+      "keywords": [
+        "blackamethyst",
+        "git",
+        "app",
+        "https",
+        "github",
+        "com",
+        "project",
+        "careercoach",
+        "tools",
+        "repositories",
+        "research",
+        "auto-capture",
+        "2026",
+        "session",
+        "f4e77d1d"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "5ca72ec8dc6846ce",
+          "relationship": "related",
+          "strength": 1
+        },
+        {
+          "targetId": "3f8b9414f34854d4",
+          "relationship": "related",
+          "strength": 0.2
+        },
+        {
+          "targetId": "04d68e8f9f42f99c",
+          "relationship": "related",
+          "strength": 0.3
+        },
+        {
+          "targetId": "21ff05850e92a3af",
+          "relationship": "related",
+          "strength": 0.3
+        }
+      ],
+      "created": "2026-01-21T02:54:14.751Z",
+      "evolved": "2026-01-21T07:27:38.014Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "5ca72ec8dc6846ce": {
+      "id": "5ca72ec8dc6846ce",
+      "type": "insight",
+      "content": "**Project:** careercoach  ### Tools & Repositories - [Blackamethyst-ai/OS-App.git](https://github.com/Blackamethyst-ai/OS-App.git) - [Blackamethyst-ai/CareerCoachAntigravity.git](https://github.com/Bl",
+      "context": "[insight] **Project:** careercoach  ### Tools & Repositories - [Blackamethyst-ai/OS-App.git](https://github.co... Keywords: blackamethyst, git, app, https, github\n[Evolved 2026-01-21]: Now connected to \"--- ## 2026-01-20 21:54 - Session f4e77d...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"",
+      "keywords": [
+        "blackamethyst",
+        "git",
+        "app",
+        "https",
+        "github",
+        "com",
+        "project",
+        "careercoach",
+        "tools",
+        "repositories",
+        "research",
+        "auto-capture",
+        "2026",
+        "session",
+        "f4e77d1d"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "3f8b9414f34854d4",
+          "relationship": "related",
+          "strength": 0.2
+        },
+        {
+          "targetId": "04d68e8f9f42f99c",
+          "relationship": "related",
+          "strength": 0.3
+        },
+        {
+          "targetId": "21ff05850e92a3af",
+          "relationship": "related",
+          "strength": 0.3
+        }
+      ],
+      "created": "2026-01-21T02:54:28.330Z",
+      "evolved": "2026-01-21T07:27:38.015Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "3f8b9414f34854d4": {
+      "id": "3f8b9414f34854d4",
+      "type": "insight",
+      "content": "--- ## 2026-01-20 21:54 - Session f4e77d1d ### URLs Referenced - https://theinnermostloop.substack.com/ ### Key Findings ",
+      "context": "[insight] --- ## 2026-01-20 21:54 - Session f4e77d1d ### URLs Referenced - https://theinnermostloop.substack.c... Keywords: 2026, session, f4e77d1d, urls, referenced\n[Evolved 2026-01-21]: Now connected to \"- `search_learnings(query, limit)`   ## ...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \"- Mapping bracket numbers to source indi...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:48 - Session 800807bf #...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "2026",
+        "session",
+        "f4e77d1d",
+        "urls",
+        "referenced",
+        "https",
+        "theinnermostloop",
+        "substack",
+        "com",
+        "key",
+        "research",
+        "auto-capture",
+        "search_learnings",
+        "query",
+        "ibm"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "2358f4e65b1e21ef",
+          "relationship": "related",
+          "strength": 0.29411764705882354
+        },
+        {
+          "targetId": "04d68e8f9f42f99c",
+          "relationship": "related",
+          "strength": 0.47058823529411764
+        },
+        {
+          "targetId": "21ff05850e92a3af",
+          "relationship": "related",
+          "strength": 0.5294117647058824
+        },
+        {
+          "targetId": "dd0c7114b097169f",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "1e496473a5fd767b",
+          "relationship": "related",
+          "strength": 0.22727272727272727
+        },
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.35
+        },
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.25
+        }
+      ],
+      "created": "2026-01-21T03:28:23.635Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "2358f4e65b1e21ef": {
+      "id": "2358f4e65b1e21ef",
+      "type": "insight",
+      "content": "- `search_learnings(query, limit)`   ## 2026-01-20 22:28 - Session 6c18b784 ### Key Findings ",
+      "context": "[insight] - `search_learnings(query, limit)`   ## 2026-01-20 22:28 - Session 6c18b784 ### Key Findings ... Keywords: 2026, search_learnings, query, limit, session\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \"- https://arxiv.org/html/2601.07577v1 - ...\"\n[Evolved 2026-01-21]: Now connected to \"- https://arxiv.org/html/2601.07577v1 - ...\"\n[Evolved 2026-01-21]: Now connected to \"- Mapping bracket numbers to source indi...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:48 - Session 800807bf #...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "2026",
+        "search_learnings",
+        "query",
+        "limit",
+        "session",
+        "6c18b784",
+        "key",
+        "findings",
+        "research",
+        "auto-capture",
+        "https",
+        "ibm",
+        "org",
+        "1141",
+        "mapping"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "04d68e8f9f42f99c",
+          "relationship": "related",
+          "strength": 0.23529411764705882
+        },
+        {
+          "targetId": "21ff05850e92a3af",
+          "relationship": "related",
+          "strength": 0.35294117647058826
+        },
+        {
+          "targetId": "1333d98b9b8cd19f",
+          "relationship": "related",
+          "strength": 0.2
+        },
+        {
+          "targetId": "830095b8ffdc7f00",
+          "relationship": "related",
+          "strength": 0.3
+        },
+        {
+          "targetId": "dd0c7114b097169f",
+          "relationship": "related",
+          "strength": 0.3
+        },
+        {
+          "targetId": "1e496473a5fd767b",
+          "relationship": "related",
+          "strength": 0.2857142857142857
+        },
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.2857142857142857
+        },
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        }
+      ],
+      "created": "2026-01-21T03:28:32.508Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "04d68e8f9f42f99c": {
+      "id": "04d68e8f9f42f99c",
+      "type": "insight",
+      "content": " ## 2026-01-21 01:06 - Session a3e8de21 ### URLs Referenced - https://research.ibm.com/blog/ibm-software-engineering-agent-tops-the-multi-swe-bench-leaderboard-for-java - https://www.researchgate.net/",
+      "context": "[insight]  ## 2026-01-21 01:06 - Session a3e8de21 ### URLs Referenced - https://research.ibm.com/blog/ibm-soft... Keywords: https, ibm, 2026, session, a3e8de21\n[Evolved 2026-01-21]: Now connected to \" ## 2026-01-21 01:06 - Session a3e8de21 ...\"\n[Evolved 2026-01-21]: Now connected to \"- Mapping bracket numbers to source indi...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"",
+      "keywords": [
+        "https",
+        "ibm",
+        "2026",
+        "session",
+        "a3e8de21",
+        "urls",
+        "referenced",
+        "research",
+        "com",
+        "blog",
+        "auto-capture",
+        "mapping",
+        "bracket",
+        "8765",
+        "http"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "21ff05850e92a3af",
+          "relationship": "related",
+          "strength": 1
+        },
+        {
+          "targetId": "dd0c7114b097169f",
+          "relationship": "related",
+          "strength": 0.21052631578947367
+        },
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        }
+      ],
+      "created": "2026-01-21T06:06:01.464Z",
+      "evolved": "2026-01-21T10:10:45.458Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "21ff05850e92a3af": {
+      "id": "21ff05850e92a3af",
+      "type": "insight",
+      "content": " ## 2026-01-21 01:06 - Session a3e8de21 ### URLs Referenced - https://research.ibm.com/blog/ibm-software-engineering-agent-tops-the-multi-swe-bench-leaderboard-for-java - https://www.researchgate.net/",
+      "context": "[insight]  ## 2026-01-21 01:06 - Session a3e8de21 ### URLs Referenced - https://research.ibm.com/blog/ibm-soft... Keywords: https, ibm, 2026, session, a3e8de21\n[Evolved 2026-01-21]: Now connected to \"- Mapping bracket numbers to source indi...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"",
+      "keywords": [
+        "https",
+        "ibm",
+        "2026",
+        "session",
+        "a3e8de21",
+        "urls",
+        "referenced",
+        "research",
+        "com",
+        "blog",
+        "auto-capture",
+        "mapping",
+        "bracket",
+        "8765",
+        "http"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "dd0c7114b097169f",
+          "relationship": "related",
+          "strength": 0.21052631578947367
+        },
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        }
+      ],
+      "created": "2026-01-21T07:27:38.012Z",
+      "evolved": "2026-01-21T10:10:45.458Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "1333d98b9b8cd19f": {
+      "id": "1333d98b9b8cd19f",
+      "type": "insight",
+      "content": "- https://arxiv.org/html/2601.07577v1 - https://aclanthology.org/2025.findings-acl.1141/ - https://huggingface.co/spaces/gaia-benchmark/leaderboard - https://research.ibm.com/publications/stratus-a-mu",
+      "context": "[insight] - https://arxiv.org/html/2601.07577v1 - https://aclanthology.org/2025.findings-acl.1141/ - https://h... Keywords: https, org, 1141, 2025, 2601\n[Evolved 2026-01-21]: Now connected to \"- https://arxiv.org/html/2601.07577v1 - ...\"\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "https",
+        "org",
+        "1141",
+        "2025",
+        "2601",
+        "arxiv",
+        "html",
+        "07577v1",
+        "aclanthology",
+        "findings",
+        "research",
+        "auto-capture",
+        "2026",
+        "embedded"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "830095b8ffdc7f00",
+          "relationship": "related",
+          "strength": 1
+        },
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.2222222222222222
+        }
+      ],
+      "created": "2026-01-21T09:11:51.152Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "830095b8ffdc7f00": {
+      "id": "830095b8ffdc7f00",
+      "type": "insight",
+      "content": "- https://arxiv.org/html/2601.07577v1 - https://aclanthology.org/2025.findings-acl.1141/ - https://huggingface.co/spaces/gaia-benchmark/leaderboard - https://research.ibm.com/publications/stratus-a-mu",
+      "context": "[insight] - https://arxiv.org/html/2601.07577v1 - https://aclanthology.org/2025.findings-acl.1141/ - https://h... Keywords: https, org, 1141, 2025, 2601",
+      "keywords": [
+        "https",
+        "org",
+        "1141",
+        "2025",
+        "2601",
+        "arxiv",
+        "html",
+        "07577v1",
+        "aclanthology",
+        "findings",
+        "research",
+        "auto-capture"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [],
+      "created": "2026-01-21T09:20:24.977Z",
+      "evolved": "2026-01-21T09:20:24.977Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "dd0c7114b097169f": {
+      "id": "dd0c7114b097169f",
+      "type": "insight",
+      "content": "- Mapping bracket numbers to source indices   ## 2026-01-21 04:11 - Session 8e7f4bfb ### Key Findings ",
+      "context": "[insight] - Mapping bracket numbers to source indices   ## 2026-01-21 04:11 - Session 8e7f4bfb ### Key Finding... Keywords: 2026, mapping, bracket, numbers, source\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:48 - Session 800807bf #...\"\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "2026",
+        "mapping",
+        "bracket",
+        "numbers",
+        "source",
+        "indices",
+        "session",
+        "8e7f4bfb",
+        "key",
+        "findings",
+        "research",
+        "auto-capture",
+        "847",
+        "8765",
+        "http"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "1e496473a5fd767b",
+          "relationship": "related",
+          "strength": 0.3333333333333333
+        },
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        },
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        }
+      ],
+      "created": "2026-01-21T09:48:10.083Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "1e496473a5fd767b": {
+      "id": "1e496473a5fd767b",
+      "type": "insight",
+      "content": "## 2026-01-21 04:48 - Session 800807bf ### Key Findings - Sessions: 4 (2 successful, 1 partial, 1 abandoned) - Total Messages: 847 - Working Hours: 19:00 - 04:00 ",
+      "context": "[insight] ## 2026-01-21 04:48 - Session 800807bf ### Key Findings - Sessions: 4 (2 successful, 1 partial, 1 ab... Keywords: 847, 2026, session, 800807bf, key\n[Evolved 2026-01-21]: Now connected to \"## 2026-01-21 04:51 - Session 8de657bf #...\"\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "847",
+        "2026",
+        "session",
+        "800807bf",
+        "key",
+        "findings",
+        "sessions",
+        "successful",
+        "partial",
+        "abandoned",
+        "research",
+        "auto-capture",
+        "8765",
+        "http",
+        "localhost"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "ea56b879ff2fe79f",
+          "relationship": "related",
+          "strength": 0.3333333333333333
+        },
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.3157894736842105
+        }
+      ],
+      "created": "2026-01-21T09:51:37.498Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "ea56b879ff2fe79f": {
+      "id": "ea56b879ff2fe79f",
+      "type": "insight",
+      "content": "## 2026-01-21 04:51 - Session 8de657bf ### URLs Referenced - http://localhost:8765' - http://localhost:8765 ### Key Findings ",
+      "context": "[insight] ## 2026-01-21 04:51 - Session 8de657bf ### URLs Referenced - http://localhost:8765' - http://localho... Keywords: 8765, http, localhost, 2026, session\n[Evolved 2026-01-21]: Now connected to \"- Embedded HTML dashboard   ## 2026-01-2...\"",
+      "keywords": [
+        "8765",
+        "http",
+        "localhost",
+        "2026",
+        "session",
+        "8de657bf",
+        "urls",
+        "referenced",
+        "key",
+        "findings",
+        "research",
+        "auto-capture",
+        "embedded",
+        "html"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [
+        {
+          "targetId": "497c9dbcf88d990a",
+          "relationship": "related",
+          "strength": 0.375
+        }
+      ],
+      "created": "2026-01-21T10:10:45.456Z",
+      "evolved": "2026-01-21T10:15:57.081Z",
+      "accessCount": 0,
+      "decayFactor": 1
+    },
+    "497c9dbcf88d990a": {
+      "id": "497c9dbcf88d990a",
+      "type": "insight",
+      "content": "- Embedded HTML dashboard   ## 2026-01-21 05:10 - Session a275fc5f ### Key Findings ",
+      "context": "[insight] - Embedded HTML dashboard   ## 2026-01-21 05:10 - Session a275fc5f ### Key Findings ... Keywords: 2026, embedded, html, dashboard, session",
+      "keywords": [
+        "2026",
+        "embedded",
+        "html",
+        "dashboard",
+        "session",
+        "a275fc5f",
+        "key",
+        "findings",
+        "research",
+        "auto-capture"
+      ],
+      "tags": [
+        "research",
+        "auto-capture"
+      ],
+      "links": [],
+      "created": "2026-01-21T10:15:57.079Z",
+      "evolved": "2026-01-21T10:15:57.080Z",
+      "accessCount": 0,
+      "decayFactor": 1
     }
   },
   "links": [
@@ -264,6 +1775,790 @@
       "relationship": "related",
       "strength": 0.21428571428571427,
       "created": "2026-01-16T18:31:52.912Z"
+    },
+    {
+      "id": "5f6795cb2b090ddc",
+      "source": "66e6165d5a5f694d",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.6,
+      "created": "2026-01-19T19:13:38.692Z"
+    },
+    {
+      "id": "422ceaf7f07af183",
+      "source": "66e6165d5a5f694d",
+      "target": "a2b0c2e179abdc3e",
+      "relationship": "related",
+      "strength": 0.2,
+      "created": "2026-01-19T19:13:38.692Z"
+    },
+    {
+      "id": "8198f42957d7e065",
+      "source": "cca069b8677b1aba",
+      "target": "66e6165d5a5f694d",
+      "relationship": "related",
+      "strength": 1,
+      "created": "2026-01-19T19:23:18.041Z"
+    },
+    {
+      "id": "5857cef58977b202",
+      "source": "cca069b8677b1aba",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.8,
+      "created": "2026-01-19T19:23:18.041Z"
+    },
+    {
+      "id": "4fadc3c1aa7421a0",
+      "source": "cca069b8677b1aba",
+      "target": "a2b0c2e179abdc3e",
+      "relationship": "related",
+      "strength": 0.25,
+      "created": "2026-01-19T19:23:18.041Z"
+    },
+    {
+      "id": "2bac3f4b4fd51f45",
+      "source": "48b52a6560ab9254",
+      "target": "66e6165d5a5f694d",
+      "relationship": "related",
+      "strength": 1,
+      "created": "2026-01-19T19:36:59.478Z"
+    },
+    {
+      "id": "d04a479dac6e73c6",
+      "source": "48b52a6560ab9254",
+      "target": "cca069b8677b1aba",
+      "relationship": "related",
+      "strength": 1,
+      "created": "2026-01-19T19:36:59.478Z"
+    },
+    {
+      "id": "80c743a707835e5d",
+      "source": "48b52a6560ab9254",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.8,
+      "created": "2026-01-19T19:36:59.478Z"
+    },
+    {
+      "id": "a2b011c5550e5d2d",
+      "source": "48b52a6560ab9254",
+      "target": "a2b0c2e179abdc3e",
+      "relationship": "related",
+      "strength": 0.25,
+      "created": "2026-01-19T19:36:59.478Z"
+    },
+    {
+      "id": "c881af2fbd245e42",
+      "source": "cca1024602fa2042",
+      "target": "b9dcad31ffaa7967",
+      "relationship": "related",
+      "strength": 0.4117647058823529,
+      "created": "2026-01-19T20:47:02.295Z"
+    },
+    {
+      "id": "8c0bd895576c7e09",
+      "source": "8048e8c40557db92",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.25,
+      "created": "2026-01-19T22:41:09.149Z"
+    },
+    {
+      "id": "5c42e524b273e42b",
+      "source": "d8fd3ae57313594e",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.375,
+      "created": "2026-01-19T22:43:59.565Z"
+    },
+    {
+      "id": "22972becfbd5e688",
+      "source": "d8fd3ae57313594e",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-19T22:43:59.565Z"
+    },
+    {
+      "id": "4c839c8700dbc336",
+      "source": "dba3e2d8bab6714a",
+      "target": "b9dcad31ffaa7967",
+      "relationship": "related",
+      "strength": 0.4375,
+      "created": "2026-01-20T03:15:30.927Z"
+    },
+    {
+      "id": "7fb68605456c4140",
+      "source": "dba3e2d8bab6714a",
+      "target": "cca1024602fa2042",
+      "relationship": "related",
+      "strength": 0.375,
+      "created": "2026-01-20T03:15:30.928Z"
+    },
+    {
+      "id": "34850881934351c7",
+      "source": "f2acf4a2b27e17ad",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.2,
+      "created": "2026-01-20T03:51:48.304Z"
+    },
+    {
+      "id": "1f1f19b76557ed09",
+      "source": "f2acf4a2b27e17ad",
+      "target": "d8fd3ae57313594e",
+      "relationship": "related",
+      "strength": 0.2,
+      "created": "2026-01-20T03:51:48.305Z"
+    },
+    {
+      "id": "8722d91f2f91810e",
+      "source": "d40abf107763fb4a",
+      "target": "dba3e2d8bab6714a",
+      "relationship": "related",
+      "strength": 0.4666666666666667,
+      "created": "2026-01-20T08:58:43.198Z"
+    },
+    {
+      "id": "ad9aa674c8158d7f",
+      "source": "d40abf107763fb4a",
+      "target": "b9dcad31ffaa7967",
+      "relationship": "related",
+      "strength": 0.4444444444444444,
+      "created": "2026-01-20T08:58:43.198Z"
+    },
+    {
+      "id": "003d546f1eb8a335",
+      "source": "d40abf107763fb4a",
+      "target": "cca1024602fa2042",
+      "relationship": "related",
+      "strength": 0.4444444444444444,
+      "created": "2026-01-20T08:58:43.198Z"
+    },
+    {
+      "id": "a5dc148025e5a81d",
+      "source": "10bce42a18ebc87a",
+      "target": "d40abf107763fb4a",
+      "relationship": "related",
+      "strength": 0.2,
+      "created": "2026-01-21T02:41:21.287Z"
+    },
+    {
+      "id": "bb29300e27e8071e",
+      "source": "44c6fe7b333f1212",
+      "target": "10bce42a18ebc87a",
+      "relationship": "related",
+      "strength": 1,
+      "created": "2026-01-21T02:44:25.291Z"
+    },
+    {
+      "id": "5ea704dfea76abe1",
+      "source": "44c6fe7b333f1212",
+      "target": "d40abf107763fb4a",
+      "relationship": "related",
+      "strength": 0.25,
+      "created": "2026-01-21T02:44:25.291Z"
+    },
+    {
+      "id": "f740e9cf5c2fdf2d",
+      "source": "7553738f9f3b4270",
+      "target": "b9dcad31ffaa7967",
+      "relationship": "related",
+      "strength": 0.625,
+      "created": "2026-01-21T02:54:14.752Z"
+    },
+    {
+      "id": "8ed7c5d1991898ff",
+      "source": "7553738f9f3b4270",
+      "target": "dba3e2d8bab6714a",
+      "relationship": "related",
+      "strength": 0.4375,
+      "created": "2026-01-21T02:54:14.752Z"
+    },
+    {
+      "id": "2344fc73642d89b3",
+      "source": "7553738f9f3b4270",
+      "target": "cca1024602fa2042",
+      "relationship": "related",
+      "strength": 0.3684210526315789,
+      "created": "2026-01-21T02:54:14.752Z"
+    },
+    {
+      "id": "46140eca9429c20f",
+      "source": "7553738f9f3b4270",
+      "target": "d40abf107763fb4a",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T02:54:14.752Z"
+    },
+    {
+      "id": "8f9990efddb084a4",
+      "source": "5ca72ec8dc6846ce",
+      "target": "7553738f9f3b4270",
+      "relationship": "related",
+      "strength": 1,
+      "created": "2026-01-21T02:54:28.331Z"
+    },
+    {
+      "id": "0f7ce4888e3276ee",
+      "source": "5ca72ec8dc6846ce",
+      "target": "b9dcad31ffaa7967",
+      "relationship": "related",
+      "strength": 0.625,
+      "created": "2026-01-21T02:54:28.331Z"
+    },
+    {
+      "id": "c23118a3b45fbd48",
+      "source": "5ca72ec8dc6846ce",
+      "target": "dba3e2d8bab6714a",
+      "relationship": "related",
+      "strength": 0.5,
+      "created": "2026-01-21T02:54:28.331Z"
+    },
+    {
+      "id": "6eae8ea2a6394646",
+      "source": "5ca72ec8dc6846ce",
+      "target": "cca1024602fa2042",
+      "relationship": "related",
+      "strength": 0.42105263157894735,
+      "created": "2026-01-21T02:54:28.332Z"
+    },
+    {
+      "id": "d0bc367fda5216e2",
+      "source": "5ca72ec8dc6846ce",
+      "target": "d40abf107763fb4a",
+      "relationship": "related",
+      "strength": 0.42105263157894735,
+      "created": "2026-01-21T02:54:28.332Z"
+    },
+    {
+      "id": "1cb0c945bdd80488",
+      "source": "3f8b9414f34854d4",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.3888888888888889,
+      "created": "2026-01-21T03:28:23.636Z"
+    },
+    {
+      "id": "4f50fc7eb0333c09",
+      "source": "3f8b9414f34854d4",
+      "target": "d8fd3ae57313594e",
+      "relationship": "related",
+      "strength": 0.25,
+      "created": "2026-01-21T03:28:23.636Z"
+    },
+    {
+      "id": "1474c43f6d12e7e1",
+      "source": "3f8b9414f34854d4",
+      "target": "cca1024602fa2042",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-21T03:28:23.636Z"
+    },
+    {
+      "id": "ee1989543526cc3d",
+      "source": "3f8b9414f34854d4",
+      "target": "dba3e2d8bab6714a",
+      "relationship": "related",
+      "strength": 0.2,
+      "created": "2026-01-21T03:28:23.636Z"
+    },
+    {
+      "id": "4f763b05d619edcc",
+      "source": "3f8b9414f34854d4",
+      "target": "7553738f9f3b4270",
+      "relationship": "related",
+      "strength": 0.2,
+      "created": "2026-01-21T03:28:23.636Z"
+    },
+    {
+      "id": "f2f8f964a4d3fe9c",
+      "source": "3f8b9414f34854d4",
+      "target": "5ca72ec8dc6846ce",
+      "relationship": "related",
+      "strength": 0.2,
+      "created": "2026-01-21T03:28:23.636Z"
+    },
+    {
+      "id": "fabcf807beb221b0",
+      "source": "2358f4e65b1e21ef",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.3333333333333333,
+      "created": "2026-01-21T03:28:32.508Z"
+    },
+    {
+      "id": "c6916ddff98ce35f",
+      "source": "2358f4e65b1e21ef",
+      "target": "d8fd3ae57313594e",
+      "relationship": "related",
+      "strength": 0.3333333333333333,
+      "created": "2026-01-21T03:28:32.508Z"
+    },
+    {
+      "id": "3738dc19d1b6191e",
+      "source": "2358f4e65b1e21ef",
+      "target": "3f8b9414f34854d4",
+      "relationship": "related",
+      "strength": 0.29411764705882354,
+      "created": "2026-01-21T03:28:32.508Z"
+    },
+    {
+      "id": "cb80fe6fffc6abe6",
+      "source": "2358f4e65b1e21ef",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.25,
+      "created": "2026-01-21T03:28:32.508Z"
+    },
+    {
+      "id": "8b96dcfdd68a03e7",
+      "source": "2358f4e65b1e21ef",
+      "target": "f2acf4a2b27e17ad",
+      "relationship": "related",
+      "strength": 0.2222222222222222,
+      "created": "2026-01-21T03:28:32.509Z"
+    },
+    {
+      "id": "022a5a654e3aa4ff",
+      "source": "04d68e8f9f42f99c",
+      "target": "3f8b9414f34854d4",
+      "relationship": "related",
+      "strength": 0.47058823529411764,
+      "created": "2026-01-21T06:06:01.470Z"
+    },
+    {
+      "id": "79ab355a8dbd90f3",
+      "source": "04d68e8f9f42f99c",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T06:06:01.470Z"
+    },
+    {
+      "id": "10a64b3077432697",
+      "source": "04d68e8f9f42f99c",
+      "target": "dba3e2d8bab6714a",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T06:06:01.470Z"
+    },
+    {
+      "id": "2270e756ae6c95dc",
+      "source": "04d68e8f9f42f99c",
+      "target": "7553738f9f3b4270",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T06:06:01.470Z"
+    },
+    {
+      "id": "27d93b4718118a8b",
+      "source": "04d68e8f9f42f99c",
+      "target": "5ca72ec8dc6846ce",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T06:06:01.470Z"
+    },
+    {
+      "id": "531d368fab77220c",
+      "source": "04d68e8f9f42f99c",
+      "target": "cca1024602fa2042",
+      "relationship": "related",
+      "strength": 0.23809523809523808,
+      "created": "2026-01-21T06:06:01.470Z"
+    },
+    {
+      "id": "4320083d1000928c",
+      "source": "04d68e8f9f42f99c",
+      "target": "2358f4e65b1e21ef",
+      "relationship": "related",
+      "strength": 0.23529411764705882,
+      "created": "2026-01-21T06:06:01.470Z"
+    },
+    {
+      "id": "7fa11a6f4f85bb0f",
+      "source": "21ff05850e92a3af",
+      "target": "04d68e8f9f42f99c",
+      "relationship": "related",
+      "strength": 1,
+      "created": "2026-01-21T07:27:38.014Z"
+    },
+    {
+      "id": "8c1c6d08bc806a79",
+      "source": "21ff05850e92a3af",
+      "target": "3f8b9414f34854d4",
+      "relationship": "related",
+      "strength": 0.5294117647058824,
+      "created": "2026-01-21T07:27:38.014Z"
+    },
+    {
+      "id": "4c5dd10644c10366",
+      "source": "21ff05850e92a3af",
+      "target": "2358f4e65b1e21ef",
+      "relationship": "related",
+      "strength": 0.35294117647058826,
+      "created": "2026-01-21T07:27:38.014Z"
+    },
+    {
+      "id": "32d9b7ca99feba15",
+      "source": "21ff05850e92a3af",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T07:27:38.014Z"
+    },
+    {
+      "id": "d065c12078612587",
+      "source": "21ff05850e92a3af",
+      "target": "dba3e2d8bab6714a",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T07:27:38.014Z"
+    },
+    {
+      "id": "cde73aa047faf930",
+      "source": "21ff05850e92a3af",
+      "target": "7553738f9f3b4270",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T07:27:38.014Z"
+    },
+    {
+      "id": "d5c4b0c57e9cc113",
+      "source": "21ff05850e92a3af",
+      "target": "5ca72ec8dc6846ce",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T07:27:38.014Z"
+    },
+    {
+      "id": "17da5efffeb93a4c",
+      "source": "21ff05850e92a3af",
+      "target": "cca1024602fa2042",
+      "relationship": "related",
+      "strength": 0.23809523809523808,
+      "created": "2026-01-21T07:27:38.015Z"
+    },
+    {
+      "id": "b05100605ad6a24f",
+      "source": "1333d98b9b8cd19f",
+      "target": "807819b101ae4a6c",
+      "relationship": "related",
+      "strength": 0.2631578947368421,
+      "created": "2026-01-21T09:11:51.156Z"
+    },
+    {
+      "id": "a66d27cda12022a7",
+      "source": "1333d98b9b8cd19f",
+      "target": "2358f4e65b1e21ef",
+      "relationship": "related",
+      "strength": 0.2,
+      "created": "2026-01-21T09:11:51.156Z"
+    },
+    {
+      "id": "0806683216ef505a",
+      "source": "830095b8ffdc7f00",
+      "target": "1333d98b9b8cd19f",
+      "relationship": "related",
+      "strength": 1,
+      "created": "2026-01-21T09:20:24.978Z"
+    },
+    {
+      "id": "e536ea38207a6482",
+      "source": "830095b8ffdc7f00",
+      "target": "807819b101ae4a6c",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T09:20:24.978Z"
+    },
+    {
+      "id": "a566fb7320bfac85",
+      "source": "830095b8ffdc7f00",
+      "target": "2358f4e65b1e21ef",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T09:20:24.978Z"
+    },
+    {
+      "id": "494a77b168c9ea00",
+      "source": "dd0c7114b097169f",
+      "target": "2358f4e65b1e21ef",
+      "relationship": "related",
+      "strength": 0.3,
+      "created": "2026-01-21T09:48:10.085Z"
+    },
+    {
+      "id": "aefad0e4c411da35",
+      "source": "dd0c7114b097169f",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.2857142857142857,
+      "created": "2026-01-21T09:48:10.085Z"
+    },
+    {
+      "id": "885890069ed435e7",
+      "source": "dd0c7114b097169f",
+      "target": "d8fd3ae57313594e",
+      "relationship": "related",
+      "strength": 0.2857142857142857,
+      "created": "2026-01-21T09:48:10.085Z"
+    },
+    {
+      "id": "7f88496ce7d87735",
+      "source": "dd0c7114b097169f",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-21T09:48:10.085Z"
+    },
+    {
+      "id": "c94a51a7921e386b",
+      "source": "dd0c7114b097169f",
+      "target": "f2acf4a2b27e17ad",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-21T09:48:10.085Z"
+    },
+    {
+      "id": "3b84faf96f9a34c7",
+      "source": "dd0c7114b097169f",
+      "target": "3f8b9414f34854d4",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-21T09:48:10.085Z"
+    },
+    {
+      "id": "ebb9a24cbb99e52f",
+      "source": "dd0c7114b097169f",
+      "target": "04d68e8f9f42f99c",
+      "relationship": "related",
+      "strength": 0.21052631578947367,
+      "created": "2026-01-21T09:48:10.085Z"
+    },
+    {
+      "id": "3812ad3418b342b8",
+      "source": "dd0c7114b097169f",
+      "target": "21ff05850e92a3af",
+      "relationship": "related",
+      "strength": 0.21052631578947367,
+      "created": "2026-01-21T09:48:10.085Z"
+    },
+    {
+      "id": "687212132e3ee23e",
+      "source": "1e496473a5fd767b",
+      "target": "d8fd3ae57313594e",
+      "relationship": "related",
+      "strength": 0.35,
+      "created": "2026-01-21T09:51:37.501Z"
+    },
+    {
+      "id": "1934f3766805c6d8",
+      "source": "1e496473a5fd767b",
+      "target": "dd0c7114b097169f",
+      "relationship": "related",
+      "strength": 0.3333333333333333,
+      "created": "2026-01-21T09:51:37.501Z"
+    },
+    {
+      "id": "614577c748955cc8",
+      "source": "1e496473a5fd767b",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.2857142857142857,
+      "created": "2026-01-21T09:51:37.501Z"
+    },
+    {
+      "id": "e849aadf3c2f8276",
+      "source": "1e496473a5fd767b",
+      "target": "2358f4e65b1e21ef",
+      "relationship": "related",
+      "strength": 0.2857142857142857,
+      "created": "2026-01-21T09:51:37.501Z"
+    },
+    {
+      "id": "29f9fe7811961600",
+      "source": "1e496473a5fd767b",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-21T09:51:37.501Z"
+    },
+    {
+      "id": "94fad13bfd1ca463",
+      "source": "1e496473a5fd767b",
+      "target": "f2acf4a2b27e17ad",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-21T09:51:37.501Z"
+    },
+    {
+      "id": "be136587c461c660",
+      "source": "1e496473a5fd767b",
+      "target": "3f8b9414f34854d4",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-21T09:51:37.501Z"
+    },
+    {
+      "id": "b0b172a56582f7bd",
+      "source": "ea56b879ff2fe79f",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.42105263157894735,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "531bf549e97e330f",
+      "source": "ea56b879ff2fe79f",
+      "target": "3f8b9414f34854d4",
+      "relationship": "related",
+      "strength": 0.35,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "11d98dc707a38913",
+      "source": "ea56b879ff2fe79f",
+      "target": "1e496473a5fd767b",
+      "relationship": "related",
+      "strength": 0.3333333333333333,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "cce4c6e35f5b639d",
+      "source": "ea56b879ff2fe79f",
+      "target": "04d68e8f9f42f99c",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "34c373d9212d4738",
+      "source": "ea56b879ff2fe79f",
+      "target": "21ff05850e92a3af",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "3a03df9ba4b0f9e7",
+      "source": "ea56b879ff2fe79f",
+      "target": "dd0c7114b097169f",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "b54383107ad125d0",
+      "source": "ea56b879ff2fe79f",
+      "target": "d8fd3ae57313594e",
+      "relationship": "related",
+      "strength": 0.2857142857142857,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "1abf4d18d75935b9",
+      "source": "ea56b879ff2fe79f",
+      "target": "2358f4e65b1e21ef",
+      "relationship": "related",
+      "strength": 0.2857142857142857,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "24e72e8e58389984",
+      "source": "ea56b879ff2fe79f",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "372eb6ca0095e481",
+      "source": "ea56b879ff2fe79f",
+      "target": "f2acf4a2b27e17ad",
+      "relationship": "related",
+      "strength": 0.22727272727272727,
+      "created": "2026-01-21T10:10:45.458Z"
+    },
+    {
+      "id": "406fce40e3e9ad12",
+      "source": "497c9dbcf88d990a",
+      "target": "ea56b879ff2fe79f",
+      "relationship": "related",
+      "strength": 0.375,
+      "created": "2026-01-21T10:15:57.080Z"
+    },
+    {
+      "id": "bed075c077ac99c7",
+      "source": "497c9dbcf88d990a",
+      "target": "8048e8c40557db92",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T10:15:57.081Z"
+    },
+    {
+      "id": "e2d871f9e89d747e",
+      "source": "497c9dbcf88d990a",
+      "target": "d8fd3ae57313594e",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T10:15:57.081Z"
+    },
+    {
+      "id": "296720bf92f7e99c",
+      "source": "497c9dbcf88d990a",
+      "target": "2358f4e65b1e21ef",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T10:15:57.081Z"
+    },
+    {
+      "id": "ccdd1565881605b1",
+      "source": "497c9dbcf88d990a",
+      "target": "dd0c7114b097169f",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T10:15:57.081Z"
+    },
+    {
+      "id": "3f491a1532fe0676",
+      "source": "497c9dbcf88d990a",
+      "target": "1e496473a5fd767b",
+      "relationship": "related",
+      "strength": 0.3157894736842105,
+      "created": "2026-01-21T10:15:57.081Z"
+    },
+    {
+      "id": "1d801bb99afa644b",
+      "source": "497c9dbcf88d990a",
+      "target": "7cf61de4d64c0525",
+      "relationship": "related",
+      "strength": 0.25,
+      "created": "2026-01-21T10:15:57.081Z"
+    },
+    {
+      "id": "731c34fd97add758",
+      "source": "497c9dbcf88d990a",
+      "target": "f2acf4a2b27e17ad",
+      "relationship": "related",
+      "strength": 0.25,
+      "created": "2026-01-21T10:15:57.081Z"
+    },
+    {
+      "id": "170d44bc4ca5616e",
+      "source": "497c9dbcf88d990a",
+      "target": "3f8b9414f34854d4",
+      "relationship": "related",
+      "strength": 0.25,
+      "created": "2026-01-21T10:15:57.081Z"
+    },
+    {
+      "id": "98164af654ff4f77",
+      "source": "497c9dbcf88d990a",
+      "target": "1333d98b9b8cd19f",
+      "relationship": "related",
+      "strength": 0.2222222222222222,
+      "created": "2026-01-21T10:15:57.081Z"
     }
   ],
   "config": {

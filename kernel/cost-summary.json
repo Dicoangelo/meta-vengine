@@ -1,14 +1,14 @@
 {
-  "totalCost": 308941.25,
-  "opusMessages": 19944,
+  "totalCost": 857.59,
+  "opusMessages": 29142,
   "sonnetMessages": 3012,
-  "haikuMessages": 2981,
+  "haikuMessages": 4888,
   "costByModel": {
-    "opus": 299160,
-    "sonnet": 9036,
-    "haiku": 745.25
+    "opus": 786.83,
+    "sonnet": 51.2,
+    "haiku": 19.55
   },
   "subscription": 200,
-  "roiMultiplier": 1544.7,
-  "lastUpdated": "2026-01-19T09:21:18.148262"
+  "roiMultiplier": 4.3,
+  "lastUpdated": "2026-01-21T04:51:45.977979"
 }
