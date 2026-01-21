@@ -465,6 +465,11 @@
             "type": "command",
             "command": "bash ~/.claude/hooks/username-check.sh 2>/dev/null || true",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/kernel/supermemory.py briefing --quiet 2>/dev/null || true",
+            "timeout": 15
           }
         ]
       }
@@ -520,6 +525,11 @@
           {
             "type": "command",
             "command": "python3 ~/.claude/scripts/daily-memory-log.py --quiet 2>/dev/null || true",
+            "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/kernel/supermemory.py synthesize --quiet 2>/dev/null || true",
             "timeout": 30
           }
         ]
