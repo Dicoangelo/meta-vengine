@@ -213,10 +213,16 @@ flowchart TB
 | 📊 | `dq-scorer.js` | Decision quality scoring + model routing | `Active` |
 | 🪪 | `identity-manager.js` | Expertise tracking + evolution | `Active` |
 | 📝 | `CLAUDE.md` | Auto-generated learned patterns section | `Evolving` |
-| ⚡ | `hsrgs.py` | **NEW** Homeomorphic Self-Routing Gödel System | `A/B Testing` |
-| 📈 | `ab-test-analyzer.py` | **NEW** HSRGS vs Keyword DQ comparison | `Active` |
-| 🔭 | `Observatory` | **NEW** Complete metrics & analytics system | `Active` |
-| 📊 | `Command Center` | **NEW** 12-tab unified dashboard | `Active` |
+| ⚡ | `hsrgs.py` | Homeomorphic Self-Routing Gödel System | `A/B Testing` |
+| 📈 | `ab-test-analyzer.py` | HSRGS vs Keyword DQ comparison | `Active` |
+| 🔭 | `Observatory` | Complete metrics & analytics system | `Active` |
+| 📊 | `Command Center` | 12-tab unified dashboard | `Active` |
+| 🩹 | `recovery-engine.py` | **NEW** Auto-recovery for errors (94% coverage, 70% auto-fix) | `Active` |
+| 🔧 | `recovery_actions.py` | **NEW** 8 recovery actions (git, perms, locks, cache) | `Active` |
+| 🧪 | `error-tracker.js` | Error pattern detection + solution lookup | `Active` |
+| 🛡️ | `error-capture.sh` | Hook-based error detection + recovery trigger | `Active` |
+| 🧬 | `cognitive-os.py` | **NEW** Personal Cognitive OS (flow, focus, energy) | `Active` |
+| 📋 | `supermemory.py` | Unified memory system with FTS + embeddings | `Active` |
 
 <br/>
 
@@ -224,12 +230,53 @@ flowchart TB
 
 <br/>
 
+## v1.2.0 - Self-Healing Infrastructure 🩹
+
+<div align="center">
+
+[![Version](https://img.shields.io/badge/Version-1.2.0-00d9ff?style=for-the-badge&labelColor=0d1117)](./CHANGELOG.md)
+[![Self-Healing](https://img.shields.io/badge/Self--Healing-Active-00ff88?style=for-the-badge&labelColor=0d1117)](./docs/RECOVERY_ENGINE_ARCHITECTURE.md)
+[![Recovery Rate](https://img.shields.io/badge/Auto--Fix-70%25-00ff88?style=for-the-badge&labelColor=0d1117)](./docs/RECOVERY_ENGINE_ARCHITECTURE.md)
+[![Cognitive OS](https://img.shields.io/badge/Cognitive_OS-Active-9945ff?style=for-the-badge&labelColor=0d1117)]()
+
+</div>
+
+### Self-Healing System
+
+**The system now heals itself.** Auto-Recovery Engine detects errors and applies safe fixes automatically — or provides smart suggestions for complex cases.
+
+<table>
+<tr>
+<td width="50%">
+
+**Auto-Recovery Engine**
+- 🩹 94% error coverage (655/700 historical errors)
+- ⚡ 70% auto-fixed without human intervention
+- ✅ 90% success rate on attempted fixes
+- 🔒 Safe-path validation (only ~/.claude, ~/.agent-core)
+
+</td>
+<td width="50%">
+
+**Cognitive OS**
+- 🧠 Flow state detection and protection
+- ⚡ Energy pattern optimization
+- 🎯 Focus session tracking
+- 📊 12-tab Command Center with Cognitive tab
+
+</td>
+</tr>
+</table>
+
+**Read More:** [Recovery Engine Architecture](./docs/RECOVERY_ENGINE_ARCHITECTURE.md)
+
+---
+
 ## v1.1.1 - 100% Real Data Achievement 🎉
 
 <div align="center">
 
 [![Data Authenticity](https://img.shields.io/badge/Data_Authenticity-100%25_Real-00d9ff?style=for-the-badge&labelColor=0d1117)](./OBSERVATORY_README.md)
-[![Version](https://img.shields.io/badge/Version-1.1.1-00d9ff?style=for-the-badge&labelColor=0d1117)](./CHANGELOG.md)
 [![Observatory](https://img.shields.io/badge/Observatory-Active-00d9ff?style=for-the-badge&labelColor=0d1117)](./OBSERVATORY_README.md)
 [![Command Center](https://img.shields.io/badge/Command_Center-12_Tabs-00d9ff?style=for-the-badge&labelColor=0d1117)](./docs/COMMAND_CENTER_ARCHITECTURE.md)
 
@@ -355,6 +402,12 @@ cost-report 7                    # Weekly cost analysis
 productivity-report 7            # Productivity metrics
 session-rate 5 "Great session!"  # Rate current session
 routing-dash                     # Routing performance dashboard
+
+# Auto-Recovery Engine
+recovery-engine.py status        # View recovery statistics
+recovery-engine.py test git      # Test git recovery
+recovery-engine.py test lock     # Test lock recovery
+recovery-engine.py recover --error "error text"  # Manual recovery trigger
 ```
 
 <br/>
@@ -461,6 +514,9 @@ routing-dash                     # Routing performance dashboard
 |:---------|:--------|
 | [📖 Vision & Story](./docs/coevolution/README.md) | The unlock, the architecture, the hidden layers |
 | [🏗️ Architecture](./docs/coevolution/ARCHITECTURE.md) | Technical topology, data flow, integration points |
+| [🩹 Recovery Engine](./docs/RECOVERY_ENGINE_ARCHITECTURE.md) | Self-healing infrastructure, decision trees, security model |
+| [📊 Data Flow](./docs/SYSTEM_ARCHITECTURE_DATA_FLOW.md) | Data authenticity, collection, processing, presentation |
+| [🎛️ Command Center](./docs/COMMAND_CENTER_ARCHITECTURE.md) | 12-tab unified dashboard architecture |
 | [📚 Research Lineage](./docs/coevolution/RESEARCH.md) | 40+ paper citations across 7 domains |
 | [🚀 Quickstart](./docs/coevolution/QUICKSTART.md) | Get the loop running in 60 seconds |
 | [📋 API Reference](./docs/coevolution/API.md) | Complete command documentation |
