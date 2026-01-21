@@ -1,6 +1,123 @@
 {
-  "detectedAt": "2026-01-21T08:34:00.783Z",
+  "detectedAt": "2026-01-21T10:15:29.094Z",
   "windowMinutes": 30,
-  "activityCount": 1,
-  "patterns": []
+  "activityCount": 5,
+  "patterns": [
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 0.8333333333333334,
+      "totalMatches": 5,
+      "matchingEvents": [
+        {
+          "timestamp": 1768988904555,
+          "text": "Implement the following plan:\n\n# Plan: Supermemory",
+          "matches": 4
+        },
+        {
+          "timestamp": 1768989208335,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    },
+    {
+      "id": "deployment",
+      "name": "Deployment Session",
+      "icon": "🚀",
+      "confidence": 0.75,
+      "totalMatches": 3,
+      "matchingEvents": [
+        {
+          "timestamp": 1768988904555,
+          "text": "Implement the following plan:\n\n# Plan: Supermemory",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768989024954,
+          "text": "build flowkeys next",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768989208335,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "git status",
+          "label": "Check git status",
+          "desc": "Verify clean state"
+        },
+        {
+          "type": "skill",
+          "value": "/pr",
+          "label": "Create PR",
+          "desc": "Prepare for deployment"
+        },
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Production build",
+          "desc": "Verify build succeeds"
+        }
+      ]
+    },
+    {
+      "id": "performance",
+      "name": "Performance Session",
+      "icon": "⚡",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1768988904555,
+          "text": "Implement the following plan:\n\n# Plan: Supermemory",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768989208335,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Build & analyze",
+          "desc": "Check bundle size"
+        },
+        {
+          "type": "memory",
+          "value": "performance patterns",
+          "label": "Recall optimizations",
+          "desc": "Load performance tips"
+        }
+      ]
+    }
+  ]
 }

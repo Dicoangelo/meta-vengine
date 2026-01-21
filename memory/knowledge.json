@@ -326,6 +326,16 @@
       "source": null,
       "project": "os-app",
       "timestamp": "2026-01-19T21:36:26.596494Z"
+    },
+    {
+      "content": "Average session length: 135 messages (intensive usage pattern)",
+      "tags": [
+        "usage",
+        "patterns"
+      ],
+      "timestamp": "2026-01-21T04:55:33.341288",
+      "source": "supermemory_synthesis",
+      "id": 37
     }
   ],
   "decisions": [
