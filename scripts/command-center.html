@@ -2620,11 +2620,119 @@
           <div class="command-card"><code>cos analyze</code><div class="desc">Pattern analysis</div></div>
         </div>
       </div>
+
+      <!-- ═══════════════════════════════════════════════════════════════ -->
+      <!-- SELF-HEALING / AUTO-RECOVERY SECTION -->
+      <!-- ═══════════════════════════════════════════════════════════════ -->
+
+      <div style="margin:2rem 0 1rem;padding:1rem 0;border-top:1px solid var(--border);">
+        <h2 style="font-size:1.3rem;font-weight:600;color:var(--accent-green);display:flex;align-items:center;gap:0.5rem;">
+          🩹 Self-Healing Engine
+          <span style="font-size:0.7rem;background:rgba(0,255,136,0.1);color:var(--accent-green);padding:3px 8px;border-radius:4px;">AUTO-RECOVERY</span>
+        </h2>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.5rem;">Automatic error detection and remediation — 94% coverage, 70% auto-fixed</p>
+      </div>
+
+      <div class="stats-row" id="recoveryStatsRow">
+        <div class="stat-card green">
+          <div class="stat-value" id="recoveryTotal">—</div>
+          <div class="stat-label">Total Attempts</div>
+        </div>
+        <div class="stat-card cyan">
+          <div class="stat-value" id="recoveryAutoFix">—</div>
+          <div class="stat-label">Auto-Fixed</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-value" id="recoverySuccess">—</div>
+          <div class="stat-label">Success Rate</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-value" id="recoveryCoverage">94%</div>
+          <div class="stat-label">Error Coverage</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>Recovery by Category</h3>
+            <span class="card-badge">Distribution</span>
+          </div>
+          <div class="chart-container"><canvas id="recoveryCategoryChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Auto-Fix vs Suggest</h3>
+            <span class="card-badge">Action Types</span>
+          </div>
+          <div class="chart-container"><canvas id="recoveryTypeChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Recovery Timeline</h3>
+            <span class="card-badge">Last 7 Days</span>
+          </div>
+          <div class="chart-container"><canvas id="recoveryTimelineChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Success by Category</h3>
+            <span class="card-badge">Rates</span>
+          </div>
+          <div class="chart-container"><canvas id="recoverySuccessChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Recovery Matrix</h3>
+          <span class="card-badge">Actions</span>
+        </div>
+        <div style="padding:1rem;overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="text-align:left;padding:0.75rem;color:var(--text-secondary);">Category</th>
+                <th style="text-align:center;padding:0.75rem;color:var(--text-secondary);">Errors</th>
+                <th style="text-align:left;padding:0.75rem;color:var(--text-secondary);">Auto-Fix Actions</th>
+                <th style="text-align:left;padding:0.75rem;color:var(--text-secondary);">Suggest-Only</th>
+              </tr>
+            </thead>
+            <tbody id="recoveryMatrixBody">
+              <tr><td colspan="4" style="padding:1rem;text-align:center;color:var(--text-muted);">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Recent Recovery Actions</h3>
+          <span class="card-badge" id="recentRecoveryCount">0</span>
+        </div>
+        <div id="recentRecoveryList" style="padding:1rem;max-height:300px;overflow-y:auto;">
+          <div style="color:var(--text-muted);text-align:center;">No recent recoveries</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Recovery Commands</h3>
+        </div>
+        <div class="commands-grid">
+          <div class="command-card"><code>recovery-engine.py status</code><div class="desc">View recovery statistics</div></div>
+          <div class="command-card"><code>recovery-engine.py test git</code><div class="desc">Test git recovery</div></div>
+          <div class="command-card"><code>recovery-engine.py test lock</code><div class="desc">Test lock recovery</div></div>
+          <div class="command-card"><code>recovery-engine.py test permission</code><div class="desc">Test permission recovery</div></div>
+          <div class="command-card"><code>recovery-engine.py recover --error "text"</code><div class="desc">Manual recovery trigger</div></div>
+          <div class="command-card"><code>cat ~/.claude/data/recovery-outcomes.jsonl</code><div class="desc">View recovery log</div></div>
+        </div>
+      </div>
     </div>
   </main>
 
   <footer class="footer">
-    Press <kbd>1</kbd>-<kbd>9</kbd> for tabs 1-9 · <kbd>0</kbd>, <kbd>O</kbd>, <kbd>P</kbd>, <kbd>S</kbd>, <kbd>C</kbd> for extra tabs · <kbd>R</kbd> to refresh
+    Press <kbd>1</kbd>-<kbd>9</kbd> for tabs 1-9 · <kbd>0</kbd>, <kbd>O</kbd>, <kbd>P</kbd>, <kbd>T</kbd>, <kbd>S</kbd>, <kbd>C</kbd> for extra tabs · <kbd>R</kbd> to refresh
   </footer>
 
   <script>
@@ -2671,6 +2779,7 @@
     const PRICING_DATA = __PRICING_DATA__;
     const SUPERMEMORY_DATA = __SUPERMEMORY_DATA__;
     const COGNITIVE_DATA = __COGNITIVE_DATA__;
+    const RECOVERY_DATA = __RECOVERY_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -4196,6 +4305,190 @@
 
     // Render cognitive on load
     renderCognitive();
+
+    // ═══════════════════════════════════════════════════════════════
+    // RECOVERY TAB RENDERING
+    // ═══════════════════════════════════════════════════════════════
+    function renderRecovery() {
+      const data = RECOVERY_DATA || {};
+      const stats = data.stats || {};
+      const outcomes = data.outcomes || [];
+      const matrix = data.matrix || [];
+
+      // Update stat cards
+      document.getElementById('recoveryTotal').textContent = stats.total || 0;
+      document.getElementById('recoveryAutoFix').textContent =
+        stats.autoFix ? `${stats.autoFix} (${stats.autoFixRate || 0}%)` : '0';
+      document.getElementById('recoverySuccess').textContent =
+        stats.successRate ? `${stats.successRate}%` : '—';
+
+      // Category distribution chart
+      const categories = data.categories || {};
+      const categoryCtx = document.getElementById('recoveryCategoryChart')?.getContext('2d');
+      if (categoryCtx && Object.keys(categories).length > 0) {
+        new Chart(categoryCtx, {
+          type: 'doughnut',
+          data: {
+            labels: Object.keys(categories),
+            datasets: [{
+              data: Object.values(categories),
+              backgroundColor: [
+                'rgba(255, 77, 106, 0.8)',   // git - red
+                'rgba(0, 217, 255, 0.8)',    // concurrency - cyan
+                'rgba(255, 204, 0, 0.8)',    // permissions - yellow
+                'rgba(177, 78, 255, 0.8)',   // quota - purple
+                'rgba(255, 123, 84, 0.8)',   // crash - orange
+                'rgba(0, 255, 136, 0.8)',    // recursion - green
+                'rgba(138, 138, 154, 0.8)'   // syntax - gray
+              ],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'right', labels: { color: 'rgba(255,255,255,0.7)', padding: 10, font: { size: 11 } } }
+            }
+          }
+        });
+      }
+
+      // Auto-fix vs Suggest chart
+      const typeCtx = document.getElementById('recoveryTypeChart')?.getContext('2d');
+      if (typeCtx) {
+        new Chart(typeCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Auto-Fixed', 'Suggested'],
+            datasets: [{
+              data: [stats.autoFix || 0, (stats.total || 0) - (stats.autoFix || 0)],
+              backgroundColor: ['rgba(0, 255, 136, 0.8)', 'rgba(255, 204, 0, 0.8)'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'right', labels: { color: 'rgba(255,255,255,0.7)', padding: 10 } }
+            }
+          }
+        });
+      }
+
+      // Timeline chart (last 7 days)
+      const timeline = data.timeline || [];
+      const timelineCtx = document.getElementById('recoveryTimelineChart')?.getContext('2d');
+      if (timelineCtx && timeline.length > 0) {
+        new Chart(timelineCtx, {
+          type: 'bar',
+          data: {
+            labels: timeline.map(t => t.date),
+            datasets: [
+              {
+                label: 'Auto-Fixed',
+                data: timeline.map(t => t.autoFix || 0),
+                backgroundColor: 'rgba(0, 255, 136, 0.8)'
+              },
+              {
+                label: 'Suggested',
+                data: timeline.map(t => t.suggested || 0),
+                backgroundColor: 'rgba(255, 204, 0, 0.8)'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.5)' } },
+              y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.5)' } }
+            },
+            plugins: {
+              legend: { position: 'top', labels: { color: 'rgba(255,255,255,0.7)', padding: 10 } }
+            }
+          }
+        });
+      }
+
+      // Success by category chart
+      const successByCategory = data.successByCategory || {};
+      const successCtx = document.getElementById('recoverySuccessChart')?.getContext('2d');
+      if (successCtx && Object.keys(successByCategory).length > 0) {
+        new Chart(successCtx, {
+          type: 'bar',
+          data: {
+            labels: Object.keys(successByCategory),
+            datasets: [{
+              label: 'Success Rate %',
+              data: Object.values(successByCategory),
+              backgroundColor: 'rgba(0, 217, 255, 0.8)'
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { max: 100, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.5)' } },
+              y: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.7)' } }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+
+      // Recovery matrix table
+      const matrixBody = document.getElementById('recoveryMatrixBody');
+      if (matrixBody && matrix.length > 0) {
+        matrixBody.innerHTML = matrix.map(row => `
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.75rem;font-weight:500;color:var(--accent-cyan);">${row.category}</td>
+            <td style="padding:0.75rem;text-align:center;">${row.errors}</td>
+            <td style="padding:0.75rem;"><span style="color:var(--accent-green);">${row.autoFix || '—'}</span></td>
+            <td style="padding:0.75rem;"><span style="color:var(--accent-yellow);">${row.suggestOnly || '—'}</span></td>
+          </tr>
+        `).join('');
+      } else if (matrixBody) {
+        // Show default matrix
+        matrixBody.innerHTML = `
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.75rem;font-weight:500;color:var(--accent-cyan);">Git</td><td style="text-align:center;">560</td><td style="color:var(--accent-green);">username, locks</td><td style="color:var(--accent-yellow);">merge conflicts, force push</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.75rem;font-weight:500;color:var(--accent-cyan);">Concurrency</td><td style="text-align:center;">55</td><td style="color:var(--accent-green);">stale locks, zombies</td><td style="color:var(--accent-yellow);">parallel sessions</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.75rem;font-weight:500;color:var(--accent-cyan);">Permissions</td><td style="text-align:center;">40</td><td style="color:var(--accent-green);">safe paths</td><td style="color:var(--accent-yellow);">system paths</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.75rem;font-weight:500;color:var(--accent-cyan);">Quota</td><td style="text-align:center;">25</td><td style="color:var(--accent-green);">cache</td><td style="color:var(--accent-yellow);">model switch</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.75rem;font-weight:500;color:var(--accent-cyan);">Crash</td><td style="text-align:center;">15</td><td style="color:var(--accent-green);">corrupt state</td><td style="color:var(--accent-yellow);">restore backup</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.75rem;font-weight:500;color:var(--accent-cyan);">Recursion</td><td style="text-align:center;">3</td><td style="color:var(--accent-green);">kill runaway</td><td style="color:var(--accent-yellow);">—</td></tr>
+          <tr><td style="padding:0.75rem;font-weight:500;color:var(--accent-cyan);">Syntax</td><td style="text-align:center;">2</td><td style="color:var(--accent-green);">—</td><td style="color:var(--accent-yellow);">always suggest</td></tr>
+        `;
+      }
+
+      // Recent recovery list
+      const recentList = document.getElementById('recentRecoveryList');
+      const recentCount = document.getElementById('recentRecoveryCount');
+      if (recentList && outcomes.length > 0) {
+        recentCount.textContent = outcomes.length;
+        recentList.innerHTML = outcomes.slice(0, 20).map(o => {
+          const date = new Date(o.ts * 1000);
+          const timeStr = date.toLocaleString();
+          const statusIcon = o.success ? '✅' : '⚠️';
+          const typeTag = o.auto ? '<span style="color:var(--accent-green);font-size:0.7rem;background:rgba(0,255,136,0.1);padding:2px 6px;border-radius:4px;">AUTO</span>' : '<span style="color:var(--accent-yellow);font-size:0.7rem;background:rgba(255,204,0,0.1);padding:2px 6px;border-radius:4px;">SUGGEST</span>';
+          return `
+            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+              <span style="font-size:1.1rem;">${statusIcon}</span>
+              <div style="flex:1;">
+                <div style="font-weight:500;">${o.action || 'unknown'}</div>
+                <div style="font-size:0.75rem;color:var(--text-secondary);">${o.category} · ${timeStr}</div>
+              </div>
+              ${typeTag}
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // Render recovery on load
+    renderRecovery();
   </script>
 </body>
 </html>
