@@ -442,6 +442,130 @@ def get_pricing_data() -> Dict:
     })
 
 
+def get_cognitive_data() -> Dict:
+    """Get Cognitive OS data for dashboard."""
+    cos_dir = KERNEL_DIR / "cognitive-os"
+    flow_state_file = cos_dir / "flow-state.json"
+    fate_file = cos_dir / "fate-predictions.jsonl"
+    routing_file = cos_dir / "routing-decisions.jsonl"
+    energy_file = cos_dir / "weekly-energy.json"
+
+    result = {
+        "status": "not_configured",
+        "state": {
+            "mode": "unknown",
+            "focus_quality": 0,
+            "best_for": [],
+            "cognitive_load": "unknown"
+        },
+        "flow": {
+            "state": "unknown",
+            "score": 0,
+            "in_flow": False,
+            "protections": []
+        },
+        "weekly": {
+            "Monday": 0.8, "Tuesday": 0.6, "Wednesday": 0.6,
+            "Thursday": 0.4, "Friday": 0.6, "Saturday": 0.6, "Sunday": 0.6
+        },
+        "flowHistory": [],
+        "routingHistory": [],
+        "fate": {
+            "predictions": [],
+            "accuracy": 0
+        },
+        "commands": [
+            {"cmd": "cos status", "desc": "Full system status"},
+            {"cmd": "cos state", "desc": "Current cognitive mode"},
+            {"cmd": "cos flow", "desc": "Flow state check"},
+            {"cmd": "cos fate", "desc": "Session prediction"},
+            {"cmd": "cos route", "desc": "Model recommendation"},
+            {"cmd": "cos weekly", "desc": "Weekly energy map"},
+            {"cmd": "cos schedule", "desc": "Task scheduling"}
+        ]
+    }
+
+    # Check if cognitive-os.py exists
+    cos_script = KERNEL_DIR / "cognitive-os.py"
+    if not cos_script.exists():
+        return result
+
+    result["status"] = "active"
+
+    # Try to get current state from cognitive-os.py
+    try:
+        state_result = subprocess.run(
+            ['python3', str(cos_script), 'state', '--json'],
+            capture_output=True, text=True, timeout=5
+        )
+        if state_result.returncode == 0:
+            state_data = json.loads(state_result.stdout)
+            result["state"] = {
+                "mode": state_data.get("mode", "unknown"),
+                "focus_quality": state_data.get("focus_quality", 0),
+                "best_for": state_data.get("best_for", []),
+                "cognitive_load": state_data.get("cognitive_load", "unknown")
+            }
+    except:
+        # Fallback: determine mode from current hour
+        hour = datetime.now().hour
+        if 5 <= hour < 9:
+            mode = "morning"
+        elif 9 <= hour < 12 or 14 <= hour < 18:
+            mode = "peak"
+        elif 12 <= hour < 14:
+            mode = "dip"
+        elif 18 <= hour < 22:
+            mode = "evening"
+        else:
+            mode = "deep_night"
+        result["state"]["mode"] = mode
+
+    # Load flow state from file (fast path)
+    if flow_state_file.exists():
+        flow_data = load_json_file(flow_state_file, {})
+        result["flow"] = {
+            "state": flow_data.get("state", "unknown"),
+            "score": flow_data.get("score", 0),
+            "in_flow": flow_data.get("in_flow", False),
+            "protections": flow_data.get("protections", [])
+        }
+
+    # Load weekly energy map
+    if energy_file.exists():
+        result["weekly"] = load_json_file(energy_file, result["weekly"])
+
+    # Load flow history (last 20 entries)
+    flow_history_file = cos_dir / "flow-history.jsonl"
+    if flow_history_file.exists():
+        history = load_jsonl_file(flow_history_file, limit=20)
+        result["flowHistory"] = [
+            {"ts": h.get("timestamp", ""), "score": h.get("score", 0), "state": h.get("state", "")}
+            for h in history
+        ]
+
+    # Load routing decisions (last 20)
+    if routing_file.exists():
+        routing = load_jsonl_file(routing_file, limit=20)
+        result["routingHistory"] = [
+            {"ts": r.get("timestamp", ""), "model": r.get("model", ""),
+             "cognitive": r.get("cognitive_state", ""), "dq": r.get("dq_score", 0)}
+            for r in routing
+        ]
+
+    # Load fate predictions and calculate accuracy
+    if fate_file.exists():
+        predictions = load_jsonl_file(fate_file, limit=100)
+        result["fate"]["predictions"] = predictions[-10:]  # Last 10
+
+        # Calculate accuracy
+        correct = sum(1 for p in predictions if p.get("actual") == p.get("predicted"))
+        total = len([p for p in predictions if p.get("actual")])
+        result["fate"]["accuracy"] = round(correct / total * 100, 1) if total > 0 else 0
+
+    return result
+
+
 def get_supermemory_data() -> Dict:
     """Get supermemory statistics and status from SQLite database."""
     import sqlite3
@@ -727,6 +851,10 @@ async def api_pricing():
 async def api_supermemory():
     return get_supermemory_data()
 
+@app.get("/api/cognitive")
+async def api_cognitive():
+    return get_cognitive_data()
+
 @app.get("/api/status")
 async def api_status():
     """Get current session status."""
@@ -750,6 +878,7 @@ async def api_all():
         "fileActivity": get_file_activity_data(),
         "pricing": get_pricing_data(),
         "supermemory": get_supermemory_data(),
+        "cognitive": get_cognitive_data(),
         "status": {"active": is_session_active()}
     }
 
