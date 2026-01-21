@@ -1351,6 +1351,104 @@
     .target-status {
       font-size: 1.2rem;
     }
+
+    /* Session Window Panel */
+    .session-window-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .session-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .session-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      min-width: 120px;
+    }
+
+    .session-progress-bar {
+      flex: 1;
+      height: 12px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .session-progress-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      border-radius: 5px;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 10px rgba(0, 217, 255, 0.4);
+    }
+
+    .session-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      min-width: 50px;
+      text-align: right;
+    }
+
+    .session-stats-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .session-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      min-width: 80px;
+    }
+
+    .session-stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .session-stat-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 0.25rem;
+    }
+
+    .session-recommendations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .session-rec {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(0, 217, 255, 0.1);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 6px;
+      color: var(--accent-cyan);
+    }
+
+    .tier-comfortable { background: rgba(0, 255, 136, 0.15); border-color: var(--accent-green); }
+    .tier-moderate { background: rgba(255, 204, 0, 0.15); border-color: var(--accent-yellow); }
+    .tier-low { background: rgba(255, 123, 84, 0.15); border-color: var(--accent-orange); }
+    .tier-critical { background: rgba(255, 77, 106, 0.15); border-color: var(--accent-red); }
   </style>
 </head>
 <body>
@@ -1597,8 +1695,9 @@
         <h4>🚀 Quick Start</h4>
         <div class="commands-grid">
           <div class="command-card"><code>cx</code><div class="desc">Start Claude tmux session</div></div>
-          <div class="command-card"><code>ccc</code><div class="desc">Open Command Center</div></div>
+          <div class="command-card"><code>ccc</code><div class="desc">Open Command Center (this dashboard)</div></div>
           <div class="command-card"><code>cterm</code><div class="desc">Terminal dashboard</div></div>
+          <div class="command-card"><code>ccost</code><div class="desc">Cost tracker</div></div>
         </div>
       </div>
 
@@ -1617,6 +1716,66 @@
           <div class="command-card"><code>q "..."</code><div class="desc">Quick question, no session</div></div>
           <div class="command-card"><code>explain ...</code><div class="desc">Explain any concept</div></div>
           <div class="command-card"><code>fixcmd</code><div class="desc">Fix last failed command</div></div>
+          <div class="command-card"><code>cfix</code><div class="desc">Fix the last error in Claude</div></div>
+          <div class="command-card"><code>ctest</code><div class="desc">Run tests and fix failures</div></div>
+          <div class="command-card"><code>ccheck</code><div class="desc">Multi-repo test + lint (all projects)</div></div>
+          <div class="command-card"><code>ruff-check</code><div class="desc">Python lint (researchgravity)</div></div>
+          <div class="command-card"><code>cbuild</code><div class="desc">Run build and fix errors</div></div>
+          <div class="command-card"><code>cgit</code><div class="desc">PR workflow (/pr skill)</div></div>
+        </div>
+      </div>
+
+      <div class="commands-section">
+        <h4>⚡ Session Optimizer</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>session-status</code><div class="desc">Quick session status</div></div>
+          <div class="command-card"><code>session-dash</code><div class="desc">Full session dashboard</div></div>
+          <div class="command-card"><code>session-window</code><div class="desc">Window position details</div></div>
+          <div class="command-card"><code>session-predict</code><div class="desc">Predict next window</div></div>
+          <div class="command-card"><code>session-budget</code><div class="desc">Budget status</div></div>
+          <div class="command-card"><code>session-reserve N</code><div class="desc">Reserve N Opus tasks</div></div>
+          <div class="command-card"><code>session-queue-add</code><div class="desc">Add task to queue</div></div>
+          <div class="command-card"><code>session-queue-list</code><div class="desc">View task queue</div></div>
+          <div class="command-card"><code>session-optimize</code><div class="desc">Run optimization pass</div></div>
+        </div>
+      </div>
+
+      <div class="commands-section">
+        <h4>🎯 Routing System</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>routing-dash</code><div class="desc">Routing dashboard</div></div>
+          <div class="command-card"><code>routing-report N</code><div class="desc">N-day metrics report</div></div>
+          <div class="command-card"><code>routing-targets</code><div class="desc">Check target metrics</div></div>
+          <div class="command-card"><code>routing-help</code><div class="desc">Quick reference docs</div></div>
+          <div class="command-card"><code>ab-test</code><div class="desc">A/B test analyzer</div></div>
+        </div>
+      </div>
+
+      <div class="commands-section">
+        <h4>⚙️ Co-Evolution</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>coevo-analyze</code><div class="desc">Analyze patterns</div></div>
+          <div class="command-card"><code>coevo-propose</code><div class="desc">Propose mutations</div></div>
+          <div class="command-card"><code>coevo-apply</code><div class="desc">Apply approved mutations</div></div>
+          <div class="command-card"><code>coevo-rollback</code><div class="desc">Rollback last change</div></div>
+          <div class="command-card"><code>coevo-dashboard</code><div class="desc">Co-evo dashboard</div></div>
+          <div class="command-card"><code>meta-analyzer</code><div class="desc">Full meta-analyzer</div></div>
+        </div>
+      </div>
+
+      <div class="commands-section">
+        <h4>🔭 Observatory</h4>
+        <div class="commands-grid">
+          <div class="command-card"><code>obs N</code><div class="desc">N-day unified report</div></div>
+          <div class="command-card"><code>obs-help</code><div class="desc">Observatory help</div></div>
+          <div class="command-card"><code>elite-status</code><div class="desc">Elite mode status</div></div>
+          <div class="command-card"><code>cost-report N</code><div class="desc">Cost report (N days)</div></div>
+          <div class="command-card"><code>productivity-report N</code><div class="desc">Productivity metrics</div></div>
+          <div class="command-card"><code>tool-stats N</code><div class="desc">Tool success rates</div></div>
+          <div class="command-card"><code>command-stats N</code><div class="desc">Command usage stats</div></div>
+          <div class="command-card"><code>git-stats N</code><div class="desc">Git activity</div></div>
+          <div class="command-card"><code>session-analyze-recent</code><div class="desc">Analyze recent sessions</div></div>
+          <div class="command-card"><code>feedback-loop</code><div class="desc">Run feedback loop</div></div>
         </div>
       </div>
 
@@ -1640,6 +1799,8 @@
           <div class="command-card"><code>rstatus</code><div class="desc">Check research status</div></div>
           <div class="command-card"><code>rsearch query</code><div class="desc">Search archives</div></div>
           <div class="command-card"><code>prefetch</code><div class="desc">Load project context</div></div>
+          <div class="command-card"><code>prefetch-pattern</code><div class="desc">Pattern-based prefetch</div></div>
+          <div class="command-card"><code>prefetch-suggest</code><div class="desc">Suggest relevant context</div></div>
           <div class="command-card"><code>rclip</code><div class="desc">Log URL from clipboard</div></div>
         </div>
       </div>
@@ -1647,9 +1808,10 @@
       <div class="commands-section">
         <h4>📊 Monitoring</h4>
         <div class="commands-grid">
-          <div class="command-card"><code>ccost</code><div class="desc">Cost tracker</div></div>
           <div class="command-card"><code>today</code><div class="desc">Today's activity</div></div>
-          <div class="command-card"><code>cl</code><div class="desc">Live activity log</div></div>
+          <div class="command-card"><code>cl</code><div class="desc">Live activity log (tail -f)</div></div>
+          <div class="command-card"><code>clog</code><div class="desc">Full activity log</div></div>
+          <div class="command-card"><code>cstats</code><div class="desc">Session stats</div></div>
           <div class="command-card"><code>checkpoint</code><div class="desc">Save session checkpoint</div></div>
         </div>
       </div>
@@ -1910,6 +2072,50 @@
 
     <!-- SESSION OUTCOMES TAB (Tab 10) -->
     <div id="session-outcomes" class="tab-content">
+      <!-- SESSION WINDOW PANEL - Current session state -->
+      <div id="sessionPanel" class="card" style="margin-bottom:1.5rem;">
+        <div class="card-header">
+          <h3>⚡ Session Window</h3>
+          <span class="card-badge" id="sessionTierBadge">—</span>
+        </div>
+        <div class="session-window-content">
+          <div class="session-progress-row">
+            <span class="session-label">Window Position</span>
+            <div class="session-progress-bar">
+              <div class="session-progress-fill" id="sessionProgressFill" style="width:0%"></div>
+            </div>
+            <span class="session-value" id="sessionPosition">0%</span>
+          </div>
+          <div class="session-stats-row">
+            <div class="session-stat">
+              <span class="session-stat-value" id="sessionRemaining">—</span>
+              <span class="session-stat-label">Remaining</span>
+            </div>
+            <div class="session-stat">
+              <span class="session-stat-value" id="sessionOpus">—</span>
+              <span class="session-stat-label">Opus</span>
+            </div>
+            <div class="session-stat">
+              <span class="session-stat-value" id="sessionSonnet">—</span>
+              <span class="session-stat-label">Sonnet</span>
+            </div>
+            <div class="session-stat">
+              <span class="session-stat-value" id="sessionHaiku">—</span>
+              <span class="session-stat-label">Haiku</span>
+            </div>
+            <div class="session-stat">
+              <span class="session-stat-value" id="sessionBudget">—</span>
+              <span class="session-stat-label">Budget Used</span>
+            </div>
+            <div class="session-stat">
+              <span class="session-stat-value" id="sessionQueue">—</span>
+              <span class="session-stat-label">Queue</span>
+            </div>
+          </div>
+          <div class="session-recommendations" id="sessionRecommendations"></div>
+        </div>
+      </div>
+
       <!-- Autonomous Analysis Badge -->
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
         <div style="background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green)); padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
@@ -2246,6 +2452,9 @@
     const ROUTING_DATA = __ROUTING_DATA__;
     const OBSERVATORY_DATA = __OBSERVATORY_DATA__;
     const SESSION_OUTCOMES_DATA = __SESSION_OUTCOMES_DATA__;
+    const PACK_DATA = __PACK_DATA__;
+    const SESSION_WINDOW_DATA = __SESSION_WINDOW_DATA__;
+    const FILE_ACTIVITY_DATA = __FILE_ACTIVITY_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -2358,6 +2567,46 @@
           `).join('');
 
         panel.style.display = 'block';
+      }
+
+      // Session Window Panel
+      if (SESSION_WINDOW_DATA) {
+        const sw = SESSION_WINDOW_DATA;
+        const position = sw.window?.positionPercent || 0;
+        const remaining = sw.window?.remainingMinutes || 0;
+        const tier = sw.capacity?.tier || 'UNKNOWN';
+        const capacity = sw.capacity?.remaining || {};
+        const budget = sw.budget?.utilizationPercent || 0;
+        const queueCount = sw.queue?.pending || 0;
+
+        // Update progress bar
+        document.getElementById('sessionProgressFill').style.width = position + '%';
+        document.getElementById('sessionPosition').textContent = position + '%';
+
+        // Update remaining time
+        const hours = Math.floor(remaining / 60);
+        const mins = remaining % 60;
+        document.getElementById('sessionRemaining').textContent = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
+
+        // Update capacity stats
+        document.getElementById('sessionOpus').textContent = capacity.opus || 0;
+        document.getElementById('sessionSonnet').textContent = capacity.sonnet || 0;
+        document.getElementById('sessionHaiku').textContent = capacity.haiku || 0;
+        document.getElementById('sessionBudget').textContent = budget + '%';
+        document.getElementById('sessionQueue').textContent = queueCount;
+
+        // Update tier badge
+        const tierBadge = document.getElementById('sessionTierBadge');
+        tierBadge.textContent = tier;
+        tierBadge.className = 'card-badge tier-' + tier.toLowerCase();
+
+        // Update recommendations
+        const recs = sw.recommendations || [];
+        if (recs.length > 0) {
+          document.getElementById('sessionRecommendations').innerHTML = recs.slice(0, 3).map(r =>
+            `<span class="session-rec">${r}</span>`
+          ).join('');
+        }
       }
 
       // Token breakdown
@@ -2964,6 +3213,27 @@
             }
           }
         });
+
+        // File Activity (from git)
+        const fileActivityList = document.getElementById('fileActivityList');
+        if (typeof FILE_ACTIVITY_DATA !== 'undefined' && FILE_ACTIVITY_DATA.length > 0) {
+          fileActivityList.innerHTML = FILE_ACTIVITY_DATA.map(f => {
+            const color = {
+              'OS-App': 'var(--accent-cyan)',
+              'CareerCoach': 'var(--accent-purple)',
+              'ResearchGravity': 'var(--accent-green)'
+            }[f.project] || 'var(--text-secondary)';
+            return `
+              <div class="activity-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${f.file}</div>
+                  <div style="font-size: 0.75rem; color: ${color};">${f.project}</div>
+                </div>
+                <div style="background: var(--bg-hover); padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; color: var(--text-secondary);">${f.count}×</div>
+              </div>
+            `;
+          }).join('');
+        }
       }
 
       // Tool Analytics Tab (Tab 12)
@@ -3094,36 +3364,44 @@
     // Context Efficiency Tab - Load Pack Metrics
     async function loadPackMetrics() {
       try {
-        // Mock data for now - in production, this would call: python3 pack_metrics.py --dashboard-data
+        // Use injected PACK_DATA from ccc-generator.sh (loaded from ~/.claude/data/pack-metrics.json)
+        const packData = PACK_DATA || {};
+
+        // Check if pack system is configured
+        if (packData.status === 'not_configured') {
+          document.getElementById('totalSessions').textContent = '0';
+          document.getElementById('totalTokenSavings').textContent = 'Not configured';
+          document.getElementById('totalCostSavings').textContent = '—';
+          document.getElementById('avgReduction').textContent = '—';
+          document.getElementById('topPacksCount').textContent = '0';
+          document.getElementById('topPacksList').innerHTML = `
+            <div style="color: var(--text-secondary); padding: 20px; text-align: center;">
+              <div style="font-size: 2rem; margin-bottom: 10px;">📦</div>
+              <div>Context packs not configured</div>
+              <div style="font-size: 0.85rem; margin-top: 8px; opacity: 0.7;">
+                Run: python3 build_packs.py --create
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        // Use real data with fallbacks to sample data for visualization
         const mockData = {
-          global: {
-            total_sessions: 1,
-            total_token_savings: 6999702,
-            total_cost_savings: 21.00,
-            avg_reduction_rate: 99.99
-          },
-          top_packs: [
-            { pack_id: 'multi-agent-orchestration', times_selected: 1, avg_dq_score: 0.850, avg_consensus_score: 0.880 },
-            { pack_id: 'agentic-memory', times_selected: 1, avg_dq_score: 0.850, avg_consensus_score: 0.880 },
-            { pack_id: 'llm-optimization', times_selected: 1, avg_dq_score: 0.850, avg_consensus_score: 0.880 }
+          global: packData.global || { total_sessions: 0, total_token_savings: 0, total_cost_savings: 0, avg_reduction_rate: 0 },
+          top_packs: packData.top_packs || [],
+          best_combinations: packData.best_combinations || [],
+          daily_trend: packData.daily_trend?.length > 0 ? packData.daily_trend : [
+            // Fallback sample data for chart visualization when no real data
+            { date: '2026-01-13', sessions: 0, token_savings: 0, cost_savings: 0 },
+            { date: '2026-01-14', sessions: 0, token_savings: 0, cost_savings: 0 },
+            { date: '2026-01-15', sessions: 0, token_savings: 0, cost_savings: 0 },
+            { date: '2026-01-16', sessions: 0, token_savings: 0, cost_savings: 0 },
+            { date: '2026-01-17', sessions: 0, token_savings: 0, cost_savings: 0 },
+            { date: '2026-01-18', sessions: 0, token_savings: 0, cost_savings: 0 },
+            { date: '2026-01-19', sessions: 0, token_savings: 0, cost_savings: 0 }
           ],
-          best_combinations: [
-            {
-              packs: ['multi-agent-orchestration', 'agentic-memory', 'llm-optimization'],
-              uses: 1,
-              avg_savings: 6999702
-            }
-          ],
-          daily_trend: [
-            { date: '2026-01-18', sessions: 1, token_savings: 6999702, cost_savings: 21.00 }
-          ],
-          pack_inventory: [
-            { pack_id: 'multi-agent-orchestration', type: 'domain', size_tokens: 112, keywords: ['multi-agent', 'consensus', 'voting'] },
-            { pack_id: 'agentic-memory', type: 'domain', size_tokens: 93, keywords: ['memory', 'zettelkasten', 'a-mem'] },
-            { pack_id: 'llm-optimization', type: 'domain', size_tokens: 93, keywords: ['optimization', 'scheduling'] },
-            { pack_id: 'os-app-architecture', type: 'project', size_tokens: 45, keywords: ['react', 'vite', 'zustand'] },
-            { pack_id: 'debugging-patterns', type: 'pattern', size_tokens: 43, keywords: ['debugging', 'root-cause'] }
-          ]
+          pack_inventory: packData.pack_inventory || []
         };
 
         // Update stats
@@ -3138,7 +3416,7 @@
         topPacksList.innerHTML = mockData.top_packs.map(pack => `
           <div class="pack-item">
             <div class="pack-info">
-              <div class="pack-name">${pack.pack_id}</div>
+              <div class="pack-name">${pack.name || pack.pack_id}</div>
               <div class="pack-meta">
                 <span>Uses: ${pack.times_selected}</span>
               </div>
@@ -3183,11 +3461,11 @@
         inventoryList.innerHTML = mockData.pack_inventory.map(pack => `
           <div class="pack-item">
             <div class="pack-info">
-              <div class="pack-name">${pack.pack_id}</div>
+              <div class="pack-name">${pack.name || pack.pack_id}</div>
               <div class="pack-meta">
                 <span>Type: ${pack.type}</span>
-                <span>Size: ${pack.size_tokens} tokens</span>
-                <span>Keywords: ${pack.keywords.slice(0, 3).join(', ')}</span>
+                <span>Size: ${pack.tokens || pack.size_tokens || 0} tokens</span>
+                ${pack.times_used ? `<span>Used: ${pack.times_used}x</span>` : ''}
               </div>
             </div>
           </div>
@@ -3258,11 +3536,12 @@
     let filteredSessionData = [];
 
     function isEmptySession(session) {
-      return (
-        session.outcome === 'abandoned' &&
-        session.quality === 1 &&
-        (!session.files_modified || session.files_modified.length === 0)
-      );
+      // Empty session: minimal activity regardless of outcome
+      const messages = session.messages || 0;
+      const tools = session.tools || 0;
+
+      // Consider empty if: < 5 messages AND < 2 tool calls (trivial interaction)
+      return messages < 5 && tools < 2;
     }
 
     function applySessionFilters() {
@@ -3294,10 +3573,10 @@
           allEvents = await response.json();
         }
 
-        // Deduplicate - keep only latest analysis per session_id
+        // Deduplicate - keep only latest analysis per session_id (handle both naming conventions)
         const sessionMap = new Map();
         allEvents.forEach(event => {
-          const sessionId = event.session_id;
+          const sessionId = event.session_id || event.sessionId;
           const timestamp = event.ts || 0;
           if (!sessionMap.has(sessionId) || timestamp > sessionMap.get(sessionId).ts) {
             sessionMap.set(sessionId, event);
@@ -3400,12 +3679,14 @@
 
       const sessionsTable = document.getElementById('recentSessionsTable');
       sessionsTable.innerHTML = recentSessions.map(s => {
-        const title = s.title || 'No title';
+        // Handle both camelCase (sessionId, topic) and snake_case (session_id, title) field names
+        const sessionId = s.session_id || s.sessionId || 'unknown';
+        const title = s.title || s.topic || 'No title';
         const titleShort = title.length > 35 ? title.substring(0, 32) + '...' : title;
-        const intent = s.intent || 'Unknown';
+        const intent = s.intent || s.project || 'N/A';
         const intentShort = intent.length > 25 ? intent.substring(0, 22) + '...' : intent;
-        const summary = s.summary_text || 'No summary available';
-        const sidShort = s.session_id.substring(0, 8) + '...';
+        const summary = s.summary_text || s.topic || 'No summary';
+        const sidShort = sessionId.substring(0, 8) + '...';
 
         const outcomeEmoji = {
           'success': '✅',
