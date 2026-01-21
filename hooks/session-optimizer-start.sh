@@ -77,6 +77,23 @@ query_relevant_memory() {
 (query_relevant_memory "$PROJECT" &) 2>/dev/null
 
 # ══════════════════════════════════════════════════════════════
+# 3b. SUPERMEMORY INJECTION
+# ══════════════════════════════════════════════════════════════
+
+inject_supermemory() {
+    local project="$1"
+    local supermemory="$HOME/.claude/supermemory/cli.py"
+
+    if [ -f "$supermemory" ]; then
+        # Inject context in background
+        python3 "$supermemory" inject --project "$project" > "$DATA_DIR/session-context.md" 2>/dev/null &
+    fi
+}
+
+# Run supermemory injection in background
+(inject_supermemory "$PROJECT" &) 2>/dev/null
+
+# ══════════════════════════════════════════════════════════════
 # 4. CHECK TODAY'S BRIEF
 # ══════════════════════════════════════════════════════════════
 
