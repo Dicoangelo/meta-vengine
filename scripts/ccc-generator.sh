@@ -354,6 +354,7 @@ echo "  🎨 Generating dashboard..."
 python3 << EOF
 import json
 import re
+import os
 from pathlib import Path
 
 # Read template
