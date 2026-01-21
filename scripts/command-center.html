@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="60">
   <title>Claude Command Center</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1914,6 +1915,25 @@
         </div>
       </div>
 
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>📈 Query Trend (14 Days)</h3>
+            <span class="card-badge" id="routingTrendBadge">Daily</span>
+          </div>
+          <div class="chart-container"><canvas id="routingTrendChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>✅ Model Success Rates</h3>
+            <span class="card-badge" id="modelSuccessBadge">From Outcomes</span>
+          </div>
+          <div id="modelSuccessGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;padding:1rem;">
+            <p class="empty-state" style="grid-column:span 3;">Calculating from session outcomes...</p>
+          </div>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-header">
           <h3>🚀 Routing Commands</h3>
@@ -1986,6 +2006,25 @@
           <span class="card-badge" id="patternCount">0</span>
         </div>
         <div id="patternsList" class="patterns-list"></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>📈 Pattern Trends (Weekly)</h3>
+            <span class="card-badge" id="patternTrendsWeeks">0 weeks</span>
+          </div>
+          <div class="chart-container"><canvas id="patternTrendsChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>🏆 All-Time Pattern Stats</h3>
+            <span class="card-badge" id="patternTotalSessions">0 sessions</span>
+          </div>
+          <div id="patternStatsGrid" class="stats-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;padding:1rem;">
+            <p class="empty-state" style="grid-column:span 2;">Run backfill-patterns.py to populate</p>
+          </div>
+        </div>
       </div>
 
       <div class="card">
@@ -2715,17 +2754,174 @@
         </div>
       </div>
 
+      <!-- MULTI-AGENT COORDINATION SECTION -->
+      <div class="section-header" style="margin-top: 2rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h2 style="color: var(--cyan); margin: 0; font-size: 1.1rem;">🤖 Multi-Agent Coordination</h2>
+      </div>
+
+      <div class="stats-row" id="coordinatorStatsRow">
+        <div class="stat-card cyan">
+          <div class="stat-value" id="coordActiveAgents">0</div>
+          <div class="stat-label">Active Agents</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-value" id="coordCompletedAgents">0</div>
+          <div class="stat-label">Completed</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-value" id="coordFileLocks">0</div>
+          <div class="stat-label">File Locks</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-value" id="coordTotalCost">$0</div>
+          <div class="stat-label">Coord Cost</div>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="card" style="flex: 1">
+          <div class="card-header">
+            <h3>Agent Registry</h3>
+            <span class="badge" id="coordRegistryBadge">0 agents</span>
+          </div>
+          <div class="content-box" id="coordAgentList" style="max-height: 200px; overflow-y: auto;">
+            <p class="empty-state">No active agents</p>
+          </div>
+        </div>
+        <div class="card" style="flex: 1">
+          <div class="card-header">
+            <h3>File Locks</h3>
+            <span class="badge" id="coordLocksBadge">0 locks</span>
+          </div>
+          <div class="content-box" id="coordLockList" style="max-height: 200px; overflow-y: auto;">
+            <p class="empty-state">No active file locks</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Recent Coordinations</h3>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="coordHistoryTable">
+            <thead>
+              <tr>
+                <th>Task ID</th>
+                <th>Task</th>
+                <th>Strategy</th>
+                <th>Status</th>
+                <th>Duration</th>
+                <th>Cost</th>
+              </tr>
+            </thead>
+            <tbody id="coordHistoryBody">
+              <tr><td colspan="6" class="empty-state">No coordination history</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Coordination Commands</h3>
+        </div>
+        <div class="commands-grid">
+          <div class="command-card"><code>coord status</code><div class="desc">View system status</div></div>
+          <div class="command-card"><code>coord research "task"</code><div class="desc">Parallel research</div></div>
+          <div class="command-card"><code>coord implement "task"</code><div class="desc">Parallel build</div></div>
+          <div class="command-card"><code>coord full "task"</code><div class="desc">Full pipeline</div></div>
+          <div class="command-card"><code>coord-cleanup</code><div class="desc">Clean stale data</div></div>
+          <div class="command-card"><code>coord-agents</code><div class="desc">List agents</div></div>
+        </div>
+      </div>
+
+      <!-- ACTIVE CLAUDE SESSIONS SECTION -->
+      <div class="section-header" style="margin-top: 2rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h2 style="color: var(--purple); margin: 0; font-size: 1.1rem;">💻 Active Claude Sessions</h2>
+      </div>
+
+      <div class="stats-row" id="sessionsStatsRow">
+        <div class="stat-card purple">
+          <div class="stat-value" id="sessionsActiveCount">0</div>
+          <div class="stat-label">Running</div>
+        </div>
+        <div class="stat-card cyan">
+          <div class="stat-value" id="sessionsTotalRuntime">0m</div>
+          <div class="stat-label">Total Runtime</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-value" id="sessionsOpusCount">0</div>
+          <div class="stat-label">Opus</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-value" id="sessionsSonnetCount">0</div>
+          <div class="stat-label">Sonnet</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Running Sessions</h3>
+          <span class="badge" id="sessionsListBadge">0 sessions</span>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="sessionsTable">
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>Model</th>
+                <th>Runtime</th>
+                <th>CPU %</th>
+                <th>Memory</th>
+                <th>Working Dir</th>
+              </tr>
+            </thead>
+            <tbody id="sessionsTableBody">
+              <tr><td colspan="6" class="empty-state">No active sessions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Session History</h3>
+          <span class="badge" id="sessionHistoryBadge">0 sessions</span>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="sessionHistoryTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Messages</th>
+                <th>Tools</th>
+                <th>Model</th>
+                <th>Outcome</th>
+              </tr>
+            </thead>
+            <tbody id="sessionHistoryBody">
+              <tr><td colspan="6" class="empty-state">No session history</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RECOVERY SECTION -->
+      <div class="section-header" style="margin-top: 2rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h2 style="color: var(--green); margin: 0; font-size: 1.1rem;">🩹 Auto-Recovery</h2>
+      </div>
+
       <div class="card">
         <div class="card-header">
           <h3>Recovery Commands</h3>
         </div>
         <div class="commands-grid">
-          <div class="command-card"><code>recovery-engine.py status</code><div class="desc">View recovery statistics</div></div>
-          <div class="command-card"><code>recovery-engine.py test git</code><div class="desc">Test git recovery</div></div>
-          <div class="command-card"><code>recovery-engine.py test lock</code><div class="desc">Test lock recovery</div></div>
-          <div class="command-card"><code>recovery-engine.py test permission</code><div class="desc">Test permission recovery</div></div>
-          <div class="command-card"><code>recovery-engine.py recover --error "text"</code><div class="desc">Manual recovery trigger</div></div>
-          <div class="command-card"><code>cat ~/.claude/data/recovery-outcomes.jsonl</code><div class="desc">View recovery log</div></div>
+          <div class="command-card"><code>recover-status</code><div class="desc">View recovery statistics</div></div>
+          <div class="command-card"><code>recover-test git</code><div class="desc">Test git recovery</div></div>
+          <div class="command-card"><code>recover-test lock</code><div class="desc">Test lock recovery</div></div>
+          <div class="command-card"><code>recover-test perms</code><div class="desc">Test permission recovery</div></div>
         </div>
       </div>
     </div>
@@ -2769,6 +2965,7 @@
     const PROJECTS_DATA = __PROJECTS_DATA__;
     const PROACTIVE_DATA = __PROACTIVE_DATA__;
     const COEVO_DATA = __COEVO_DATA__;
+    const PATTERN_TRENDS_DATA = __PATTERN_TRENDS_DATA__;
     const SUBSCRIPTION_DATA = __SUBSCRIPTION_DATA__;
     const ROUTING_DATA = __ROUTING_DATA__;
     const OBSERVATORY_DATA = __OBSERVATORY_DATA__;
@@ -2780,6 +2977,8 @@
     const SUPERMEMORY_DATA = __SUPERMEMORY_DATA__;
     const COGNITIVE_DATA = __COGNITIVE_DATA__;
     const RECOVERY_DATA = __RECOVERY_DATA__;
+    const COORDINATOR_DATA = __COORDINATOR_DATA__;
+    const SESSIONS_DATA = __SESSIONS_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -3296,6 +3495,77 @@
         }
       }
 
+      // Pattern Trends (from backfill)
+      if (PATTERN_TRENDS_DATA && PATTERN_TRENDS_DATA.weekly) {
+        const weekly = PATTERN_TRENDS_DATA.weekly || {};
+        const weeks = Object.keys(weekly).sort().slice(-8);  // Last 8 weeks
+        const topPatterns = PATTERN_TRENDS_DATA.top_patterns || [];
+        const definitions = PATTERN_TRENDS_DATA.pattern_definitions || {};
+
+        document.getElementById('patternTrendsWeeks').textContent = weeks.length + ' weeks';
+        document.getElementById('patternTotalSessions').textContent = (PATTERN_TRENDS_DATA.total_sessions || 0) + ' sessions';
+
+        // Weekly trends stacked bar chart
+        if (weeks.length > 0) {
+          const patternIds = ['research', 'implementation', 'architecture', 'debugging', 'review', 'documentation'];
+          const patternColors = {
+            research: 'rgba(72,219,251,0.8)',
+            implementation: 'rgba(168,85,247,0.8)',
+            architecture: 'rgba(254,202,87,0.8)',
+            debugging: 'rgba(233,69,96,0.8)',
+            review: 'rgba(74,222,128,0.8)',
+            documentation: 'rgba(255,107,107,0.8)',
+            testing: 'rgba(100,200,200,0.8)',
+            learning: 'rgba(200,150,100,0.8)',
+            optimization: 'rgba(150,100,200,0.8)',
+            deployment: 'rgba(100,150,200,0.8)'
+          };
+
+          const datasets = patternIds.map(pid => ({
+            label: definitions[pid]?.name || pid,
+            data: weeks.map(w => (weekly[w] || {})[pid] || 0),
+            backgroundColor: patternColors[pid] || 'rgba(128,128,128,0.8)'
+          }));
+
+          const ctx = document.getElementById('patternTrendsChart')?.getContext('2d');
+          if (ctx) {
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: weeks.map(w => w.substring(5)),  // MM-DD format
+                datasets: datasets
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                  x: { stacked: true, ticks: { color: 'rgba(255,255,255,0.6)' }, grid: { display: false } },
+                  y: { stacked: true, ticks: { color: 'rgba(255,255,255,0.6)' }, grid: { color: 'rgba(255,255,255,0.1)' } }
+                },
+                plugins: {
+                  legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.7)', boxWidth: 12, padding: 8 } }
+                }
+              }
+            });
+          }
+        }
+
+        // All-time stats grid
+        if (topPatterns.length > 0) {
+          document.getElementById('patternStatsGrid').innerHTML = topPatterns.slice(0, 6).map(p => {
+            const def = definitions[p.id] || {};
+            return `
+              <div style="background:var(--bg-glass);border:1px solid var(--border);border-radius:8px;padding:0.75rem;text-align:center;">
+                <div style="font-size:1.5rem;">${def.icon || '📊'}</div>
+                <div style="font-weight:600;color:var(--text-primary);">${p.count}</div>
+                <div style="font-size:0.75rem;color:var(--text-secondary);">${def.name || p.id}</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">${p.percentage}%</div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
       // Routing tab
       if (ROUTING_DATA) {
         // Stats row
@@ -3407,6 +3677,53 @@
         ].filter(Boolean).length;
 
         document.getElementById('targetsMetBadge').textContent = `${targetsMet}/4`;
+
+        // Daily trend chart
+        const dailyTrend = ROUTING_DATA.dailyTrend || [];
+        if (dailyTrend.length > 0) {
+          const ctx = document.getElementById('routingTrendChart')?.getContext('2d');
+          if (ctx) {
+            new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: dailyTrend.map(d => d.date.substring(5)),  // MM-DD
+                datasets: [{
+                  label: 'Queries',
+                  data: dailyTrend.map(d => d.queries),
+                  borderColor: 'rgba(72, 219, 251, 1)',
+                  backgroundColor: 'rgba(72, 219, 251, 0.1)',
+                  fill: true,
+                  tension: 0.4
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                  y: { beginAtZero: true, ticks: { color: 'rgba(255,255,255,0.6)' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+                  x: { ticks: { color: 'rgba(255,255,255,0.6)' }, grid: { display: false } }
+                },
+                plugins: { legend: { display: false } }
+              }
+            });
+          }
+        }
+
+        // Model success rates
+        const successRates = ROUTING_DATA.modelSuccessRates || {};
+        const successGrid = document.getElementById('modelSuccessGrid');
+        if (Object.keys(successRates).length > 0) {
+          const modelColors = { opus: '#b14eff', sonnet: '#00d9ff', haiku: '#00ff88' };
+          successGrid.innerHTML = Object.entries(successRates).map(([model, data]) => `
+            <div style="background:var(--bg-glass);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center;">
+              <div style="font-size:1.5rem;font-weight:700;color:${modelColors[model] || '#888'}">${data.success_rate}%</div>
+              <div style="font-size:0.85rem;color:var(--text-secondary);text-transform:capitalize;">${model}</div>
+              <div style="font-size:0.7rem;color:var(--text-muted);">${data.total} sessions</div>
+            </div>
+          `).join('');
+        } else {
+          successGrid.innerHTML = '<p class="empty-state" style="grid-column:span 3;">No session outcomes yet</p>';
+        }
       }
 
       // Render Observatory Tabs
@@ -4303,8 +4620,9 @@
       }
     }
 
-    // Render cognitive on load
+    // Render cognitive on load (includes coordinator section)
     renderCognitive();
+    renderCoordinator();
 
     // ═══════════════════════════════════════════════════════════════
     // RECOVERY TAB RENDERING
@@ -4489,6 +4807,240 @@
 
     // Render recovery on load
     renderRecovery();
+
+    // ═══════════════════════════════════════════════════════════════
+    // COORDINATOR TAB RENDERING
+    // ═══════════════════════════════════════════════════════════════
+    function renderCoordinator() {
+      const data = COORDINATOR_DATA || {};
+      const registry = data.registry || {};
+      const locks = data.locks || {};
+      const history = data.history || [];
+      const agents = data.agents || [];
+
+      // Update stat cards
+      document.getElementById('coordActiveAgents').textContent = registry.active_count || 0;
+      document.getElementById('coordCompletedAgents').textContent =
+        (registry.by_state?.completed || 0) + (registry.by_state?.failed || 0);
+      document.getElementById('coordFileLocks').textContent = locks.total_locks || 0;
+      document.getElementById('coordTotalCost').textContent = formatCost(registry.total_cost_estimate || 0);
+      document.getElementById('coordRegistryBadge').textContent = `${registry.total_agents || 0} agents`;
+      document.getElementById('coordLocksBadge').textContent = `${locks.total_locks || 0} locks`;
+
+      // Agent list
+      const agentList = document.getElementById('coordAgentList');
+      if (agents.length > 0) {
+        agentList.innerHTML = agents.map(a => {
+          const stateColors = {
+            running: 'cyan', completed: 'green', failed: 'red',
+            timeout: 'yellow', pending: 'gray', cancelled: 'gray'
+          };
+          const color = stateColors[a.state] || 'gray';
+          return `
+            <div class="item-row">
+              <div class="item-main">
+                <span class="badge ${color}">${a.state}</span>
+                <span>${a.subtask || a.agent_id}</span>
+              </div>
+              <div class="item-meta">
+                <span class="badge">${a.model}</span>
+                <span>DQ: ${(a.dq_score || 0).toFixed(2)}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        agentList.innerHTML = '<p class="empty-state">No active agents</p>';
+      }
+
+      // By State chart
+      const byState = registry.by_state || {};
+      const stateCtx = document.getElementById('coordByStateChart')?.getContext('2d');
+      if (stateCtx && Object.keys(byState).length > 0) {
+        const stateLabels = Object.keys(byState);
+        const stateData = Object.values(byState);
+        const stateColors = stateLabels.map(s => {
+          const colorMap = {
+            running: 'rgba(0, 217, 255, 0.8)', completed: 'rgba(0, 255, 136, 0.8)',
+            failed: 'rgba(255, 99, 132, 0.8)', timeout: 'rgba(255, 206, 86, 0.8)',
+            pending: 'rgba(128, 128, 128, 0.8)', cancelled: 'rgba(100, 100, 100, 0.8)'
+          };
+          return colorMap[s] || 'rgba(128, 128, 128, 0.8)';
+        });
+
+        if (!stateCtx._chartInstance) {
+          stateCtx._chartInstance = new Chart(stateCtx, {
+            type: 'doughnut',
+            data: { labels: stateLabels, datasets: [{ data: stateData, backgroundColor: stateColors, borderWidth: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.7)', padding: 10 } } } }
+          });
+        }
+      }
+
+      // By Model chart
+      const byModel = registry.by_model || {};
+      const modelCtx = document.getElementById('coordByModelChart')?.getContext('2d');
+      if (modelCtx && Object.keys(byModel).length > 0) {
+        const modelLabels = Object.keys(byModel);
+        const modelData = Object.values(byModel);
+        const modelColors = modelLabels.map(m => {
+          const colorMap = { haiku: 'rgba(0, 255, 136, 0.8)', sonnet: 'rgba(0, 217, 255, 0.8)', opus: 'rgba(177, 78, 255, 0.8)' };
+          return colorMap[m] || 'rgba(128, 128, 128, 0.8)';
+        });
+
+        if (!modelCtx._chartInstance) {
+          modelCtx._chartInstance = new Chart(modelCtx, {
+            type: 'doughnut',
+            data: { labels: modelLabels, datasets: [{ data: modelData, backgroundColor: modelColors, borderWidth: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.7)', padding: 10 } } } }
+          });
+        }
+      }
+
+      // Lock list
+      const lockList = document.getElementById('coordLockList');
+      const lockData = data.lockDetails || [];
+      if (lockData.length > 0) {
+        lockList.innerHTML = lockData.map(l => `
+          <div class="item-row">
+            <div class="item-main">
+              <span class="badge ${l.lock_type === 'write' ? 'yellow' : 'cyan'}">${l.lock_type}</span>
+              <code>${l.path}</code>
+            </div>
+            <div class="item-meta">
+              <span>${l.agent_id}</span>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        lockList.innerHTML = '<p class="empty-state">No active file locks</p>';
+      }
+
+      // History table
+      const historyBody = document.getElementById('coordHistoryBody');
+      if (history.length > 0) {
+        historyBody.innerHTML = history.slice(0, 20).map(h => {
+          const statusColors = { success: 'green', partial: 'yellow', failed: 'red', cancelled: 'gray' };
+          const color = statusColors[h.status] || 'gray';
+          return `
+            <tr>
+              <td><code>${h.task_id}</code></td>
+              <td>${(h.task || '').substring(0, 40)}${(h.task || '').length > 40 ? '...' : ''}</td>
+              <td><span class="badge">${h.strategy}</span></td>
+              <td><span class="badge ${color}">${h.status}</span></td>
+              <td>${h.duration_seconds?.toFixed(1) || 0}s</td>
+              <td>${formatCost(h.total_cost || 0)}</td>
+            </tr>
+          `;
+        }).join('');
+      } else {
+        historyBody.innerHTML = '<tr><td colspan="6" class="empty-state">No coordination history</td></tr>';
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // ACTIVE SESSIONS RENDERING
+    // ═══════════════════════════════════════════════════════════════
+    function renderSessions() {
+      const data = SESSIONS_DATA || {};
+      const stats = data.stats || {};
+      const sessions = data.sessions || [];
+
+      // Update stat cards
+      document.getElementById('sessionsActiveCount').textContent = stats.total || 0;
+
+      // Format total runtime
+      const totalMins = stats.total_runtime_minutes || 0;
+      let runtimeStr = '0m';
+      if (totalMins >= 60) {
+        const hours = Math.floor(totalMins / 60);
+        const mins = totalMins % 60;
+        runtimeStr = hours + 'h ' + mins + 'm';
+      } else {
+        runtimeStr = totalMins + 'm';
+      }
+      document.getElementById('sessionsTotalRuntime').textContent = runtimeStr;
+
+      document.getElementById('sessionsOpusCount').textContent = stats.opus || 0;
+      document.getElementById('sessionsSonnetCount').textContent = stats.sonnet || 0;
+
+      // Update badge
+      document.getElementById('sessionsListBadge').textContent = (sessions.length || 0) + ' sessions';
+
+      // Sessions table
+      const tableBody = document.getElementById('sessionsTableBody');
+      if (sessions.length > 0) {
+        tableBody.innerHTML = sessions.map(s => {
+          const modelColors = {
+            opus: 'purple',
+            sonnet: 'cyan',
+            haiku: 'green'
+          };
+          const color = modelColors[s.model] || 'gray';
+
+          return `
+            <tr>
+              <td><code>${s.pid}</code></td>
+              <td><span class="badge ${color}">${s.model}</span></td>
+              <td>${s.runtime}</td>
+              <td>${s.cpu}%</td>
+              <td>${s.mem}%</td>
+              <td title="${s.cwd}"><code>${s.cwd.length > 30 ? '...' + s.cwd.slice(-27) : s.cwd}</code></td>
+            </tr>
+          `;
+        }).join('');
+      } else {
+        tableBody.innerHTML = '<tr><td colspan="6" class="empty-state">No active Claude sessions</td></tr>';
+      }
+
+      // Session History from SESSION_OUTCOMES_DATA
+      const historyData = (typeof SESSION_OUTCOMES_DATA !== 'undefined' ? SESSION_OUTCOMES_DATA : [])
+        .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+        .slice(0, 20);
+
+      document.getElementById('sessionHistoryBadge').textContent = historyData.length + ' recent';
+
+      const historyBody = document.getElementById('sessionHistoryBody');
+      if (historyData.length > 0) {
+        historyBody.innerHTML = historyData.map(s => {
+          const outcomeColors = {
+            success: 'green',
+            partial: 'yellow',
+            abandoned: 'red',
+            failed: 'red'
+          };
+          const outcomeColor = outcomeColors[s.outcome] || 'gray';
+
+          // Get primary model from models_used
+          const models = s.models_used || {};
+          const primaryModel = Object.keys(models).reduce((a, b) =>
+            (models[a] || 0) > (models[b] || 0) ? a : b, Object.keys(models)[0] || 'unknown');
+          const modelColors = { opus: 'purple', sonnet: 'cyan', haiku: 'green' };
+          const modelColor = modelColors[primaryModel] || 'gray';
+
+          // Truncate title
+          const title = (s.title || s.intent || '—').substring(0, 35);
+          const titleFull = s.title || s.intent || '—';
+
+          return `
+            <tr>
+              <td>${s.date || '—'}</td>
+              <td title="${titleFull}">${title}${titleFull.length > 35 ? '...' : ''}</td>
+              <td>${s.messages || 0}</td>
+              <td>${s.tools || 0}</td>
+              <td><span class="badge ${modelColor}">${primaryModel}</span></td>
+              <td><span class="badge ${outcomeColor}">${s.outcome || '—'}</span></td>
+            </tr>
+          `;
+        }).join('');
+      } else {
+        historyBody.innerHTML = '<tr><td colspan="6" class="empty-state">No session history</td></tr>';
+      }
+    }
+
+    // Render sessions on load
+    renderSessions();
+
   </script>
 </body>
 </html>

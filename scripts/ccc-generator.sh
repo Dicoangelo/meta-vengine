@@ -4,6 +4,14 @@
 
 set -e
 
+# Parse arguments
+NO_OPEN=false
+for arg in "$@"; do
+  case $arg in
+    --no-open) NO_OPEN=true ;;
+  esac
+done
+
 STATS_FILE="$HOME/.claude/stats-cache.json"
 MEMORY_FILE="$HOME/.claude/memory/knowledge.json"
 ACTIVITY_LOG="$HOME/.claude/activity.log"
@@ -198,16 +206,30 @@ else
 fi
 
 echo "  🎯 Loading routing metrics..."
-# Calculate routing metrics directly from dq-scores.jsonl
-ROUTING_DATA=$(python3 -c "
+# Comprehensive routing metrics from multiple sources
+ROUTING_TMP="/tmp/routing-data-$$.json"
+python3 << 'ROUTINGEOF' > "$ROUTING_TMP"
 import json
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
+from datetime import datetime, timedelta
 
-dq_file = Path.home() / '.claude/kernel/dq-scores.jsonl'
+home = Path.home()
+dq_file = home / '.claude/kernel/dq-scores.jsonl'
+routing_file = home / '.claude/kernel/cognitive-os/routing-decisions.jsonl'
+feedback_file = home / '.claude/kernel/routing-feedback.jsonl'
+outcomes_file = home / '.claude/data/session-outcomes.jsonl'
+
+# Initialize
 scores = []
 models = Counter()
+latencies = []
+routing_decisions = []
+feedback_entries = []
+daily_queries = defaultdict(int)
+daily_accuracy = defaultdict(list)
 
+# Load DQ scores
 if dq_file.exists():
     with open(dq_file) as f:
         for line in f:
@@ -217,46 +239,149 @@ if dq_file.exists():
                     scores.append(d['dqScore'])
                 if 'model' in d:
                     models[d['model']] += 1
+                # Track daily
+                ts = d.get('ts', 0)
+                if ts > 1e12:
+                    ts = ts / 1000
+                if ts > 0:
+                    date = datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+                    daily_queries[date] += 1
             except:
                 pass
 
+# Load routing decisions for latency and decision tracking
+if routing_file.exists():
+    try:
+        with open(routing_file) as f:
+            for line in f:
+                try:
+                    d = json.loads(line)
+                    routing_decisions.append(d)
+                except:
+                    pass
+    except:
+        pass
+
+# Calculate latency from routing decisions (time between consecutive decisions)
+if len(routing_decisions) > 1:
+    for i in range(1, min(100, len(routing_decisions))):
+        try:
+            t1 = datetime.fromisoformat(routing_decisions[i-1].get('timestamp', ''))
+            t2 = datetime.fromisoformat(routing_decisions[i].get('timestamp', ''))
+            delta_ms = (t2 - t1).total_seconds() * 1000
+            if 0 < delta_ms < 5000:  # Reasonable range
+                latencies.append(delta_ms)
+        except:
+            pass
+
+# Load feedback if exists
+if feedback_file.exists():
+    try:
+        with open(feedback_file) as f:
+            for line in f:
+                try:
+                    feedback_entries.append(json.loads(line))
+                except:
+                    pass
+    except:
+        pass
+
+# Calculate accuracy from session outcomes (success rate by model)
+model_success = defaultdict(lambda: {'success': 0, 'total': 0})
+if outcomes_file.exists():
+    try:
+        with open(outcomes_file) as f:
+            for line in f:
+                try:
+                    s = json.loads(line)
+                    outcome = s.get('outcome', '')
+                    models_used = s.get('models_used', {})
+                    for model, count in models_used.items():
+                        model_success[model]['total'] += 1
+                        if outcome == 'success':
+                            model_success[model]['success'] += 1
+                except:
+                    pass
+    except:
+        pass
+
+# Calculate metrics
 total = len(scores)
 avg_dq = sum(scores) / total if scores else 0
 model_total = sum(models.values()) or 1
 
-# Normalize model distribution to percentages (main 3 models)
+# Model distribution
 model_dist = {
     'haiku': round(models.get('haiku', 0) / model_total, 3),
     'sonnet': round(models.get('sonnet', 0) / model_total, 3),
     'opus': round(models.get('opus', 0) / model_total, 3)
 }
 
-# Calculate cost savings estimate (haiku saves ~98%, sonnet saves ~80% vs opus)
+# Cost savings
 haiku_pct = model_dist['haiku']
 sonnet_pct = model_dist['sonnet']
 opus_pct = model_dist['opus']
-# If everything went to opus, cost = 100%. Actual cost based on model mix
 actual_cost_pct = (haiku_pct * 0.017) + (sonnet_pct * 0.2) + (opus_pct * 1.0)
 cost_savings = round((1 - actual_cost_pct) * 100, 1) if opus_pct < 1 else 0
+
+# Latency (p95)
+latency_p95 = 42  # default
+if latencies:
+    latencies.sort()
+    p95_idx = int(len(latencies) * 0.95)
+    latency_p95 = round(latencies[p95_idx] if p95_idx < len(latencies) else latencies[-1], 1)
+
+# Accuracy from outcomes
+total_outcomes = sum(m['total'] for m in model_success.values())
+total_success = sum(m['success'] for m in model_success.values())
+accuracy = round((total_success / total_outcomes * 100), 1) if total_outcomes > 0 else round(avg_dq * 100, 1)
+
+# Feedback count = sessions with outcomes (implicit feedback)
+# Explicit feedback from file, or implicit from session outcomes
+feedback_count = len(feedback_entries) if feedback_entries else total_outcomes
+
+# Daily trend (last 14 days)
+daily_trend = []
+for i in range(14):
+    date = (datetime.now() - timedelta(days=13-i)).strftime('%Y-%m-%d')
+    daily_trend.append({
+        'date': date,
+        'queries': daily_queries.get(date, 0)
+    })
+
+# Model success rates
+model_success_rates = {}
+for model, data in model_success.items():
+    if data['total'] > 0:
+        model_success_rates[model] = {
+            'success_rate': round(data['success'] / data['total'] * 100, 1),
+            'total': data['total']
+        }
 
 routing = {
     'totalQueries': total,
     'avgDqScore': round(avg_dq, 3),
     'dataQuality': round(avg_dq, 2),
-    'feedbackCount': total,
+    'feedbackCount': feedback_count,
     'costReduction': cost_savings,
-    'routingLatency': 42,
+    'routingLatency': latency_p95,
     'modelDistribution': model_dist,
     'modelCounts': dict(models),
-    'accuracy': round(avg_dq * 100, 1),
+    'accuracy': accuracy,
     'targetQueries': 100,
     'targetDataQuality': 0.60,
     'targetFeedback': 100,
     'targetAccuracy': 60,
-    'productionReady': total >= 100 and avg_dq >= 0.60
+    'productionReady': total >= 100 and avg_dq >= 0.60 and accuracy >= 60,
+    'dailyTrend': daily_trend,
+    'modelSuccessRates': model_success_rates,
+    'routingDecisions': len(routing_decisions),
+    'latencyMeasured': len(latencies) > 0
 }
 print(json.dumps(routing))
-" 2>/dev/null || echo '{"totalQueries":0,"avgDqScore":0,"dataQuality":0,"feedbackCount":0}')
+ROUTINGEOF
+
+ROUTING_DATA=$(cat "$ROUTING_TMP")
 PATTERNS_FILE="$KERNEL_DIR/detected-patterns.json"
 MODS_FILE="$KERNEL_DIR/modifications.jsonl"
 
@@ -264,6 +389,24 @@ if [[ -f "$COEVO_CONFIG_FILE" ]]; then
   COEVO_CONFIG=$(cat "$COEVO_CONFIG_FILE")
 else
   COEVO_CONFIG='{"enabled":true,"autoApply":false,"minConfidence":0.7}'
+fi
+
+echo "  🔄 Loading pattern data..."
+# Write patterns to temp file to avoid shell escaping issues
+PATTERNS_TMP="/tmp/patterns-data-$$.json"
+if [[ -f "$PATTERNS_FILE" ]]; then
+  cp "$PATTERNS_FILE" "$PATTERNS_TMP"
+else
+  echo '{"patterns":[]}' > "$PATTERNS_TMP"
+fi
+
+# Load pattern trends
+PATTERN_TRENDS_FILE="$KERNEL_DIR/pattern-trends.json"
+PATTERN_TRENDS_TMP="/tmp/pattern-trends-$$.json"
+if [[ -f "$PATTERN_TRENDS_FILE" ]]; then
+  cp "$PATTERN_TRENDS_FILE" "$PATTERN_TRENDS_TMP"
+else
+  echo '{"daily":{},"weekly":{},"top_patterns":[],"percentages":{}}' > "$PATTERN_TRENDS_TMP"
 fi
 
 echo "  🔭 Loading Observatory data..."
@@ -294,12 +437,6 @@ print(json.dumps(sessions[-500:]))
 " > "$SESSION_OUTCOMES_TMP" 2>/dev/null || echo '[]' > "$SESSION_OUTCOMES_TMP"
 else
   echo '[]' > "$SESSION_OUTCOMES_TMP"
-fi
-
-if [[ -f "$PATTERNS_FILE" ]]; then
-  PATTERNS_DATA=$(cat "$PATTERNS_FILE")
-else
-  PATTERNS_DATA='{"patterns":[]}'
 fi
 
 if [[ -f "$MODS_FILE" ]]; then
@@ -718,6 +855,239 @@ result["matrix"] = [
 print(json.dumps(result))
 RECOVERYEOF
 
+echo "  🤖 Loading coordinator data..."
+COORDINATOR_TMP="/tmp/coordinator-data-$$.json"
+python3 << 'COORDEOF' > "$COORDINATOR_TMP"
+import json
+from pathlib import Path
+
+home = Path.home()
+coord_dir = home / ".claude" / "coordinator" / "data"
+agents_file = coord_dir / "active-agents.json"
+locks_file = coord_dir / "file-locks.json"
+history_file = coord_dir / "coordination-log.jsonl"
+
+result = {
+    "registry": {
+        "total_agents": 0,
+        "by_state": {},
+        "by_model": {},
+        "total_cost_estimate": 0,
+        "active_count": 0,
+        "stale_count": 0
+    },
+    "locks": {
+        "total_locks": 0,
+        "read_locks": 0,
+        "write_locks": 0,
+        "files_locked": 0,
+        "agents_with_locks": 0
+    },
+    "agents": [],
+    "lockDetails": [],
+    "history": []
+}
+
+# Load agents
+if agents_file.exists():
+    try:
+        with open(agents_file) as f:
+            agents = json.load(f)
+
+        result["registry"]["total_agents"] = len(agents)
+
+        # Count by state
+        by_state = {}
+        by_model = {}
+        total_cost = 0
+        active_count = 0
+        agent_list = []
+
+        for agent_id, agent in agents.items():
+            state = agent.get("state", "unknown")
+            model = agent.get("model", "unknown")
+            cost = agent.get("cost_estimate", 0)
+
+            by_state[state] = by_state.get(state, 0) + 1
+            by_model[model] = by_model.get(model, 0) + 1
+            total_cost += cost
+
+            if state in ["pending", "running"]:
+                active_count += 1
+
+            agent_list.append({
+                "agent_id": agent_id,
+                "subtask": agent.get("subtask", ""),
+                "state": state,
+                "model": model,
+                "dq_score": agent.get("dq_score", 0),
+                "progress": agent.get("progress", 0)
+            })
+
+        result["registry"]["by_state"] = by_state
+        result["registry"]["by_model"] = by_model
+        result["registry"]["total_cost_estimate"] = total_cost
+        result["registry"]["active_count"] = active_count
+        result["agents"] = agent_list
+    except Exception as e:
+        pass
+
+# Load locks
+if locks_file.exists():
+    try:
+        with open(locks_file) as f:
+            locks = json.load(f)
+
+        total_locks = sum(len(v) for v in locks.values())
+        read_locks = sum(1 for v in locks.values() for l in v if l.get("lock_type") == "read")
+        write_locks = total_locks - read_locks
+
+        agents_with_locks = set()
+        lock_details = []
+        for path, lock_list in locks.items():
+            for l in lock_list:
+                agents_with_locks.add(l.get("agent_id"))
+                lock_details.append({
+                    "path": path,
+                    "agent_id": l.get("agent_id"),
+                    "lock_type": l.get("lock_type")
+                })
+
+        result["locks"] = {
+            "total_locks": total_locks,
+            "read_locks": read_locks,
+            "write_locks": write_locks,
+            "files_locked": len(locks),
+            "agents_with_locks": len(agents_with_locks)
+        }
+        result["lockDetails"] = lock_details
+    except:
+        pass
+
+# Load history (last 20)
+if history_file.exists():
+    try:
+        history = []
+        with open(history_file) as f:
+            for line in f:
+                if line.strip():
+                    try:
+                        history.append(json.loads(line))
+                    except:
+                        pass
+        # Get last 20, newest first
+        result["history"] = sorted(history, key=lambda x: x.get("timestamp", ""), reverse=True)[:20]
+    except:
+        pass
+
+print(json.dumps(result))
+COORDEOF
+
+echo "  💻 Loading active Claude sessions..."
+SESSIONS_TMP="/tmp/sessions-data-$$.json"
+python3 << 'SESSIONSEOF' > "$SESSIONS_TMP"
+import json
+import subprocess
+import re
+from datetime import datetime
+
+result = {
+    "sessions": [],
+    "stats": {
+        "total": 0,
+        "opus": 0,
+        "sonnet": 0,
+        "haiku": 0,
+        "total_runtime_minutes": 0
+    }
+}
+
+try:
+    # Get Claude processes with detailed info
+    ps_result = subprocess.run(
+        ['ps', 'aux'],
+        capture_output=True, text=True, timeout=5
+    )
+
+    sessions = []
+    total_runtime = 0
+
+    for line in ps_result.stdout.split('\n'):
+        # Match claude processes (not grep, not this script)
+        if 'claude' in line.lower() and 'grep' not in line and 'python3' not in line:
+            parts = line.split()
+            if len(parts) >= 11:
+                user = parts[0]
+                pid = parts[1]
+                cpu = parts[2]
+                mem = parts[3]
+                # Parse runtime (format: MM:SS or HH:MM:SS or D-HH:MM:SS)
+                time_str = parts[9] if len(parts) > 9 else "0:00"
+
+                # Parse the command and find model
+                cmd_start = 10
+                cmd = ' '.join(parts[cmd_start:]) if len(parts) > cmd_start else ''
+
+                # Detect model from command
+                model = 'sonnet'  # default
+                if '--model opus' in cmd or 'opus' in cmd.lower():
+                    model = 'opus'
+                elif '--model sonnet' in cmd or 'sonnet' in cmd.lower():
+                    model = 'sonnet'
+                elif '--model haiku' in cmd or 'haiku' in cmd.lower():
+                    model = 'haiku'
+
+                # Parse runtime to minutes
+                runtime_mins = 0
+                if '-' in time_str:
+                    # Days format: D-HH:MM:SS
+                    days, rest = time_str.split('-')
+                    runtime_mins = int(days) * 1440
+                    time_str = rest
+
+                time_parts = time_str.split(':')
+                if len(time_parts) == 3:
+                    runtime_mins += int(time_parts[0]) * 60 + int(time_parts[1])
+                elif len(time_parts) == 2:
+                    runtime_mins += int(time_parts[0])
+
+                # Try to get working directory from lsof
+                cwd = '~'
+                try:
+                    lsof_result = subprocess.run(
+                        ['lsof', '-p', pid, '-a', '-d', 'cwd', '-Fn'],
+                        capture_output=True, text=True, timeout=2
+                    )
+                    for l in lsof_result.stdout.split('\n'):
+                        if l.startswith('n/'):
+                            cwd = l[1:].replace('/Users/dicoangelo', '~')
+                            break
+                except:
+                    pass
+
+                sessions.append({
+                    "pid": pid,
+                    "model": model,
+                    "runtime": time_str,
+                    "runtime_mins": runtime_mins,
+                    "cpu": cpu,
+                    "mem": mem,
+                    "cwd": cwd
+                })
+
+                total_runtime += runtime_mins
+                result["stats"][model] = result["stats"].get(model, 0) + 1
+
+    result["sessions"] = sessions
+    result["stats"]["total"] = len(sessions)
+    result["stats"]["total_runtime_minutes"] = total_runtime
+
+except Exception as e:
+    result["error"] = str(e)
+
+print(json.dumps(result))
+SESSIONSEOF
+
 # ═══════════════════════════════════════════════════════════════
 # GENERATE DASHBOARD
 # ═══════════════════════════════════════════════════════════════
@@ -747,8 +1117,15 @@ activity = safe_parse('''$ACTIVITY_DATA''', [])
 projects = safe_parse('''$PROJECTS_DATA''', [])
 proactive = safe_parse('''$PROACTIVE_DATA''', {"hasContext":False,"suggestions":[]})
 coevo_config = safe_parse('''$COEVO_CONFIG''', {"enabled":True,"autoApply":False,"minConfidence":0.7})
-patterns_data = safe_parse('''$PATTERNS_DATA''', {"patterns":[]})
 subscription = safe_parse('''$SUBSCRIPTION_DATA''', {"subscription":{"rate":200},"value":{"totalValue":0,"subscriptionMultiplier":0}})
+
+# Load patterns from temp file
+with open('$PATTERNS_TMP', 'r') as f:
+    patterns_data = safe_parse(f.read(), {"patterns":[]})
+
+# Load pattern trends from temp file
+with open('$PATTERN_TRENDS_TMP', 'r') as f:
+    pattern_trends = safe_parse(f.read(), {"daily":{},"weekly":{},"top_patterns":[],"percentages":{}})
 routing = safe_parse('''$ROUTING_DATA''', {"totalQueries":0,"dataQuality":0.0,"feedbackCount":0,"targetQueries":200,"targetDataQuality":0.80,"targetFeedback":50})
 
 # Calculate cache efficiency from stats
@@ -833,6 +1210,7 @@ output = output.replace('__ACTIVITY_DATA__', json.dumps(activity))
 output = output.replace('__PROJECTS_DATA__', json.dumps(projects))
 output = output.replace('__PROACTIVE_DATA__', json.dumps(proactive))
 output = output.replace('__COEVO_DATA__', json.dumps(coevo_data))
+output = output.replace('__PATTERN_TRENDS_DATA__', json.dumps(pattern_trends))
 output = output.replace('__SUBSCRIPTION_DATA__', json.dumps(subscription_data))
 output = output.replace('__ROUTING_DATA__', json.dumps(routing))
 output = output.replace('__OBSERVATORY_DATA__', json.dumps(observatory))
@@ -863,6 +1241,16 @@ with open('$RECOVERY_TMP', 'r') as f:
     recovery = safe_parse(f.read(), {"stats":{"total":0,"autoFixed":0,"suggestions":0,"successRate":0},"categories":{},"outcomes":[],"timeline":[],"successByCategory":{},"matrix":[]})
 output = output.replace('__RECOVERY_DATA__', json.dumps(recovery))
 
+# Coordinator data
+with open('$COORDINATOR_TMP', 'r') as f:
+    coordinator = safe_parse(f.read(), {"registry":{},"locks":{},"agents":[],"lockDetails":[],"history":[]})
+output = output.replace('__COORDINATOR_DATA__', json.dumps(coordinator))
+
+# Active sessions data
+with open('$SESSIONS_TMP', 'r') as f:
+    sessions = safe_parse(f.read(), {"sessions":[],"stats":{"total":0,"opus":0,"sonnet":0,"haiku":0,"total_runtime_minutes":0}})
+output = output.replace('__SESSIONS_DATA__', json.dumps(sessions))
+
 # Pricing data from centralized config
 pricing_file = os.path.expanduser('~/.claude/config/pricing.json')
 if os.path.exists(pricing_file):
@@ -883,12 +1271,14 @@ EOF
 # OPEN DASHBOARD
 # ═══════════════════════════════════════════════════════════════
 
-open "$OUTPUT"
-echo "🎉 Command Center opened!"
-echo ""
-echo "Keyboard shortcuts:"
-echo "  1-9  Switch tabs (7 = Routing, 8 = Co-Evolution)"
-echo "  R    Refresh"
+if [[ "$NO_OPEN" == "false" ]]; then
+  open "$OUTPUT"
+  echo "🎉 Command Center opened!"
+  echo ""
+  echo "Keyboard shortcuts:"
+  echo "  1-9  Switch tabs (7 = Routing, 8 = Co-Evolution)"
+  echo "  R    Refresh"
+fi
 
 # Cleanup temp files
-rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" "$SUPERMEMORY_TMP" "$COGNITIVE_TMP" "$RECOVERY_TMP" 2>/dev/null
+rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" "$SUPERMEMORY_TMP" "$COGNITIVE_TMP" "$RECOVERY_TMP" "$COORDINATOR_TMP" "$SESSIONS_TMP" "$PATTERNS_TMP" "$PATTERN_TRENDS_TMP" "$ROUTING_TMP" 2>/dev/null

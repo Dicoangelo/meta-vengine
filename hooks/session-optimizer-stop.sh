@@ -53,6 +53,108 @@ fi
 log "Session optimizer stop hook completed"
 
 # ══════════════════════════════════════════════════════════════
+# PATTERN DETECTION: Auto-detect session patterns
+# ══════════════════════════════════════════════════════════════
+
+detect_pattern() {
+    local detector="$HOME/.claude/scripts/detect-session-pattern.py"
+    if [ -f "$detector" ]; then
+        python3 "$detector" 2>/dev/null || true
+        log "Pattern detection completed"
+    fi
+}
+
+detect_pattern
+
+# ══════════════════════════════════════════════════════════════
+# ROUTING METRICS: Auto-track session routing data
+# ══════════════════════════════════════════════════════════════
+
+track_routing() {
+    python3 << 'ROUTINGTRACK' 2>/dev/null || true
+import json
+import hashlib
+from pathlib import Path
+from datetime import datetime
+
+home = Path.home()
+outcomes_file = home / ".claude/data/session-outcomes.jsonl"
+dq_file = home / ".claude/kernel/dq-scores.jsonl"
+
+if not outcomes_file.exists():
+    exit()
+
+# Get last session
+try:
+    with open(outcomes_file) as f:
+        lines = f.readlines()
+        if not lines:
+            exit()
+        session = json.loads(lines[-1])
+except:
+    exit()
+
+# Skip if trivial
+if (session.get('messages', 0) or 0) < 3:
+    exit()
+if 'warmup' in (session.get('title', '') or '').lower():
+    exit()
+
+# Check if already tracked
+session_id = session.get('session_id', '')
+query_hash = hashlib.md5(f"{session_id}{session.get('title', '')}".encode()).hexdigest()
+
+if dq_file.exists():
+    with open(dq_file) as f:
+        for line in f:
+            try:
+                d = json.loads(line)
+                if d.get('query_hash') == query_hash or d.get('session_id') == session_id:
+                    exit()  # Already tracked
+            except:
+                pass
+
+# Estimate complexity and DQ
+title = session.get('title', '') or ''
+intent = session.get('intent', '') or ''
+messages = session.get('messages', 0) or 0
+tools = session.get('tools', 0) or 0
+outcome = session.get('outcome', '')
+models_used = session.get('models_used', {})
+
+text = f"{title} {intent}".lower()
+high_kw = ["architect", "design", "system", "complex", "implement", "build"]
+complexity = 0.3 + sum(0.1 for kw in high_kw if kw in text) + min(0.3, messages/200) + min(0.2, tools/100)
+complexity = max(0.0, min(1.0, complexity))
+
+dq = 0.4 + (complexity * 0.4)
+if outcome == "success": dq += 0.15
+elif outcome == "abandoned": dq -= 0.1
+dq = max(0.1, min(1.0, dq))
+
+model = max(models_used.keys(), key=lambda m: models_used.get(m, 0)) if models_used else ("opus" if complexity > 0.7 else "sonnet" if complexity > 0.4 else "haiku")
+
+entry = {
+    "ts": datetime.now().timestamp(),
+    "session_id": session_id,
+    "query_hash": query_hash,
+    "query_preview": title[:80] if title else intent[:80],
+    "model": model,
+    "dqScore": round(dq, 3),
+    "complexity": round(complexity, 3),
+    "outcome": outcome,
+    "source": "auto"
+}
+
+with open(dq_file, "a") as f:
+    f.write(json.dumps(entry) + "\n")
+ROUTINGTRACK
+    log "Routing metrics tracked"
+}
+
+track_routing
+
+# ══════════════════════════════════════════════════════════════
 # SUPERMEMORY: Incremental sync on session end
 # ══════════════════════════════════════════════════════════════
 
