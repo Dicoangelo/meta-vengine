@@ -1,5 +1,5 @@
-<!-- VERSION: 2.1.0 -->
-<!-- LAST_MODIFIED: 2026-01-19T21:03:56Z -->
+<!-- VERSION: 2.2.0 -->
+<!-- LAST_MODIFIED: 2026-01-21T16:00:00Z -->
 <!-- CHECKSUM: sha256:85b72ce17366709f... -->
 
 # Session Protocols
@@ -107,6 +107,42 @@ Run `routing-test-suite.py all` to check current performance.
 - **Quick Ref:** `~/.claude/ROUTING_QUICK_REFERENCE.md`
 - **Full Guide:** `~/.claude/ROUTING_SYSTEM_README.md`
 - **Research:** `~/researchgravity/ROUTING_RESEARCH_WORKFLOW.md`
+
+## Multi-Agent Coordinator
+
+**Status:** ✅ Active | **Version:** 1.0.0 | **Docs:** `~/.claude/coordinator/README.md`
+
+### Quick Commands
+
+```bash
+# Coordination strategies
+coord research "task"     # 3 parallel explore agents
+coord implement "task"    # Parallel builders with file locks
+coord review "task"       # Build + review concurrent
+coord full "task"         # Research → Build → Review pipeline
+
+# Status
+coord-summary             # Formatted dashboard
+coord status              # JSON output
+coord-cleanup             # Clean stale agents
+```
+
+### Strategies
+
+| Strategy | Agents | Use Case |
+|----------|--------|----------|
+| `research` | 3 explore (parallel) | Understanding, investigation |
+| `implement` | N builders (parallel/locked) | Multi-file changes |
+| `review` | builder + reviewer | Quality-assured implementation |
+| `full` | research → build → review | Complete feature development |
+
+### Dashboard
+
+```bash
+ccc                       # Open Command Center (auto-refreshes)
+```
+
+Dashboard auto-refreshes every 60s via LaunchAgent daemon.
 
 ## Learned Patterns
 
