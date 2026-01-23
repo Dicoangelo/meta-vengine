@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="60">
+  <meta http-equiv="refresh" content="300">
   <title>Claude Command Center</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1475,6 +1475,7 @@
       <button class="nav-tab" data-tab="tool-analytics">Tool Analytics</button>
       <button class="nav-tab" data-tab="supermemory">Supermemory</button>
       <button class="nav-tab" data-tab="cognitive">Cognitive</button>
+      <button class="nav-tab" data-tab="infrastructure">Infrastructure</button>
     </div>
     <div class="nav-actions">
       <div class="live-indicator">
@@ -2925,10 +2926,171 @@
         </div>
       </div>
     </div>
+
+    <!-- INFRASTRUCTURE TAB -->
+    <div id="infrastructure" class="tab-content">
+      <div class="stats-row" id="infraStatsRow">
+        <div class="stat-card green">
+          <div class="stat-value" id="infraStatus">—</div>
+          <div class="stat-label">System Status</div>
+        </div>
+        <div class="stat-card cyan">
+          <div class="stat-value" id="infraDaemons">—</div>
+          <div class="stat-label">Daemons Active</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-value" id="infraHeartbeat">—</div>
+          <div class="stat-label">Last Heartbeat</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-value" id="infraHealed">—</div>
+          <div class="stat-label">Auto-Healed (24h)</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card" style="grid-column:span 2;">
+          <div class="card-header">
+            <h3>🛡️ Daemon Status</h3>
+            <span class="card-badge" id="infraDaemonBadge">Watchdog</span>
+          </div>
+          <div id="daemonGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;padding:1rem;"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>⚡ Protection Layers</h3>
+          </div>
+          <div style="padding:1rem;">
+            <div style="display:flex;flex-direction:column;gap:0.5rem;" id="protectionLayers">
+              <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--bg-glass);border-radius:8px;">
+                <span style="font-size:1.2rem;">🐕</span>
+                <div style="flex:1;">
+                  <div style="font-weight:600;color:var(--accent-cyan);">Watchdog</div>
+                  <div style="font-size:0.75rem;color:var(--text-secondary);">Every 60s - monitors all daemons</div>
+                </div>
+                <span id="watchdogStatus" style="color:var(--accent-green);">●</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--bg-glass);border-radius:8px;">
+                <span style="font-size:1.2rem;">♻️</span>
+                <div style="flex:1;">
+                  <div style="font-weight:600;color:var(--accent-green);">KeepAlive</div>
+                  <div style="font-size:0.75rem;color:var(--text-secondary);">launchd auto-restarts watchdog</div>
+                </div>
+                <span style="color:var(--accent-green);">●</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--bg-glass);border-radius:8px;">
+                <span style="font-size:1.2rem;">🚀</span>
+                <div style="flex:1;">
+                  <div style="font-weight:600;color:var(--accent-yellow);">Bootstrap</div>
+                  <div style="font-size:0.75rem;color:var(--text-secondary);">Login - loads everything</div>
+                </div>
+                <span id="bootstrapStatus" style="color:var(--accent-green);">●</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--bg-glass);border-radius:8px;">
+                <span style="font-size:1.2rem;">💤</span>
+                <div style="flex:1;">
+                  <div style="font-weight:600;color:var(--accent-purple);">Wake Hook</div>
+                  <div style="font-size:0.75rem;color:var(--text-secondary);">Sleep - triggers bootstrap</div>
+                </div>
+                <span id="wakeStatus" style="color:var(--accent-green);">●</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--bg-glass);border-radius:8px;">
+                <span style="font-size:1.2rem;">🩹</span>
+                <div style="flex:1;">
+                  <div style="font-weight:600;color:var(--accent-orange);">Self-Heal</div>
+                  <div style="font-size:0.75rem;color:var(--text-secondary);">Every 6h - deep health check</div>
+                </div>
+                <span id="selfHealStatus" style="color:var(--accent-green);">●</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>📈 Healing Timeline</h3>
+            <span class="card-badge">7 Days</span>
+          </div>
+          <div class="chart-container"><canvas id="healingTimelineChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>🎯 Daemon Health</h3>
+            <span class="card-badge" id="uptimeBadge">Uptime</span>
+          </div>
+          <div id="daemonHealthBars" style="padding:1rem;"></div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>📊 Data Freshness</h3>
+          </div>
+          <div id="dataFreshness" style="padding:1rem;"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>🔧 Recent Healing Events</h3>
+            <span class="card-badge" id="healingCount">0</span>
+          </div>
+          <div id="healingEvents" style="padding:1rem;max-height:300px;overflow-y:auto;"></div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>📉 Healing Stats</h3>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:1rem;">
+            <div style="text-align:center;padding:1rem;background:var(--bg-glass);border-radius:8px;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--accent-green);" id="healingTotal">0</div>
+              <div style="font-size:0.75rem;color:var(--text-secondary);">Total Heals</div>
+            </div>
+            <div style="text-align:center;padding:1rem;background:var(--bg-glass);border-radius:8px;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--accent-cyan);" id="healingToday">0</div>
+              <div style="font-size:0.75rem;color:var(--text-secondary);">Today</div>
+            </div>
+            <div style="text-align:center;padding:1rem;background:var(--bg-glass);border-radius:8px;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--accent-yellow);" id="healingAvgDay">0</div>
+              <div style="font-size:0.75rem;color:var(--text-secondary);">Avg/Day</div>
+            </div>
+            <div style="text-align:center;padding:1rem;background:var(--bg-glass);border-radius:8px;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--accent-purple);" id="healingSuccessRate">100%</div>
+              <div style="font-size:0.75rem;color:var(--text-secondary);">Success Rate</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>🏆 Most Healed Daemons</h3>
+          </div>
+          <div id="mostHealedDaemons" style="padding:1rem;"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Infrastructure Commands</h3>
+        </div>
+        <div class="commands-grid">
+          <div class="command-card"><code>ccc-status</code><div class="desc">Full infrastructure status</div></div>
+          <div class="command-card"><code>ccc-fix</code><div class="desc">Auto-fix all issues</div></div>
+          <div class="command-card"><code>ccc-heal</code><div class="desc">Run healing check</div></div>
+          <div class="command-card"><code>ccc-bootstrap</code><div class="desc">Reload everything</div></div>
+          <div class="command-card"><code>ccc-watchdog-log</code><div class="desc">Watch live healing</div></div>
+          <div class="command-card"><code>/ccc-heal</code><div class="desc">Invoke skill</div></div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="footer">
-    Press <kbd>1</kbd>-<kbd>9</kbd> for tabs 1-9 · <kbd>0</kbd>, <kbd>O</kbd>, <kbd>P</kbd>, <kbd>T</kbd>, <kbd>S</kbd>, <kbd>C</kbd> for extra tabs · <kbd>R</kbd> to refresh
+    Press <kbd>1</kbd>-<kbd>9</kbd> for tabs 1-9 · <kbd>0</kbd>, <kbd>O</kbd>, <kbd>P</kbd>, <kbd>T</kbd>, <kbd>S</kbd>, <kbd>C</kbd>, <kbd>I</kbd> for extra tabs · <kbd>R</kbd> to refresh
   </footer>
 
   <script>
@@ -2942,7 +3104,17 @@
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
       document.getElementById(tabId).classList.add('active');
+      // Persist tab in URL hash for refresh
+      history.replaceState(null, '', '#' + tabId);
     }
+
+    // Restore tab from URL hash on load
+    (function() {
+      const hash = window.location.hash.slice(1);
+      if (hash && document.getElementById(hash)) {
+        switchTab(hash);
+      }
+    })();
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
@@ -2955,6 +3127,7 @@
       if (e.key.toLowerCase() === 't') switchTab('tool-analytics');  // Tab 12
       if (e.key.toLowerCase() === 's') switchTab('supermemory');  // Tab 13
       if (e.key.toLowerCase() === 'c') switchTab('cognitive');  // Tab 14
+      if (e.key.toLowerCase() === 'i') switchTab('infrastructure');  // Tab 15
       if (e.key.toLowerCase() === 'r') location.reload();
     });
 
@@ -2979,6 +3152,7 @@
     const RECOVERY_DATA = __RECOVERY_DATA__;
     const COORDINATOR_DATA = __COORDINATOR_DATA__;
     const SESSIONS_DATA = __SESSIONS_DATA__;
+    const INFRASTRUCTURE_DATA = __INFRASTRUCTURE_DATA__;
 
     function formatNumber(n) {
       if (n >= 1000000000) return (n / 1000000000).toFixed(1) + 'B';
@@ -5040,6 +5214,256 @@
 
     // Render sessions on load
     renderSessions();
+
+    // ═══════════════════════════════════════════════════════════════
+    // INFRASTRUCTURE TAB RENDERING
+    // ═══════════════════════════════════════════════════════════════
+    function renderInfrastructure() {
+      const data = INFRASTRUCTURE_DATA || {};
+      const daemons = data.daemons || [];
+      const status = data.status || 'unknown';
+      const heartbeat = data.heartbeat || null;
+      const healingEvents = data.healingEvents || [];
+      const dataFreshness = data.dataFreshness || [];
+
+      // Update stat cards
+      const activeDaemons = daemons.filter(d => d.loaded).length;
+      const totalDaemons = daemons.length;
+
+      document.getElementById('infraStatus').textContent = status === 'healthy' ? 'HEALTHY' : 'DEGRADED';
+      document.getElementById('infraStatus').style.color = status === 'healthy' ? 'var(--accent-green)' : 'var(--accent-orange)';
+      document.getElementById('infraDaemons').textContent = `${activeDaemons}/${totalDaemons}`;
+      document.getElementById('infraDaemons').style.color = activeDaemons === totalDaemons ? 'var(--accent-green)' : 'var(--accent-orange)';
+
+      // Heartbeat
+      if (heartbeat) {
+        const hbDate = new Date(heartbeat);
+        const now = new Date();
+        const diffMs = now - hbDate;
+        const diffMins = Math.floor(diffMs / 60000);
+        document.getElementById('infraHeartbeat').textContent = diffMins < 2 ? 'Just now' : `${diffMins}m ago`;
+        document.getElementById('infraHeartbeat').style.color = diffMins < 5 ? 'var(--accent-green)' : 'var(--accent-yellow)';
+      } else {
+        document.getElementById('infraHeartbeat').textContent = 'Unknown';
+      }
+
+      // Healed count (from events)
+      const healedLast24h = healingEvents.filter(e => {
+        const eDate = new Date(e.timestamp);
+        return (new Date() - eDate) < 86400000;
+      }).length;
+      document.getElementById('infraHealed').textContent = healedLast24h;
+
+      // Daemon grid
+      const daemonGrid = document.getElementById('daemonGrid');
+      if (daemons.length > 0) {
+        daemonGrid.innerHTML = daemons.map(d => {
+          const statusColor = d.loaded ? 'var(--accent-green)' : 'var(--accent-red)';
+          const statusIcon = d.loaded ? '●' : '○';
+          const runningText = d.pid && d.pid !== '-' ? `PID: ${d.pid}` : (d.loaded ? 'Scheduled' : 'Not loaded');
+          return `
+            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--bg-glass);border-radius:8px;border:1px solid ${d.loaded ? 'transparent' : 'var(--accent-red)'};">
+              <span style="color:${statusColor};font-size:1.2rem;">${statusIcon}</span>
+              <div style="flex:1;">
+                <div style="font-weight:600;color:var(--text-primary);font-size:0.85rem;">${d.name.replace('com.claude.', '')}</div>
+                <div style="font-size:0.7rem;color:var(--text-secondary);">${d.description || ''}</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:0.7rem;color:${statusColor};">${runningText}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        daemonGrid.innerHTML = '<p class="empty-state">No daemon data</p>';
+      }
+
+      // Update protection layer status indicators
+      const findDaemon = (name) => daemons.find(d => d.name.includes(name));
+      const watchdog = findDaemon('watchdog');
+      const bootstrap = findDaemon('bootstrap');
+      const wake = findDaemon('wake-hook');
+      const selfHeal = findDaemon('self-heal');
+
+      if (watchdog) document.getElementById('watchdogStatus').style.color = watchdog.loaded ? 'var(--accent-green)' : 'var(--accent-red)';
+      if (bootstrap) document.getElementById('bootstrapStatus').style.color = bootstrap.loaded ? 'var(--accent-green)' : 'var(--accent-red)';
+      if (wake) document.getElementById('wakeStatus').style.color = wake.loaded ? 'var(--accent-green)' : 'var(--accent-red)';
+      if (selfHeal) document.getElementById('selfHealStatus').style.color = selfHeal.loaded ? 'var(--accent-green)' : 'var(--accent-red)';
+
+      // Data freshness
+      const freshnessEl = document.getElementById('dataFreshness');
+      if (dataFreshness.length > 0) {
+        freshnessEl.innerHTML = dataFreshness.map(f => {
+          const ageColor = f.fresh ? 'var(--accent-green)' : 'var(--accent-yellow)';
+          const icon = f.fresh ? '✓' : '⚠';
+          return `
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+              <span style="font-weight:500;">${f.name}</span>
+              <span style="color:${ageColor};font-size:0.85rem;">${icon} ${f.age}</span>
+            </div>
+          `;
+        }).join('');
+      } else {
+        freshnessEl.innerHTML = '<p class="empty-state">No freshness data</p>';
+      }
+
+      // Healing events list
+      const healingEl = document.getElementById('healingEvents');
+      document.getElementById('healingCount').textContent = healingEvents.length;
+      if (healingEvents.length > 0) {
+        healingEl.innerHTML = healingEvents.slice(0, 20).map(e => {
+          const eDate = new Date(e.timestamp);
+          const timeStr = eDate.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+          const icon = e.success ? '✓' : '✗';
+          const color = e.success ? 'var(--accent-green)' : 'var(--accent-red)';
+          return `
+            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+              <span style="color:${color};font-size:1.1rem;">${icon}</span>
+              <div style="flex:1;">
+                <div style="font-weight:500;">${e.daemon || e.action || 'unknown'}</div>
+                <div style="font-size:0.75rem;color:var(--text-secondary);">${e.message || ''}</div>
+              </div>
+              <div style="font-size:0.7rem;color:var(--text-muted);">${timeStr}</div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        healingEl.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:1rem;">No healing events yet</p>';
+      }
+
+      // Healing stats
+      const successfulHeals = healingEvents.filter(e => e.success && e.action === 'reload').length;
+      const today = new Date().toDateString();
+      const healsToday = healingEvents.filter(e => new Date(e.timestamp).toDateString() === today).length;
+
+      // Group by day for average
+      const healsByDay = {};
+      healingEvents.forEach(e => {
+        const day = new Date(e.timestamp).toDateString();
+        healsByDay[day] = (healsByDay[day] || 0) + 1;
+      });
+      const days = Object.keys(healsByDay).length || 1;
+      const avgPerDay = (healingEvents.length / days).toFixed(1);
+
+      const successRate = healingEvents.length > 0
+        ? Math.round((successfulHeals / healingEvents.filter(e => e.action === 'reload').length || 1) * 100)
+        : 100;
+
+      document.getElementById('healingTotal').textContent = successfulHeals;
+      document.getElementById('healingToday').textContent = healsToday;
+      document.getElementById('healingAvgDay').textContent = avgPerDay;
+      document.getElementById('healingSuccessRate').textContent = successRate + '%';
+
+      // Most healed daemons
+      const daemonCounts = {};
+      healingEvents.filter(e => e.action === 'reload').forEach(e => {
+        const name = (e.daemon || '').replace('com.claude.', '');
+        if (name) daemonCounts[name] = (daemonCounts[name] || 0) + 1;
+      });
+      const sortedDaemons = Object.entries(daemonCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+      const mostHealedEl = document.getElementById('mostHealedDaemons');
+      if (sortedDaemons.length > 0) {
+        const maxCount = sortedDaemons[0][1];
+        mostHealedEl.innerHTML = sortedDaemons.map(([name, count]) => {
+          const pct = (count / maxCount) * 100;
+          return `
+            <div style="margin-bottom:0.75rem;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                <span style="font-weight:500;font-size:0.85rem;">${name}</span>
+                <span style="color:var(--accent-cyan);font-size:0.85rem;">${count}</span>
+              </div>
+              <div style="background:var(--bg-glass);border-radius:4px;height:8px;overflow:hidden;">
+                <div style="background:var(--gradient-primary);width:${pct}%;height:100%;border-radius:4px;"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        mostHealedEl.innerHTML = '<p style="color:var(--text-muted);text-align:center;">No heals recorded yet</p>';
+      }
+
+      // Daemon health bars (uptime visualization)
+      const healthBarsEl = document.getElementById('daemonHealthBars');
+      if (daemons.length > 0) {
+        healthBarsEl.innerHTML = daemons.map(d => {
+          const name = d.name.replace('com.claude.', '');
+          const color = d.loaded ? 'var(--accent-green)' : 'var(--accent-red)';
+          const statusText = d.loaded ? (d.pid !== '-' ? 'Running' : 'Ready') : 'Down';
+          return `
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+              <span style="width:120px;font-size:0.8rem;color:var(--text-secondary);">${name}</span>
+              <div style="flex:1;background:var(--bg-glass);border-radius:4px;height:20px;overflow:hidden;position:relative;">
+                <div style="background:${color};width:${d.loaded ? '100' : '0'}%;height:100%;transition:width 0.3s;"></div>
+                <span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:0.7rem;color:var(--text-primary);">${statusText}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Healing timeline chart (last 7 days)
+      const timelineCtx = document.getElementById('healingTimelineChart')?.getContext('2d');
+      if (timelineCtx) {
+        const last7Days = [];
+        const healCounts = [];
+        for (let i = 6; i >= 0; i--) {
+          const date = new Date();
+          date.setDate(date.getDate() - i);
+          const dayStr = date.toLocaleDateString('en-US', { weekday: 'short' });
+          last7Days.push(dayStr);
+
+          const dayStart = new Date(date);
+          dayStart.setHours(0, 0, 0, 0);
+          const dayEnd = new Date(date);
+          dayEnd.setHours(23, 59, 59, 999);
+
+          const count = healingEvents.filter(e => {
+            const eDate = new Date(e.timestamp);
+            return eDate >= dayStart && eDate <= dayEnd && e.action === 'reload';
+          }).length;
+          healCounts.push(count);
+        }
+
+        if (!timelineCtx._chartInstance) {
+          timelineCtx._chartInstance = new Chart(timelineCtx, {
+            type: 'bar',
+            data: {
+              labels: last7Days,
+              datasets: [{
+                label: 'Heals',
+                data: healCounts,
+                backgroundColor: 'rgba(0, 255, 136, 0.6)',
+                borderColor: 'rgba(0, 255, 136, 1)',
+                borderWidth: 1,
+                borderRadius: 4
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: { stepSize: 1, color: 'rgba(255,255,255,0.5)' },
+                  grid: { color: 'rgba(255,255,255,0.05)' }
+                },
+                x: {
+                  ticks: { color: 'rgba(255,255,255,0.5)' },
+                  grid: { display: false }
+                }
+              }
+            }
+          });
+        }
+      }
+    }
+
+    // Render infrastructure on load
+    renderInfrastructure();
 
   </script>
 </body>

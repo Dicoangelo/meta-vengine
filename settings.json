@@ -1,6 +1,9 @@
 {
   "cleanupPeriodDays": 30,
   "permissions": {
+    "additionalDirectories": [
+      "/Users/dicoangelo"
+    ],
     "allow": [
       "Bash(gh repo view:*)",
       "Bash(git clone:*)",
@@ -347,7 +350,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"$(date '+%H:%M:%S') WRITE $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"tool\":\"Write\",\"file\":\"'$CLAUDE_FILE_PATH'\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py Write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true",
             "timeout": 5
           },
           {
@@ -362,7 +365,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"$(date '+%H:%M:%S') EDIT $CLAUDE_FILE_PATH\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"tool\":\"Edit\",\"file\":\"'$CLAUDE_FILE_PATH'\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py Edit \"$CLAUDE_FILE_PATH\" 2>/dev/null || true",
             "timeout": 5
           },
           {
@@ -377,7 +380,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"$(date '+%H:%M:%S') BASH\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"tool\":\"Bash\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py Bash 2>/dev/null || true",
             "timeout": 5
           },
           {
@@ -392,7 +395,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"Read\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py Read \"$CLAUDE_FILE_PATH\" 2>/dev/null || true",
             "timeout": 3
           }
         ]
@@ -402,7 +405,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"Grep\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py Grep 2>/dev/null || true",
             "timeout": 3
           }
         ]
@@ -412,7 +415,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"Glob\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py Glob 2>/dev/null || true",
             "timeout": 3
           }
         ]
@@ -422,7 +425,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"Task\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py Task 2>/dev/null || true",
             "timeout": 3
           }
         ]
@@ -432,7 +435,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"WebFetch\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py WebFetch 2>/dev/null || true",
             "timeout": 3
           }
         ]
@@ -442,7 +445,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"ts\":'$(date +%s)',\"tool\":\"WebSearch\",\"source\":\"hook\"}' >> ~/.claude/data/tool-usage.jsonl",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py WebSearch 2>/dev/null || true",
             "timeout": 3
           }
         ]
@@ -453,7 +456,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '\n══════════════════════════════════════' >> ~/.claude/activity.log && echo \"SESSION $(date '+%Y-%m-%d %H:%M:%S') PWD:$(pwd)\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"event\":\"session_start\",\"pwd\":\"'$(pwd)'\"}' >> ~/.claude/data/session-events.jsonl && node ~/.claude/kernel/activity-tracker.js start 2>/dev/null &",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py session_start 2>/dev/null || true",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "echo '\n══════════════════════════════════════' >> ~/.claude/activity.log && echo \"SESSION $(date '+%Y-%m-%d %H:%M:%S') PWD:$(pwd)\" >> ~/.claude/activity.log && node ~/.claude/kernel/activity-tracker.js start 2>/dev/null &",
             "timeout": 5
           },
           {
@@ -484,12 +492,17 @@
         "hooks": [
           {
             "type": "command",
+            "command": "python3 ~/.claude/hooks/sqlite-hook.py session_end 2>/dev/null || true",
+            "timeout": 5
+          },
+          {
+            "type": "command",
             "command": "bash ~/.claude/scripts/session-save.sh 2>/dev/null || true",
             "timeout": 30
           },
           {
             "type": "command",
-            "command": "echo \"SESSION END $(date '+%H:%M:%S')\" >> ~/.claude/activity.log && echo '{\"ts\":'$(date +%s)',\"event\":\"session_end\",\"pwd\":\"'$(pwd)'\"}' >> ~/.claude/data/session-events.jsonl",
+            "command": "echo \"SESSION END $(date '+%H:%M:%S')\" >> ~/.claude/activity.log",
             "timeout": 5
           },
           {

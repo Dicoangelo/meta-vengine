@@ -18,6 +18,8 @@ case "$1" in
   weekly)
     log "Starting weekly rollup"
     $SUPERMEMORY rollup >> "$LOG" 2>&1
+    # Refresh memory links
+    python3 "$HOME/.claude/scripts/populate-memory-links.py" >> "$LOG" 2>&1 || true
     log "Weekly rollup complete"
     ;;
   monthly)
