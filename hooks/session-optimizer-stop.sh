@@ -165,6 +165,10 @@ supermemory_sync() {
         (python3 "$supermemory" sync &) 2>/dev/null
         log "Supermemory sync triggered"
     fi
+
+    # Update snapshot timestamp
+    echo "$(date +%Y-%m-%d)" > "$HOME/.claude/data/.last-snapshot"
+    log "Snapshot timestamp updated"
 }
 
 supermemory_sync
@@ -179,3 +183,109 @@ cleanup_session() {
 }
 
 cleanup_session
+
+# ══════════════════════════════════════════════════════════════
+# INCREMENTAL TOKEN TRACKING: Update stats-cache with session tokens
+# ══════════════════════════════════════════════════════════════
+
+track_session_tokens() {
+    python3 << 'TOKENTRACK' 2>/dev/null || true
+import json
+from pathlib import Path
+from datetime import datetime
+import os
+
+home = Path.home()
+stats_file = home / ".claude/stats-cache.json"
+projects_dir = home / ".claude/projects"
+
+if not stats_file.exists():
+    exit()
+
+# Find most recently modified transcript (current session)
+latest_transcript = None
+latest_mtime = 0
+
+for transcript in projects_dir.glob("**/*.jsonl"):
+    mtime = transcript.stat().st_mtime
+    if mtime > latest_mtime:
+        latest_mtime = mtime
+        latest_transcript = transcript
+
+if not latest_transcript:
+    exit()
+
+# Only process if modified in last 5 minutes (current session)
+if (datetime.now().timestamp() - latest_mtime) > 300:
+    exit()
+
+# Extract tokens from current session
+session_tokens = {
+    "cache_read": 0,
+    "input": 0,
+    "cache_create": 0,
+    "output": 0
+}
+
+try:
+    with open(latest_transcript) as f:
+        for line in f:
+            try:
+                d = json.loads(line)
+                usage = d.get('message', {}).get('usage', {})
+                if usage:
+                    session_tokens["cache_read"] += usage.get('cache_read_input_tokens', 0)
+                    session_tokens["input"] += usage.get('input_tokens', 0)
+                    session_tokens["cache_create"] += usage.get('cache_creation_input_tokens', 0)
+                    session_tokens["output"] += usage.get('output_tokens', 0)
+            except:
+                pass
+except:
+    exit()
+
+# Skip if no meaningful tokens
+if session_tokens["cache_read"] + session_tokens["input"] < 1000:
+    exit()
+
+# Load current stats
+try:
+    with open(stats_file) as f:
+        stats = json.load(f)
+except:
+    exit()
+
+# Check if already processed (use a marker file)
+marker_file = home / ".claude/kernel/.last-token-update"
+marker_key = f"{latest_transcript}:{latest_mtime}"
+
+if marker_file.exists():
+    try:
+        last_marker = marker_file.read_text().strip()
+        if last_marker == marker_key:
+            exit()  # Already processed this session
+    except:
+        pass
+
+# Update modelUsage totals incrementally
+opus_usage = stats.get("modelUsage", {}).get("opus", {})
+opus_usage["cacheReadInputTokens"] = opus_usage.get("cacheReadInputTokens", 0) + session_tokens["cache_read"]
+opus_usage["inputTokens"] = opus_usage.get("inputTokens", 0) + session_tokens["input"]
+opus_usage["cacheCreationInputTokens"] = opus_usage.get("cacheCreationInputTokens", 0) + session_tokens["cache_create"]
+opus_usage["outputTokens"] = opus_usage.get("outputTokens", 0) + session_tokens["output"]
+
+stats["modelUsage"]["opus"] = opus_usage
+stats["lastComputedDate"] = datetime.now().strftime("%Y-%m-%d")
+
+# Write updated stats
+with open(stats_file, "w") as f:
+    json.dump(stats, f, indent=2)
+
+# Write marker
+marker_file.parent.mkdir(parents=True, exist_ok=True)
+marker_file.write_text(marker_key)
+
+TOKENTRACK
+    log "Incremental token tracking completed"
+}
+
+track_session_tokens

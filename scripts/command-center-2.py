@@ -47,12 +47,18 @@ CONFIG_DIR = CLAUDE_DIR / "config"
 
 WATCH_PATHS = [DATA_DIR, KERNEL_DIR]
 
-# Pricing (matches pricing.json)
-PRICING = {
-    "opus": {"input": 15.0, "output": 75.0, "cache_read": 1.5},
-    "sonnet": {"input": 3.0, "output": 15.0, "cache_read": 0.3},
-    "haiku": {"input": 0.25, "output": 1.25, "cache_read": 0.025},
-}
+# Load pricing from centralized config
+import sys as _sys
+_sys.path.insert(0, str(Path.home() / ".claude/config"))
+try:
+    from pricing import PRICING
+except ImportError:
+    # Fallback to Opus 4.5 pricing
+    PRICING = {
+        "opus": {"input": 5.0, "output": 25.0, "cache_read": 0.5},
+        "sonnet": {"input": 3.0, "output": 15.0, "cache_read": 0.3},
+        "haiku": {"input": 0.8, "output": 4.0, "cache_read": 0.08},
+    }
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GLOBAL STATE
@@ -221,11 +227,11 @@ def get_routing_data() -> Dict:
         'opus': round(models.get('opus', 0) / model_total, 3)
     }
 
-    # Cost savings estimate
+    # Cost savings estimate (Opus 4.5 ratios: sonnet=0.6, haiku=0.16)
     haiku_pct = model_dist['haiku']
     sonnet_pct = model_dist['sonnet']
     opus_pct = model_dist['opus']
-    actual_cost_pct = (haiku_pct * 0.017) + (sonnet_pct * 0.2) + (opus_pct * 1.0)
+    actual_cost_pct = (haiku_pct * 0.16) + (sonnet_pct * 0.6) + (opus_pct * 1.0)
     cost_savings = round((1 - actual_cost_pct) * 100, 1) if opus_pct < 1 else 0
 
     return {
@@ -437,9 +443,9 @@ def get_pricing_data() -> Dict:
     pricing_file = CONFIG_DIR / "pricing.json"
     return load_json_file(pricing_file, {
         "models": {
-            "opus": {"input": 15, "output": 75, "cache_read": 1.5},
-            "sonnet": {"input": 3, "output": 15},
-            "haiku": {"input": 0.25, "output": 1.25}
+            "opus": {"input": 5, "output": 25, "cache_read": 0.5},
+            "sonnet": {"input": 3, "output": 15, "cache_read": 0.3},
+            "haiku": {"input": 0.8, "output": 4, "cache_read": 0.08}
         }
     })
 

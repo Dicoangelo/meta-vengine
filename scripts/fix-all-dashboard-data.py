@@ -579,7 +579,7 @@ for session in all_sessions:
 daily_trend = []
 for date in sorted(daily_cost_data.keys()):  # All time
     d = daily_cost_data[date]
-    daily_cost = (d["opus"] * 0.027) + (d["sonnet"] * 0.017) + (d["haiku"] * 0.004)
+    daily_cost = (d["opus"] * COSTS_PER_MSG["opus"]) + (d["sonnet"] * COSTS_PER_MSG["sonnet"]) + (d["haiku"] * COSTS_PER_MSG["haiku"])
     daily_trend.append({
         "date": date,
         "sessions": d["sessions"],
@@ -622,7 +622,7 @@ try:
             haiku_messages=0,
             session_count=day_data['sessions'],
             tool_calls=day_data['tools'],
-            cost_estimate=day_data['messages'] * 0.027  # Mostly Opus
+            cost_estimate=day_data['messages'] * COSTS_PER_MSG["opus"]  # Mostly Opus
         )
 
     log("  ✅ SQLite synced")

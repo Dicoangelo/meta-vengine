@@ -24,6 +24,7 @@ echo "🚀 Building Command Center..."
 # Regenerate kernel data from stats-cache (keeps cost/productivity/coevo in sync)
 echo "  🔄 Syncing kernel data..."
 python3 "$HOME/.claude/scripts/regenerate-kernel-data.py" --quiet 2>/dev/null || true
+python3 "$HOME/.claude/scripts/refresh-kernel-data.py" --quiet 2>/dev/null || true
 
 # Default empty data
 DEFAULT_STATS='{"totalSessions":0,"totalMessages":0,"dailyActivity":[],"dailyModelTokens":[],"modelUsage":{},"hourCounts":{}}'
@@ -84,23 +85,66 @@ get_project_stats() {
   fi
 }
 
-# Collect project data - All projects
-OS_APP_STATS=$(get_project_stats "$HOME/OS-App" "OS-App" "Vite + React 19 + Zustand + Supabase" "os-app")
-CAREER_STATS=$(get_project_stats "$HOME/CareerCoachAntigravity" "CareerCoach" "Next.js 14 + React 18 + Zustand" "career")
-RESEARCH_STATS=$(get_project_stats "$HOME/researchgravity" "ResearchGravity" "Python 3.8+ Research Framework" "research")
-AGENT_CORE_STATS=$(get_project_stats "$HOME/agent-core" "Agent Core" "Unified Agent Data Store" "agent")
-BLACKAMETHYST_STATS=$(get_project_stats "$HOME/Blackamethyst-ai-profile" "Blackamethyst AI" "AI Profile System" "ai")
-CHROME_HISTORY_STATS=$(get_project_stats "$HOME/chrome-history-export" "Chrome History" "Browser History Export" "tool")
-DICOANGELO_STATS=$(get_project_stats "$HOME/Dicoangelo" "Dicoangelo" "GitHub Profile" "profile")
-META_VENGINE_STATS=$(get_project_stats "$HOME/meta-vengine" "Meta-Vengine" "Meta Engine System" "meta")
-METAVENTIONS_STATS=$(get_project_stats "$HOME/Metaventions-AI-Landing" "Metaventions Landing" "AI Landing Page" "landing")
-DECOSYSTEM_STATS=$(get_project_stats "$HOME/The-Decosystem" "The Decosystem" "Ecosystem Framework" "ecosystem")
-CPB_CORE_STATS=$(get_project_stats "$HOME/cpb-core" "CPB Core" "Career Precision Bridge Core" "cpb")
-CPB_DEMO_STATS=$(get_project_stats "$HOME/cpb-demo" "CPB Demo" "Career Precision Bridge Demo" "cpb-demo")
-CAREER_MVP_STATS=$(get_project_stats "$HOME/career-coach-mvp" "Career Coach MVP" "Career Coach Minimum Viable Product" "career-mvp")
-VOICE_NEXUS_STATS=$(get_project_stats "$HOME/voice-nexus" "Voice Nexus" "Voice Integration System" "voice")
+# Collect project data - Auto-discover from system.json
+PROJECTS_DATA=$(python3 << 'PYPROJECTS'
+import json
+from pathlib import Path
+import subprocess
 
-PROJECTS_DATA="[$OS_APP_STATS,$CAREER_STATS,$RESEARCH_STATS,$AGENT_CORE_STATS,$BLACKAMETHYST_STATS,$CHROME_HISTORY_STATS,$DICOANGELO_STATS,$META_VENGINE_STATS,$METAVENTIONS_STATS,$DECOSYSTEM_STATS,$CPB_CORE_STATS,$CPB_DEMO_STATS,$CAREER_MVP_STATS,$VOICE_NEXUS_STATS]"
+home = Path.home()
+config_file = home / ".claude/config/system.json"
+
+def get_project_stats(path, name, tech, alias):
+    """Get stats for a single project."""
+    path = Path(str(path).replace("~", str(home)))
+    if not path.exists():
+        return None
+
+    # Count files
+    try:
+        result = subprocess.run(
+            ["find", str(path), "-type", "f", "-name", "*.ts", "-o", "-name", "*.tsx", "-o", "-name", "*.js", "-o", "-name", "*.py"],
+            capture_output=True, text=True, timeout=5
+        )
+        file_count = len([f for f in result.stdout.strip().split('\n') if f])
+    except:
+        file_count = 0
+
+    # Get last commit
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(path), "log", "-1", "--format=%cr"],
+            capture_output=True, text=True, timeout=5
+        )
+        last_commit = result.stdout.strip() if result.returncode == 0 else "N/A"
+    except:
+        last_commit = "N/A"
+
+    return {
+        "name": name,
+        "path": str(path),
+        "tech": tech,
+        "alias": alias,
+        "files": file_count,
+        "lastCommit": last_commit
+    }
+
+# Load projects from config
+projects = []
+if config_file.exists():
+    try:
+        with open(config_file) as f:
+            config = json.load(f)
+        for p in config.get("projects", []):
+            stats = get_project_stats(p["path"], p["name"], p["tech"], p["alias"])
+            if stats:
+                projects.append(stats)
+    except:
+        pass
+
+print(json.dumps(projects))
+PYPROJECTS
+)
 
 echo "  🎯 Loading proactive suggestions..."
 KERNEL_DIR="$HOME/.claude/kernel"
@@ -325,7 +369,8 @@ model_dist = {
 haiku_pct = model_dist['haiku']
 sonnet_pct = model_dist['sonnet']
 opus_pct = model_dist['opus']
-actual_cost_pct = (haiku_pct * 0.017) + (sonnet_pct * 0.2) + (opus_pct * 1.0)
+# Opus 4.5 cost ratios (relative to opus=1.0): sonnet=0.6, haiku=0.16
+actual_cost_pct = (haiku_pct * 0.16) + (sonnet_pct * 0.6) + (opus_pct * 1.0)
 cost_savings = round((1 - actual_cost_pct) * 100, 1) if opus_pct < 1 else 0
 
 # Latency (p95)
