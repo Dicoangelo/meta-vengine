@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "version": "1.1.0",
+    "updated": "2026-01-23",
+    "notes": "Centralized system configuration for Claude Command Center"
+  },
+  "timezone": "America/New_York",
+  "dashboard": {
+    "port": 8765,
+    "refreshInterval": 60
+  },
+  "projects": [
+    {"name": "OS-App", "path": "~/OS-App", "tech": "Vite + React 19 + Zustand + Supabase", "alias": "os-app"},
+    {"name": "CareerCoach", "path": "~/CareerCoachAntigravity", "tech": "Next.js 14 + React 18 + Zustand", "alias": "career"},
+    {"name": "ResearchGravity", "path": "~/researchgravity", "tech": "Python 3.8+ Research Framework", "alias": "research"},
+    {"name": "Agent Core", "path": "~/agent-core", "tech": "Unified Agent Data Store", "alias": "agent"},
+    {"name": "Blackamethyst AI", "path": "~/Blackamethyst-ai-profile", "tech": "AI Profile System", "alias": "ai"},
+    {"name": "Chrome History", "path": "~/chrome-history-export", "tech": "Browser History Export", "alias": "tool"},
+    {"name": "Dicoangelo", "path": "~/Dicoangelo", "tech": "GitHub Profile", "alias": "profile"},
+    {"name": "Meta-Vengine", "path": "~/meta-vengine", "tech": "Meta Engine System", "alias": "meta"},
+    {"name": "Metaventions Landing", "path": "~/Metaventions-AI-Landing", "tech": "AI Landing Page", "alias": "landing"},
+    {"name": "The Decosystem", "path": "~/The-Decosystem", "tech": "Ecosystem Framework", "alias": "ecosystem"},
+    {"name": "CPB Core", "path": "~/cpb-core", "tech": "Career Precision Bridge Core", "alias": "cpb"},
+    {"name": "CPB Demo", "path": "~/cpb-demo", "tech": "Career Precision Bridge Demo", "alias": "cpb-demo"},
+    {"name": "Career Coach MVP", "path": "~/career-coach-mvp", "tech": "Career Coach Minimum Viable Product", "alias": "career-mvp"},
+    {"name": "Voice Nexus", "path": "~/voice-nexus", "tech": "Voice Integration System", "alias": "voice"}
+  ],
+  "alerts": {
+    "dailySpendAlert": 300,
+    "cacheEfficiencyAlert": 75,
+    "dqScoreAlert": 0.50
+  },
+  "targets": {
+    "dailySpend": 200,
+    "cacheEfficiency": 85,
+    "dqScore": 0.60
+  }
+}
