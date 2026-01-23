@@ -21,6 +21,10 @@ mkdir -p "$HOME/.claude/dashboard"
 
 echo "🚀 Building Command Center..."
 
+# Regenerate kernel data from stats-cache (keeps cost/productivity/coevo in sync)
+echo "  🔄 Syncing kernel data..."
+python3 "$HOME/.claude/scripts/regenerate-kernel-data.py" --quiet 2>/dev/null || true
+
 # Default empty data
 DEFAULT_STATS='{"totalSessions":0,"totalMessages":0,"dailyActivity":[],"dailyModelTokens":[],"modelUsage":{},"hourCounts":{}}'
 DEFAULT_MEMORY='{"facts":[],"decisions":[],"patterns":[],"context":{},"projects":{}}'
@@ -412,7 +416,7 @@ fi
 echo "  🔭 Loading Observatory data..."
 # Load Observatory metrics (ALL TIME) - write to temp file to avoid shell escaping issues
 OBSERVATORY_TMP="/tmp/observatory-data-$$.json"
-python3 "$HOME/.claude/scripts/observatory/analytics-engine.py" export 9999 > "$OBSERVATORY_TMP" 2>/dev/null || echo '{}' > "$OBSERVATORY_TMP"
+python3 "$HOME/.claude/scripts/observatory/analytics-engine.py" export 30 > "$OBSERVATORY_TMP" 2>/dev/null || echo '{}' > "$OBSERVATORY_TMP"
 
 echo "  📋 Loading session outcomes..."
 # Load session outcomes to temp file to avoid shell escaping issues
@@ -983,6 +987,171 @@ if history_file.exists():
 print(json.dumps(result))
 COORDEOF
 
+echo "  🛡️ Loading infrastructure status..."
+INFRASTRUCTURE_TMP="/tmp/infrastructure-data-$$.json"
+python3 << 'INFRAEOF' > "$INFRASTRUCTURE_TMP"
+import json
+import subprocess
+import re
+from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+LOCAL_TZ = ZoneInfo("America/New_York")
+home = Path.home()
+launch_agents = home / "Library/LaunchAgents"
+
+# Daemon definitions
+DAEMONS = [
+    ("com.claude.watchdog", "Watchdog (guardian)", True),
+    ("com.claude.dashboard-refresh", "Dashboard Refresh (60s)", True),
+    ("com.claude.supermemory", "Supermemory (daily)", True),
+    ("com.claude.session-analysis", "Session Analysis (30m)", False),
+    ("com.claude.autonomous-maintenance", "Auto Maintenance (1h)", False),
+    ("com.claude.self-heal", "Self Heal (6h)", True),
+    ("com.claude.bootstrap", "Bootstrap (login)", False),
+    ("com.claude.wake-hook", "Wake Hook (sleep)", False),
+]
+
+result = {
+    "status": "unknown",
+    "daemons": [],
+    "heartbeat": None,
+    "healingEvents": [],
+    "dataFreshness": []
+}
+
+# Get launchctl list
+try:
+    ps = subprocess.run(["launchctl", "list"], capture_output=True, text=True, timeout=5)
+    launchctl_output = ps.stdout
+except:
+    launchctl_output = ""
+
+# Check each daemon
+for name, desc, critical in DAEMONS:
+    plist = launch_agents / f"{name}.plist"
+    loaded = name in launchctl_output
+    pid = "-"
+
+    # Extract PID if running
+    for line in launchctl_output.split('\n'):
+        if name in line:
+            parts = line.split()
+            if len(parts) >= 1 and parts[0] != "-":
+                pid = parts[0]
+            break
+
+    result["daemons"].append({
+        "name": name,
+        "description": desc,
+        "critical": critical,
+        "loaded": loaded,
+        "pid": pid,
+        "plistExists": plist.exists()
+    })
+
+# Determine overall status
+critical_daemons = [d for d in result["daemons"] if d["critical"]]
+all_critical_loaded = all(d["loaded"] for d in critical_daemons)
+result["status"] = "healthy" if all_critical_loaded else "degraded"
+
+# Get heartbeat
+heartbeat_file = home / ".claude/.watchdog-heartbeat"
+if heartbeat_file.exists():
+    try:
+        result["heartbeat"] = heartbeat_file.read_text().strip()
+    except:
+        pass
+
+# Parse watchdog log for healing events
+watchdog_log = home / ".claude/logs/watchdog.log"
+if watchdog_log.exists():
+    try:
+        lines = watchdog_log.read_text().strip().split('\n')[-200:]  # Last 200 lines for more history
+        for line in reversed(lines):
+            # Parse: [2026-01-23 14:30:06 EST] LOADED com.claude.bootstrap
+            match = re.match(r'\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', line)
+            if match:
+                ts = match.group(1)
+                if "LOADED" in line:
+                    daemon = line.split("LOADED")[-1].strip()
+                    result["healingEvents"].append({
+                        "timestamp": ts,
+                        "daemon": daemon,
+                        "action": "reload",
+                        "success": True,
+                        "message": f"Reloaded {daemon}"
+                    })
+                elif "DOWN:" in line:
+                    daemon = line.split("DOWN:")[-1].strip()
+                    result["healingEvents"].append({
+                        "timestamp": ts,
+                        "daemon": daemon,
+                        "action": "detected",
+                        "success": False,
+                        "message": f"Detected {daemon} down"
+                    })
+                elif "HEALED" in line:
+                    match2 = re.search(r'HEALED (\d+)', line)
+                    if match2:
+                        count = match2.group(1)
+                        result["healingEvents"].append({
+                            "timestamp": ts,
+                            "daemon": "watchdog",
+                            "action": "heal",
+                            "success": True,
+                            "message": f"Healed {count} daemon(s)"
+                        })
+    except:
+        pass
+
+# Also include self-heal outcomes for deeper history
+self_heal_outcomes = home / ".claude/data/self-heal-outcomes.jsonl"
+if self_heal_outcomes.exists():
+    try:
+        for line in self_heal_outcomes.read_text().strip().split('\n')[-50:]:
+            if line.strip():
+                data = json.loads(line)
+                ts = datetime.fromtimestamp(data.get('ts', 0), tz=LOCAL_TZ).strftime('%Y-%m-%d %H:%M:%S')
+                fixed = data.get('fixed', 0)
+                if fixed > 0:
+                    result["healingEvents"].append({
+                        "timestamp": ts,
+                        "daemon": "self-heal",
+                        "action": "deep-heal",
+                        "success": True,
+                        "message": f"Deep heal fixed {fixed} issue(s)"
+                    })
+    except:
+        pass
+
+# Check data freshness
+def check_freshness(path, name, max_hours):
+    if not path.exists():
+        return {"name": name, "fresh": False, "age": "Missing"}
+    mtime = datetime.fromtimestamp(path.stat().st_mtime, tz=LOCAL_TZ)
+    age_hours = (datetime.now(LOCAL_TZ) - mtime).total_seconds() / 3600
+    fresh = age_hours <= max_hours
+    if age_hours < 1:
+        age_str = f"{int(age_hours * 60)}m ago"
+    elif age_hours < 24:
+        age_str = f"{age_hours:.1f}h ago"
+    else:
+        age_str = f"{age_hours / 24:.1f}d ago"
+    return {"name": name, "fresh": fresh, "age": age_str}
+
+result["dataFreshness"] = [
+    check_freshness(home / ".claude/dashboard/claude-command-center.html", "Dashboard", 1),
+    check_freshness(home / ".claude/kernel/session-state.json", "Session State", 2),
+    check_freshness(home / ".claude/memory/supermemory.db", "Supermemory DB", 24),
+    check_freshness(home / ".claude/kernel/cost-data.json", "Cost Data", 24),
+    check_freshness(home / ".claude/stats-cache.json", "Stats Cache", 12),
+]
+
+print(json.dumps(result))
+INFRAEOF
+
 echo "  💻 Loading active Claude sessions..."
 SESSIONS_TMP="/tmp/sessions-data-$$.json"
 python3 << 'SESSIONSEOF' > "$SESSIONS_TMP"
@@ -1172,6 +1341,16 @@ if dq_file.exists():
         avg_dq = sum(scores) / len(scores)
 
 # Build coevo data
+# Load coevo-data.json for lastAnalysis (updated more frequently than config)
+coevo_data_file = Path.home() / '.claude/kernel/coevo-data.json'
+coevo_runtime = {}
+if coevo_data_file.exists():
+    try:
+        with open(coevo_data_file) as f:
+            coevo_runtime = json.load(f)
+    except:
+        pass
+
 coevo_data = {
     "cacheEfficiency": round(cache_efficiency, 2),
     "dqScore": round(avg_dq, 3),
@@ -1180,7 +1359,7 @@ coevo_data = {
     "autoApply": coevo_config.get('autoApply', False),
     "minConfidence": coevo_config.get('minConfidence', 0.7),
     "patterns": patterns_data.get('patterns', []),
-    "lastAnalysis": coevo_config.get('lastAnalysis', 'Never')
+    "lastAnalysis": coevo_runtime.get('lastAnalysis') or coevo_config.get('lastAnalysis', 'Never')
 }
 
 # Build subscription data for dashboard
@@ -1251,6 +1430,11 @@ with open('$SESSIONS_TMP', 'r') as f:
     sessions = safe_parse(f.read(), {"sessions":[],"stats":{"total":0,"opus":0,"sonnet":0,"haiku":0,"total_runtime_minutes":0}})
 output = output.replace('__SESSIONS_DATA__', json.dumps(sessions))
 
+# Infrastructure data
+with open('$INFRASTRUCTURE_TMP', 'r') as f:
+    infrastructure = safe_parse(f.read(), {"status":"unknown","daemons":[],"heartbeat":None,"healingEvents":[],"dataFreshness":[]})
+output = output.replace('__INFRASTRUCTURE_DATA__', json.dumps(infrastructure))
+
 # Pricing data from centralized config
 pricing_file = os.path.expanduser('~/.claude/config/pricing.json')
 if os.path.exists(pricing_file):
@@ -1281,4 +1465,4 @@ if [[ "$NO_OPEN" == "false" ]]; then
 fi
 
 # Cleanup temp files
-rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" "$SUPERMEMORY_TMP" "$COGNITIVE_TMP" "$RECOVERY_TMP" "$COORDINATOR_TMP" "$SESSIONS_TMP" "$PATTERNS_TMP" "$PATTERN_TRENDS_TMP" "$ROUTING_TMP" 2>/dev/null
+rm -f "$OBSERVATORY_TMP" "$SESSION_OUTCOMES_TMP" "$FILE_ACTIVITY_TMP" "$SUPERMEMORY_TMP" "$COGNITIVE_TMP" "$RECOVERY_TMP" "$COORDINATOR_TMP" "$SESSIONS_TMP" "$PATTERNS_TMP" "$PATTERN_TRENDS_TMP" "$ROUTING_TMP" "$INFRASTRUCTURE_TMP" 2>/dev/null

@@ -336,6 +336,86 @@
       "timestamp": "2026-01-21T04:55:33.341288",
       "source": "supermemory_synthesis",
       "id": 37
+    },
+    {
+      "content": "Average session length: 136 messages (intensive usage pattern)",
+      "tags": [
+        "usage",
+        "patterns"
+      ],
+      "timestamp": "2026-01-21T06:28:59.729979",
+      "source": "supermemory_synthesis",
+      "id": 38
+    },
+    {
+      "content": "Average session length: 134 messages (intensive usage pattern)",
+      "tags": [
+        "usage",
+        "patterns"
+      ],
+      "timestamp": "2026-01-21T07:49:22.553076",
+      "source": "supermemory_synthesis",
+      "id": 39
+    },
+    {
+      "content": "Average session length: 121 messages (intensive usage pattern)",
+      "tags": [
+        "usage",
+        "patterns"
+      ],
+      "timestamp": "2026-01-21T15:46:22.851259",
+      "source": "supermemory_synthesis",
+      "id": 40
+    },
+    {
+      "content": "Average session length: 126 messages (intensive usage pattern)",
+      "tags": [
+        "usage",
+        "patterns"
+      ],
+      "timestamp": "2026-01-21T21:37:55.251010",
+      "source": "supermemory_synthesis",
+      "id": 41
+    },
+    {
+      "content": "Average session length: 133 messages (intensive usage pattern)",
+      "tags": [
+        "usage",
+        "patterns"
+      ],
+      "timestamp": "2026-01-21T21:45:48.839352",
+      "source": "supermemory_synthesis",
+      "id": 42
+    },
+    {
+      "content": "Average session length: 132 messages (intensive usage pattern)",
+      "tags": [
+        "usage",
+        "patterns"
+      ],
+      "timestamp": "2026-01-21T21:52:08.922952",
+      "source": "supermemory_synthesis",
+      "id": 43
+    },
+    {
+      "content": "Average session length: 130 messages (intensive usage pattern)",
+      "tags": [
+        "usage",
+        "patterns"
+      ],
+      "timestamp": "2026-01-22T18:53:16.604714",
+      "source": "supermemory_synthesis",
+      "id": 44
+    },
+    {
+      "content": "Average session length: 131 messages (intensive usage pattern)",
+      "tags": [
+        "usage",
+        "patterns"
+      ],
+      "timestamp": "2026-01-23T13:48:38.580360",
+      "source": "supermemory_synthesis",
+      "id": 45
     }
   ],
   "decisions": [

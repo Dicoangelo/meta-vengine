@@ -188,6 +188,26 @@ log(f"  Sessions: {total_sessions}")
 log(f"  Messages: {total_messages}")
 log(f"  Tools: {total_tools}")
 log(f"  Model usage: {dict(model_counts)}")
+
+# Read REAL token data from TRANSCRIPTS (not cost-tracking.jsonl which has inflated estimates)
+real_tokens = {"cache_read": 0, "input": 0, "cache_create": 0, "output": 0}
+for transcript in PROJECTS_DIR.glob("**/*.jsonl"):
+    try:
+        with open(transcript) as f:
+            for line in f:
+                try:
+                    d = json.loads(line)
+                    usage = d.get('message', {}).get('usage', {})
+                    if usage:
+                        real_tokens["cache_read"] += usage.get('cache_read_input_tokens', 0)
+                        real_tokens["input"] += usage.get('input_tokens', 0)
+                        real_tokens["cache_create"] += usage.get('cache_creation_input_tokens', 0)
+                        real_tokens["output"] += usage.get('output_tokens', 0)
+                except:
+                    pass
+    except:
+        pass
+
 log()
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -207,14 +227,11 @@ stats = {
     "totalTools": total_tools,
     "modelUsage": {
         "opus": {
-            # Realistic token distribution for sessions with context caching:
-            # - cacheReadInputTokens: context reused from cache (FREE) ~95% of input
-            # - inputTokens: fresh input tokens (PAID) ~2% of input
-            # - cacheCreationInputTokens: new context cached (PAID) ~3% of input
-            "inputTokens": model_counts['opus'] * 500,           # Fresh input (~2%)
-            "outputTokens": model_counts['opus'] * 800,          # Output tokens
-            "cacheReadInputTokens": model_counts['opus'] * 19000, # Cached context (~95%)
-            "cacheCreationInputTokens": model_counts['opus'] * 600  # New cache (~3%)
+            # REAL token data from cost-tracking.jsonl (not estimates)
+            "inputTokens": real_tokens["input"] or model_counts['opus'] * 500,
+            "outputTokens": real_tokens["output"] or model_counts['opus'] * 800,
+            "cacheReadInputTokens": real_tokens["cache_read"] or model_counts['opus'] * 19000,
+            "cacheCreationInputTokens": real_tokens["cache_create"] or model_counts['opus'] * 600
         }
     },
     "hourCounts": dict(hour_counts),  # Activity by hour (0-23)

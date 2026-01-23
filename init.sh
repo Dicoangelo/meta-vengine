@@ -25,6 +25,10 @@ __kernel_check() {
 # Only source scripts that define functions (not executables)
 # smart-route.sh contains the ai() function and related commands
 [[ -f ~/.claude/scripts/smart-route.sh ]] && source ~/.claude/scripts/smart-route.sh
+
+# Smart session starter - auto-routes based on query/task
+# Usage: a "query" (one-shot) | a (interactive sonnet) | a -o (interactive opus)
+a() { ~/.claude/scripts/smart-session.sh "$@"; }
 [[ -f ~/.claude/scripts/git-auto.sh ]] && source ~/.claude/scripts/git-auto.sh
 
 # ══════════════════════════════════════════════════════════════

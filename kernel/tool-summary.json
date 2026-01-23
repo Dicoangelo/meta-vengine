@@ -1,58 +1,58 @@
 {
-  "totalCalls": 17665,
-  "uniqueTools": 47,
+  "totalCalls": 23637,
+  "uniqueTools": 55,
   "topTools": [
     [
       "Bash",
-      7108
+      9283
     ],
     [
       "Read",
-      3817
+      5388
     ],
     [
       "Edit",
-      1720
+      2509
     ],
     [
       "TodoWrite",
-      1184
+      1542
     ],
     [
       "Write",
-      850
+      1032
     ],
     [
       "Grep",
-      536
+      954
     ],
     [
       "Glob",
-      517
+      753
     ],
     [
       "WebSearch",
-      427
+      452
     ],
     [
       "WebFetch",
-      329
-    ],
-    [
-      "mcp__chrome-devtools__click",
-      202
+      344
     ],
     [
       "Task",
-      159
+      237
+    ],
+    [
+      "mcp__chrome-devtools__click",
+      204
     ],
     [
       "mcp__chrome-devtools__take_snapshot",
-      139
+      147
     ],
     [
       "mcp__chrome-devtools__take_screenshot",
-      122
+      124
     ],
     [
       "mcp__chrome-devtools__evaluate_script",
@@ -60,28 +60,28 @@
     ],
     [
       "mcp__chrome-devtools__navigate_page",
-      76
+      79
+    ],
+    [
+      "mcp__chrome-devtools__list_pages",
+      64
     ],
     [
       "mcp__chrome-devtools__press_key",
-      57
+      58
+    ],
+    [
+      "AskUserQuestion",
+      49
     ],
     [
       "mcp__chrome-devtools__fill",
       48
     ],
     [
-      "mcp__chrome-devtools__list_pages",
-      41
-    ],
-    [
-      "AskUserQuestion",
-      34
-    ],
-    [
       "ExitPlanMode",
-      34
+      46
     ]
   ],
-  "updated": "2026-01-21T04:51:45.974389"
+  "updated": "2026-01-23T14:54:41.897978"
 }

@@ -250,10 +250,12 @@ def get_routing_data() -> Dict:
 def get_coevo_data() -> Dict:
     """Get co-evolution data."""
     config_file = KERNEL_DIR / "coevo-config.json"
+    data_file = KERNEL_DIR / "coevo-data.json"
     patterns_file = KERNEL_DIR / "detected-patterns.json"
     mods_file = KERNEL_DIR / "modifications.jsonl"
 
     config = load_json_file(config_file, {"enabled": True, "autoApply": False, "minConfidence": 0.7})
+    coevo_data = load_json_file(data_file, {})
     patterns = load_json_file(patterns_file, {"patterns": []})
     mods_count = len(load_jsonl_file(mods_file))
 
@@ -282,7 +284,7 @@ def get_coevo_data() -> Dict:
         "autoApply": config.get('autoApply', False),
         "minConfidence": config.get('minConfidence', 0.7),
         "patterns": patterns.get('patterns', []),
-        "lastAnalysis": config.get('lastAnalysis', 'Never')
+        "lastAnalysis": coevo_data.get('lastAnalysis') or config.get('lastAnalysis', 'Never')
     }
 
 
