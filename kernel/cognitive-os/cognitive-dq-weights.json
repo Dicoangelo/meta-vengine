@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-01-26T07:11:43.259503",
+  "cognitive_mode": "morning",
+  "energy_level": 0.48,
+  "focus_quality": 0.55,
+  "dq_weights": {
+    "validity": 0.4,
+    "specificity": 0.3,
+    "correctness": 0.3
+  },
+  "complexity_threshold_modifier": 1.0,
+  "reasoning": "morning mode (energy: 48%, focus: 55%)"
+}

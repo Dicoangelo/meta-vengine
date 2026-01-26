@@ -72,6 +72,7 @@ COS_FLOW_LOG = COS_DIR / "flow-states.jsonl"
 COS_FLOW_STATE_FILE = COS_DIR / "flow-state.json"  # Quick-access flow state
 COS_ROUTING_LOG = COS_DIR / "routing-decisions.jsonl"
 COS_LEARNING_FILE = COS_DIR / "learned-weights.json"
+COS_DQ_WEIGHTS_FILE = COS_DIR / "cognitive-dq-weights.json"  # DQ weight adjustments
 
 
 # ============================================================================
@@ -325,6 +326,72 @@ class CognitiveStateDetector:
 
         return warnings
 
+    def export_dq_weights(self, state: Dict = None) -> Dict:
+        """
+        Export cognitive-aware DQ weight adjustments.
+
+        During different cognitive modes, different DQ components matter more:
+        - peak: validity matters less (you're sharp), specificity matters more
+        - dip: validity matters less (conserve energy), specificity matters more
+        - deep_night: correctness matters more (rely on history)
+        """
+        if state is None:
+            state = self.detect()
+
+        mode = state["mode"]
+        energy = state["energy_level"]
+        focus = state["focus_quality"]
+
+        # Base DQ weights
+        base_weights = {"validity": 0.40, "specificity": 0.30, "correctness": 0.30}
+
+        # Cognitive adjustments based on mode
+        COGNITIVE_DQ_ADJUSTMENTS = {
+            "morning": {"validity": 0.00, "specificity": 0.00, "correctness": 0.00},
+            "peak_morning": {"validity": 0.05, "specificity": -0.05, "correctness": 0.00},
+            "dip": {"validity": -0.10, "specificity": 0.10, "correctness": 0.00},
+            "peak_afternoon": {"validity": 0.05, "specificity": -0.05, "correctness": 0.00},
+            "evening": {"validity": 0.00, "specificity": 0.00, "correctness": 0.00},
+            "deep_night": {"validity": -0.05, "specificity": -0.05, "correctness": 0.10}
+        }
+
+        adjustments = COGNITIVE_DQ_ADJUSTMENTS.get(mode, {"validity": 0, "specificity": 0, "correctness": 0})
+
+        # Apply adjustments
+        adjusted_weights = {
+            "validity": max(0.1, min(0.6, base_weights["validity"] + adjustments["validity"])),
+            "specificity": max(0.1, min(0.6, base_weights["specificity"] + adjustments["specificity"])),
+            "correctness": max(0.1, min(0.6, base_weights["correctness"] + adjustments["correctness"]))
+        }
+
+        # Normalize to sum to 1.0
+        total = sum(adjusted_weights.values())
+        adjusted_weights = {k: round(v / total, 3) for k, v in adjusted_weights.items()}
+
+        # Additional modifiers based on energy and focus
+        complexity_threshold_modifier = 1.0
+        if energy < 0.4:
+            # Low energy: lower complexity threshold (use simpler models)
+            complexity_threshold_modifier = 0.85
+        elif energy > 0.8 and focus > 0.7:
+            # High energy + high focus: raise complexity threshold (can handle more)
+            complexity_threshold_modifier = 1.15
+
+        result = {
+            "timestamp": datetime.now().isoformat(),
+            "cognitive_mode": mode,
+            "energy_level": energy,
+            "focus_quality": focus,
+            "dq_weights": adjusted_weights,
+            "complexity_threshold_modifier": complexity_threshold_modifier,
+            "reasoning": f"{mode} mode (energy: {energy:.0%}, focus: {focus:.0%})"
+        }
+
+        # Save for dq-scorer.js to read
+        save_json(COS_DQ_WEIGHTS_FILE, result)
+
+        return result
+
 
 # ============================================================================
 # SESSION FATE PREDICTOR
@@ -345,6 +412,16 @@ class SessionFatePredictor:
 
     Intervention: At 60% abandon probability -> suggest checkpoint
     """
+
+    # Outcome normalization mapping (prediction -> actual format)
+    # Fixes accuracy tracking: "abandon" should match "abandoned"
+    OUTCOME_MAPPING = {
+        "abandon": "abandoned",
+        "partial": "partial",
+        "success": "success",
+        "completed": "success",
+        "productive": "success"
+    }
 
     # Feature weights (trained from 424 sessions)
     DEFAULT_WEIGHTS = {
@@ -536,12 +613,19 @@ class SessionFatePredictor:
         if predicted and actual:
             learned = load_json(COS_LEARNING_FILE, {"fate_weights": self.DEFAULT_WEIGHTS, "accuracy_history": []})
 
-            # Track accuracy
-            correct = predicted == actual
+            # Normalize prediction strings to match actual outcome format
+            # Fixes: "abandon" should match "abandoned"
+            normalized_predicted = self.OUTCOME_MAPPING.get(predicted, predicted)
+            normalized_actual = self.OUTCOME_MAPPING.get(actual, actual)
+
+            # Track accuracy using normalized values
+            correct = normalized_predicted == normalized_actual
             learned["accuracy_history"].append({
                 "timestamp": datetime.now().isoformat(),
                 "predicted": predicted,
+                "predicted_normalized": normalized_predicted,
                 "actual": actual,
+                "actual_normalized": normalized_actual,
                 "correct": correct
             })
 
@@ -895,6 +979,23 @@ class PersonalModelRouter:
         # Log routing decision
         append_jsonl(COS_ROUTING_LOG, result)
 
+        # Also write to SQLite via dual-write library
+        try:
+            sys.path.insert(0, str(HOME / ".claude/hooks"))
+            from dual_write_lib import log_routing_decision
+
+            log_routing_decision(
+                recommended_model=result["recommended_model"],
+                cognitive_mode=result["cognitive_mode"],
+                task_complexity=result["task_complexity"],
+                dq_score=0.0,  # Not calculated in cognitive routing
+                hour=now.hour,
+                reasoning=result["reasoning"]
+            )
+        except Exception as e:
+            # Fail silently to not block routing
+            sys.stderr.write(f"dual-write error (routing_decisions): {e}\n")
+
         return result
 
     def _classify_complexity(self, task: str) -> str:
@@ -1150,6 +1251,114 @@ class WeeklyEnergyMapper:
 # COGNITIVE OS MAIN CLASS
 # ============================================================================
 
+class BudgetReconciler:
+    """
+    Reconciles cognitive predictions with session budget constraints.
+    Bridges Cognitive OS and Session Optimizer.
+    """
+
+    TIER_CONFIDENCE_MODIFIERS = {
+        "COMFORTABLE": 1.0,      # No adjustment
+        "MODERATE": 0.95,        # Slight reduction
+        "LOW": 0.85,             # Notable reduction
+        "CRITICAL": 0.70,        # Significant reduction
+        "EXHAUSTED": 0.50        # Major reduction
+    }
+
+    def __init__(self):
+        self.session_state = load_json(SOURCES["session_state"], {})
+
+    def get_budget_status(self) -> Dict:
+        """Get current budget status from session optimizer."""
+        budget = self.session_state.get("budget", {})
+        capacity = self.session_state.get("capacity", {})
+
+        return {
+            "tier": capacity.get("tier", "MODERATE"),
+            "utilization": budget.get("utilizationPercent", 0),
+            "recommended_model": budget.get("recommendedModel", "sonnet"),
+            "remaining": capacity.get("remaining", {}),
+            "context_saturation": self.session_state.get("context", {}).get("saturation", 0)
+        }
+
+    def reconcile_fate_prediction(self, fate: Dict) -> Dict:
+        """
+        Adjust fate prediction based on budget constraints.
+
+        If budget is critical but fate predicts success, reduce confidence.
+        If budget is comfortable and fate predicts abandon, we have resources to recover.
+        """
+        status = self.get_budget_status()
+        tier = status["tier"]
+        utilization = status["utilization"]
+
+        # Get confidence modifier based on budget tier
+        modifier = self.TIER_CONFIDENCE_MODIFIERS.get(tier, 1.0)
+
+        # Original values
+        original_confidence = fate.get("confidence", 0.5)
+        original_success_prob = fate.get("success_probability", 0.5)
+
+        # Apply modifier
+        adjusted_confidence = original_confidence * modifier
+        adjusted_success_prob = original_success_prob * modifier
+
+        # Add warnings if budget constrains predictions
+        warnings = fate.get("warnings", [])
+        if tier == "CRITICAL":
+            warnings.append(f"Budget CRITICAL ({utilization:.0f}% used) - may limit session success")
+        elif tier == "LOW":
+            warnings.append(f"Budget LOW ({utilization:.0f}% used) - consider Sonnet for routine tasks")
+
+        # Context saturation warning
+        context_sat = status.get("context_saturation", 0)
+        if context_sat > 0.8:
+            warnings.append(f"Context {context_sat:.0%} saturated - consider /clear soon")
+            adjusted_success_prob *= 0.9  # Context pressure reduces success probability
+
+        # Update fate with reconciled values
+        reconciled = fate.copy()
+        reconciled["confidence"] = round(adjusted_confidence, 3)
+        reconciled["success_probability"] = round(adjusted_success_prob, 3)
+        reconciled["abandon_probability"] = round(1 - adjusted_success_prob, 3)
+        reconciled["budget_reconciliation"] = {
+            "tier": tier,
+            "utilization": utilization,
+            "modifier_applied": modifier,
+            "original_confidence": original_confidence,
+            "original_success_prob": original_success_prob
+        }
+        reconciled["warnings"] = warnings
+
+        return reconciled
+
+    def suggest_model_override(self, cognitive_recommendation: str) -> Optional[str]:
+        """
+        Suggest model override based on budget constraints.
+
+        Returns None if no override needed, or the suggested model if budget requires it.
+        """
+        status = self.get_budget_status()
+        tier = status["tier"]
+        recommended = status["recommended_model"]
+
+        # Model cost order
+        model_cost = {"haiku": 1, "sonnet": 2, "opus": 3}
+
+        # If budget tier requires cheaper model
+        if tier == "CRITICAL" and cognitive_recommendation == "opus":
+            return "sonnet"
+        if tier == "EXHAUSTED" and cognitive_recommendation in ["opus", "sonnet"]:
+            return "haiku"
+
+        # If session optimizer recommends something different and budget is tight
+        if tier in ["LOW", "CRITICAL"]:
+            if model_cost.get(recommended, 2) < model_cost.get(cognitive_recommendation, 2):
+                return recommended
+
+        return None
+
+
 class CognitiveOS:
     """Personal Cognitive Operating System - the main orchestrator."""
 
@@ -1161,6 +1370,7 @@ class CognitiveOS:
         self.flow_protector = FlowStateProtector()
         self.model_router = PersonalModelRouter()
         self.energy_mapper = WeeklyEnergyMapper()
+        self.budget_reconciler = BudgetReconciler()
 
     def on_session_start(self) -> Dict:
         """Generate comprehensive pre-session intelligence."""
@@ -1171,6 +1381,20 @@ class CognitiveOS:
         fate = self.fate_predictor.predict()
         routing = self.model_router.route()
         today = self.energy_mapper.get_today()
+
+        # Reconcile with budget constraints
+        fate = self.budget_reconciler.reconcile_fate_prediction(fate)
+        budget_status = self.budget_reconciler.get_budget_status()
+
+        # Check for model override based on budget
+        model_override = self.budget_reconciler.suggest_model_override(routing["recommended_model"])
+        if model_override:
+            routing["budget_override"] = model_override
+            routing["original_recommendation"] = routing["recommended_model"]
+            routing["recommended_model"] = model_override
+
+        # Export cognitive-aware DQ weights for dq-scorer.js
+        dq_weights = self.state_detector.export_dq_weights(cognitive)
 
         briefing = {
             "timestamp": now.isoformat(),
@@ -1188,13 +1412,20 @@ class CognitiveOS:
             },
             "predictions": {
                 "initial_fate": fate["predicted_outcome"],
-                "success_probability": fate["success_probability"]
+                "success_probability": fate["success_probability"],
+                "budget_reconciled": fate.get("budget_reconciliation") is not None
+            },
+            "budget": {
+                "tier": budget_status["tier"],
+                "utilization": budget_status["utilization"],
+                "recommended_model": budget_status["recommended_model"]
             },
             "routing": {
                 "recommended_model": routing["recommended_model"],
-                "reasoning": routing["reasoning"]
+                "reasoning": routing["reasoning"],
+                "budget_override": routing.get("budget_override")
             },
-            "warnings": cognitive.get("warnings", []),
+            "warnings": cognitive.get("warnings", []) + fate.get("warnings", []),
             "recommendations": [
                 f"Best for now: {', '.join(cognitive['recommended_tasks'][:2])}",
                 today["recommendation"]

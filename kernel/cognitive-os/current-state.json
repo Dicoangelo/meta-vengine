@@ -1,13 +1,42 @@
 {
-  "mode": "morning",
-  "focus_quality": 0.83,
-  "best_for": [
-    "planning",
-    "setup",
-    "reviews"
+  "timestamp": "2026-01-26T07:11:43.224606",
+  "greeting": "Good morning. MED energy day ahead.",
+  "cognitive_state": {
+    "mode": "morning",
+    "energy_level": 0.48,
+    "focus_quality": 0.55,
+    "is_personal_peak": false
+  },
+  "day_context": {
+    "day": "Monday",
+    "energy": "MED",
+    "optimal_tasks": [
+      "architecture",
+      "complex_problems",
+      "planning"
+    ]
+  },
+  "predictions": {
+    "initial_fate": "abandon",
+    "success_probability": 0.186,
+    "budget_reconciled": true
+  },
+  "budget": {
+    "tier": "CRITICAL",
+    "utilization": 100,
+    "recommended_model": "haiku"
+  },
+  "routing": {
+    "recommended_model": "haiku",
+    "reasoning": "Cognitive mode: morning | Task complexity: simple | Energy level: 0.48",
+    "budget_override": null
+  },
+  "warnings": [
+    "Budget CRITICAL (100% used) - may limit session success",
+    "Context 100% saturated - consider /clear soon"
   ],
-  "cognitive_load": "high",
-  "hour": 5,
-  "day": "Wednesday",
-  "updated": "2026-01-21T05:55:05.967304"
+  "recommendations": [
+    "Best for now: documentation, routine_fixes",
+    "Balanced energy. Good for: architecture, complex_problems"
+  ]
 }

@@ -1,0 +1,231 @@
+{
+  "fate_weights": {
+    "message_count": 0.25,
+    "tool_count": 0.25,
+    "intent_warmup": 0.2,
+    "model_efficiency": 0.15,
+    "time_of_day": 0.1,
+    "day_of_week": 0.05
+  },
+  "accuracy_history": [
+    {
+      "timestamp": "2026-01-23T23:34:48.361144",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-23T23:41:18.598799",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-23T23:48:57.245842",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-23T23:53:44.725190",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-23T23:55:04.095323",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-24T02:25:12.345525",
+      "predicted": "partial",
+      "predicted_normalized": "partial",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": false
+    },
+    {
+      "timestamp": "2026-01-24T02:54:11.362503",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-24T03:34:39.450115",
+      "predicted": "partial",
+      "predicted_normalized": "partial",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": false
+    },
+    {
+      "timestamp": "2026-01-24T13:26:16.430633",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-24T15:51:52.473249",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-24T15:51:52.679819",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-24T16:11:56.935798",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-24T16:17:04.539445",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-24T16:23:31.265341",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-24T20:18:15.329656",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-24T20:53:28.445332",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-25T02:07:16.979218",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-25T02:39:36.913370",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-25T21:00:02.481976",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-25T22:00:12.014094",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-25T23:48:04.352334",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-26T01:30:18.488339",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-26T02:48:07.278462",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-26T04:04:35.216657",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    }
+  ],
+  "model_routes": {
+    "deep_night_simple": {
+      "model": "haiku",
+      "successes": 0,
+      "failures": 15,
+      "confidence": 0.0
+    },
+    "dip_simple": {
+      "model": "haiku",
+      "successes": 0,
+      "failures": 1,
+      "confidence": 0.0
+    },
+    "peak_afternoon_simple": {
+      "model": "haiku",
+      "successes": 0,
+      "failures": 5,
+      "confidence": 0.0
+    },
+    "evening_simple": {
+      "model": "haiku",
+      "successes": 0,
+      "failures": 3,
+      "confidence": 0.0
+    }
+  },
+  "fix_applied": "2026-01-23 - Fixed outcome string mismatch (abandon\u2192abandoned)"
+}
