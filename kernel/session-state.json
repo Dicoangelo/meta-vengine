@@ -1,0 +1,58 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-28T08:05:55.967Z",
+  "window": {
+    "id": "window-2026-01-28-1700",
+    "startedAt": "2026-01-27T22:00:00.000Z",
+    "estimatedEndAt": "2026-01-28T12:00:00.000Z",
+    "positionPercent": 72,
+    "remainingMinutes": 234,
+    "confidence": 0.7
+  },
+  "budget": {
+    "windowCapacity": 5000000,
+    "used": {
+      "opus": 0,
+      "sonnet": 0,
+      "haiku": 0
+    },
+    "allocated": {
+      "opus": 2000000,
+      "sonnet": 2000000,
+      "haiku": 500000,
+      "reserve": 500000
+    },
+    "utilizationPercent": 0,
+    "recommendedModel": "opus"
+  },
+  "capacity": {
+    "tier": "COMFORTABLE",
+    "remaining": {
+      "opus": 25,
+      "sonnet": 100,
+      "haiku": 500
+    },
+    "projectedWindowEnd": 5000000,
+    "switchThresholds": {
+      "downgradeAt": 0.85,
+      "upgradeAt": 0.3
+    }
+  },
+  "context": {
+    "messages": 0,
+    "saturation": 0,
+    "cacheEfficiency": 0.93,
+    "clearRecommended": false,
+    "nextCheckpoint": 50
+  },
+  "predictions": {
+    "optimalNextStart": "2026-01-28T12:15:00.000Z",
+    "peakHoursRemaining": [
+      14,
+      15,
+      16
+    ],
+    "workPattern": "general",
+    "batchWindow": "17:00-19:00"
+  }
+}

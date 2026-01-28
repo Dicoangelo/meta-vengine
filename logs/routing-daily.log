@@ -26,3 +26,407 @@ Total Queries: 131
     ✓ avg_dq
 
 ════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 55
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.311
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+No metrics found for last 1 days
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 80
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.650
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 2
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.800
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 68
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.788
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 68
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.788
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 19
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.682
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 19
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.682
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 8
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.627
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 8
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.627
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 25
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.555
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 25
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.555
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 1
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.800
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════
+  ROUTING PERFORMANCE REPORT
+════════════════════════════════════════════════════════════
+
+Period: Last 1 days
+Total Queries: 1
+
+📊 Model Distribution:
+  haiku   :   0.0%
+  sonnet  : 100.0%
+  opus    :   0.0%
+
+📈 Performance Metrics:
+  Avg Complexity: 0.800
+
+⏱️  Routing Latency:
+  Average: 42.0ms
+  p50:     42.0ms
+  p95:     42.0ms
+
+🎯 Quality & Cost:
+  Accuracy:       50.0%
+  Cost Reduction: 50.2% vs random
+
+✅ Targets Met:
+  2/3 targets
+    ✗ accuracy
+    ✓ cost_reduction
+    ✓ p95_latency
+
+════════════════════════════════════════════════════════════

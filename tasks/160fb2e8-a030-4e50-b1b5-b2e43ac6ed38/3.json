@@ -1,0 +1,12 @@
+{
+  "id": "3",
+  "subject": "Make complexity thresholds configurable",
+  "description": "Move hardcoded ELITE thresholds to configuration:\n- Current: `ELITE_THRESHOLDS = { balanced: 0.25, deep: 0.55 }`\n- Add to VoiceNexusConfig: `complexity: { balancedThreshold, deepThreshold }`\n- Create `setComplexityThresholds(thresholds)` API\n- Persist user preferences to session storage\n- Allow runtime adjustment without restart\n\nFiles:\n- services/voiceNexus/complexityRouter.ts\n- services/voiceNexus/types.ts",
+  "activeForm": "Making thresholds configurable",
+  "status": "pending",
+  "blocks": [
+    "4",
+    "6"
+  ],
+  "blockedBy": []
+}

@@ -1,0 +1,3421 @@
+2026-01-19 18:00:05 Autonomous maintenance started
+
+Generated 3 modification proposals:
+
+  mod-20260119-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260119-001: Consider /clear more often - avg session is 124 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260119-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260119-000 - Modification mod-20260119-000 already applied
+  ❌ Failed: mod-20260119-001 - Modification mod-20260119-001 already applied
+Evaluated 4 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 356
+  Messages: 45656
+  Tools: 14063
+  Model usage: {'opus': 22727, 'haiku': 3717, 'sonnet': 3012}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,875 (9.4x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 764 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 764 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 22 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 14063 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,874.57 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 356 sessions: {'success': 210, 'partial': 27, 'abandoned': 119}
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     356
+  Messages:     45,656
+  Tools:        14,063
+  Opus:         22,727
+  Sonnet:       3,012
+  Haiku:        3,717
+  Value:        $1,875
+  ROI:          9.4x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 13 days
+Tool summary: 23730 calls, 48 unique tools
+Activity timeline: 36 days, 23730 tools, 1039 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 1 days tracked
+Subscription value: $13393 (67.0x ROI)
+Complexity: avg=0.44, queries=764
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 1041 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 3e01c47b-81ec-4422-a4f3-a9228af03836.jso...
+Captured: 0 URLs, 35 findings, 8 unique tools
+
+🔬 Evidence Layer Processing...
+
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 1085.3 minutes
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 43 session(s) to process
+  → Processing: ai-employees---no-co-20260114-091341-cceb8a...
+  → Processing: ai-testing-tooling-b-20260112-201347-427fbe...
+  → Processing: backfill--audited-careercoach-20260115-112252-24a7...
+  → Processing: backfill--set-currentsession--20260114-163148-418a...
+  → Processing: backfill--thought-i-overstepp-20260113-150720-cda6...
+  → Processing: backfill-ai-powered-productiv-20260115-174550-e577...
+  → Processing: backfill-from-old-claude-sess-20260114-233026-9262...
+  → Processing: backfill-from-old-claude-sess-20260115-205329-9262...
+  → Processing: backfill-indicates-next-gen-f-20260114-153716-fbd8...
+  → Processing: backfill-large-session-recove-20260115-095747-bbe9...
+  → Processing: backfill-management-archive-20260113-071302-19d771...
+  → Processing: backfill-management-archive-20260113-182434-19d771...
+  → Processing: backfill-multi-agent-orchestr-20260113-225420-4627...
+  → Processing: backfill-on-ai-employees-no-c-20260114-135258-968d...
+  → Processing: backfill-orchestration-for-cl-20260114-150334-c96b...
+  → Processing: backfill-papers-n-paper-id-ti-20260116-004400-24e2...
+  → Processing: backfill-resume-jan-13-20260113-115350-e7f6d1...
+  → Processing: backfill-session-from-500c6f9-20260115-175459-7af7...
+  → Processing: backfill-session-from-c5e047e-20260113-205030-64bb...
+  → Processing: backfill-shows-that-ai-doesn-20260114-233436-0f15b...
+  → Processing: backfill-started-date--20260114-233349-293c5b...
+  → Processing: backfill-subagent-research-20260113-111546-e4d425...
+  → Processing: backfill-subagent-research-20260114-150732-e4d425...
+  → Processing: backfill-summaries-here-to-ma-20260113-095935-b125...
+  → Processing: backfill-summary-for-your-rec-20260115-221712-8825...
+  → Processing: backfill-synthesis-160-papers-20260114-225937-2bbb...
+  → Processing: backfill-the-actual-package-s-20260114-154037-75d5...
+  → Processing: backfill-up-to-4-hours-total--20260113-081323-5c70...
+  → Processing: backfill-with-continuing-from-20260113-170756-6d21...
+  → Processing: backfill-with-continuing-from-20260115-140751-6d21...
+  → Processing: claude-terminal-auto-20260116-125858-177c3f...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: dr.-zero---self-evol-20260117-082802-6a0ec3...
+  → Processing: frontier-ai-breakthr-20260114-180021-7940dd...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: job-hunt---gtm-syste-20260115-153850-1e3908...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+  → Processing: quantization-aware-r-20260117-103429-1cb473...
+  → Processing: tesla-mixed-precisio-20260117-103010-066926...
+  → Processing: test-metaventions-20260112-203725-698f55...
+  → Processing: universal-verificati-20260112-203333-c338b3...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 43
+   Papers extracted: 144
+   Tools/repos found: 275
+   Key findings: 28
+2026-01-19 18:00:19 Autonomous maintenance complete
+2026-01-20 06:00:02 Autonomous maintenance started
+
+Generated 3 modification proposals:
+
+  mod-20260120-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260120-001: Consider /clear more often - avg session is 367 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260120-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260120-000 - Modification mod-20260120-000 already applied
+  ❌ Failed: mod-20260120-001 - Modification mod-20260120-001 already applied
+Evaluated 7 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 384
+  Messages: 50255
+  Tools: 15527
+  Model usage: {'opus': 25227, 'haiku': 4202, 'sonnet': 3012}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $2,075 (10.4x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 764 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 764 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 31 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 15527 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $2,075.25 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 384 sessions: {'success': 232, 'partial': 30, 'abandoned': 122}
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     384
+  Messages:     50,255
+  Tools:        15,527
+  Opus:         25,227
+  Sonnet:       3,012
+  Haiku:        4,202
+  Value:        $2,075
+  ROI:          10.4x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 14 days
+Tool summary: 24983 calls, 48 unique tools
+Activity timeline: 37 days, 24983 tools, 1053 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 2 days tracked
+Subscription value: $14020 (70.1x ROI)
+Complexity: avg=0.44, queries=764
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 1053 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: f4e77d1d-963c-46ee-96c0-011e4ae47dea.jso...
+Captured: 0 URLs, 20 findings, 7 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 1805.2 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 94 session(s) to process
+  → Processing: ai-employees---no-co-20260114-091341-cceb8a...
+  → Processing: backfill--audited-careercoach-20260115-112252-24a7...
+  → Processing: backfill--compounding--20260116-171841-dcaf19...
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--production--20260116-194459-73e6af...
+  → Processing: backfill--production-n-multi--20260114-225937-12df...
+  → Processing: backfill--production-n-multi--20260117-163541-12df...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill--rw-r-r-1-dicoangelo-20260115-112252-949d...
+  → Processing: backfill--set-currentsession--20260114-163148-418a...
+  → Processing: backfill--thought-i-overstepp-20260113-150720-cda6...
+  → Processing: backfill--z-index-css-variabl-20260113-115350-499f...
+  → Processing: backfill-1-file-changed-20260117-192033-e8c211...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-3b2aa6c1-79e9-4041-b-20260116-111918-04ae...
+  → Processing: backfill-agentic-documentatio-20260113-182434-49d1...
+  → Processing: backfill-ai-powered-productiv-20260115-174550-e577...
+  → Processing: backfill-analyzer-core-engine-20260117-223421-3dda...
+  → Processing: backfill-and-development-stud-20260115-221712-b8e6...
+  → Processing: backfill-and-turning-it-into--20260117-104627-ebe2...
+  → Processing: backfill-automatically-n-capt-20260116-221357-cd4e...
+  → Processing: backfill-before-quitting-20260114-233349-a7b6ea...
+  → Processing: backfill-components-orphaned--20260114-135258-18b7...
+  → Processing: backfill-context-loaded-20260113-150720-81d9fa...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-directions-include--20260117-102913-1c8f5...
+  → Processing: backfill-directions-include--20260117-162046-1c8f5...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-flow-is-unpredictabl-20260113-170756-1b37...
+  → Processing: backfill-found-in-the-archive-20260117-131532-2ea5...
+  → Processing: backfill-from-old-claude-sess-20260114-233026-9262...
+  → Processing: backfill-from-old-claude-sess-20260115-205329-9262...
+  → Processing: backfill-from-old-claude-sess-20260116-082220-9262...
+  → Processing: backfill-id-quantization-awar-20260117-224311-5d13...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-indicates-next-gen-f-20260114-153716-fbd8...
+  → Processing: backfill-initialization-event-20260116-144256-dad0...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-large-session-recove-20260115-095747-bbe9...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-management-archive-20260113-071302-19d771...
+  → Processing: backfill-management-archive-20260113-182434-19d771...
+  → Processing: backfill-memory-updated--20260114-150334-3370e4...
+  → Processing: backfill-multi-agent-orchestr-20260113-225420-4627...
+  → Processing: backfill-newsletters-on-subst-20260114-233436-d679...
+  → Processing: backfill-on-ai-employees-no-c-20260114-135258-968d...
+  → Processing: backfill-on-the-most-recent-b-20260113-071302-fb60...
+  → Processing: backfill-orchestration--20260116-195630-7e0a1c...
+  → Processing: backfill-orchestration-for-cl-20260114-150334-c96b...
+  → Processing: backfill-papers-n-paper-id-ti-20260116-004400-24e2...
+  → Processing: backfill-recovery-jan-12-back-20260116-230735-2397...
+  → Processing: backfill-resume-jan-13-20260113-115350-e7f6d1...
+  → Processing: backfill-session-from-2026-01-20260113-205030-0d7b...
+  → Processing: backfill-session-from-2026-01-20260115-175459-924a...
+  → Processing: backfill-session-from-500c6f9-20260115-175459-7af7...
+  → Processing: backfill-session-from-c5e047e-20260113-205030-64bb...
+  → Processing: backfill-shows-that-ai-doesn-20260114-233436-0f15b...
+  → Processing: backfill-started-date--20260114-233349-293c5b...
+  → Processing: backfill-storage-architecture-20260117-111637-1038...
+  → Processing: backfill-studio-focused-on-20260118-015036-15417d...
+  → Processing: backfill-subagent-research-20260113-111546-e4d425...
+  → Processing: backfill-subagent-research-20260114-150732-e4d425...
+  → Processing: backfill-summaries-here-to-ma-20260113-095935-b125...
+  → Processing: backfill-summary-for-your-rec-20260115-221712-8825...
+  → Processing: backfill-summary-to-your-sess-20260113-095935-af81...
+  → Processing: backfill-synthesis-160-papers-20260114-225937-2bbb...
+  → Processing: backfill-the-11-apps-through--20260117-174445-fa33...
+  → Processing: backfill-the-actual-package-s-20260114-154037-75d5...
+  → Processing: backfill-they-based-ace-on--20260115-095747-71ca92...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-topics-based-on-dete-20260117-203521-e5fd...
+  → Processing: backfill-transcript-v3-20260117-235040-b3fa89...
+  → Processing: backfill-up-to-4-hours-total--20260113-081323-5c70...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: backfill-with-a-focus-on-real-20260115-174550-94bc...
+  → Processing: backfill-with-continuing-from-20260113-170756-6d21...
+  → Processing: backfill-with-continuing-from-20260115-140751-6d21...
+  → Processing: backfill-with-scoring--20260114-153716-6adbd1...
+  → Processing: backfill-with-scoring--20260114-154037-6adbd1...
+  → Processing: backfill-with-scoring--20260114-163148-6adbd1...
+  → Processing: claude-terminal-auto-20260116-125858-177c3f...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: dr.-zero---self-evol-20260117-082802-6a0ec3...
+  → Processing: frontier-ai-breakthr-20260114-180021-7940dd...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: job-hunt---gtm-syste-20260115-153850-1e3908...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+  → Processing: quantization-aware-r-20260117-103429-1cb473...
+  → Processing: tesla-mixed-precisio-20260117-103010-066926...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 94
+   Papers extracted: 839
+   Tools/repos found: 834
+   Key findings: 123
+2026-01-20 06:00:14 Autonomous maintenance complete
+2026-01-20 18:00:05 Autonomous maintenance started
+
+Generated 3 modification proposals:
+
+  mod-20260120-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260120-001: Consider /clear more often - avg session is 131 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260120-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260120-000 - Modification mod-20260120-000 already applied
+  ❌ Failed: mod-20260120-001 - Modification mod-20260120-001 already applied
+Evaluated 7 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 387
+  Messages: 51512
+  Tools: 15891
+  Model usage: {'opus': 25984, 'haiku': 4291, 'sonnet': 3012}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $2,136 (10.7x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 764 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 764 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 34 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 15891 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $2,135.93 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 387 sessions: {'success': 236, 'partial': 29, 'abandoned': 122}
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     387
+  Messages:     51,512
+  Tools:        15,891
+  Opus:         25,984
+  Sonnet:       3,012
+  Haiku:        4,291
+  Value:        $2,136
+  ROI:          10.7x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 14 days
+Tool summary: 25295 calls, 48 unique tools
+Activity timeline: 37 days, 25295 tools, 1053 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 2 days tracked
+Subscription value: $14176 (70.9x ROI)
+Complexity: avg=0.44, queries=764
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 1057 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: f4e77d1d-963c-46ee-96c0-011e4ae47dea.jso...
+Captured: 1 URLs, 241 findings, 12 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 2525.3 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 82 session(s) to process
+  → Processing: ai-employees---no-co-20260114-091341-cceb8a...
+  → Processing: backfill--audited-careercoach-20260115-112252-24a7...
+  → Processing: backfill--compounding--20260116-171841-dcaf19...
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--production--20260116-194459-73e6af...
+  → Processing: backfill--production-n-multi--20260114-225937-12df...
+  → Processing: backfill--production-n-multi--20260117-163541-12df...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill--rw-r-r-1-dicoangelo-20260115-112252-949d...
+  → Processing: backfill--set-currentsession--20260114-163148-418a...
+  → Processing: backfill-1-file-changed-20260117-192033-e8c211...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-3b2aa6c1-79e9-4041-b-20260116-111918-04ae...
+  → Processing: backfill-agentic-documentatio-20260113-182434-49d1...
+  → Processing: backfill-ai-powered-productiv-20260115-174550-e577...
+  → Processing: backfill-analyzer-core-engine-20260117-223421-3dda...
+  → Processing: backfill-and-development-stud-20260115-221712-b8e6...
+  → Processing: backfill-and-turning-it-into--20260117-104627-ebe2...
+  → Processing: backfill-automatically-n-capt-20260116-221357-cd4e...
+  → Processing: backfill-before-quitting-20260114-233349-a7b6ea...
+  → Processing: backfill-components-orphaned--20260114-135258-18b7...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-directions-include--20260117-102913-1c8f5...
+  → Processing: backfill-directions-include--20260117-162046-1c8f5...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-found-in-the-archive-20260117-131532-2ea5...
+  → Processing: backfill-from-old-claude-sess-20260114-233026-9262...
+  → Processing: backfill-from-old-claude-sess-20260115-205329-9262...
+  → Processing: backfill-from-old-claude-sess-20260116-082220-9262...
+  → Processing: backfill-id-quantization-awar-20260117-224311-5d13...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-indicates-next-gen-f-20260114-153716-fbd8...
+  → Processing: backfill-initialization-event-20260116-144256-dad0...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-large-session-recove-20260115-095747-bbe9...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-management-archive-20260113-182434-19d771...
+  → Processing: backfill-memory-updated--20260114-150334-3370e4...
+  → Processing: backfill-multi-agent-orchestr-20260113-225420-4627...
+  → Processing: backfill-newsletters-on-subst-20260114-233436-d679...
+  → Processing: backfill-on-ai-employees-no-c-20260114-135258-968d...
+  → Processing: backfill-orchestration--20260116-195630-7e0a1c...
+  → Processing: backfill-orchestration-for-cl-20260114-150334-c96b...
+  → Processing: backfill-papers-n-paper-id-ti-20260116-004400-24e2...
+  → Processing: backfill-recovery-jan-12-back-20260116-230735-2397...
+  → Processing: backfill-session-from-2026-01-20260113-205030-0d7b...
+  → Processing: backfill-session-from-2026-01-20260115-175459-924a...
+  → Processing: backfill-session-from-500c6f9-20260115-175459-7af7...
+  → Processing: backfill-session-from-c5e047e-20260113-205030-64bb...
+  → Processing: backfill-shows-that-ai-doesn-20260114-233436-0f15b...
+  → Processing: backfill-started-date--20260114-233349-293c5b...
+  → Processing: backfill-storage-architecture-20260117-111637-1038...
+  → Processing: backfill-studio-focused-on-20260118-015036-15417d...
+  → Processing: backfill-subagent-research-20260114-150732-e4d425...
+  → Processing: backfill-summary-for-your-rec-20260115-221712-8825...
+  → Processing: backfill-synthesis-160-papers-20260114-225937-2bbb...
+  → Processing: backfill-the-11-apps-through--20260117-174445-fa33...
+  → Processing: backfill-the-actual-package-s-20260114-154037-75d5...
+  → Processing: backfill-they-based-ace-on--20260115-095747-71ca92...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-topics-based-on-dete-20260117-203521-e5fd...
+  → Processing: backfill-transcript-v3-20260117-235040-b3fa89...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: backfill-with-a-focus-on-real-20260115-174550-94bc...
+  → Processing: backfill-with-continuing-from-20260115-140751-6d21...
+  → Processing: backfill-with-scoring--20260114-153716-6adbd1...
+  → Processing: backfill-with-scoring--20260114-154037-6adbd1...
+  → Processing: backfill-with-scoring--20260114-163148-6adbd1...
+  → Processing: claude-terminal-auto-20260116-125858-177c3f...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: dr.-zero---self-evol-20260117-082802-6a0ec3...
+  → Processing: frontier-ai-breakthr-20260114-180021-7940dd...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: job-hunt---gtm-syste-20260115-153850-1e3908...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+  → Processing: quantization-aware-r-20260117-103429-1cb473...
+  → Processing: tesla-mixed-precisio-20260117-103010-066926...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 82
+   Papers extracted: 805
+   Tools/repos found: 749
+   Key findings: 117
+2026-01-20 18:00:18 Autonomous maintenance complete
+2026-01-21 06:00:05 Autonomous maintenance started
+
+Generated 3 modification proposals:
+
+  mod-20260121-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260121-001: Consider /clear more often - avg session is 135 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260121-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260121-000 - Modification mod-20260121-000 already applied
+  ❌ Failed: mod-20260121-001 - Modification mod-20260121-001 already applied
+Evaluated 10 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 437
+  Messages: 59699
+  Tools: 18490
+  Model usage: {'opus': 30452, 'haiku': 5112, 'sonnet': 3012}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $894 (4.5x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 765 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 765 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 43 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 18490 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $893.86 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 437 sessions: {'success': 284, 'partial': 31, 'abandoned': 122}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 15 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     437
+  Messages:     59,699
+  Tools:        18,490
+  Opus:         30,452
+  Sonnet:       3,012
+  Haiku:        5,112
+  Value:        $894
+  ROI:          4.5x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 15 days
+Tool summary: 27543 calls, 48 unique tools
+Activity timeline: 38 days, 27543 tools, 1096 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 3 days tracked
+Subscription value: $15302 (76.5x ROI)
+Complexity: avg=0.44, queries=765
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 1096 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: daed4598-c167-4adb-a8cb-1e22fbdba650.jso...
+Captured: 0 URLs, 122 findings, 8 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 3245.7 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 77 session(s) to process
+  → Processing: ai-employees---no-co-20260114-091341-cceb8a...
+  → Processing: backfill--audited-careercoach-20260115-112252-24a7...
+  → Processing: backfill--compounding--20260116-171841-dcaf19...
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--production--20260116-194459-73e6af...
+  → Processing: backfill--production-n-multi--20260114-225937-12df...
+  → Processing: backfill--production-n-multi--20260117-163541-12df...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill--rw-r-r-1-dicoangelo-20260115-112252-949d...
+  → Processing: backfill--set-currentsession--20260114-163148-418a...
+  → Processing: backfill-1-file-changed-20260117-192033-e8c211...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-3b2aa6c1-79e9-4041-b-20260116-111918-04ae...
+  → Processing: backfill-ai-powered-productiv-20260115-174550-e577...
+  → Processing: backfill-analyzer-core-engine-20260117-223421-3dda...
+  → Processing: backfill-and-development-stud-20260115-221712-b8e6...
+  → Processing: backfill-and-turning-it-into--20260117-104627-ebe2...
+  → Processing: backfill-automatically-n-capt-20260116-221357-cd4e...
+  → Processing: backfill-before-quitting-20260114-233349-a7b6ea...
+  → Processing: backfill-components-orphaned--20260114-135258-18b7...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-directions-include--20260117-102913-1c8f5...
+  → Processing: backfill-directions-include--20260117-162046-1c8f5...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-found-in-the-archive-20260117-131532-2ea5...
+  → Processing: backfill-from-old-claude-sess-20260114-233026-9262...
+  → Processing: backfill-from-old-claude-sess-20260115-205329-9262...
+  → Processing: backfill-from-old-claude-sess-20260116-082220-9262...
+  → Processing: backfill-id-quantization-awar-20260117-224311-5d13...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-indicates-next-gen-f-20260114-153716-fbd8...
+  → Processing: backfill-initialization-event-20260116-144256-dad0...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-large-session-recove-20260115-095747-bbe9...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-memory-updated--20260114-150334-3370e4...
+  → Processing: backfill-newsletters-on-subst-20260114-233436-d679...
+  → Processing: backfill-on-ai-employees-no-c-20260114-135258-968d...
+  → Processing: backfill-orchestration--20260116-195630-7e0a1c...
+  → Processing: backfill-orchestration-for-cl-20260114-150334-c96b...
+  → Processing: backfill-papers-n-paper-id-ti-20260116-004400-24e2...
+  → Processing: backfill-recovery-jan-12-back-20260116-230735-2397...
+  → Processing: backfill-session-from-2026-01-20260115-175459-924a...
+  → Processing: backfill-session-from-500c6f9-20260115-175459-7af7...
+  → Processing: backfill-shows-that-ai-doesn-20260114-233436-0f15b...
+  → Processing: backfill-started-date--20260114-233349-293c5b...
+  → Processing: backfill-storage-architecture-20260117-111637-1038...
+  → Processing: backfill-studio-focused-on-20260118-015036-15417d...
+  → Processing: backfill-subagent-research-20260114-150732-e4d425...
+  → Processing: backfill-summary-for-your-rec-20260115-221712-8825...
+  → Processing: backfill-synthesis-160-papers-20260114-225937-2bbb...
+  → Processing: backfill-the-11-apps-through--20260117-174445-fa33...
+  → Processing: backfill-the-actual-package-s-20260114-154037-75d5...
+  → Processing: backfill-they-based-ace-on--20260115-095747-71ca92...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-topics-based-on-dete-20260117-203521-e5fd...
+  → Processing: backfill-transcript-v3-20260117-235040-b3fa89...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: backfill-with-a-focus-on-real-20260115-174550-94bc...
+  → Processing: backfill-with-continuing-from-20260115-140751-6d21...
+  → Processing: backfill-with-scoring--20260114-153716-6adbd1...
+  → Processing: backfill-with-scoring--20260114-154037-6adbd1...
+  → Processing: backfill-with-scoring--20260114-163148-6adbd1...
+  → Processing: claude-terminal-auto-20260116-125858-177c3f...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: dr.-zero---self-evol-20260117-082802-6a0ec3...
+  → Processing: frontier-ai-breakthr-20260114-180021-7940dd...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: job-hunt---gtm-syste-20260115-153850-1e3908...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+  → Processing: quantization-aware-r-20260117-103429-1cb473...
+  → Processing: tesla-mixed-precisio-20260117-103010-066926...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 77
+   Papers extracted: 778
+   Tools/repos found: 677
+   Key findings: 112
+2026-01-21 06:00:42 Autonomous maintenance complete
+2026-01-21 18:00:05 Autonomous maintenance started
+
+Generated 3 modification proposals:
+
+  mod-20260121-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260121-001: Consider /clear more often - avg session is 136 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260121-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260121-000 - Modification mod-20260121-000 already applied
+  ❌ Failed: mod-20260121-001 - Modification mod-20260121-001 already applied
+Evaluated 10 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 495
+  Messages: 65987
+  Tools: 20521
+  Model usage: {'opus': 33390, 'haiku': 5986, 'sonnet': 3220}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $980 (4.9x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1128 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1128 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 46 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 20521 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $980.21 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 495 sessions: {'success': 324, 'partial': 48, 'abandoned': 123}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 15 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     495
+  Messages:     65,987
+  Tools:        20,521
+  Opus:         33,390
+  Sonnet:       3,220
+  Haiku:        5,986
+  Value:        $980
+  ROI:          4.9x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 15 days
+Tool summary: 29316 calls, 48 unique tools
+Activity timeline: 38 days, 29316 tools, 1117 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 3 days tracked
+Subscription value: $16914 (84.6x ROI)
+Complexity: avg=0.47, queries=1128
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 1118 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 3848435a-c8a9-45d1-8eeb-0daec00ebb82.jso...
+Captured: 0 URLs, 306 findings, 12 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 3965.5 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 64 session(s) to process
+  → Processing: backfill--audited-careercoach-20260115-112252-24a7...
+  → Processing: backfill--compounding--20260116-171841-dcaf19...
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--production--20260116-194459-73e6af...
+  → Processing: backfill--production-n-multi--20260114-225937-12df...
+  → Processing: backfill--production-n-multi--20260117-163541-12df...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill--rw-r-r-1-dicoangelo-20260115-112252-949d...
+  → Processing: backfill-1-file-changed-20260117-192033-e8c211...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-3b2aa6c1-79e9-4041-b-20260116-111918-04ae...
+  → Processing: backfill-ai-powered-productiv-20260115-174550-e577...
+  → Processing: backfill-analyzer-core-engine-20260117-223421-3dda...
+  → Processing: backfill-and-development-stud-20260115-221712-b8e6...
+  → Processing: backfill-and-turning-it-into--20260117-104627-ebe2...
+  → Processing: backfill-automatically-n-capt-20260116-221357-cd4e...
+  → Processing: backfill-before-quitting-20260114-233349-a7b6ea...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-directions-include--20260117-102913-1c8f5...
+  → Processing: backfill-directions-include--20260117-162046-1c8f5...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-found-in-the-archive-20260117-131532-2ea5...
+  → Processing: backfill-from-old-claude-sess-20260114-233026-9262...
+  → Processing: backfill-from-old-claude-sess-20260115-205329-9262...
+  → Processing: backfill-from-old-claude-sess-20260116-082220-9262...
+  → Processing: backfill-id-quantization-awar-20260117-224311-5d13...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-initialization-event-20260116-144256-dad0...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-large-session-recove-20260115-095747-bbe9...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-newsletters-on-subst-20260114-233436-d679...
+  → Processing: backfill-orchestration--20260116-195630-7e0a1c...
+  → Processing: backfill-papers-n-paper-id-ti-20260116-004400-24e2...
+  → Processing: backfill-recovery-jan-12-back-20260116-230735-2397...
+  → Processing: backfill-session-from-2026-01-20260115-175459-924a...
+  → Processing: backfill-session-from-500c6f9-20260115-175459-7af7...
+  → Processing: backfill-shows-that-ai-doesn-20260114-233436-0f15b...
+  → Processing: backfill-started-date--20260114-233349-293c5b...
+  → Processing: backfill-storage-architecture-20260117-111637-1038...
+  → Processing: backfill-studio-focused-on-20260118-015036-15417d...
+  → Processing: backfill-summary-for-your-rec-20260115-221712-8825...
+  → Processing: backfill-synthesis-160-papers-20260114-225937-2bbb...
+  → Processing: backfill-the-11-apps-through--20260117-174445-fa33...
+  → Processing: backfill-they-based-ace-on--20260115-095747-71ca92...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-topics-based-on-dete-20260117-203521-e5fd...
+  → Processing: backfill-transcript-v3-20260117-235040-b3fa89...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: backfill-with-a-focus-on-real-20260115-174550-94bc...
+  → Processing: backfill-with-continuing-from-20260115-140751-6d21...
+  → Processing: claude-terminal-auto-20260116-125858-177c3f...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: dr.-zero---self-evol-20260117-082802-6a0ec3...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: job-hunt---gtm-syste-20260115-153850-1e3908...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+  → Processing: quantization-aware-r-20260117-103429-1cb473...
+  → Processing: tesla-mixed-precisio-20260117-103010-066926...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 64
+   Papers extracted: 700
+   Tools/repos found: 547
+   Key findings: 102
+2026-01-21 18:00:30 Autonomous maintenance complete
+2026-01-22 06:00:05 Autonomous maintenance started
+
+Generated 3 modification proposals:
+
+  mod-20260122-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260122-001: Consider /clear more often - avg session is 131 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260122-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260122-000 - Modification mod-20260122-000 already applied
+  ❌ Failed: mod-20260122-001 - Modification mod-20260122-001 already applied
+Evaluated 13 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 519
+  Messages: 68351
+  Tools: 21219
+  Model usage: {'opus': 34814, 'haiku': 6066, 'sonnet': 3241}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,019 (5.1x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1130 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1130 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 55 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 21219 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,019.34 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 519 sessions: {'success': 343, 'partial': 50, 'abandoned': 126}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 16 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     519
+  Messages:     68,351
+  Tools:        21,219
+  Opus:         34,814
+  Sonnet:       3,241
+  Haiku:        6,066
+  Value:        $1,019
+  ROI:          5.1x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 16 days
+Tool summary: 29631 calls, 48 unique tools
+Activity timeline: 38 days, 29631 tools, 1118 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 4 days tracked
+Subscription value: $17076 (85.4x ROI)
+Complexity: avg=0.47, queries=1130
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 1118 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: d5110967-74aa-42ee-bb06-8a749c62e326.jso...
+No significant learnings to capture
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 4685.4 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 57 session(s) to process
+  → Processing: backfill--audited-careercoach-20260115-112252-24a7...
+  → Processing: backfill--compounding--20260116-171841-dcaf19...
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--production--20260116-194459-73e6af...
+  → Processing: backfill--production-n-multi--20260117-163541-12df...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill--rw-r-r-1-dicoangelo-20260115-112252-949d...
+  → Processing: backfill-1-file-changed-20260117-192033-e8c211...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-3b2aa6c1-79e9-4041-b-20260116-111918-04ae...
+  → Processing: backfill-ai-powered-productiv-20260115-174550-e577...
+  → Processing: backfill-analyzer-core-engine-20260117-223421-3dda...
+  → Processing: backfill-and-development-stud-20260115-221712-b8e6...
+  → Processing: backfill-and-turning-it-into--20260117-104627-ebe2...
+  → Processing: backfill-automatically-n-capt-20260116-221357-cd4e...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-directions-include--20260117-102913-1c8f5...
+  → Processing: backfill-directions-include--20260117-162046-1c8f5...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-found-in-the-archive-20260117-131532-2ea5...
+  → Processing: backfill-from-old-claude-sess-20260115-205329-9262...
+  → Processing: backfill-from-old-claude-sess-20260116-082220-9262...
+  → Processing: backfill-id-quantization-awar-20260117-224311-5d13...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-initialization-event-20260116-144256-dad0...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-large-session-recove-20260115-095747-bbe9...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-orchestration--20260116-195630-7e0a1c...
+  → Processing: backfill-papers-n-paper-id-ti-20260116-004400-24e2...
+  → Processing: backfill-recovery-jan-12-back-20260116-230735-2397...
+  → Processing: backfill-session-from-2026-01-20260115-175459-924a...
+  → Processing: backfill-session-from-500c6f9-20260115-175459-7af7...
+  → Processing: backfill-storage-architecture-20260117-111637-1038...
+  → Processing: backfill-studio-focused-on-20260118-015036-15417d...
+  → Processing: backfill-summary-for-your-rec-20260115-221712-8825...
+  → Processing: backfill-the-11-apps-through--20260117-174445-fa33...
+  → Processing: backfill-they-based-ace-on--20260115-095747-71ca92...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-topics-based-on-dete-20260117-203521-e5fd...
+  → Processing: backfill-transcript-v3-20260117-235040-b3fa89...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: backfill-with-a-focus-on-real-20260115-174550-94bc...
+  → Processing: backfill-with-continuing-from-20260115-140751-6d21...
+  → Processing: claude-terminal-auto-20260116-125858-177c3f...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: dr.-zero---self-evol-20260117-082802-6a0ec3...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: job-hunt---gtm-syste-20260115-153850-1e3908...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+  → Processing: quantization-aware-r-20260117-103429-1cb473...
+  → Processing: tesla-mixed-precisio-20260117-103010-066926...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 57
+   Papers extracted: 671
+   Tools/repos found: 507
+   Key findings: 100
+2026-01-22 06:00:25 Autonomous maintenance complete
+2026-01-22 18:00:05 Autonomous maintenance started
+
+Generated 3 modification proposals:
+
+  mod-20260122-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260122-001: Consider /clear more often - avg session is 131 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260122-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260122-000 - Modification mod-20260122-000 already applied
+  ❌ Failed: mod-20260122-001 - Modification mod-20260122-001 already applied
+Evaluated 13 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 536
+  Messages: 70575
+  Tools: 21921
+  Model usage: {'opus': 36007, 'haiku': 6317, 'sonnet': 3241}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,053 (5.3x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1130 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1130 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 58 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 21921 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,052.55 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 536 sessions: {'success': 357, 'partial': 53, 'abandoned': 126}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 16 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     536
+  Messages:     70,575
+  Tools:        21,921
+  Opus:         36,007
+  Sonnet:       3,241
+  Haiku:        6,317
+  Value:        $1,053
+  ROI:          5.3x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 16 days
+Tool summary: 29631 calls, 48 unique tools
+Activity timeline: 39 days, 29631 tools, 1119 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 4 days tracked
+Subscription value: $17076 (85.4x ROI)
+Complexity: avg=0.47, queries=1130
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 1130 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: cbb0ee68-a608-44c5-b3c9-1526dff97a77.jso...
+Captured: 0 URLs, 50 findings, 9 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 5405.3 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 47 session(s) to process
+  → Processing: backfill--compounding--20260116-171841-dcaf19...
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--production--20260116-194459-73e6af...
+  → Processing: backfill--production-n-multi--20260117-163541-12df...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill-1-file-changed-20260117-192033-e8c211...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-3b2aa6c1-79e9-4041-b-20260116-111918-04ae...
+  → Processing: backfill-analyzer-core-engine-20260117-223421-3dda...
+  → Processing: backfill-and-development-stud-20260115-221712-b8e6...
+  → Processing: backfill-and-turning-it-into--20260117-104627-ebe2...
+  → Processing: backfill-automatically-n-capt-20260116-221357-cd4e...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-directions-include--20260117-102913-1c8f5...
+  → Processing: backfill-directions-include--20260117-162046-1c8f5...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-found-in-the-archive-20260117-131532-2ea5...
+  → Processing: backfill-from-old-claude-sess-20260115-205329-9262...
+  → Processing: backfill-from-old-claude-sess-20260116-082220-9262...
+  → Processing: backfill-id-quantization-awar-20260117-224311-5d13...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-initialization-event-20260116-144256-dad0...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-orchestration--20260116-195630-7e0a1c...
+  → Processing: backfill-papers-n-paper-id-ti-20260116-004400-24e2...
+  → Processing: backfill-recovery-jan-12-back-20260116-230735-2397...
+  → Processing: backfill-storage-architecture-20260117-111637-1038...
+  → Processing: backfill-studio-focused-on-20260118-015036-15417d...
+  → Processing: backfill-summary-for-your-rec-20260115-221712-8825...
+  → Processing: backfill-the-11-apps-through--20260117-174445-fa33...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-topics-based-on-dete-20260117-203521-e5fd...
+  → Processing: backfill-transcript-v3-20260117-235040-b3fa89...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: claude-terminal-auto-20260116-125858-177c3f...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: dr.-zero---self-evol-20260117-082802-6a0ec3...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+  → Processing: quantization-aware-r-20260117-103429-1cb473...
+  → Processing: tesla-mixed-precisio-20260117-103010-066926...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 47
+   Papers extracted: 611
+   Tools/repos found: 410
+   Key findings: 85
+2026-01-22 18:00:22 Autonomous maintenance complete
+2026-01-23 06:00:05 Autonomous maintenance started
+
+Generated 3 modification proposals:
+
+  mod-20260123-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260123-001: Consider /clear more often - avg session is 132 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260123-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260123-000 - Modification mod-20260123-000 already applied
+  ❌ Failed: mod-20260123-001 - Modification mod-20260123-001 already applied
+Evaluated 16 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 552
+  Messages: 73049
+  Tools: 22680
+  Model usage: {'opus': 37265, 'haiku': 6685, 'sonnet': 3241}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,088 (5.4x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1134 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1134 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 67 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 22680 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,087.99 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 552 sessions: {'success': 370, 'partial': 56, 'abandoned': 126}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 17 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     552
+  Messages:     73,049
+  Tools:        22,680
+  Opus:         37,265
+  Sonnet:       3,241
+  Haiku:        6,685
+  Value:        $1,088
+  ROI:          5.4x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 17 days
+Tool summary: 29631 calls, 48 unique tools
+Activity timeline: 39 days, 29631 tools, 1135 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 5 days tracked
+Subscription value: $17084 (85.4x ROI)
+Complexity: avg=0.47, queries=1134
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 1147 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 6fe13314-25e4-4fa9-a31a-b3e70817ae5c.jso...
+No significant learnings to capture
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 6125.4 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 43 session(s) to process
+  → Processing: backfill--compounding--20260116-171841-dcaf19...
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--production--20260116-194459-73e6af...
+  → Processing: backfill--production-n-multi--20260117-163541-12df...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill-1-file-changed-20260117-192033-e8c211...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-3b2aa6c1-79e9-4041-b-20260116-111918-04ae...
+  → Processing: backfill-analyzer-core-engine-20260117-223421-3dda...
+  → Processing: backfill-and-turning-it-into--20260117-104627-ebe2...
+  → Processing: backfill-automatically-n-capt-20260116-221357-cd4e...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-directions-include--20260117-102913-1c8f5...
+  → Processing: backfill-directions-include--20260117-162046-1c8f5...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-found-in-the-archive-20260117-131532-2ea5...
+  → Processing: backfill-from-old-claude-sess-20260116-082220-9262...
+  → Processing: backfill-id-quantization-awar-20260117-224311-5d13...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-initialization-event-20260116-144256-dad0...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-orchestration--20260116-195630-7e0a1c...
+  → Processing: backfill-recovery-jan-12-back-20260116-230735-2397...
+  → Processing: backfill-storage-architecture-20260117-111637-1038...
+  → Processing: backfill-studio-focused-on-20260118-015036-15417d...
+  → Processing: backfill-the-11-apps-through--20260117-174445-fa33...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-topics-based-on-dete-20260117-203521-e5fd...
+  → Processing: backfill-transcript-v3-20260117-235040-b3fa89...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: claude-terminal-auto-20260116-125858-177c3f...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: dr.-zero---self-evol-20260117-082802-6a0ec3...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+  → Processing: quantization-aware-r-20260117-103429-1cb473...
+  → Processing: tesla-mixed-precisio-20260117-103010-066926...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 43
+   Papers extracted: 600
+   Tools/repos found: 364
+   Key findings: 80
+2026-01-23 06:00:23 Autonomous maintenance complete
+2026-01-23 18:00:05 Autonomous maintenance started
+
+Generated 4 modification proposals:
+
+  mod-20260123-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260123-001: Recalibrate DQ weights based on feedback correlation
+     Type: calibration | Target: dq-scorer.js
+     Confidence: 0.95 | Impact: Could improve routing accuracy by 10-15%
+
+  mod-20260123-002: Consider /clear more often - avg session is 137 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260123-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260123-000 - Modification mod-20260123-000 already applied
+  ❌ Failed: mod-20260123-001 - Modification mod-20260123-001 already applied
+  ✅ Auto-applied: mod-20260123-002
+
+Auto-applied 1 modifications with confidence >= 0.95
+Evaluated 17 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 588
+  Messages: 80745
+  Tools: 25317
+  Model usage: {'opus': 41347, 'haiku': 7470, 'sonnet': 3241}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,201 (6.0x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1198 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1198 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 72 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 25317 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,201.35 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 588 sessions: {'success': 403, 'partial': 58, 'abandoned': 127}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 17 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     588
+  Messages:     80,745
+  Tools:        25,317
+  Opus:         41,347
+  Sonnet:       3,241
+  Haiku:        7,470
+  Value:        $1,201
+  ROI:          6.0x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 17 days
+Tool summary: 29631 calls, 48 unique tools
+Activity timeline: 15 days, 29631 tools, 117 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 5 days tracked
+Subscription value: $17212 (86.1x ROI)
+Complexity: avg=0.46, queries=1198
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 122 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 39cfdad0-3beb-4a8e-8bf0-607b6a380663.jso...
+Captured: 0 URLs, 102 findings, 11 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 6845.7 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 38 session(s) to process
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--production--20260116-194459-73e6af...
+  → Processing: backfill--production-n-multi--20260117-163541-12df...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill-1-file-changed-20260117-192033-e8c211...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-analyzer-core-engine-20260117-223421-3dda...
+  → Processing: backfill-and-turning-it-into--20260117-104627-ebe2...
+  → Processing: backfill-automatically-n-capt-20260116-221357-cd4e...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-directions-include--20260117-102913-1c8f5...
+  → Processing: backfill-directions-include--20260117-162046-1c8f5...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-found-in-the-archive-20260117-131532-2ea5...
+  → Processing: backfill-id-quantization-awar-20260117-224311-5d13...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-orchestration--20260116-195630-7e0a1c...
+  → Processing: backfill-recovery-jan-12-back-20260116-230735-2397...
+  → Processing: backfill-storage-architecture-20260117-111637-1038...
+  → Processing: backfill-studio-focused-on-20260118-015036-15417d...
+  → Processing: backfill-the-11-apps-through--20260117-174445-fa33...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-topics-based-on-dete-20260117-203521-e5fd...
+  → Processing: backfill-transcript-v3-20260117-235040-b3fa89...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: dr.-zero---self-evol-20260117-082802-6a0ec3...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+  → Processing: quantization-aware-r-20260117-103429-1cb473...
+  → Processing: tesla-mixed-precisio-20260117-103010-066926...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 38
+   Papers extracted: 429
+   Tools/repos found: 312
+   Key findings: 65
+2026-01-23 18:00:42 Autonomous maintenance complete
+2026-01-24 18:00:02 Autonomous maintenance started
+
+Generated 4 modification proposals:
+
+  mod-20260124-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260124-001: Consider /clear more often - avg session is 142 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260124-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260124-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260124-000 - Modification mod-20260124-000 already applied
+  ❌ Failed: mod-20260124-001 - Modification mod-20260124-001 already applied
+  ❌ Failed: mod-20260124-002 - Modification mod-20260124-002 already applied
+Evaluated 21 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 641
+  Messages: 90894
+  Tools: 28685
+  Model usage: {'opus': 45887, 'haiku': 8430, 'sonnet': 4289}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,346 (6.7x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1217 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1217 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 84 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 28685 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,345.58 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 641 sessions: {'success': 450, 'partial': 61, 'abandoned': 130}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 18 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     641
+  Messages:     90,894
+  Tools:        28,685
+  Opus:         45,887
+  Sonnet:       4,289
+  Haiku:        8,430
+  Value:        $1,346
+  ROI:          6.7x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 18 days
+Tool summary: 29631 calls, 48 unique tools
+Activity timeline: 16 days, 29631 tools, 181 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 6 days tracked
+Subscription value: $17250 (86.2x ROI)
+Complexity: avg=0.46, queries=1217
+Context budget: 1603.2% utilized (32064 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 186 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 92243829-a949-442f-b9f1-de6f62cd8443.jso...
+Captured: 1 URLs, 0 findings, 10 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 8285.5 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 24 session(s) to process
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill-1-file-changed-20260117-192033-e8c211...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-analyzer-core-engine-20260117-223421-3dda...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-id-quantization-awar-20260117-224311-5d13...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-studio-focused-on-20260118-015036-15417d...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-topics-based-on-dete-20260117-203521-e5fd...
+  → Processing: backfill-transcript-v3-20260117-235040-b3fa89...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: meta-vengine-impleme-20260117-214741-afaabe...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 24
+   Papers extracted: 349
+   Tools/repos found: 160
+   Key findings: 41
+Syncing learning hub...
+
+============================================================
+  Learning Hub Weekly Sync Report
+============================================================
+
+  Key Metrics:
+    Routing DQ Score:     0.774
+    Prediction Accuracy:  85.7%
+    Recovery Success:     89.3%
+    Memories Added:       0
+    Total Decisions:      516
+
+  Cross-Domain Insights (1):
+    [+] High DQ (0.774) correlates with strong react expertise
+
+============================================================
+
+{
+  "timestamp": "2026-01-24T18:00:31.337106",
+  "expertise_levels": {
+    "react": 1.0,
+    "typescript": 1.0,
+    "architecture": 1.0,
+    "debugging": 1.0,
+    "routing": 1.0,
+    "co-evolution": 0.85,
+    "agentic-systems": 0.8,
+    "python": 1.0,
+    "testing": 1.0,
+    "git": 1.0,
+    "api": 1.0,
+    "database": 1.0,
+    "research": 1.0,
+    "agent": 1.0
+  },
+  "high_expertise_domains": [
+    "react",
+    "typescript",
+    "architecture",
+    "debugging",
+    "routing",
+    "co-evolution",
+    "agentic-systems",
+    "python",
+    "testing",
+    "git",
+    "api",
+    "database",
+    "research",
+    "agent"
+  ],
+  "low_expertise_domains": []
+}
+2026-01-24 18:00:31 Autonomous maintenance complete
+2026-01-25 06:00:05 Autonomous maintenance started
+
+Generated 4 modification proposals:
+
+  mod-20260125-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260125-001: Consider /clear more often - avg session is 141 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260125-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260125-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260125-000 - Modification mod-20260125-000 already applied
+  ❌ Failed: mod-20260125-001 - Modification mod-20260125-001 already applied
+  ❌ Failed: mod-20260125-002 - Modification mod-20260125-002 already applied
+Evaluated 25 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 648
+  Messages: 91233
+  Tools: 28810
+  Model usage: {'opus': 45905, 'haiku': 8443, 'sonnet': 4448}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,349 (6.7x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1395 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1395 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 96 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 28810 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,348.82 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 648 sessions: {'success': 456, 'partial': 61, 'abandoned': 131}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 19 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     648
+  Messages:     91,233
+  Tools:        28,810
+  Opus:         45,905
+  Sonnet:       4,448
+  Haiku:        8,443
+  Value:        $1,349
+  ROI:          6.7x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 19 days
+Tool summary: 40060 calls, 57 unique tools
+Activity timeline: 16 days, 40060 tools, 204 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 7 days tracked
+Subscription value: $22820 (114.1x ROI)
+Complexity: avg=0.46, queries=1395
+Context budget: 3219.1% utilized (64383 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 204 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 36f7e68a-4593-45d7-9746-5c7d883f7c05.jso...
+Captured: 1 URLs, 0 findings, 0 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 9005.9 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 17 session(s) to process
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-to-researchgravity-a-20260118-153515-8fde...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: context-packs-2.0:-a-20260118-122728-1b1cbe...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 17
+   Papers extracted: 181
+   Tools/repos found: 70
+   Key findings: 20
+Syncing learning hub...
+
+============================================================
+  Learning Hub Weekly Sync Report
+============================================================
+
+  Key Metrics:
+    Routing DQ Score:     0.791
+    Prediction Accuracy:  88.9%
+    Recovery Success:     89.3%
+    Memories Added:       0
+    Total Decisions:      612
+
+  Cross-Domain Insights (1):
+    [+] High DQ (0.791) correlates with strong react expertise
+
+============================================================
+
+{
+  "timestamp": "2026-01-25T06:00:57.315126",
+  "expertise_levels": {
+    "react": 1.0,
+    "typescript": 1.0,
+    "architecture": 1.0,
+    "debugging": 1.0,
+    "routing": 1.0,
+    "co-evolution": 0.85,
+    "agentic-systems": 0.8,
+    "python": 1.0,
+    "testing": 1.0,
+    "git": 1.0,
+    "api": 1.0,
+    "database": 1.0,
+    "research": 1.0,
+    "agent": 1.0
+  },
+  "high_expertise_domains": [
+    "react",
+    "typescript",
+    "architecture",
+    "debugging",
+    "routing",
+    "co-evolution",
+    "agentic-systems",
+    "python",
+    "testing",
+    "git",
+    "api",
+    "database",
+    "research",
+    "agent"
+  ],
+  "low_expertise_domains": []
+}
+2026-01-25 06:00:57 Autonomous maintenance complete
+2026-01-25 18:00:05 Autonomous maintenance started
+
+Generated 4 modification proposals:
+
+  mod-20260125-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260125-001: Consider /clear more often - avg session is 141 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260125-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260125-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260125-000 - Modification mod-20260125-000 already applied
+  ❌ Failed: mod-20260125-001 - Modification mod-20260125-001 already applied
+  ❌ Failed: mod-20260125-002 - Modification mod-20260125-002 already applied
+Evaluated 25 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 648
+  Messages: 91233
+  Tools: 28810
+  Model usage: {'opus': 45905, 'haiku': 8443, 'sonnet': 4448}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,349 (6.7x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1395 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1395 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 100 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 28810 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,348.82 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 648 sessions: {'success': 456, 'partial': 61, 'abandoned': 131}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 19 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     648
+  Messages:     91,233
+  Tools:        28,810
+  Opus:         45,905
+  Sonnet:       4,448
+  Haiku:        8,443
+  Value:        $1,349
+  ROI:          6.7x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 19 days
+Tool summary: 40060 calls, 57 unique tools
+Activity timeline: 16 days, 40060 tools, 204 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 7 days tracked
+Subscription value: $22820 (114.1x ROI)
+Complexity: avg=0.46, queries=1395
+Context budget: 3219.1% utilized (64383 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 204 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 36f7e68a-4593-45d7-9746-5c7d883f7c05.jso...
+Captured: 1 URLs, 0 findings, 0 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 9725.5 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 15 session(s) to process
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill-15-uni-ai-query-one--20260119-010410-e84a...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+  → Processing: backfill-topic-llm-query-rout-20260119-034738-9a2f...
+  → Processing: backfill-where-we-left-off-20260119-042140-a1a488...
+  → Processing: hsrgs---homeomorphic-20260118-225347-6ee5f8...
+  → Processing: llm-query-routing----20260118-213119-bc931a...
+  → Processing: pitch-deck-developme-20260118-235502-6d573d...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 15
+   Papers extracted: 152
+   Tools/repos found: 59
+   Key findings: 20
+Syncing learning hub...
+
+============================================================
+  Learning Hub Weekly Sync Report
+============================================================
+
+  Key Metrics:
+    Routing DQ Score:     0.753
+    Prediction Accuracy:  88.9%
+    Recovery Success:     89.3%
+    Memories Added:       0
+    Total Decisions:      481
+
+  Cross-Domain Insights (1):
+    [+] High DQ (0.753) correlates with strong react expertise
+
+============================================================
+
+{
+  "timestamp": "2026-01-25T18:00:30.639997",
+  "expertise_levels": {
+    "react": 1.0,
+    "typescript": 1.0,
+    "architecture": 1.0,
+    "debugging": 1.0,
+    "routing": 1.0,
+    "co-evolution": 0.85,
+    "agentic-systems": 0.8,
+    "python": 1.0,
+    "testing": 1.0,
+    "git": 1.0,
+    "api": 1.0,
+    "database": 1.0,
+    "research": 1.0,
+    "agent": 1.0
+  },
+  "high_expertise_domains": [
+    "react",
+    "typescript",
+    "architecture",
+    "debugging",
+    "routing",
+    "co-evolution",
+    "agentic-systems",
+    "python",
+    "testing",
+    "git",
+    "api",
+    "database",
+    "research",
+    "agent"
+  ],
+  "low_expertise_domains": []
+}
+2026-01-25 18:00:30 Autonomous maintenance complete
+2026-01-26 06:00:04 Autonomous maintenance started
+
+Generated 4 modification proposals:
+
+  mod-20260126-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260126-001: Consider /clear more often - avg session is 146 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260126-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260126-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260126-000 - Modification mod-20260126-000 already applied
+  ❌ Failed: mod-20260126-001 - Modification mod-20260126-001 already applied
+  ❌ Failed: mod-20260126-002 - Modification mod-20260126-002 already applied
+Evaluated 29 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+  ⚠️ mod-20260126-000: +0.00% improvement
+  ⚠️ mod-20260126-001: +0.00% improvement
+  ⚠️ mod-20260126-002: +0.00% improvement
+  ⚠️ mod-20260126-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 671
+  Messages: 98262
+  Tools: 31026
+  Model usage: {'opus': 48710, 'haiku': 9065, 'sonnet': 5639}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,447 (7.2x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1590 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1590 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 112 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 31026 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,447.29 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 671 sessions: {'success': 479, 'partial': 61, 'abandoned': 131}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 20 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     671
+  Messages:     98,262
+  Tools:        31,026
+  Opus:         48,710
+  Sonnet:       5,639
+  Haiku:        9,065
+  Value:        $1,447
+  ROI:          7.2x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 20 days
+Tool summary: 56489 calls, 61 unique tools
+Activity timeline: 18 days, 56489 tools, 266 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 8 days tracked
+Subscription value: $31424 (157.1x ROI)
+Complexity: avg=0.47, queries=1590
+Context budget: 4028.5% utilized (80569 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 266 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 811a4826-60d5-407f-8f68-13c1fc0551c0.jso...
+Captured: 1 URLs, 372 findings, 5 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 10445.5 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 9 session(s) to process
+  → Processing: backfill--get-session-summary-20260119-083932-49b4...
+  → Processing: backfill--real-time-voice-n-n-20260119-174108-7b4f...
+  → Processing: backfill-data-extraction-to-c-20260119-134858-acb2...
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 9
+   Papers extracted: 17
+   Tools/repos found: 26
+   Key findings: 14
+Syncing learning hub...
+
+============================================================
+  Learning Hub Weekly Sync Report
+============================================================
+
+  Key Metrics:
+    Routing DQ Score:     0.719
+    Prediction Accuracy:  90.0%
+    Recovery Success:     89.3%
+    Memories Added:       0
+    Total Decisions:      574
+
+  Cross-Domain Insights (1):
+    [+] High DQ (0.719) correlates with strong react expertise
+
+============================================================
+
+{
+  "timestamp": "2026-01-26T06:00:30.838303",
+  "expertise_levels": {
+    "react": 1.0,
+    "typescript": 1.0,
+    "architecture": 1.0,
+    "debugging": 1.0,
+    "routing": 1.0,
+    "co-evolution": 0.85,
+    "agentic-systems": 0.8,
+    "python": 1.0,
+    "testing": 1.0,
+    "git": 1.0,
+    "api": 1.0,
+    "database": 1.0,
+    "research": 1.0,
+    "agent": 1.0
+  },
+  "high_expertise_domains": [
+    "react",
+    "typescript",
+    "architecture",
+    "debugging",
+    "routing",
+    "co-evolution",
+    "agentic-systems",
+    "python",
+    "testing",
+    "git",
+    "api",
+    "database",
+    "research",
+    "agent"
+  ],
+  "low_expertise_domains": []
+}
+2026-01-26 06:00:30 Autonomous maintenance complete
+2026-01-26 18:00:05 Autonomous maintenance started
+
+Generated 4 modification proposals:
+
+  mod-20260126-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260126-001: Consider /clear more often - avg session is 150 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260126-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260126-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260126-000 - Modification mod-20260126-000 already applied
+  ❌ Failed: mod-20260126-001 - Modification mod-20260126-001 already applied
+  ❌ Failed: mod-20260126-002 - Modification mod-20260126-002 already applied
+Evaluated 29 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+  ⚠️ mod-20260126-000: +0.00% improvement
+  ⚠️ mod-20260126-001: +0.00% improvement
+  ⚠️ mod-20260126-002: +0.00% improvement
+  ⚠️ mod-20260126-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 672
+  Messages: 100618
+  Tools: 31717
+  Model usage: {'opus': 49217, 'haiku': 9100, 'sonnet': 6696}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,479 (7.4x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1590 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1590 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 116 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 31717 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,479.09 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 672 sessions: {'success': 480, 'partial': 61, 'abandoned': 131}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 20 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     672
+  Messages:     100,618
+  Tools:        31,717
+  Opus:         49,217
+  Sonnet:       6,696
+  Haiku:        9,100
+  Value:        $1,479
+  ROI:          7.4x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 20 days
+Tool summary: 57794 calls, 61 unique tools
+Activity timeline: 18 days, 57794 tools, 268 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 8 days tracked
+Subscription value: $32077 (160.4x ROI)
+Complexity: avg=0.47, queries=1590
+Context budget: 4028.5% utilized (80569 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 273 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 2d06203e-e522-43c4-8e18-787002ba3cba.jso...
+No significant learnings to capture
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 11165.8 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 6 session(s) to process
+  → Processing: backfill-domain-pack-20260119-182044-e6c336...
+  → Processing: backfill-drwxr-xr-x-5-dicoang-20260119-225147-8b62...
+  → Processing: backfill-id-to-validate-20260119-233314-ed4c64...
+  → Processing: backfill-knowledge-evolution--20260119-224046-e080...
+  → Processing: backfill-management-archival--20260119-202910-2ee5...
+  → Processing: backfill-to-understand-the-cu-20260119-221530-b432...
+
+✅ Learnings written to: /Users/dicoangelo/.agent-core/memory/learnings.md
+
+📊 Summary:
+   Sessions processed: 6
+   Papers extracted: 10
+   Tools/repos found: 21
+   Key findings: 7
+Syncing learning hub...
+
+============================================================
+  Learning Hub Weekly Sync Report
+============================================================
+
+  Key Metrics:
+    Routing DQ Score:     0.730
+    Prediction Accuracy:  90.0%
+    Recovery Success:     89.3%
+    Memories Added:       0
+    Total Decisions:      523
+
+  Cross-Domain Insights (1):
+    [+] High DQ (0.73) correlates with strong react expertise
+
+============================================================
+
+{
+  "timestamp": "2026-01-26T18:00:50.787002",
+  "expertise_levels": {
+    "react": 1.0,
+    "typescript": 1.0,
+    "architecture": 1.0,
+    "debugging": 1.0,
+    "routing": 1.0,
+    "co-evolution": 0.85,
+    "agentic-systems": 0.8,
+    "python": 1.0,
+    "testing": 1.0,
+    "git": 1.0,
+    "api": 1.0,
+    "database": 1.0,
+    "research": 1.0,
+    "agent": 1.0
+  },
+  "high_expertise_domains": [
+    "react",
+    "typescript",
+    "architecture",
+    "debugging",
+    "routing",
+    "co-evolution",
+    "agentic-systems",
+    "python",
+    "testing",
+    "git",
+    "api",
+    "database",
+    "research",
+    "agent"
+  ],
+  "low_expertise_domains": []
+}
+2026-01-26 18:00:50 Autonomous maintenance complete
+2026-01-27 06:00:04 Autonomous maintenance started
+
+Generated 4 modification proposals:
+
+  mod-20260127-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260127-001: Consider /clear more often - avg session is 150 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260127-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260127-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260127-000 - Modification mod-20260127-000 already applied
+  ❌ Failed: mod-20260127-001 - Modification mod-20260127-001 already applied
+  ❌ Failed: mod-20260127-002 - Modification mod-20260127-002 already applied
+Evaluated 33 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+  ⚠️ mod-20260126-000: +0.00% improvement
+  ⚠️ mod-20260126-001: +0.00% improvement
+  ⚠️ mod-20260126-002: +0.00% improvement
+  ⚠️ mod-20260126-claude-md: +0.00% improvement
+  ⚠️ mod-20260127-000: +0.00% improvement
+  ⚠️ mod-20260127-001: +0.00% improvement
+  ⚠️ mod-20260127-002: +0.00% improvement
+  ⚠️ mod-20260127-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 684
+  Messages: 102930
+  Tools: 32354
+  Model usage: {'opus': 49964, 'haiku': 9367, 'sonnet': 7214}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,509 (7.5x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1590 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1590 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 128 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 32354 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,509.13 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 684 sessions: {'success': 490, 'partial': 63, 'abandoned': 131}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 21 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     684
+  Messages:     102,930
+  Tools:        32,354
+  Opus:         49,964
+  Sonnet:       7,214
+  Haiku:        9,367
+  Value:        $1,509
+  ROI:          7.5x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 21 days
+Tool summary: 58964 calls, 61 unique tools
+Activity timeline: 19 days, 58964 tools, 273 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 9 days tracked
+Subscription value: $32662 (163.3x ROI)
+Complexity: avg=0.47, queries=1590
+Context budget: 4028.5% utilized (80569 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 273 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: 30a27963-8b77-4e0c-a04d-29d57ccaf840.jso...
+Captured: 9 URLs, 97 findings, 8 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 11885.5 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 0 session(s) to process
+No sessions to process
+Syncing learning hub...
+
+============================================================
+  Learning Hub Weekly Sync Report
+============================================================
+
+  Key Metrics:
+    Routing DQ Score:     0.732
+    Prediction Accuracy:  85.0%
+    Recovery Success:     89.3%
+    Memories Added:       0
+    Total Decisions:      491
+
+  Cross-Domain Insights (1):
+    [+] High DQ (0.732) correlates with strong react expertise
+
+============================================================
+
+{
+  "timestamp": "2026-01-27T06:00:33.765386",
+  "expertise_levels": {
+    "react": 1.0,
+    "typescript": 1.0,
+    "architecture": 1.0,
+    "debugging": 1.0,
+    "routing": 1.0,
+    "co-evolution": 0.85,
+    "agentic-systems": 0.8,
+    "python": 1.0,
+    "testing": 1.0,
+    "git": 1.0,
+    "api": 1.0,
+    "database": 1.0,
+    "research": 1.0,
+    "agent": 1.0
+  },
+  "high_expertise_domains": [
+    "react",
+    "typescript",
+    "architecture",
+    "debugging",
+    "routing",
+    "co-evolution",
+    "agentic-systems",
+    "python",
+    "testing",
+    "git",
+    "api",
+    "database",
+    "research",
+    "agent"
+  ],
+  "low_expertise_domains": []
+}
+2026-01-27 06:00:33 Autonomous maintenance complete
+2026-01-27 18:00:05 Autonomous maintenance started
+
+Generated 4 modification proposals:
+
+  mod-20260127-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260127-001: Consider /clear more often - avg session is 150 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260127-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260127-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ❌ Failed: mod-20260127-000 - Modification mod-20260127-000 already applied
+  ❌ Failed: mod-20260127-001 - Modification mod-20260127-001 already applied
+  ❌ Failed: mod-20260127-002 - Modification mod-20260127-002 already applied
+Evaluated 33 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+  ⚠️ mod-20260126-000: +0.00% improvement
+  ⚠️ mod-20260126-001: +0.00% improvement
+  ⚠️ mod-20260126-002: +0.00% improvement
+  ⚠️ mod-20260126-claude-md: +0.00% improvement
+  ⚠️ mod-20260127-000: +0.00% improvement
+  ⚠️ mod-20260127-001: +0.00% improvement
+  ⚠️ mod-20260127-002: +0.00% improvement
+  ⚠️ mod-20260127-claude-md: +0.00% improvement
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 692
+  Messages: 103579
+  Tools: 32558
+  Model usage: {'opus': 50084, 'haiku': 9483, 'sonnet': 7384}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,516 (7.6x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1591 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1591 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 132 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 32558 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,515.73 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 692 sessions: {'success': 497, 'partial': 64, 'abandoned': 131}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 21 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     692
+  Messages:     103,579
+  Tools:        32,558
+  Opus:         50,084
+  Sonnet:       7,384
+  Haiku:        9,483
+  Value:        $1,516
+  ROI:          7.6x
+
+═══════════════════════════════════════════════════════════════
+ANALYTICS AUTO-SYNC
+═══════════════════════════════════════════════════════════════
+Stats cache updated: 21 days
+Tool summary: 59324 calls, 61 unique tools
+Activity timeline: 19 days, 59324 tools, 273 commits
+
+═══════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════
+KERNEL FEEDER - Bulk Data Injection
+═══════════════════════════════════════════════════════════════
+
+Updated activity: 9 days tracked
+Subscription value: $32844 (164.2x ROI)
+Complexity: avg=0.47, queries=1591
+Context budget: 4028.5% utilized (80569 messages)
+Token cache: 0 entries, ~0 tokens
+Git activity: 273 commits tracked
+
+═══════════════════════════════════════════════════════════════
+All kernel systems fed successfully
+═══════════════════════════════════════════════════════════════
+Processing: db161748-3cdb-4ee7-a8dd-0d2db7f41416.jso...
+Captured: 3 URLs, 596 findings, 4 unique tools
+
+🔬 Evidence Layer Processing...
+
+🔎 Critic System Validation...
+   ⚠️ Confidence: 18.7%
+      Archive: 11.2%
+      Evidence: 30.0%
+   Issues (6):
+      → [MISSING_REQUIRED_FILE] Required file missing: urls_captured.json
+      → [MISSING_REQUIRED_FILE] Required file missing: findings_captured.json
+      → [NO_FINDINGS] No findings captured in archive
+✅ Session archived: pitch-deck-developme-20260118-235502-6d573d
+📁 Location: /Users/dicoangelo/.agent-core/sessions/pitch-deck-developme-20260118-235502-6d573d
+📝 Learnings extracted: 0
+🔗 URLs logged: 0 total
+⏱️  Duration: 12605.4 minutes
+🔎 Critic: ⚠️ Needs Review (0.19 confidence)
+
+To revisit: /recall pitch-deck-development
+To continue: --continue pitch-deck-developme-20260118-235502-6d573d
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/dicoangelo/researchgravity/arxiv_sync.py': [Errno 2] No such file or directory
+ResearchGravity — Learnings Backfill
+==================================================
+📂 Found 0 session(s) to process
+No sessions to process
+Syncing learning hub...
+
+============================================================
+  Learning Hub Weekly Sync Report
+============================================================
+
+  Key Metrics:
+    Routing DQ Score:     0.733
+    Prediction Accuracy:  85.0%
+    Recovery Success:     89.3%
+    Memories Added:       0
+    Total Decisions:      492
+
+  Cross-Domain Insights (1):
+    [+] High DQ (0.733) correlates with strong react expertise
+
+============================================================
+
+{
+  "timestamp": "2026-01-27T18:00:28.572967",
+  "expertise_levels": {
+    "react": 1.0,
+    "typescript": 1.0,
+    "architecture": 1.0,
+    "debugging": 1.0,
+    "routing": 1.0,
+    "co-evolution": 0.85,
+    "agentic-systems": 0.8,
+    "python": 1.0,
+    "testing": 1.0,
+    "git": 1.0,
+    "api": 1.0,
+    "database": 1.0,
+    "research": 1.0,
+    "agent": 1.0
+  },
+  "high_expertise_domains": [
+    "react",
+    "typescript",
+    "architecture",
+    "debugging",
+    "routing",
+    "co-evolution",
+    "agentic-systems",
+    "python",
+    "testing",
+    "git",
+    "api",
+    "database",
+    "research",
+    "agent"
+  ],
+  "low_expertise_domains": []
+}
+2026-01-27 18:00:28 Autonomous maintenance complete

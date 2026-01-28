@@ -1,0 +1,272 @@
+{
+  "generated": "2026-01-28T01:59:56.907431",
+  "total_sessions": 543,
+  "all_time": {
+    "implementation": 161,
+    "research": 185,
+    "review": 45,
+    "architecture": 104,
+    "documentation": 20,
+    "debugging": 8,
+    "testing": 18,
+    "optimization": 1,
+    "learning": 1
+  },
+  "daily": {
+    "2026-01-09": {
+      "implementation": 5,
+      "research": 2,
+      "documentation": 2,
+      "review": 1
+    },
+    "2026-01-10": {
+      "implementation": 3,
+      "documentation": 1
+    },
+    "2026-01-11": {
+      "implementation": 3,
+      "research": 1
+    },
+    "2026-01-12": {
+      "architecture": 1,
+      "implementation": 5,
+      "documentation": 2,
+      "research": 4
+    },
+    "2026-01-13": {
+      "implementation": 6,
+      "research": 2,
+      "review": 1,
+      "architecture": 2,
+      "testing": 1
+    },
+    "2026-01-14": {
+      "documentation": 10,
+      "research": 12,
+      "implementation": 12,
+      "testing": 1
+    },
+    "2026-01-15": {
+      "implementation": 6,
+      "architecture": 1,
+      "review": 1,
+      "research": 3
+    },
+    "2026-01-16": {
+      "implementation": 5,
+      "architecture": 4,
+      "review": 2,
+      "research": 19
+    },
+    "2026-01-17": {
+      "research": 15,
+      "implementation": 16,
+      "review": 9,
+      "architecture": 2
+    },
+    "2026-01-18": {
+      "implementation": 8,
+      "documentation": 1,
+      "architecture": 6,
+      "optimization": 1,
+      "research": 8,
+      "review": 1
+    },
+    "2026-01-19": {
+      "architecture": 12,
+      "review": 3,
+      "implementation": 11,
+      "research": 22,
+      "documentation": 1
+    },
+    "2026-01-20": {
+      "architecture": 4,
+      "review": 3,
+      "implementation": 5,
+      "documentation": 1,
+      "research": 9
+    },
+    "2026-01-21": {
+      "implementation": 26,
+      "architecture": 26,
+      "research": 44,
+      "review": 5,
+      "debugging": 4,
+      "learning": 1
+    },
+    "2026-01-22": {
+      "implementation": 22,
+      "review": 6,
+      "architecture": 4,
+      "research": 14,
+      "documentation": 2
+    },
+    "2026-01-23": {
+      "architecture": 17,
+      "implementation": 10,
+      "review": 6,
+      "debugging": 4,
+      "research": 10
+    },
+    "2026-01-24": {
+      "architecture": 17,
+      "review": 5,
+      "implementation": 9,
+      "research": 8,
+      "testing": 2
+    },
+    "2026-01-25": {
+      "implementation": 3,
+      "research": 2,
+      "architecture": 1
+    },
+    "2026-01-26": {
+      "implementation": 6,
+      "architecture": 7,
+      "review": 2,
+      "research": 9,
+      "testing": 3
+    },
+    "2026-01-27": {
+      "testing": 9,
+      "research": 1
+    },
+    "2026-01-28": {
+      "testing": 2
+    }
+  },
+  "weekly": {
+    "2026-01-05": {
+      "implementation": 11,
+      "research": 3,
+      "documentation": 3,
+      "review": 1
+    },
+    "2026-01-12": {
+      "implementation": 58,
+      "documentation": 13,
+      "research": 63,
+      "architecture": 16,
+      "review": 14,
+      "optimization": 1,
+      "testing": 2
+    },
+    "2026-01-19": {
+      "implementation": 86,
+      "review": 28,
+      "architecture": 81,
+      "research": 109,
+      "documentation": 4,
+      "debugging": 8,
+      "testing": 2,
+      "learning": 1
+    },
+    "2026-01-26": {
+      "implementation": 6,
+      "architecture": 7,
+      "review": 2,
+      "research": 10,
+      "testing": 14
+    }
+  },
+  "pattern_definitions": {
+    "architecture": {
+      "name": "Architecture Design",
+      "icon": "\ud83c\udfd7\ufe0f"
+    },
+    "research": {
+      "name": "Research Session",
+      "icon": "\ud83d\udcda"
+    },
+    "debugging": {
+      "name": "Debugging",
+      "icon": "\ud83d\udc1b"
+    },
+    "testing": {
+      "name": "Testing",
+      "icon": "\ud83e\uddea"
+    },
+    "implementation": {
+      "name": "Implementation",
+      "icon": "\u2699\ufe0f"
+    },
+    "deployment": {
+      "name": "Deployment",
+      "icon": "\ud83d\ude80"
+    },
+    "documentation": {
+      "name": "Documentation",
+      "icon": "\ud83d\udcdd"
+    },
+    "review": {
+      "name": "Code Review",
+      "icon": "\ud83d\udc40"
+    },
+    "learning": {
+      "name": "Learning",
+      "icon": "\ud83c\udf93"
+    },
+    "optimization": {
+      "name": "Optimization",
+      "icon": "\u26a1"
+    }
+  },
+  "percentages": {
+    "implementation": 29.7,
+    "research": 34.1,
+    "review": 8.3,
+    "architecture": 19.2,
+    "documentation": 3.7,
+    "debugging": 1.5,
+    "testing": 3.3,
+    "optimization": 0.2,
+    "learning": 0.2
+  },
+  "top_patterns": [
+    {
+      "id": "research",
+      "count": 185,
+      "percentage": 34.1
+    },
+    {
+      "id": "implementation",
+      "count": 161,
+      "percentage": 29.7
+    },
+    {
+      "id": "architecture",
+      "count": 104,
+      "percentage": 19.2
+    },
+    {
+      "id": "review",
+      "count": 45,
+      "percentage": 8.3
+    },
+    {
+      "id": "documentation",
+      "count": 20,
+      "percentage": 3.7
+    },
+    {
+      "id": "testing",
+      "count": 18,
+      "percentage": 3.3
+    },
+    {
+      "id": "debugging",
+      "count": 8,
+      "percentage": 1.5
+    },
+    {
+      "id": "optimization",
+      "count": 1,
+      "percentage": 0.2
+    },
+    {
+      "id": "learning",
+      "count": 1,
+      "percentage": 0.2
+    }
+  ]
+}

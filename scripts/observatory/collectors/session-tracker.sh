@@ -51,23 +51,29 @@ session-complete() {
     esac
   fi
 
-  # Build entry
-  local entry=$(cat <<EOF
-{
-  "ts": $end_time,
-  "event": "session_complete",
-  "session_id": "$OBSERVATORY_SESSION_ID",
-  "outcome": "$outcome",
-  "quality": $quality,
-  "duration_sec": $duration,
-  "note": "$note",
-  "pwd": "$OBSERVATORY_SESSION_PWD",
-  "model": "$OBSERVATORY_SESSION_MODEL"
-}
-EOF
-)
+  # Build entry (single-line JSON for JSONL format)
+  local entry="{\"ts\":$end_time,\"event\":\"session_complete\",\"session_id\":\"$OBSERVATORY_SESSION_ID\",\"outcome\":\"$outcome\",\"quality\":$quality,\"duration_sec\":$duration,\"note\":\"$note\",\"pwd\":\"$OBSERVATORY_SESSION_PWD\",\"model\":\"$OBSERVATORY_SESSION_MODEL\"}"
 
   echo "$entry" >> "$DATA_FILE"
+
+  # Also write to SQLite via dual-write library
+  python3 << PYEOF 2>/dev/null || true
+import sys
+sys.path.insert(0, '$HOME/.claude/hooks')
+from dual_write_lib import log_session_outcome
+
+log_session_outcome(
+    session_id="$OBSERVATORY_SESSION_ID",
+    messages=0,  # Not tracked in observatory
+    tools=0,     # Not tracked in observatory
+    title="$note",
+    intent="$outcome",
+    outcome="$outcome",
+    model_efficiency=0.0,  # Not tracked in observatory
+    models_used={"$OBSERVATORY_SESSION_MODEL": 1},
+    quality=$quality
+)
+PYEOF
 
   # Store in memory-linker if there's a meaningful note
   local MEMORY_LINKER="$HOME/.claude/kernel/memory-linker.js"

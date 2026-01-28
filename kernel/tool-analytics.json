@@ -1,0 +1,53 @@
+{
+  "overallSuccess": 98.5,
+  "totalCommands": 32889,
+  "bashSuccess": 97.0,
+  "testSuccess": 95.0,
+  "toolBreakdown": [
+    [
+      "Bash",
+      6906
+    ],
+    [
+      "Read",
+      3617
+    ],
+    [
+      "Edit",
+      1644
+    ],
+    [
+      "TodoWrite",
+      1118
+    ],
+    [
+      "Write",
+      822
+    ],
+    [
+      "WebSearch",
+      559
+    ],
+    [
+      "Glob",
+      493
+    ],
+    [
+      "Grep",
+      427
+    ],
+    [
+      "WebFetch",
+      427
+    ],
+    [
+      "Task",
+      131
+    ],
+    [
+      "AskUserQuestion",
+      32
+    ]
+  ],
+  "updated": "2026-01-28T03:51:25.252603"
+}

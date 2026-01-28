@@ -1,0 +1,9 @@
+{
+  "id": "2",
+  "subject": "Commit Supabase voice persistence code",
+  "description": "Commit the supabaseService.ts and orchestrator.ts changes that wire voice transcripts to Supabase. Files: services/supabaseService.ts (new), services/voiceNexus/orchestrator.ts (updated with voiceStorage import and persistTranscript changes).",
+  "activeForm": "Committing Supabase integration",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

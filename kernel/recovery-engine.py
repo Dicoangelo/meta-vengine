@@ -228,6 +228,20 @@ class RecoveryEngine:
         try:
             with open(outcomes_file, "a") as f:
                 f.write(json.dumps(outcome) + "\n")
+
+            # Also write to SQLite via dual-write library
+            import sys
+            sys.path.insert(0, str(HOME / ".claude/hooks"))
+            from dual_write_lib import log_recovery_outcome
+
+            log_recovery_outcome(
+                category=category,
+                action=action,
+                auto=auto,
+                success=result.get("success", False),
+                error_hash=outcome["error_hash"],
+                details=outcome["details"]
+            )
         except Exception:
             pass
 

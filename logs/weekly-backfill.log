@@ -1,0 +1,212 @@
+[2026-01-25 03:00:05] === Weekly Backfill Started ===
+[2026-01-25 03:00:05] Running backfill-patterns...
+Loaded 648 sessions
+Detected patterns in 504 sessions
+Wrote pattern history to /Users/dicoangelo/.claude/kernel/pattern-history.jsonl
+Wrote pattern trends to /Users/dicoangelo/.claude/kernel/pattern-trends.json
+Updated detected-patterns.json with historical data
+
+==================================================
+PATTERN BACKFILL SUMMARY
+==================================================
+Sessions analyzed: 504
+Date range: 2026-01-09 to 2026-01-25
+
+Top patterns (all time):
+  📚 Research Session: 175 sessions (34.7%)
+  ⚙️ Implementation: 155 sessions (30.8%)
+  🏗️ Architecture Design: 97 sessions (19.2%)
+  👀 Code Review: 43 sessions (8.5%)
+  📝 Documentation: 20 sessions (4.0%)
+[2026-01-25 03:00:05] Running backfill-routing...
+Existing DQ entries: 508
+Sessions to process: 648
+New entries to add: 176
+
+==================================================
+ROUTING BACKFILL SUMMARY
+==================================================
+New entries added: 176
+Total DQ entries: 684
+
+Model distribution (new entries):
+  haiku: 91 (51.7%)
+  opus: 61 (34.7%)
+  sonnet: 24 (13.6%)
+[2026-01-25 03:00:05] Running backfill-tool-usage...
+============================================================
+TOOL USAGE & SESSION BACKFILL
+============================================================
+
+Extracting from transcripts...
+Found 654 transcript files
+Processed 200 transcripts
+  Tool events: 10429
+  Session events: 200
+  Command events: 8
+  Days with activity: 6
+
+Writing backfill data...
+Added 10429 tool usage events
+Added 200 session events
+Added 8 command events
+Created activity timeline with 6 days
+
+============================================================
+BACKFILL COMPLETE
+============================================================
+[2026-01-25 03:00:07] Running backfill-cognitive-data...
+
+============================================================
+  Cognitive OS Data Backfill
+============================================================
+
+📊 Backfilling flow history...
+   ✓ Generated 200 flow history entries
+📅 Backfilling weekly energy map...
+   ✓ Generated weekly energy map: {'Monday': 0.6, 'Tuesday': 0.66, 'Wednesday': 0.8, 'Thursday': 0.73, 'Friday': 0.68, 'Saturday': 0.71, 'Sunday': 0.62}
+🎯 Backfilling routing decisions...
+   ✓ Generated 500 routing decisions
+🔮 Backfilling fate predictions with actuals...
+   ✓ Generated 300 fate predictions (accuracy: 91.7%)
+🧠 Updating current state...
+   ✓ Current state: deep_night (focus: 0.62)
+
+============================================================
+  Summary
+============================================================
+  Flow History:      200 entries
+  Weekly Energy:     7 days
+  Routing Decisions: 500 entries
+  Fate Predictions:  300 entries
+  Fate Accuracy:     91.7%
+
+✅ Backfill complete!
+   Data written to: /Users/dicoangelo/.claude/kernel/cognitive-os
+[2026-01-25 03:00:08] Running backfill-recovery-data...
+📊 Found 148 existing recovery outcomes
+📂 Found 139 historical errors
+✨ Generated 0 new recovery outcomes
+ℹ️  No new outcomes to write
+
+📊 Recovery Outcomes Summary
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total: 150
+Auto-fixed: 129 (86.0%)
+Success rate: 89.3%
+
+By category:
+  git: 118
+  permissions: 11
+  concurrency: 11
+  quota: 4
+  crash: 3
+  syntax: 2
+  recursion: 1
+[2026-01-25 03:00:08] Cleaning old logs...
+[2026-01-25 03:00:08] Compacting JSONL files...
+Cleaning /Users/dicoangelo/.claude/data/activity-events.jsonl
+✅ Kept 7394 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/applied-notes.jsonl
+✅ Kept 17 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/command-usage.jsonl
+✅ Kept 175 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/cost-tracking.jsonl
+✅ Kept 643 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/errors.jsonl
+✅ Kept 139 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/git-activity.jsonl
+  Removing: ,"msg":"feat(hardware): Add real market data integration for...
+  Removing: {"ts":1768692976,"repo":"OS-App","hash":"7980542","msg":"fea...
+  Removing: {"ts":1769004542,"repo":"OS-App","hash":"ccda580","msg":"fix...
+  Removing: {"ts":1769209298,"repo":"OS-App","hash":"33b4597"enhancement...
+  Removing: b"}...
+✅ Kept 204 valid entries, removed 5 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/productivity.jsonl
+✅ Kept 19 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/recovery-outcomes.jsonl
+✅ Kept 150 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/routing-feedback.jsonl
+✅ Kept 24 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/routing-metrics.jsonl
+✅ Kept 1219 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/self-heal-outcomes.jsonl
+✅ Kept 664 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/session-events.jsonl
+✅ Kept 556 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/session-optimizer.jsonl
+✅ Kept 128 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/session-outcomes.jsonl
+✅ Kept 648 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/session-windows.jsonl
+✅ Kept 194 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/tool-success.jsonl
+✅ Kept 426 valid entries, removed 0 malformed entries
+Cleaning /Users/dicoangelo/.claude/data/tool-usage.jsonl
+✅ Kept 40060 valid entries, removed 0 malformed entries
+[2026-01-25 03:00:08] Updating stats cache...
+======================================================================
+FIX ALL DASHBOARD DATA
+======================================================================
+
+STEP 1: Scanning transcripts...
+  Sessions: 648
+  Messages: 91233
+  Tools: 28810
+  Model usage: {'opus': 45905, 'haiku': 8443, 'sonnet': 4448}
+
+STEP 2: Fixing stats-cache.json...
+  ✅ Done
+STEP 3: Fixing memory/knowledge.json...
+  ✅ Done
+STEP 4: Fixing activity-timeline.json...
+  ✅ Done
+STEP 5: Fixing subscription-data.json...
+  ✅ Value: $1,349 (6.7x ROI)
+STEP 6: Checking dq-scores.jsonl...
+  ✅ 1395 entries
+STEP 7: Fixing routing-metrics.jsonl...
+  ✅ 1395 entries
+STEP 8: Fixing detected-patterns.json...
+  ✅ Done
+STEP 9: Checking coevo-config.json...
+  ✅ Exists
+STEP 10: Checking modifications.jsonl...
+  ✅ 92 entries
+STEP 11: Fixing identity.json...
+  ✅ Done
+STEP 12: Fixing tool-summary.json...
+  ✅ 28810 calls
+STEP 13: Fixing cost-summary.json...
+  ✅ $1,348.82 total
+STEP 14: Fixing session-outcomes.jsonl...
+  ✅ 648 sessions: {'success': 456, 'partial': 61, 'abandoned': 131}
+STEP 15: Fixing pack-metrics.json daily_trend...
+  ✅ 19 days of cost data
+STEP 16: Syncing to SQLite...
+  ✅ SQLite synced
+
+======================================================================
+ALL DASHBOARD DATA FIXED
+======================================================================
+
+Summary:
+  Sessions:     648
+  Messages:     91,233
+  Tools:        28,810
+  Opus:         45,905
+  Sonnet:       4,448
+  Haiku:        8,443
+  Value:        $1,349
+  ROI:          6.7x
+
+[2026-01-25 03:00:23] Running supermemory weekly rollup...
+[2026-01-25 03:00:24] Running capability backfill...
+
+📊 Capability Backfill Summary:
+   Expertise Domains: 14
+   Learning Hub Insights: 2
+   Predictive Patterns: 7
+   Pattern Stats: 1
+   Flow Score: 0.89 (peak_flow)
+[2026-01-25 03:00:25] === Weekly Backfill Complete ===

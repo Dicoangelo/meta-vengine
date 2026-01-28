@@ -1,0 +1,9 @@
+{
+  "id": "2",
+  "subject": "Add detailed research citations for ROI claims",
+  "description": "Create citation files (ROI_SOURCES.md, legal_benchmark.md, finance_benchmark.md, pharma_benchmark.md, patents_benchmark.md) with specific sources including year, page numbers, URLs, and quotes. Integrate footnotes into V4_FIXED deck. Target: Increase ROI defensibility from 6/10 to 9/10.",
+  "activeForm": "Adding research citations for ROI claims",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": []
+}

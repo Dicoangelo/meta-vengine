@@ -148,11 +148,42 @@ entry = {
 
 with open(dq_file, "a") as f:
     f.write(json.dumps(entry) + "\n")
+
+# Also write to SQLite via dual-write library
+import sys
+sys.path.insert(0, str(home / ".claude/hooks"))
+from dual_write_lib import log_dq_score
+
+log_dq_score(
+    query=title if title else intent,
+    complexity=complexity,
+    model=model,
+    dq_score=dq,
+    validity=0.0,       # Auto-tracked, no component breakdown
+    specificity=0.0,    # Auto-tracked, no component breakdown
+    correctness=0.0,    # Auto-tracked, no component breakdown
+    reasoning="auto-tracked from session outcome",
+    alternatives=[]
+)
 ROUTINGTRACK
     log "Routing metrics tracked"
 }
 
 track_routing
+
+# ══════════════════════════════════════════════════════════════
+# ROUTING FEEDBACK: Collect feedback for self-improvement
+# ══════════════════════════════════════════════════════════════
+
+collect_routing_feedback() {
+    local feedback_script="$HOME/.claude/scripts/routing-feedback.py"
+    if [ -f "$feedback_script" ]; then
+        python3 "$feedback_script" --collect >> "$LOG_FILE" 2>&1 || true
+        log "Routing feedback collected"
+    fi
+}
+
+collect_routing_feedback
 
 # ══════════════════════════════════════════════════════════════
 # SUPERMEMORY: Incremental sync on session end

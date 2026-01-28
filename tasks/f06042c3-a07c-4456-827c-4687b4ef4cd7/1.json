@@ -1,0 +1,9 @@
+{
+  "id": "1",
+  "subject": "Create Supabase voice tables",
+  "description": "Run SQL in Supabase Dashboard to create voice_sessions and voice_transcripts tables. SQL is in the conversation. Tables: voice_sessions (id, started_at, ended_at, transcript_count, mode, metadata) and voice_transcripts (id, session_id, role, text, timestamp, complexity_score, complexity_tier, provider, latency_ms, metadata). Also create increment_transcript_count function.",
+  "activeForm": "Creating Supabase voice tables",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

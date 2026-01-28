@@ -1,0 +1,9 @@
+{
+  "id": "5",
+  "subject": "Build financial model documentation",
+  "description": "Create FINANCIAL_MODEL_OUTLINE.md, UNIT_ECONOMICS.md, and 3YEAR_PROJECTIONS.md with detailed unit economics (LTV/CAC, payback period), pricing strategy, and 3-year revenue projections aligned with roadmap targets.",
+  "activeForm": "Building financial model documentation",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

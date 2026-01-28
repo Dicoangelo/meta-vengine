@@ -1,0 +1,31 @@
+{
+  "total_calls": 59890,
+  "top_tools": {
+    "Bash": 24204,
+    "Read": 14699,
+    "Edit": 6780,
+    "Grep": 2895,
+    "Write": 2753,
+    "TodoWrite": 2107,
+    "Glob": 1953,
+    "WebSearch": 906,
+    "WebFetch": 724,
+    "Task": 615,
+    "mcp__chrome-devtools__click": 328,
+    "mcp__chrome-devtools__take_snapshot": 247,
+    "TaskUpdate": 217,
+    "mcp__chrome-devtools__take_screenshot": 215,
+    "mcp__chrome-devtools__evaluate_script": 143,
+    "mcp__chrome-devtools__navigate_page": 127,
+    "TaskCreate": 127,
+    "mcp__chrome-devtools__press_key": 107,
+    "mcp__chrome-devtools__list_pages": 101,
+    "mcp__chrome-devtools__fill": 88
+  },
+  "by_model": {
+    "unknown": 33006,
+    "opus": 10053,
+    "sonnet": 13324,
+    "haiku": 3507
+  }
+}

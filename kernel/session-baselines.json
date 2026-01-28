@@ -1,0 +1,67 @@
+{
+  "version": "1.0.0",
+  "confidence": 0.85,
+  "lastUpdated": "2026-01-28T03:51:25.252603",
+  "windowPatterns": {
+    "typicalDurationMs": 18000000,
+    "resetTimes": [
+      {
+        "hour": 7,
+        "reliability": 0.8
+      },
+      {
+        "hour": 12,
+        "reliability": 0.75
+      },
+      {
+        "hour": 17,
+        "reliability": 0.7
+      }
+    ]
+  },
+  "peakHours": [
+    20,
+    3,
+    2
+  ],
+  "budgetThresholds": {
+    "opusReservePercent": 0.2,
+    "downgradeThreshold": 0.85,
+    "emergencyReserve": 0.1
+  },
+  "checkpointThresholds": {
+    "messageCount": 50,
+    "saturationLevel": 0.7
+  },
+  "autoApply": {
+    "minConfidence": 0.7,
+    "maxModsPerDay": 3,
+    "autoRollback": true
+  },
+  "researchLineage": [
+    {
+      "paper": "arXiv:2512.14142",
+      "title": "Astraea: State-Aware LLM Scheduling Engine",
+      "applied": "2026-01-18",
+      "insight": "Window tracking and capacity prediction based on state-aware scheduling"
+    },
+    {
+      "paper": "arXiv:2511.15755",
+      "title": "MyAntFarm.ai: DQ Framework for Multi-Agent Systems",
+      "applied": "2026-01-18",
+      "insight": "Task prioritization using DQ scoring: validity (40%) + specificity (30%) + correctness (30%)"
+    },
+    {
+      "paper": "internal:meta-analyzer",
+      "title": "Meta-Analyzer Pattern Detection",
+      "applied": "2026-01-19",
+      "insight": "Peak hours 14-16 correlate with 85% higher quality sessions"
+    },
+    {
+      "paper": "internal:subscription-tracker",
+      "title": "Subscription Value Tracking",
+      "applied": "2026-01-19",
+      "insight": "Budget allocation based on model cost efficiency and ROI multiplier"
+    }
+  ]
+}

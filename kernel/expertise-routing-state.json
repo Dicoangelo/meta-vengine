@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-01-28T03:05:55.025028",
+  "expertise_levels": {
+    "react": 1.0,
+    "typescript": 1.0,
+    "architecture": 1.0,
+    "debugging": 1.0,
+    "routing": 1.0,
+    "co-evolution": 0.85,
+    "agentic-systems": 0.8,
+    "python": 1.0,
+    "testing": 1.0,
+    "git": 1.0,
+    "api": 1.0,
+    "database": 1.0,
+    "research": 1.0,
+    "agent": 1.0
+  },
+  "high_expertise_domains": [
+    "react",
+    "typescript",
+    "architecture",
+    "debugging",
+    "routing",
+    "co-evolution",
+    "agentic-systems",
+    "python",
+    "testing",
+    "git",
+    "api",
+    "database",
+    "research",
+    "agent"
+  ],
+  "low_expertise_domains": []
+}

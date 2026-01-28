@@ -26,9 +26,22 @@ JSON_ENTRY=$(cat << EOF
 EOF
 )
 
-# Append to activity file
+# Dual-write to JSONL + SQLite
 mkdir -p "$(dirname "$DATA_FILE")"
 echo "$JSON_ENTRY" >> "$DATA_FILE"
+
+# Also write to SQLite via dual-write library
+python3 << PYEOF
+import sys
+sys.path.insert(0, '$HOME/.claude/hooks')
+from dual_write_lib import log_git_activity
+
+log_git_activity(
+    repo="$REPO_NAME",
+    commit_hash="${COMMIT_HASH:0:8}",
+    message="$(echo "$COMMIT_MSG" | sed 's/"/\\"/g' | head -c 200)"
+)
+PYEOF
 
 # Log
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Commit tracked: $REPO_NAME ${COMMIT_HASH:0:8}" >> "$LOG_FILE"

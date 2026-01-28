@@ -26,8 +26,14 @@ activity.log
 # Dashboard (generated from template)
 dashboard/claude-command-center.html
 
+# SQLite databases (too large for GitHub)
+*.db
+*.db-shm
+*.db-wal
+
 # Data directory (session-specific)
 data/activity-events.jsonl
+data/session-archives/
 
 # MCP servers (local config)
 mcp-servers/

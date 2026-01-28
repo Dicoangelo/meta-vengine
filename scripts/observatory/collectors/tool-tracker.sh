@@ -61,13 +61,17 @@ __observatory_track_bash_result() {
     cmd_type="test"
   fi
 
-  # Log entry
+  # Log entry with dual-write to JSONL + SQLite
+  local success_bool=$([ $exit_code -eq 0 ] && echo "true" || echo "false")
   local entry=$(cat <<EOF
-{"ts":$end_time,"tool":"bash","cmd_hash":"$cmd_hash","cmd_type":"$cmd_type","success":$([ $exit_code -eq 0 ] && echo true || echo false),"exit_code":$exit_code,"duration_sec":$duration}
+{"ts":$end_time,"tool":"bash","cmd_hash":"$cmd_hash","cmd_type":"$cmd_type","success":$success_bool,"exit_code":$exit_code,"duration_sec":$duration}
 EOF
 )
 
   echo "$entry" >> "$DATA_FILE"
+
+  # NOTE: Individual bash events logged to JSONL only.
+  # Daily aggregates for tool_success table are generated separately.
 
   # Clear tracking
   OBSERVATORY_LAST_CMD=""

@@ -7,6 +7,7 @@ set -e
 SCRIPTS_DIR="$HOME/.claude/scripts"
 LOGS_DIR="$HOME/.claude/logs"
 RESEARCHGRAVITY_DIR="$HOME/researchgravity"
+VENV_PYTHON="$HOME/.claude/venv/bin/python3"
 
 # Ensure log directory exists
 mkdir -p "$LOGS_DIR"
@@ -15,8 +16,8 @@ mkdir -p "$LOGS_DIR"
 # CRON JOB TEMPLATES
 # ═══════════════════════════════════════════════════════════════════════════
 
-# Weekly: Fetch new routing papers (Mondays 9 AM)
-WEEKLY_RESEARCH='0 9 * * 1 cd '"$RESEARCHGRAVITY_DIR"' && python3 routing-research-sync.py fetch-papers --query "LLM routing OR model selection OR adaptive inference" --days 7 --output /tmp/routing-papers-weekly.json >> '"$LOGS_DIR"'/routing-research.log 2>&1'
+# Weekly: Fetch new routing papers (Mondays 9 AM) - uses venv for arxiv package
+WEEKLY_RESEARCH='0 9 * * 1 cd '"$RESEARCHGRAVITY_DIR"' && '"$VENV_PYTHON"' routing-research-sync.py fetch-papers --query "LLM routing OR model selection OR adaptive inference" --days 7 --output /tmp/routing-papers-weekly.json >> '"$LOGS_DIR"'/routing-research.log 2>&1'
 
 # Daily: Generate metrics report (6 PM)
 DAILY_METRICS='0 18 * * * python3 '"$RESEARCHGRAVITY_DIR"'/routing-metrics.py report --days 1 --format text >> '"$LOGS_DIR"'/routing-daily.log 2>&1'
@@ -27,8 +28,8 @@ WEEKLY_TARGETS='0 17 * * 5 python3 '"$RESEARCHGRAVITY_DIR"'/routing-metrics.py c
 # Monthly: Generate meta-analyzer proposals (1st of month, 10 AM)
 MONTHLY_PROPOSALS='0 10 1 * * python3 '"$SCRIPTS_DIR"'/meta-analyzer.py propose --domain routing --days 30 --json > '"$LOGS_DIR"'/routing-proposals-$(date +\%Y\%m).json 2>&1'
 
-# Monthly: Full research cycle (1st of month, 11 AM)
-MONTHLY_RESEARCH='0 11 1 * * cd '"$RESEARCHGRAVITY_DIR"' && bash -c '\''python3 init_session.py "Monthly routing research $(date +\%Y-\%m)" --impl-project cli-routing && python3 routing-research-sync.py fetch-papers --query "LLM routing" --days 30 --output /tmp/routing-papers-monthly.json'\'' >> '"$LOGS_DIR"'/routing-research-monthly.log 2>&1'
+# Monthly: Full research cycle (1st of month, 11 AM) - uses venv for arxiv package
+MONTHLY_RESEARCH='0 11 1 * * cd '"$RESEARCHGRAVITY_DIR"' && bash -c '\''python3 init_session.py "Monthly routing research $(date +\%Y-\%m)" --impl-project cli-routing && '"$VENV_PYTHON"' routing-research-sync.py fetch-papers --query "LLM routing" --days 30 --output /tmp/routing-papers-monthly.json'\'' >> '"$LOGS_DIR"'/routing-research-monthly.log 2>&1'
 
 # ═══════════════════════════════════════════════════════════════════════════
 # INSTALLATION FUNCTIONS

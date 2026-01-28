@@ -1,0 +1,9 @@
+{
+  "id": "5",
+  "subject": "Implement voice session persistence",
+  "description": "Persist voice transcripts to Supermemory for continuity:\n- On session end: Save transcripts array to Supermemory via hook\n- On session start: Load recent voice context (last 24h)\n- Add `exportSession()` method to VoiceCore\n- Add `loadPreviousContext()` for continuity\n- Store: transcripts, complexity scores, provider usage, timestamps\n- Enable session replay for debugging\n\nIntegration with:\n- ~/.claude/hooks/session-optimizer-stop.sh\n- ~/.claude/memory/supermemory.db",
+  "activeForm": "Implementing session persistence",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

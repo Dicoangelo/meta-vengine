@@ -91,7 +91,9 @@ def main():
         log_data = []
         if auto_capture_log.exists():
             try:
-                log_data = json.loads(auto_capture_log.read_text())
+                loaded = json.loads(auto_capture_log.read_text())
+                # Ensure it's a list, not a dict
+                log_data = loaded if isinstance(loaded, list) else []
             except:
                 pass
 

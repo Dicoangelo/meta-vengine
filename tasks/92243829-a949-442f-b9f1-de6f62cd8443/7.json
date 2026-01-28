@@ -1,0 +1,9 @@
+{
+  "id": "7",
+  "subject": "End-to-end testing and verification",
+  "description": "Run manual triggers for all 5 phases with --dry-run flags. Verify outputs at each stage: dependency-graph.json (valid DAG), research-queue.jsonl (50-200 findings), findings.jsonl (15-30 with multi-targets), ecosystem-plan.json (8-12 innovations), GitHub issues (8-15 across projects), draft PRs (3-5), package updates, documentation updates, meta-vengine evolution changelog, ecosystem brief.\n\nSuccess criteria:\n- All phases execute without errors\n- Outputs verified (dependency graph, findings, innovations, PRs, brief)\n- Metrics meet targets (50-200 papers/day, DQ >0.7, relevance >0.8, cost <$5/day)\n- Ecosystem brief delivered by 8:05am\n- Cross-project synergies detected (3-5)\n- Meta-vengine evolution triggered\n\nDependencies: All phases 0-5 completed",
+  "activeForm": "Running end-to-end testing and verification",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

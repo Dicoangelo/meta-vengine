@@ -1,0 +1,650 @@
+08:41:52 Research auto-capture started
+08:41:52 Extracting learnings from latest session...
+08:41:52 Processing: /Users/dicoangelo/.claude/projects/-Users-dicoangelo/3a582ddf-f9f8-4723-aa73-d70ce7124e09.jsonl
+08:41:52 Syncing learnings to memory linker...
+08:41:52 Research auto-capture complete
+08:42:26 Research auto-capture started
+08:42:26 Research auto-capture complete
+14:13:38 Research auto-capture started
+14:13:38 Research auto-capture complete
+14:23:17 Research auto-capture started
+14:23:18 Research auto-capture complete
+14:36:58 Research auto-capture started
+14:36:59 Research auto-capture complete
+15:47:01 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+15:47:02 Research auto-capture complete
+17:41:08 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+17:41:09 Research auto-capture complete
+17:43:59 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+17:43:59 Research auto-capture complete
+18:00:18 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+AttributeError: 'dict' object has no attribute 'append'
+18:00:19 Research auto-capture complete
+22:15:30 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+22:15:30 Research auto-capture complete
+22:51:47 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+22:51:48 Research auto-capture complete
+03:58:42 Research auto-capture started
+03:58:43 Research auto-capture complete
+06:00:13 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+AttributeError: 'dict' object has no attribute 'append'
+06:00:13 Research auto-capture complete
+18:00:17 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+AttributeError: 'dict' object has no attribute 'append'
+18:00:17 Research auto-capture complete
+21:41:20 Research auto-capture started
+21:41:21 Research auto-capture complete
+21:44:25 Research auto-capture started
+21:44:25 Research auto-capture complete
+21:54:14 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+21:54:14 Research auto-capture complete
+21:54:28 Research auto-capture started
+21:54:28 Research auto-capture complete
+22:28:23 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+22:28:23 Research auto-capture complete
+22:28:32 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+22:28:32 Research auto-capture complete
+01:06:00 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+01:06:01 Research auto-capture complete
+02:27:37 Research auto-capture started
+02:27:38 Research auto-capture complete
+04:11:50 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+04:11:51 Research auto-capture complete
+04:20:23 Research auto-capture started
+04:20:24 Research auto-capture complete
+04:48:09 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+04:48:10 Research auto-capture complete
+04:51:36 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+04:51:37 Research auto-capture complete
+05:10:44 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+05:10:45 Research auto-capture complete
+05:15:55 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+05:15:57 Research auto-capture complete
+05:22:37 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+05:22:37 Research auto-capture complete
+05:56:57 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+05:56:58 Research auto-capture complete
+06:00:41 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+AttributeError: 'dict' object has no attribute 'append'
+06:00:41 Research auto-capture complete
+06:16:23 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+06:16:24 Research auto-capture complete
+06:28:59 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+06:28:59 Research auto-capture complete
+06:36:29 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+06:36:29 Research auto-capture complete
+06:43:56 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+06:43:57 Research auto-capture complete
+07:24:02 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+07:24:06 Research auto-capture complete
+07:34:25 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+07:34:26 Research auto-capture complete
+07:36:39 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+07:36:40 Research auto-capture complete
+07:49:22 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+07:49:22 Research auto-capture complete
+07:49:29 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+07:49:30 Research auto-capture complete
+07:49:50 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+07:49:50 Research auto-capture complete
+07:53:22 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+07:53:23 Research auto-capture complete
+07:53:31 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+07:53:31 Research auto-capture complete
+07:53:43 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+07:53:43 Research auto-capture complete
+15:46:21 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+15:46:23 Research auto-capture complete
+18:00:29 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+AttributeError: 'dict' object has no attribute 'append'
+18:00:30 Research auto-capture complete
+21:37:54 Research auto-capture started
+21:37:55 Research auto-capture complete
+21:45:47 Research auto-capture started
+21:45:49 Research auto-capture complete
+21:52:07 Research auto-capture started
+21:52:09 Research auto-capture complete
+21:57:09 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+21:57:11 Research auto-capture complete
+23:08:20 Research auto-capture started
+23:08:21 Research auto-capture started
+23:08:22 Research auto-capture started
+23:08:22 Research auto-capture started
+23:08:22 Research auto-capture started
+23:08:22 Research auto-capture started
+23:08:22 Research auto-capture started
+06:00:24 Research auto-capture started
+06:00:25 Research auto-capture complete
+16:28:51 Research auto-capture started
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 112, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/.claude/scripts/research-extract.py", line 98, in main
+    log_data.append({
+    ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'append'
+16:28:52 Research auto-capture complete
+18:00:21 Research auto-capture started
+18:00:21 Research auto-capture complete
+18:53:15 Research auto-capture started
+18:53:16 Research auto-capture complete
+06:00:23 Research auto-capture started
+06:00:23 Research auto-capture complete
+13:48:38 Research auto-capture started
+13:48:38 Research auto-capture complete
+13:49:15 Research auto-capture started
+13:49:16 Research auto-capture complete
+14:52:01 Research auto-capture started
+14:52:02 Research auto-capture complete
+15:06:27 Research auto-capture started
+15:06:27 Research auto-capture complete
+15:06:39 Research auto-capture started
+15:06:40 Research auto-capture complete
+15:38:51 Research auto-capture started
+15:38:51 Research auto-capture started
+15:38:52 Research auto-capture started
+15:38:52 Research auto-capture started
+15:38:52 Research auto-capture started
+15:38:52 Research auto-capture started
+15:38:52 Research auto-capture started
+15:38:53 Research auto-capture started
+15:38:53 Research auto-capture started
+15:38:53 Research auto-capture started
+15:38:53 Research auto-capture started
+15:38:53 Research auto-capture started
+15:38:54 Research auto-capture started
+15:38:55 Research auto-capture started
+15:39:17 Research auto-capture complete
+15:39:17 Research auto-capture complete
+15:39:17 Research auto-capture complete
+15:39:17 Research auto-capture complete
+15:39:18 Research auto-capture complete
+15:39:18 Research auto-capture complete
+15:39:18 Research auto-capture complete
+15:39:19 Research auto-capture complete
+15:39:19 Research auto-capture complete
+15:39:19 Research auto-capture complete
+15:39:19 Research auto-capture complete
+15:39:19 Research auto-capture complete
+15:39:19 Research auto-capture complete
+15:39:19 Research auto-capture complete
+15:40:18 Research auto-capture started
+15:40:18 Research auto-capture started
+15:40:18 Research auto-capture started
+15:40:19 Research auto-capture started
+15:40:20 Research auto-capture started
+15:40:20 Research auto-capture started
+15:40:20 Research auto-capture started
+15:40:20 Research auto-capture started
+15:40:20 Research auto-capture started
+15:40:20 Research auto-capture started
+15:40:21 Research auto-capture started
+15:40:22 Research auto-capture started
+15:40:22 Research auto-capture started
+15:40:22 Research auto-capture started
+15:40:30 Research auto-capture complete
+15:40:30 Research auto-capture complete
+15:40:31 Research auto-capture complete
+15:40:31 Research auto-capture complete
+15:40:31 Research auto-capture complete
+15:40:31 Research auto-capture complete
+15:40:31 Research auto-capture complete
+15:40:31 Research auto-capture complete
+15:40:31 Research auto-capture complete
+15:40:32 Research auto-capture complete
+15:40:32 Research auto-capture complete
+15:40:32 Research auto-capture complete
+15:40:32 Research auto-capture complete
+15:40:32 Research auto-capture complete
+15:41:03 Research auto-capture started
+15:41:03 Research auto-capture started
+15:41:04 Research auto-capture started
+15:41:04 Research auto-capture started
+15:41:05 Research auto-capture started
+15:41:08 Research auto-capture started
+15:41:08 Research auto-capture started
+15:41:08 Research auto-capture started
+15:41:08 Research auto-capture started
+15:41:09 Research auto-capture started
+15:41:10 Research auto-capture started
+15:41:11 Research auto-capture started
+15:41:11 Research auto-capture started
+Exception ignored while flushing sys.stdout:
+BrokenPipeError: [Errno 32] Broken pipe
+15:41:22 Research auto-capture started
+15:41:22 Research auto-capture complete
+15:41:23 Research auto-capture complete
+15:41:23 Research auto-capture complete
+15:41:23 Research auto-capture complete
+15:41:23 Research auto-capture complete
+15:41:23 Research auto-capture complete
+Exception ignored while flushing sys.stdout:
+BrokenPipeError: [Errno 32] Broken pipe
+15:41:23 Research auto-capture complete
+15:41:23 Research auto-capture complete
+15:41:23 Research auto-capture complete
+15:41:23 Research auto-capture complete
+15:41:23 Research auto-capture complete
+15:41:23 Research auto-capture complete
+15:41:24 Research auto-capture complete
+15:41:26 Research auto-capture complete
+15:42:42 Research auto-capture started
+15:42:42 Research auto-capture started
+15:42:43 Research auto-capture started
+15:42:43 Research auto-capture started
+15:42:43 Research auto-capture started
+15:42:44 Research auto-capture started
+15:42:44 Research auto-capture complete
+15:42:44 Research auto-capture complete
+15:42:45 Research auto-capture complete
+15:42:45 Research auto-capture started
+15:42:45 Research auto-capture started
+15:42:45 Research auto-capture started
+15:42:45 Research auto-capture started
+15:42:46 Research auto-capture complete
+15:42:46 Research auto-capture started
+15:42:47 Research auto-capture complete
+15:42:47 Research auto-capture complete
+15:42:47 Research auto-capture complete
+15:42:47 Research auto-capture complete
+15:42:48 Research auto-capture complete
+15:42:48 Research auto-capture complete
+15:42:49 Research auto-capture complete
+16:35:35 Research auto-capture started
+16:35:35 Research auto-capture complete
+16:49:56 Research auto-capture started
+16:49:57 Research auto-capture complete
+16:59:18 Research auto-capture started
+16:59:19 Research auto-capture complete
+17:00:20 Research auto-capture started
+17:00:21 Research auto-capture complete
+17:01:42 Research auto-capture started
+17:01:42 Research auto-capture complete
+17:01:55 Research auto-capture started
+17:01:55 Research auto-capture complete
+17:35:47 Research auto-capture started
+17:35:48 Research auto-capture complete
+17:50:07 Research auto-capture started
+17:50:08 Research auto-capture complete
+18:00:41 Research auto-capture started
+18:00:41 Research auto-capture complete
+18:07:27 Research auto-capture started
+18:07:27 Research auto-capture complete
+18:31:34 Research auto-capture started
+18:31:35 Research auto-capture complete
+21:03:06 Research auto-capture started
+21:03:07 Research auto-capture complete
+21:31:28 Research auto-capture started
+21:31:29 Research auto-capture complete
+22:31:22 Research auto-capture started
+22:31:23 Research auto-capture complete
+23:34:47 Research auto-capture started
+23:34:48 Research auto-capture complete
+23:41:18 Research auto-capture started
+23:41:18 Research auto-capture complete
+23:48:56 Research auto-capture started
+23:48:57 Research auto-capture complete
+23:53:44 Research auto-capture started
+23:53:44 Research auto-capture complete
+23:55:03 Research auto-capture started
+23:55:04 Research auto-capture complete
+02:25:11 Research auto-capture started
+02:25:12 Research auto-capture complete
+02:54:11 Research auto-capture started
+02:54:11 Research auto-capture complete
+03:34:39 Research auto-capture started
+03:34:39 Research auto-capture complete
+13:26:16 Research auto-capture started
+13:26:16 Research auto-capture complete
+15:51:50 Research auto-capture started
+15:51:50 Research auto-capture started
+15:51:52 Research auto-capture complete
+15:51:52 Research auto-capture complete
+16:11:56 Research auto-capture started
+16:11:57 Research auto-capture complete
+16:17:04 Research auto-capture started
+16:17:04 Research auto-capture complete
+16:23:30 Research auto-capture started
+16:23:31 Research auto-capture complete
+18:00:30 Research auto-capture started
+18:00:31 Research auto-capture complete
+20:18:14 Research auto-capture started
+20:18:15 Research auto-capture complete
+20:53:27 Research auto-capture started
+20:53:28 Research auto-capture complete
+02:07:16 Research auto-capture started
+02:07:17 Research auto-capture complete
+02:39:36 Research auto-capture started
+02:39:36 Research auto-capture complete
+06:00:56 Research auto-capture started
+06:00:56 Research auto-capture complete
+18:00:30 Research auto-capture started
+18:00:30 Research auto-capture complete
+21:00:01 Research auto-capture started
+21:00:02 Research auto-capture complete
+22:00:11 Research auto-capture started
+22:00:12 Research auto-capture complete
+23:48:04 Research auto-capture started
+23:48:04 Research auto-capture complete
+01:30:18 Research auto-capture started
+01:30:18 Research auto-capture complete
+02:48:06 Research auto-capture started
+02:48:07 Research auto-capture complete
+04:04:34 Research auto-capture started
+04:04:35 Research auto-capture complete
+06:00:30 Research auto-capture started
+06:00:30 Research auto-capture complete
+18:00:50 Research auto-capture started
+18:00:50 Research auto-capture complete
+19:37:56 Research auto-capture started
+19:37:58 Research auto-capture complete
+20:52:38 Research auto-capture started
+Exception ignored while flushing sys.stdout:
+BrokenPipeError: [Errno 32] Broken pipe
+20:52:50 Research auto-capture complete
+21:48:08 Research auto-capture started
+21:48:10 Research auto-capture complete
+21:52:28 Research auto-capture started
+21:52:37 Research auto-capture complete
+00:40:44 Research auto-capture started
+00:40:45 Research auto-capture complete
+01:29:51 Research auto-capture started
+01:29:52 Research auto-capture complete
+01:45:00 Research auto-capture started
+01:45:01 Research auto-capture complete
+02:25:28 Research auto-capture started
+02:25:28 Research auto-capture complete
+06:00:32 Research auto-capture started
+06:00:33 Research auto-capture complete
+06:42:03 Research auto-capture started
+06:42:04 Research auto-capture complete
+06:43:00 Research auto-capture started
+06:43:01 Research auto-capture complete
+06:59:36 Research auto-capture started
+06:59:36 Research auto-capture complete
+13:19:55 Research auto-capture started
+13:19:56 Research auto-capture complete
+18:00:27 Research auto-capture started
+18:00:28 Research auto-capture complete
+18:02:04 Research auto-capture started
+18:02:05 Research auto-capture complete
+18:13:08 Research auto-capture started
+18:13:09 Research auto-capture complete
+00:34:29 Research auto-capture started
+00:34:29 Research auto-capture complete
+01:59:55 Research auto-capture started
+01:59:56 Research auto-capture complete

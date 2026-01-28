@@ -1,0 +1,9 @@
+{
+  "id": "4",
+  "subject": "Create missing use case detail files",
+  "description": "Create finance_research.md, pharma_discovery.md, and patent_management.md following the detailed template structure. Each must include ROI calculations, citations, implementation roadmap, and competitive alternatives.",
+  "activeForm": "Creating missing use case detail files",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

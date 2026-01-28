@@ -1,0 +1,226 @@
+[2026-01-23 23:43:34] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-23 23:43:34] [INFO] Processing data since: 2026-01-23T17:43:34.487917
+[2026-01-23 23:43:34] [ERROR] Error reading /Users/dicoangelo/.claude/data/activity-events.jsonl: year 58029 is out of range
+[2026-01-23 23:43:34] [ERROR] Error reading /Users/dicoangelo/.claude/kernel/dq-scores.jsonl: year 58034 is out of range
+[2026-01-23 23:43:34] [INFO]   New activity events: 0
+[2026-01-23 23:43:34] [INFO]   New DQ scores: 3
+[2026-01-23 23:43:34] [INFO] INCREMENTAL backfill complete
+[2026-01-23 23:44:14] [INFO] ============================================================
+[2026-01-23 23:44:14] [INFO] Starting FULL capability backfill
+[2026-01-23 23:44:14] [INFO] ============================================================
+[2026-01-23 23:44:14] [INFO] Loading data sources...
+[2026-01-23 23:44:14] [INFO]   activity_events: 6993 records
+[2026-01-23 23:44:14] [INFO]   session_outcomes: 627 records
+[2026-01-23 23:44:14] [INFO]   dq_scores: 1208 records
+[2026-01-23 23:44:14] [INFO]   recovery_outcomes: 150 records
+[2026-01-23 23:44:14] [INFO]   errors: 139 records
+[2026-01-23 23:44:14] [INFO]   pattern_history: 414 records
+[2026-01-23 23:44:14] [INFO]   flow_history: 199 records
+[2026-01-23 23:44:14] [INFO] 
+Processing capabilities...
+[2026-01-23 23:44:14] [INFO] Extracting expertise from activity events...
+[2026-01-23 23:44:15] [INFO]   Expertise: 14 domains tracked
+[2026-01-23 23:44:15] [INFO] Building predictive recovery model...
+[2026-01-23 23:44:15] [INFO]   Predictions: 7 error types
+[2026-01-23 23:44:15] [INFO] Aggregating session patterns...
+[2026-01-23 23:44:15] [INFO]   Patterns: 1 session types
+[2026-01-23 23:44:15] [INFO] Calculating flow scores...
+[2026-01-23 23:44:15] [INFO]   Flow: state=focused, score=0.76
+[2026-01-23 23:44:15] [INFO] Building learning hub...
+[2026-01-23 23:44:15] [INFO]   Learning Hub: 2 insights
+[2026-01-23 23:44:15] [INFO] 
+Writing capability states...
+[2026-01-23 23:44:15] [INFO]   Written: expertise-routing-state.json
+[2026-01-23 23:44:15] [INFO]   Written: predictive-state.json
+[2026-01-23 23:44:15] [INFO]   Written: detected-patterns.json
+[2026-01-23 23:44:15] [INFO]   Written: flow-state.json
+[2026-01-23 23:44:15] [INFO]   Written: learning-hub.json
+[2026-01-23 23:44:15] [INFO] 
+============================================================
+[2026-01-23 23:44:15] [INFO] FULL backfill complete!
+[2026-01-23 23:44:15] [INFO] ============================================================
+[2026-01-23 23:44:51] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-23 23:44:51] [INFO] Processing data since: 2026-01-23T23:43:34.578607
+[2026-01-23 23:44:52] [ERROR] Error reading /Users/dicoangelo/.claude/data/activity-events.jsonl: year must be in 1..9999, not 58029
+[2026-01-23 23:44:52] [ERROR] Error reading /Users/dicoangelo/.claude/kernel/dq-scores.jsonl: year must be in 1..9999, not 58034
+[2026-01-23 23:44:52] [INFO] No new data to process
+[2026-01-23 23:44:57] [INFO] Running SESSION backfill (quick mode)
+[2026-01-23 23:44:57] [ERROR] Error reading /Users/dicoangelo/.claude/data/activity-events.jsonl: year must be in 1..9999, not 58029
+[2026-01-23 23:44:57] [INFO] No session data to process
+[2026-01-23 23:45:13] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-23 23:45:13] [INFO] Processing data since: 2026-01-23T23:43:34.578607
+[2026-01-23 23:45:13] [INFO] No new data to process
+[2026-01-23 23:45:13] [INFO] Running SESSION backfill (quick mode)
+[2026-01-23 23:45:13] [INFO] No session data to process
+[2026-01-24 02:25:12] [INFO] Running SESSION backfill (quick mode)
+[2026-01-24 02:25:12] [INFO] SESSION backfill complete
+[2026-01-24 05:43:34] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-24 05:43:34] [INFO] Processing data since: 2026-01-23T23:43:34.578607
+[2026-01-24 05:43:35] [INFO]   New activity events: 161
+[2026-01-24 05:43:35] [INFO]   New DQ scores: 5
+[2026-01-24 05:43:35] [INFO] Extracting expertise from activity events...
+[2026-01-24 05:43:35] [INFO] INCREMENTAL backfill complete
+[2026-01-24 11:43:35] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-24 11:43:35] [INFO] Processing data since: 2026-01-24T05:43:35.191385
+[2026-01-24 11:43:35] [INFO] No new data to process
+[2026-01-24 16:23:31] [INFO] Running SESSION backfill (quick mode)
+[2026-01-24 16:23:31] [INFO] No session data to process
+[2026-01-24 17:43:36] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-24 17:43:36] [INFO] Processing data since: 2026-01-24T05:43:35.191385
+[2026-01-24 17:43:36] [INFO]   New activity events: 5
+[2026-01-24 17:43:36] [INFO]   New DQ scores: 4
+[2026-01-24 17:43:36] [INFO] Extracting expertise from activity events...
+[2026-01-24 17:43:36] [INFO] INCREMENTAL backfill complete
+[2026-01-24 23:43:36] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-24 23:43:36] [INFO] Processing data since: 2026-01-24T17:43:36.509840
+[2026-01-24 23:43:36] [INFO]   New activity events: 0
+[2026-01-24 23:43:36] [INFO]   New DQ scores: 1
+[2026-01-24 23:43:36] [INFO] INCREMENTAL backfill complete
+[2026-01-25 02:07:16] [INFO] Running SESSION backfill (quick mode)
+[2026-01-25 02:07:16] [INFO] No session data to process
+[2026-01-25 02:39:36] [INFO] Running SESSION backfill (quick mode)
+[2026-01-25 02:39:36] [INFO] No session data to process
+[2026-01-25 03:00:24] [INFO] ============================================================
+[2026-01-25 03:00:24] [INFO] Starting FULL capability backfill
+[2026-01-25 03:00:24] [INFO] ============================================================
+[2026-01-25 03:00:24] [INFO] Loading data sources...
+[2026-01-25 03:00:24] [INFO]   activity_events: 7394 records
+[2026-01-25 03:00:24] [INFO]   session_outcomes: 648 records
+[2026-01-25 03:00:24] [INFO]   dq_scores: 1395 records
+[2026-01-25 03:00:24] [INFO]   recovery_outcomes: 150 records
+[2026-01-25 03:00:24] [INFO]   errors: 139 records
+[2026-01-25 03:00:24] [INFO]   pattern_history: 504 records
+[2026-01-25 03:00:24] [INFO]   flow_history: 200 records
+[2026-01-25 03:00:24] [INFO] 
+Processing capabilities...
+[2026-01-25 03:00:24] [INFO] Extracting expertise from activity events...
+[2026-01-25 03:00:25] [INFO]   Expertise: 14 domains tracked
+[2026-01-25 03:00:25] [INFO] Building predictive recovery model...
+[2026-01-25 03:00:25] [INFO]   Predictions: 7 error types
+[2026-01-25 03:00:25] [INFO] Aggregating session patterns...
+[2026-01-25 03:00:25] [INFO]   Patterns: 1 session types
+[2026-01-25 03:00:25] [INFO] Calculating flow scores...
+[2026-01-25 03:00:25] [INFO]   Flow: state=peak_flow, score=0.89
+[2026-01-25 03:00:25] [INFO] Building learning hub...
+[2026-01-25 03:00:25] [INFO]   Learning Hub: 2 insights
+[2026-01-25 03:00:25] [INFO] 
+Writing capability states...
+[2026-01-25 03:00:25] [INFO]   Written: expertise-routing-state.json
+[2026-01-25 03:00:25] [INFO]   Written: predictive-state.json
+[2026-01-25 03:00:25] [INFO]   Written: detected-patterns.json
+[2026-01-25 03:00:25] [INFO]   Written: flow-state.json
+[2026-01-25 03:00:25] [INFO]   Written: learning-hub.json
+[2026-01-25 03:00:25] [INFO] 
+============================================================
+[2026-01-25 03:00:25] [INFO] FULL backfill complete!
+[2026-01-25 03:00:25] [INFO] ============================================================
+[2026-01-25 05:43:37] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-25 05:43:37] [INFO] Processing data since: 2026-01-24T23:43:36.975129
+[2026-01-25 05:43:37] [INFO]   New activity events: 25
+[2026-01-25 05:43:37] [INFO]   New DQ scores: 7
+[2026-01-25 05:43:37] [INFO] Extracting expertise from activity events...
+[2026-01-25 05:43:37] [INFO] INCREMENTAL backfill complete
+[2026-01-25 11:43:37] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-25 11:43:37] [INFO] Processing data since: 2026-01-25T05:43:37.378729
+[2026-01-25 11:43:37] [INFO] No new data to process
+[2026-01-25 17:43:38] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-25 17:43:38] [INFO] Processing data since: 2026-01-25T05:43:37.378729
+[2026-01-25 17:43:38] [INFO] No new data to process
+[2026-01-25 21:00:02] [INFO] Running SESSION backfill (quick mode)
+[2026-01-25 21:00:02] [INFO] SESSION backfill complete
+[2026-01-25 22:00:11] [INFO] Running SESSION backfill (quick mode)
+[2026-01-25 22:00:11] [INFO] SESSION backfill complete
+[2026-01-25 23:43:38] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-25 23:43:38] [INFO] Processing data since: 2026-01-25T05:43:37.378729
+[2026-01-25 23:43:38] [INFO]   New activity events: 36
+[2026-01-25 23:43:38] [INFO]   New DQ scores: 1
+[2026-01-25 23:43:38] [INFO] Extracting expertise from activity events...
+[2026-01-25 23:43:38] [INFO] INCREMENTAL backfill complete
+[2026-01-25 23:48:04] [INFO] Running SESSION backfill (quick mode)
+[2026-01-25 23:48:04] [INFO] No session data to process
+[2026-01-26 01:30:18] [INFO] Running SESSION backfill (quick mode)
+[2026-01-26 01:30:18] [INFO] SESSION backfill complete
+[2026-01-26 02:48:06] [INFO] Running SESSION backfill (quick mode)
+[2026-01-26 02:48:07] [INFO] SESSION backfill complete
+[2026-01-26 04:04:35] [INFO] Running SESSION backfill (quick mode)
+[2026-01-26 04:04:35] [INFO] No session data to process
+[2026-01-26 05:43:39] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-26 05:43:39] [INFO] Processing data since: 2026-01-25T23:43:38.868566
+[2026-01-26 05:43:39] [INFO]   New activity events: 1941
+[2026-01-26 05:43:39] [INFO]   New DQ scores: 24
+[2026-01-26 05:43:39] [INFO] Extracting expertise from activity events...
+[2026-01-26 05:43:40] [INFO] INCREMENTAL backfill complete
+[2026-01-26 11:43:40] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-26 11:43:40] [INFO] Processing data since: 2026-01-26T05:43:40.025746
+[2026-01-26 11:43:41] [INFO]   New activity events: 3189
+[2026-01-26 11:43:41] [INFO]   New DQ scores: 0
+[2026-01-26 11:43:41] [INFO] Extracting expertise from activity events...
+[2026-01-26 11:43:41] [INFO] INCREMENTAL backfill complete
+[2026-01-26 17:43:41] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-26 17:43:41] [INFO] Processing data since: 2026-01-26T11:43:41.375307
+[2026-01-26 17:43:44] [INFO]   New activity events: 62
+[2026-01-26 17:43:44] [INFO]   New DQ scores: 0
+[2026-01-26 17:43:44] [INFO] Extracting expertise from activity events...
+[2026-01-26 17:43:44] [INFO] INCREMENTAL backfill complete
+[2026-01-26 19:37:57] [INFO] Running SESSION backfill (quick mode)
+[2026-01-26 19:37:57] [INFO] SESSION backfill complete
+[2026-01-26 20:52:41] [INFO] Running SESSION backfill (quick mode)
+[2026-01-26 20:52:50] [INFO] SESSION backfill complete
+[2026-01-26 21:48:09] [INFO] Running SESSION backfill (quick mode)
+[2026-01-26 21:48:10] [INFO] SESSION backfill complete
+[2026-01-26 21:52:29] [INFO] Running SESSION backfill (quick mode)
+[2026-01-26 21:52:34] [INFO] SESSION backfill complete
+[2026-01-26 23:43:45] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-26 23:43:45] [INFO] Processing data since: 2026-01-26T17:43:44.114663
+[2026-01-26 23:43:49] [INFO]   New activity events: 1067
+[2026-01-26 23:43:49] [INFO]   New DQ scores: 0
+[2026-01-26 23:43:49] [INFO] Extracting expertise from activity events...
+[2026-01-26 23:43:50] [INFO] INCREMENTAL backfill complete
+[2026-01-27 00:40:44] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 00:40:44] [INFO] SESSION backfill complete
+[2026-01-27 01:29:51] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 01:29:52] [INFO] SESSION backfill complete
+[2026-01-27 01:45:00] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 01:45:01] [INFO] SESSION backfill complete
+[2026-01-27 02:25:28] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 02:25:28] [INFO] SESSION backfill complete
+[2026-01-27 05:43:50] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-27 05:43:50] [INFO] Processing data since: 2026-01-26T23:43:50.043723
+[2026-01-27 05:43:51] [INFO]   New activity events: 374
+[2026-01-27 05:43:51] [INFO]   New DQ scores: 0
+[2026-01-27 05:43:51] [INFO] Extracting expertise from activity events...
+[2026-01-27 05:43:51] [INFO] INCREMENTAL backfill complete
+[2026-01-27 06:42:03] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 06:42:03] [INFO] SESSION backfill complete
+[2026-01-27 06:43:01] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 06:43:01] [INFO] SESSION backfill complete
+[2026-01-27 06:59:36] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 06:59:36] [INFO] SESSION backfill complete
+[2026-01-27 11:43:51] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-27 11:43:51] [INFO] Processing data since: 2026-01-27T05:43:51.065053
+[2026-01-27 11:43:52] [INFO]   New activity events: 302
+[2026-01-27 11:43:52] [INFO]   New DQ scores: 1
+[2026-01-27 11:43:52] [INFO] Extracting expertise from activity events...
+[2026-01-27 11:43:52] [INFO] INCREMENTAL backfill complete
+[2026-01-27 13:19:56] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 13:19:56] [INFO] SESSION backfill complete
+[2026-01-27 17:43:53] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-27 17:43:53] [INFO] Processing data since: 2026-01-27T11:43:52.867327
+[2026-01-27 17:43:54] [INFO]   New activity events: 80
+[2026-01-27 17:43:54] [INFO]   New DQ scores: 0
+[2026-01-27 17:43:54] [INFO] Extracting expertise from activity events...
+[2026-01-27 17:43:54] [INFO] INCREMENTAL backfill complete
+[2026-01-27 18:02:04] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 18:02:04] [INFO] SESSION backfill complete
+[2026-01-27 18:13:08] [INFO] Running SESSION backfill (quick mode)
+[2026-01-27 18:13:09] [INFO] SESSION backfill complete
+[2026-01-27 23:43:54] [INFO] Starting INCREMENTAL capability backfill
+[2026-01-27 23:43:54] [INFO] Processing data since: 2026-01-27T17:43:54.090936
+[2026-01-27 23:43:54] [INFO]   New activity events: 256
+[2026-01-27 23:43:54] [INFO]   New DQ scores: 0
+[2026-01-27 23:43:54] [INFO] Extracting expertise from activity events...
+[2026-01-27 23:43:54] [INFO] INCREMENTAL backfill complete
+[2026-01-28 00:34:29] [INFO] Running SESSION backfill (quick mode)
+[2026-01-28 00:34:29] [INFO] SESSION backfill complete
+[2026-01-28 01:59:55] [INFO] Running SESSION backfill (quick mode)
+[2026-01-28 01:59:56] [INFO] SESSION backfill complete

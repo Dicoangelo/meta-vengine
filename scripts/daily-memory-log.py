@@ -41,7 +41,7 @@ NOTES_START = "<!-- USER_NOTES_START -->"
 NOTES_END = "<!-- USER_NOTES_END -->"
 
 
-def read_jsonl(filepath: Path) -> list[dict]:
+def read_jsonl(filepath: Path) -> list:
     """Read JSONL file and return list of records."""
     records = []
     if not filepath.exists():
@@ -59,12 +59,12 @@ def read_jsonl(filepath: Path) -> list[dict]:
     return records
 
 
-def get_date_from_ts(ts: int | float) -> str:
+def get_date_from_ts(ts) -> str:
     """Convert Unix timestamp to date string YYYY-MM-DD."""
     return datetime.fromtimestamp(ts).strftime("%Y-%m-%d")
 
 
-def filter_by_date(records: list[dict], target_date: str) -> list[dict]:
+def filter_by_date(records: list, target_date: str) -> list:
     """Filter records to only include those from target_date."""
     filtered = []
     for r in records:
@@ -350,7 +350,7 @@ def write_log(target_date: str, preserve_notes: bool = True) -> Path:
     return output_path
 
 
-def get_available_dates() -> set[str]:
+def get_available_dates() -> set:
     """Get all dates that have data in any JSONL file."""
     dates = set()
 

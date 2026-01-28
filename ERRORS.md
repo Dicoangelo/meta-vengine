@@ -116,6 +116,126 @@ Process terminated unexpectedly
 
 ---
 
+
+## Backfilled Errors (Historical)
+
+### 2026-01-26 - memory (2 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `"ruleContent": "git -C ~/Metaventions-AI-Landing commit -m \"$(cat <<''EOF''\nAdd Genesis Sequence -...`
+**Source:** debug:5462b2be-0b61-4ade-9b31-f96eb3
+
+### 2026-01-19 - memory (27 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `"text": "Forge - collision creates artifacts\\n- Act IV: Assembly Dock - components lock together\\n...`
+**Source:** agent-core:backfill--real-time-voice-n-n-20260119-174108-7b4f5a
+
+### 2026-01-19 - git (1 occurrences)
+**Category:** git | **Severity:** high
+**Sample:** `fatal: tag 'v1.1.0' already exists...`
+**Source:** agent-core:backfill-where-we-left-off-20260119-042140-a1a488
+
+### 2026-01-19 - concurrency (10 occurrences)
+**Category:** concurrency | **Severity:** high
+**Sample:** `"text": "5+ parallel Claude sessions causing race conditions. User closed other sessions.",...`
+**Source:** agent-core:backfill-data-extraction-to-c-20260119-134858-acb29c
+
+### 2026-01-18 - memory (5 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `144→- Glow bloom on each creation...`
+**Source:** agent-core:backfill-studio-focused-on-20260118-015036-15417d
+
+### 2026-01-17 - memory (10 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `70→> Partner Operations & Systems Leader with deep partner-ecosystem fluency. I sit at the intersect...`
+**Source:** agent-core:backfill-the-11-apps-through--20260117-174445-fa339c
+
+### 2026-01-17 - git (1 occurrences)
+**Category:** git | **Severity:** high
+**Sample:** `fatal: not a git repository (or any of the parent directories): .git...`
+**Source:** agent-core:backfill-analyzer-core-engine-20260117-223421-3ddaa1
+
+### 2026-01-17 - recursion (1 occurrences)
+**Category:** recursion | **Severity:** high
+**Sample:** `224→- [ ] No infinite loops (MAX_ROUNDS enforced)...`
+**Source:** agent-core:backfill-directions-include--20260117-162046-1c8f51
+
+### 2026-01-16 - memory (18 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `- Post-processing (Bloom, Chromatic Aberration, Vignette)...`
+**Source:** agent-core:backfill-from-old-claude-sess-20260116-082220-9262b5
+
+### 2026-01-16 - recursion (1 occurrences)
+**Category:** recursion | **Severity:** high
+**Sample:** `74→│  │  Max rounds: 15 (prevents infinite loops)                    │   │...`
+**Source:** agent-core:backfill--compounding--20260116-171841-dcaf19
+
+### 2026-01-15 - memory (15 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `/Users/dicoangelo/OS-App/components/ImageGenParts/ScreeningRoom.tsx...`
+**Source:** agent-core:backfill-summary-for-your-rec-20260115-221712-8825cd
+
+### 2026-01-15 - quota (1 occurrences)
+**Category:** quota | **Severity:** high
+**Sample:** `375→            // This prevents "Quota Exceeded" on high-end models for simple tasks...`
+**Source:** agent-core:backfill-large-session-recove-20260115-095747-bbe957
+
+### 2026-01-14 - memory (97 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `"context": "y 2026\"  Links: [{\"title\":\"NVIDIA Debuts Nemotron 3 Family of Open Models | NVIDIA N...`
+**Source:** agent-core:backfill-components-orphaned--20260114-135258-18b718
+
+### 2026-01-13 - memory (18 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `"url": "https://newsroom.paypal-corp.com/2025-01-11-From-Search-to-Checkout-PayPal-Supports-Trusted-...`
+**Source:** agent-core:backfill-on-the-most-recent-b-20260113-071302-fb60d5
+
+### 2026-01-13 - concurrency (1 occurrences)
+**Category:** concurrency | **Severity:** high
+**Sample:** `Race conditions are the hardest to find, averaging 5.1 years to discovery because they're non-determ...`
+**Source:** agent-core:backfill-on-the-most-recent-b-20260113-071302-fb60d5
+
+### 2026-01-13 - git (1 occurrences)
+**Category:** git | **Severity:** high
+**Sample:** `fatal: destination path 'OS-App' already exists and is not an empty directory....`
+**Source:** agent-core:backfill-up-to-4-hours-total--20260113-081323-5c707f
+
+### 2026-01-13 - crash (2 occurrences)
+**Category:** crash | **Severity:** critical
+**Sample:** `The exit code 144 = SIGKILL (128 + 16), which was our `pkill` command terminating the test server....`
+**Source:** agent-core:backfill-up-to-4-hours-total--20260113-081323-5c707f
+
+### 2026-01-13 - permissions (1 occurrences)
+**Category:** permissions | **Severity:** high
+**Sample:** `(eval):1: permission denied:...`
+**Source:** agent-core:backfill-resume-jan-13-20260113-115350-e7f6d1
+
+### 2026-01-10 - memory (10 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `"context": " (2) Future - Cinderella (Visualizer) Feat. Metro Boomin & Travis Scott - YouTube    272...`
+**Source:** agent-core:backfill-process-this-morning-20260110-105526-48e160
+
+### 2026-01-10 - permissions (1 occurrences)
+**Category:** permissions | **Severity:** high
+**Sample:** `"Permission denied"...`
+**Source:** agent-core:backfill-process-this-morning-20260110-105526-48e160
+
+### 2026-01-09 - memory (9 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `/Users/dicoangelo/Desktop/OS-App/components/ImageGenParts/ScreeningRoom.tsx...`
+**Source:** agent-core:backfill-subagent-research-20260109-082911-e4d425
+
+### 2026-01-09 - quota (1 occurrences)
+**Category:** quota | **Severity:** high
+**Sample:** `186→                console.warn(`⚠️ RATE_LIMITED: API quota exceeded, waiting ${delay}ms...`);...`
+**Source:** agent-core:backfill-session-recovery-jan-20260109-132008-4c14b9
+
+### 0086-20-26 - memory (1 occurrences)
+**Category:** memory | **Severity:** critical
+**Sample:** `212→If you're searching for a **multidisciplinary operator** with equal parts creative vision and an...`
+**Source:** agent-core:backfill-session-from-d3f0086-20260109-111039-e3e1fe
+
+---
+
 ## Patterns to Watch
 
 ### Active Issues

@@ -1,0 +1,7 @@
+🤖 Running automated feedback loop...
+======================================================================
+📊 Analyzing 151 sessions from last 30 days...
+   ✓ Detected: Complexity ~0.5 has low efficiency (50.0%, n=151)
+
+✋ No high-confidence updates to apply
+   (Found 1 updates below 75% confidence threshold)

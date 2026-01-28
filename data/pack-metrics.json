@@ -1,0 +1,295 @@
+{
+  "status": "active",
+  "generated": "2026-01-28T03:51:28.696621",
+  "global": {
+    "total_sessions": 694,
+    "total_token_savings": 6999702,
+    "total_cost_savings": 1526.82,
+    "avg_reduction_rate": 99.99574285714286,
+    "cache_hit_rate": 0.0,
+    "total_packs": 8,
+    "total_tokens": 656,
+    "recent_sessions": 1
+  },
+  "top_packs": [
+    {
+      "name": "multi-agent-orchestration",
+      "times_selected": 1,
+      "total_tokens_loaded": 298,
+      "avg_dq_score": 0.85,
+      "avg_consensus_score": 0.88,
+      "combined_with": [
+        "agentic-memory",
+        "llm-optimization"
+      ]
+    },
+    {
+      "name": "agentic-memory",
+      "times_selected": 1,
+      "total_tokens_loaded": 298,
+      "avg_dq_score": 0.85,
+      "avg_consensus_score": 0.88,
+      "combined_with": [
+        "multi-agent-orchestration",
+        "llm-optimization"
+      ]
+    },
+    {
+      "name": "llm-optimization",
+      "times_selected": 1,
+      "total_tokens_loaded": 298,
+      "avg_dq_score": 0.85,
+      "avg_consensus_score": 0.88,
+      "combined_with": [
+        "multi-agent-orchestration",
+        "agentic-memory"
+      ]
+    }
+  ],
+  "daily_trend": [
+    {
+      "date": "2026-01-05",
+      "sessions": 4,
+      "messages": 4,
+      "token_savings": 6000,
+      "cost_savings": 0.0
+    },
+    {
+      "date": "2026-01-06",
+      "sessions": 8,
+      "messages": 16,
+      "token_savings": 24000,
+      "cost_savings": 0.04
+    },
+    {
+      "date": "2026-01-09",
+      "sessions": 38,
+      "messages": 2726,
+      "token_savings": 4089000,
+      "cost_savings": 46.75
+    },
+    {
+      "date": "2026-01-10",
+      "sessions": 19,
+      "messages": 515,
+      "token_savings": 772500,
+      "cost_savings": 8.93
+    },
+    {
+      "date": "2026-01-11",
+      "sessions": 16,
+      "messages": 376,
+      "token_savings": 564000,
+      "cost_savings": 5.57
+    },
+    {
+      "date": "2026-01-12",
+      "sessions": 33,
+      "messages": 1797,
+      "token_savings": 2695500,
+      "cost_savings": 26.22
+    },
+    {
+      "date": "2026-01-13",
+      "sessions": 18,
+      "messages": 4407,
+      "token_savings": 6610500,
+      "cost_savings": 71.62
+    },
+    {
+      "date": "2026-01-14",
+      "sessions": 39,
+      "messages": 5176,
+      "token_savings": 7764000,
+      "cost_savings": 72.73
+    },
+    {
+      "date": "2026-01-15",
+      "sessions": 18,
+      "messages": 3084,
+      "token_savings": 4626000,
+      "cost_savings": 54.2
+    },
+    {
+      "date": "2026-01-16",
+      "sessions": 33,
+      "messages": 3291,
+      "token_savings": 4936500,
+      "cost_savings": 35.38
+    },
+    {
+      "date": "2026-01-17",
+      "sessions": 48,
+      "messages": 6283,
+      "token_savings": 9424500,
+      "cost_savings": 98.59
+    },
+    {
+      "date": "2026-01-18",
+      "sessions": 30,
+      "messages": 7316,
+      "token_savings": 10974000,
+      "cost_savings": 97.82
+    },
+    {
+      "date": "2026-01-19",
+      "sessions": 59,
+      "messages": 12531,
+      "token_savings": 18796500,
+      "cost_savings": 190.23
+    },
+    {
+      "date": "2026-01-20",
+      "sessions": 24,
+      "messages": 4401,
+      "token_savings": 6601500,
+      "cost_savings": 69.35
+    },
+    {
+      "date": "2026-01-21",
+      "sessions": 109,
+      "messages": 14306,
+      "token_savings": 21459000,
+      "cost_savings": 207.17
+    },
+    {
+      "date": "2026-01-22",
+      "sessions": 51,
+      "messages": 7245,
+      "token_savings": 10867500,
+      "cost_savings": 113.82
+    },
+    {
+      "date": "2026-01-23",
+      "sessions": 49,
+      "messages": 11396,
+      "token_savings": 17094000,
+      "cost_savings": 171.49
+    },
+    {
+      "date": "2026-01-24",
+      "sessions": 45,
+      "messages": 6024,
+      "token_savings": 9036000,
+      "cost_savings": 75.66
+    },
+    {
+      "date": "2026-01-25",
+      "sessions": 7,
+      "messages": 378,
+      "token_savings": 567000,
+      "cost_savings": 3.6
+    },
+    {
+      "date": "2026-01-26",
+      "sessions": 26,
+      "messages": 10606,
+      "token_savings": 15909000,
+      "cost_savings": 150.88
+    },
+    {
+      "date": "2026-01-27",
+      "sessions": 18,
+      "messages": 2290,
+      "token_savings": 3435000,
+      "cost_savings": 22.26
+    },
+    {
+      "date": "2026-01-28",
+      "sessions": 2,
+      "messages": 431,
+      "token_savings": 646500,
+      "cost_savings": 4.49
+    }
+  ],
+  "pack_inventory": [
+    {
+      "name": "multi-agent-orchestration",
+      "type": "domain",
+      "tokens": 112,
+      "version": "1.0.0",
+      "created": "2026-01-18T16:53:19.114831Z",
+      "file": "domain/multi-agent-orchestration.pack.json",
+      "times_used": 1,
+      "last_used": "test-session-001",
+      "avg_dq_score": 0.85
+    },
+    {
+      "name": "agentic-memory",
+      "type": "domain",
+      "tokens": 93,
+      "version": "1.0.0",
+      "created": "2026-01-18T16:53:19.539131Z",
+      "file": "domain/agentic-memory.pack.json",
+      "times_used": 1,
+      "last_used": "test-session-001",
+      "avg_dq_score": 0.85
+    },
+    {
+      "name": "llm-optimization",
+      "type": "domain",
+      "tokens": 93,
+      "version": "1.0.0",
+      "created": "2026-01-18T16:53:19.950798Z",
+      "file": "domain/llm-optimization.pack.json",
+      "times_used": 1,
+      "last_used": "test-session-001",
+      "avg_dq_score": 0.85
+    },
+    {
+      "name": "os-app-architecture",
+      "type": "project",
+      "tokens": 45,
+      "version": "1.0.0",
+      "created": "2026-01-18T16:53:28.069351Z",
+      "file": "project/os-app-architecture.pack.json",
+      "times_used": 0,
+      "last_used": "",
+      "avg_dq_score": 0
+    },
+    {
+      "name": "debugging-patterns",
+      "type": "pattern",
+      "tokens": 43,
+      "version": "1.0.0",
+      "created": "2026-01-18T16:53:28.491306Z",
+      "file": "pattern/debugging-patterns.pack.json",
+      "times_used": 0,
+      "last_used": "",
+      "avg_dq_score": 0
+    },
+    {
+      "name": "career-coaching",
+      "type": "domain",
+      "tokens": 85,
+      "version": "1.0.0",
+      "created": "2026-01-19T14:00:00Z",
+      "file": "domain/career-coaching.pack.json",
+      "times_used": 0,
+      "last_used": "",
+      "avg_dq_score": 0
+    },
+    {
+      "name": "session-analysis",
+      "type": "domain",
+      "tokens": 95,
+      "version": "1.0.0",
+      "created": "2026-01-19T14:00:00Z",
+      "file": "domain/session-analysis.pack.json",
+      "times_used": 0,
+      "last_used": "",
+      "avg_dq_score": 0
+    },
+    {
+      "name": "research-workflow",
+      "type": "domain",
+      "tokens": 90,
+      "version": "1.0.0",
+      "created": "2026-01-19T14:00:00Z",
+      "file": "domain/research-workflow.pack.json",
+      "times_used": 0,
+      "last_used": "",
+      "avg_dq_score": 0
+    }
+  ]
+}

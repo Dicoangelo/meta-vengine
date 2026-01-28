@@ -1,0 +1,9 @@
+{
+  "id": "3",
+  "subject": "Implement ecosystem synthesis with 3 Opus agents (Phase 3)",
+  "description": "Create synthesize_ecosystem.py with 3 parallel Opus agents: Agent A (single-project innovations), Agent B (cross-project synergies), Agent C (package updates for cpb-core/voice-nexus). Load ALL 21 project architectures, dependency graph, package versions, meta-vengine state. Generate ecosystem plan with topological ordering and priority ranking.\n\nSuccess criteria:\n- 8-12 single-project innovations\n- 3-5 cross-project synergies\n- 1-2 package updates\n- Valid dependency-ordered roadmap\n- Cost: <$3 (3 Opus agents, optimized context)\n\nFiles to create:\n- ~/researchgravity/orchestrator/synthesize_ecosystem.py (~700 lines)",
+  "activeForm": "Implementing innovation synthesis layer",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

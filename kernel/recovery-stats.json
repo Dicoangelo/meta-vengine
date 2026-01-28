@@ -1,0 +1,13 @@
+{
+  "total_recoveries": 150,
+  "success_rate": 89.3,
+  "by_pattern": {
+    "git": 118,
+    "permissions": 11,
+    "concurrency": 11,
+    "quota": 4,
+    "crash": 3,
+    "syntax": 2,
+    "recursion": 1
+  }
+}

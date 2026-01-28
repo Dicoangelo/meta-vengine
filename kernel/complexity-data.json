@@ -1,0 +1,18 @@
+{
+  "totalQueries": 1591,
+  "modelDistribution": {
+    "haiku": 0.481,
+    "sonnet": 0.181,
+    "opus": 0.331
+  },
+  "modelCounts": {
+    "haiku": 766,
+    "sonnet": 288,
+    "opus": 526,
+    "local": 3,
+    "local-fast": 4,
+    "flash": 4
+  },
+  "avgComplexity": 0.468,
+  "lastUpdated": "2026-01-28T01:59:55.922038"
+}

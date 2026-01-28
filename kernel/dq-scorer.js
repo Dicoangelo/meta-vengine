@@ -37,14 +37,94 @@ function loadBaselines() {
 const BASELINES = loadBaselines();
 
 // ═══════════════════════════════════════════════════════════════════════════
-// DQ WEIGHTS (from ACE Framework)
+// DQ WEIGHTS (from ACE Framework + Cognitive OS adjustments)
 // ═══════════════════════════════════════════════════════════════════════════
 
-const DQ_WEIGHTS = BASELINES?.dq_weights || {
+const COGNITIVE_DQ_WEIGHTS_PATH = path.join(process.env.HOME, '.claude/kernel/cognitive-os/cognitive-dq-weights.json');
+const EXPERTISE_ROUTING_STATE_PATH = path.join(process.env.HOME, '.claude/kernel/expertise-routing-state.json');
+
+function loadCognitiveDQWeights() {
+  // Try to load cognitive-aware weights from Cognitive OS
+  if (fs.existsSync(COGNITIVE_DQ_WEIGHTS_PATH)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(COGNITIVE_DQ_WEIGHTS_PATH, 'utf8'));
+      const fileAge = Date.now() - new Date(data.timestamp).getTime();
+      // Only use if less than 30 minutes old
+      if (fileAge < 30 * 60 * 1000 && data.dq_weights) {
+        return {
+          weights: data.dq_weights,
+          complexityModifier: data.complexity_threshold_modifier || 1.0,
+          cognitiveMode: data.cognitive_mode,
+          reasoning: data.reasoning
+        };
+      }
+    } catch (e) {
+      // Fall through to defaults
+    }
+  }
+  return null;
+}
+
+const COGNITIVE_WEIGHTS = loadCognitiveDQWeights();
+
+const DQ_WEIGHTS = COGNITIVE_WEIGHTS?.weights || BASELINES?.dq_weights || {
   validity: 0.4,      // Does the routing make logical sense?
   specificity: 0.3,   // How precise is the model selection?
   correctness: 0.3    // Historical accuracy of similar queries
 };
+
+// Complexity threshold modifier from Cognitive OS (affects model selection boundaries)
+const COMPLEXITY_MODIFIER = COGNITIVE_WEIGHTS?.complexityModifier || 1.0;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// EXPERTISE ROUTING
+// ═══════════════════════════════════════════════════════════════════════════
+
+function loadExpertiseState() {
+  if (fs.existsSync(EXPERTISE_ROUTING_STATE_PATH)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(EXPERTISE_ROUTING_STATE_PATH, 'utf8'));
+      const fileAge = Date.now() - new Date(data.timestamp).getTime();
+      // Use if less than 1 hour old
+      if (fileAge < 60 * 60 * 1000) {
+        return data;
+      }
+    } catch (e) {}
+  }
+  return null;
+}
+
+const EXPERTISE_STATE = loadExpertiseState();
+
+/**
+ * Detect domain of query and check expertise level
+ */
+function getExpertiseAdjustment(query) {
+  if (!EXPERTISE_STATE) return null;
+
+  const highExpertise = EXPERTISE_STATE.high_expertise_domains || [];
+  const lowExpertise = EXPERTISE_STATE.low_expertise_domains || [];
+  const queryLower = query.toLowerCase();
+
+  // Check if query matches high expertise domains
+  for (const domain of highExpertise) {
+    if (queryLower.includes(domain) ||
+        (domain === 'react' && (queryLower.includes('component') || queryLower.includes('hook'))) ||
+        (domain === 'typescript' && queryLower.includes('type')) ||
+        (domain === 'python' && queryLower.includes('.py'))) {
+      return { domain, adjustment: 'downgrade', expertise: 'high' };
+    }
+  }
+
+  // Check if query matches low expertise domains
+  for (const domain of lowExpertise) {
+    if (queryLower.includes(domain)) {
+      return { domain, adjustment: 'upgrade', expertise: 'low' };
+    }
+  }
+
+  return null;
+}
 
 // Actionable threshold
 const DQ_THRESHOLD = BASELINES?.dq_thresholds?.actionable || 0.5;
@@ -120,6 +200,15 @@ function loadHistory() {
 function saveDecision(decision) {
   const line = JSON.stringify(decision) + '\n';
   fs.appendFileSync(HISTORY_PATH, line);
+}
+
+/**
+ * Apply cognitive complexity modifier to adjust thresholds
+ */
+function applyCognitiveModifier(complexity) {
+  // If modifier > 1, we can handle more complexity (raise thresholds effectively)
+  // If modifier < 1, we should use simpler models (lower thresholds effectively)
+  return complexity / COMPLEXITY_MODIFIER;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -243,10 +332,14 @@ function route(query) {
   const history = loadHistory();
   const complexity = estimateComplexity(query);
 
+  // Apply cognitive modifier to complexity for threshold comparisons
+  const adjustedComplexity = applyCognitiveModifier(complexity.score);
+
   // Try each model and pick best DQ
   const candidates = ['haiku', 'sonnet', 'opus'].map(model => {
-    const dq = calculateDQ(query, complexity.score, model, history);
-    return { model, dq, complexity: complexity.score };
+    // Use adjusted complexity for DQ calculation
+    const dq = calculateDQ(query, adjustedComplexity, model, history);
+    return { model, dq, complexity: complexity.score, adjustedComplexity };
   });
 
   // Sort by DQ score (highest first), then by cost (lowest first for ties)
@@ -259,7 +352,45 @@ function route(query) {
     return costOrder[a.model] - costOrder[b.model];
   });
 
-  const best = candidates[0];
+  let best = candidates[0];
+
+  // Apply expertise-based adjustment
+  const expertiseAdj = getExpertiseAdjustment(query);
+  let expertiseOverride = null;
+
+  if (expertiseAdj) {
+    const models = ['haiku', 'sonnet', 'opus'];
+    const currentIdx = models.indexOf(best.model);
+
+    if (expertiseAdj.adjustment === 'downgrade' && currentIdx > 0) {
+      // High expertise - can use cheaper model
+      const newModel = models[currentIdx - 1];
+      expertiseOverride = {
+        original: best.model,
+        adjusted: newModel,
+        domain: expertiseAdj.domain,
+        reason: `High expertise in ${expertiseAdj.domain}`
+      };
+      // Find the candidate for the new model
+      const newCandidate = candidates.find(c => c.model === newModel);
+      if (newCandidate) {
+        best = newCandidate;
+      }
+    } else if (expertiseAdj.adjustment === 'upgrade' && currentIdx < models.length - 1) {
+      // Low expertise - need more capable model
+      const newModel = models[currentIdx + 1];
+      expertiseOverride = {
+        original: best.model,
+        adjusted: newModel,
+        domain: expertiseAdj.domain,
+        reason: `Low expertise in ${expertiseAdj.domain}`
+      };
+      const newCandidate = candidates.find(c => c.model === newModel);
+      if (newCandidate) {
+        best = newCandidate;
+      }
+    }
+  }
 
   // Estimate cost for this routing decision
   function estimateCost(model, queryText) {
@@ -283,6 +414,7 @@ function route(query) {
     query: query.slice(0, 200), // Truncate for storage
     query_preview: query.slice(0, 50),
     complexity: complexity.score,
+    adjusted_complexity: adjustedComplexity,
     complexity_reasoning: complexity.reasoning,
     model: best.model,
     dqScore: best.dq.score,
@@ -290,7 +422,13 @@ function route(query) {
     reasoning: complexity.reasoning,
     alternatives: candidates.slice(1).map(c => ({ model: c.model, dq: c.dq.score })),
     cost_estimate: estimateCost(best.model, query),
-    baseline_version: BASELINES ? BASELINES.version : 'hardcoded'
+    baseline_version: BASELINES ? BASELINES.version : 'hardcoded',
+    cognitive: COGNITIVE_WEIGHTS ? {
+      mode: COGNITIVE_WEIGHTS.cognitiveMode,
+      modifier: COMPLEXITY_MODIFIER,
+      weights_applied: true
+    } : null,
+    expertise: expertiseOverride
   };
 
   saveDecision(decision);
@@ -301,7 +439,9 @@ function route(query) {
     dq: best.dq,
     reasoning: complexity.reasoning,
     cost_estimate: decision.cost_estimate,
-    baseline_version: decision.baseline_version
+    baseline_version: decision.baseline_version,
+    cognitive: decision.cognitive,
+    expertise: decision.expertise
   };
 }
 
