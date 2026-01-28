@@ -42,7 +42,7 @@ fi
 # Log detailed tool usage
 
 # PRIMARY: Write to SQLite (source of truth)
-python3 << 'PYEOF'
+python3 << PYEOF
 import sys
 sys.path.insert(0, '$HOME/.claude/scripts')
 try:
@@ -107,7 +107,7 @@ fi
 # ═══════════════════════════════════════════════════════════════
 
 # PRIMARY: Write to SQLite (source of truth)
-python3 << 'PYEOF'
+python3 << PYEOF
 import sys
 sys.path.insert(0, '$HOME/.claude/scripts')
 try:
