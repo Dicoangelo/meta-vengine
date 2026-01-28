@@ -1112,8 +1112,32 @@ for row in cursor.fetchall():
 cursor = conn.execute("SELECT COUNT(*) as count FROM tool_events WHERE success = 0")
 result["totalFailures"] = cursor.fetchone()["count"]
 
-# Daily usage (last 7 days)
+# Failure patterns (last 30 days)
 now = datetime.now()
+thirty_days_ago = int((now - timedelta(days=30)).timestamp())
+cursor = conn.execute("""
+    SELECT
+        tool_name,
+        date(timestamp, 'unixepoch') as date,
+        COUNT(*) as failures,
+        error_message
+    FROM tool_events
+    WHERE success = 0 AND timestamp > ?
+    GROUP BY tool_name, date
+    ORDER BY failures DESC, date DESC
+    LIMIT 20
+""", (thirty_days_ago,))
+result["failurePatterns"] = [
+    {
+        "tool": row["tool_name"],
+        "date": row["date"],
+        "failures": row["failures"],
+        "error": row["error_message"] or "Unknown error"
+    }
+    for row in cursor.fetchall()
+]
+
+# Daily usage (last 7 days)
 week_ago = int((now - timedelta(days=7)).timestamp())
 cursor = conn.execute("SELECT date(timestamp, 'unixepoch') as day, COUNT(*) as count FROM tool_events WHERE timestamp > ? GROUP BY day ORDER BY day", (week_ago,))
 daily_data = {row["day"]: row["count"] for row in cursor.fetchall()}
