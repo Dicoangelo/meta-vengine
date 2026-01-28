@@ -307,6 +307,56 @@ def log_git_pr(repo: str, branch: str, message: str) -> bool:
     """Convenience function for logging PR creation"""
     return log_git_event('pr', repo=repo, branch=branch, message=message)
 
+# Session Outcomes
+# ================
+
+def log_session_outcome(session_id: str, outcome: str, quality: float,
+                        complexity: float, intent: str, model: str,
+                        messages_count: Optional[int] = None,
+                        duration_minutes: Optional[int] = None,
+                        cost_usd: Optional[float] = None,
+                        success: bool = True,
+                        summary: Optional[str] = None) -> bool:
+    """
+    Log a session outcome event to SQLite
+
+    Args:
+        session_id: Session identifier
+        outcome: 'success', 'partial', 'failure', 'abandoned'
+        quality: Quality score 1-5
+        complexity: Complexity score 0-1
+        intent: Session intent/goal
+        model: Model used (haiku, sonnet, opus)
+        messages_count: Number of messages
+        duration_minutes: Session duration
+        cost_usd: Session cost
+        success: Whether session succeeded
+        summary: Brief summary of session
+
+    Returns:
+        bool: True if successful
+    """
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            INSERT INTO session_outcome_events
+            (timestamp, session_id, outcome, quality, complexity, intent,
+             model, messages_count, duration_minutes, cost_usd, success, summary)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (int(time.time()), session_id, outcome, quality, complexity,
+              intent, model, messages_count, duration_minutes, cost_usd,
+              1 if success else 0, summary))
+
+        conn.commit()
+        conn.close()
+        return True
+
+    except Exception as e:
+        print(f"❌ Failed to log session outcome: {e}")
+        return False
+
 # Hook-Compatible Functions (for bash hooks)
 # ===========================================
 

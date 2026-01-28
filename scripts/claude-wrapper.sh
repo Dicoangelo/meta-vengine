@@ -75,7 +75,7 @@ else
   complexity=${complexity:-0.5}
 fi
 
-# Log metrics (append to JSONL)
+# Log metrics (dual-write: SQLite PRIMARY + JSONL BACKUP)
 if [[ -w "$METRICS_LOG" ]] || [[ ! -e "$METRICS_LOG" ]]; then
   # Generate query hash (md5 or fallback)
   if command -v md5 &> /dev/null; then
@@ -86,6 +86,28 @@ if [[ -w "$METRICS_LOG" ]] || [[ ! -e "$METRICS_LOG" ]]; then
     query_hash=$(echo -n "$query" | cksum | cut -d' ' -f1)
   fi
 
+  # PRIMARY: Write to SQLite
+  python3 << PYEOF 2>/dev/null || true
+import sys
+sys.path.insert(0, '$HOME/.claude/scripts')
+try:
+    from sqlite_hooks import log_routing_metric
+    log_routing_metric(
+        predicted_model="$model",
+        actual_model=None,
+        dq_score=$dq_score,
+        complexity=$complexity,
+        accuracy=None,
+        cost_saved=None,
+        reasoning="Auto-routed via claude-wrapper",
+        query_text="$query",
+        query_id="$query_hash"
+    )
+except Exception:
+    pass
+PYEOF
+
+  # BACKUP: Write to JSONL (will be deprecated after 30 days)
   echo "{\"ts\":$(date +%s),\"query_hash\":\"$query_hash\",\"complexity\":$complexity,\"model\":\"$model\",\"dq\":$dq_score,\"latency_ms\":$routing_latency}" >> "$METRICS_LOG"
 fi
 
