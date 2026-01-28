@@ -23,6 +23,9 @@ settings.local.json.save
 stats-cache.json
 activity.log
 
+# Dashboard (generated from template)
+dashboard/claude-command-center.html
+
 # Data directory (session-specific)
 data/activity-events.jsonl
 
