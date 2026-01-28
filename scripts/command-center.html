@@ -441,8 +441,14 @@
     /* Memory Tab */
     .memory-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns */
       gap: 1.5rem;
+    }
+
+    @media (max-width: 1600px) {
+      .memory-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     .memory-section { margin-bottom: 0; }
@@ -2439,18 +2445,6 @@
           </div>
         </div>
       </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h3>⚙️ Tool Analytics Commands</h3>
-        </div>
-        <div class="commands-grid">
-          <div class="command-card"><code>tool-stats 7</code><div class="desc">7-day tool success rates</div></div>
-          <div class="command-card"><code>command-stats 7</code><div class="desc">Command usage statistics</div></div>
-          <div class="command-card"><code>git-stats 30</code><div class="desc">30-day git activity</div></div>
-          <div class="command-card"><code>obs</code><div class="desc">Unified analytics report</div></div>
-        </div>
-      </div>
     </div>
 
     <!-- SUPERMEMORY TAB -->
@@ -3119,15 +3113,14 @@
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT') return;
-      const tabs = ['overview', 'memory', 'activity', 'cost', 'projects', 'commands', 'routing', 'coevo', 'context-efficiency', 'session-outcomes', 'productivity', 'tool-analytics'];
+      const tabs = ['overview', 'memory', 'activity', 'cost', 'projects', 'commands', 'routing', 'coevo', 'context-efficiency', 'session-outcomes', 'productivity'];
       if (e.key >= '1' && e.key <= '9') switchTab(tabs[parseInt(e.key) - 1]);
       if (e.key === '0') switchTab('session-outcomes');  // Tab 10
       if (e.key.toLowerCase() === 'o') switchTab('session-outcomes');  // Tab 10 (O for Outcomes)
       if (e.key.toLowerCase() === 'p') switchTab('productivity');  // Tab 11
-      if (e.key.toLowerCase() === 't') switchTab('tool-analytics');  // Tab 12
-      if (e.key.toLowerCase() === 's') switchTab('supermemory');  // Tab 13
-      if (e.key.toLowerCase() === 'c') switchTab('cognitive');  // Tab 14
-      if (e.key.toLowerCase() === 'i') switchTab('infrastructure');  // Tab 15
+      if (e.key.toLowerCase() === 's') switchTab('supermemory');  // Tab 12
+      if (e.key.toLowerCase() === 'c') switchTab('cognitive');  // Tab 13
+      if (e.key.toLowerCase() === 'i') switchTab('infrastructure');  // Tab 14
       if (e.key.toLowerCase() === 'r') location.reload();
     });
 
@@ -3431,7 +3424,12 @@
           return;
         }
 
-        container.innerHTML = items.map(item => `
+        // Sort by timestamp descending (most recent first)
+        const sortedItems = [...items].sort((a, b) =>
+          new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime()
+        );
+
+        container.innerHTML = sortedItems.map(item => `
           <div class="memory-item">
             <div class="content">${item.content}</div>
             <div class="meta">
@@ -3622,8 +3620,20 @@
         document.getElementById('coevoLastAnalysis').textContent =
           COEVO_DATA.lastAnalysis || 'Never';
 
-        // Pattern chart
-        const patterns = COEVO_DATA.patterns || [];
+        // Pattern chart - Try COEVO_DATA.patterns first, fallback to PATTERN_TRENDS_DATA
+        let patterns = COEVO_DATA.patterns || [];
+
+        // Fallback: If no patterns in COEVO_DATA, try PATTERN_TRENDS_DATA
+        if (patterns.length === 0 && PATTERN_TRENDS_DATA && PATTERN_TRENDS_DATA.top_patterns) {
+          patterns = PATTERN_TRENDS_DATA.top_patterns.map(p => ({
+            id: p.pattern || p.id || 'Unknown',
+            name: p.pattern || p.id || 'Unknown',
+            confidence: p.percentage || p.confidence || 0,
+            count: p.count || 0,
+            description: `${p.count || 0} sessions`
+          }));
+        }
+
         if (patterns.length > 0) {
           document.getElementById('patternCount').textContent = patterns.length;
 

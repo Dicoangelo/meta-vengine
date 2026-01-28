@@ -58,11 +58,24 @@ gcheckpoint() {
   fi
 }
 
-# Auto-sync: pull, add, commit, push
+# Auto-sync: pull, add, commit, push (SAFE VERSION with auto-stash)
 gsync() {
   local msg="${1:-sync $(date '+%H:%M')}"
 
-  echo "→ Pulling..."
+  # Protection: Ensure auto-stash is enabled
+  if [[ $(git config rebase.autoStash) != "true" ]]; then
+    echo "⚠️  Enabling git auto-stash for safety..."
+    git config rebase.autoStash true
+  fi
+
+  # Warn if uncommitted changes
+  if ! git diff-index --quiet HEAD -- 2>/dev/null; then
+    echo "⚠️  Uncommitted changes detected - will auto-stash during pull"
+    echo "    (Press Ctrl+C within 2s to cancel and commit manually)"
+    sleep 2
+  fi
+
+  echo "→ Pulling with auto-stash..."
   git pull --rebase || { echo "✗ Pull failed"; return 1; }
 
   echo "→ Staging..."
