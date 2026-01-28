@@ -1,0 +1,9 @@
+{
+  "id": "6",
+  "subject": "Configure ecosystem orchestrator for 21 projects (Phase 0)",
+  "description": "Run dependency_graph.py to analyze all 21 projects. Audit tech stacks, git status, dependencies, research domains. Expand ~/.agent-core/projects.json with all 21 projects (add tech_stack, dependencies, research_domains, last_activity). Create orchestrator-config.json in each project root. Set up meta-vengine API if needed.\n\nSuccess criteria:\n- Dependency graph complete (valid DAG)\n- All 21 projects registered with tech stacks\n- Config files in all project roots\n- Meta-vengine API accessible\n\nFiles to modify:\n- ~/.agent-core/config.json (add ecosystem_orchestrator section with 21 projects)\n- ~/.agent-core/projects.json (expand with full details)",
+  "activeForm": "Configuring research orchestrator settings",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

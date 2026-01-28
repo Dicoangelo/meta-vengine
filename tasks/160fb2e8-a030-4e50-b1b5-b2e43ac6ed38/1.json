@@ -1,0 +1,11 @@
+{
+  "id": "1",
+  "subject": "Add provider health check system",
+  "description": "Create a health check module for voice providers:\n- New file: `services/voiceNexus/healthCheck.ts`\n- Add `checkSTTHealth()`, `checkReasoningHealth()`, `checkTTSHealth()` functions\n- Implement `getProviderHealth()` method in orchestrator\n- Return status: available/degraded/unavailable with latency metrics\n- Surface health status in VoiceManager UI component\n\nCritical files:\n- services/voiceNexus/orchestrator.ts\n- components/voice/VoiceManager/index.tsx",
+  "activeForm": "Adding provider health checks",
+  "status": "pending",
+  "blocks": [
+    "4"
+  ],
+  "blockedBy": []
+}

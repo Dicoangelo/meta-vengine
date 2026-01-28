@@ -1,0 +1,15 @@
+{
+  "id": "4",
+  "subject": "Add voice system unit tests",
+  "description": "Create comprehensive test suite for voice system:\n- New directory: `services/voiceNexus/__tests__/`\n- Test files:\n  - `complexityRouter.test.ts` - scoring algorithm, tier mapping, overrides\n  - `knowledgeInjector.test.ts` - context formatting, API mocking\n  - `orchestrator.test.ts` - mode switching, state management\n- Mock all external providers (Claude, Gemini, ElevenLabs)\n- Test edge cases: empty input, API failures, timeout handling\n- Target: 80% coverage of voice system",
+  "activeForm": "Creating voice system tests",
+  "status": "pending",
+  "blocks": [
+    "6"
+  ],
+  "blockedBy": [
+    "1",
+    "2",
+    "3"
+  ]
+}

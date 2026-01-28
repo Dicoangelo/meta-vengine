@@ -1,0 +1,9 @@
+{
+  "id": "1",
+  "subject": "Implement universal source monitoring (Phase 1 - Enhanced)",
+  "description": "Create harvest_sources.py for autonomous discovery across ALL 21 projects. Monitor external sources (arXiv, GitHub trending, HN, Papers with Code, NPM, PyPI) PLUS internal sources (git commits across 21 repos, GitHub issues/PRs, package.json changes, chrome-history insights, FlowDesk logs). Implement cross-project keyword matching (e.g., \"routing\" → meta-vengine, cpb-core, voice-nexus). Output to research-queue.jsonl with project_targets array.\n\nSuccess criteria:\n- 50-200 candidate findings per day (21-project scope)\n- >60% relevance\n- Project targets correctly identified (80%+ accuracy)\n- <5min execution time\n\nFiles to create:\n- ~/researchgravity/orchestrator/harvest_sources.py (~800 lines)\n\nDependencies: GitHub API, NPM registry API, git, chrome-history-export integration",
+  "activeForm": "Implementing source monitoring system",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

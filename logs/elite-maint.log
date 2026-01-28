@@ -1,0 +1,417 @@
+
+Generated 3 modification proposals:
+
+  mod-20260120-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260120-001: Consider /clear more often - avg session is 477 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260120-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ✅ Auto-applied: mod-20260120-000
+  ✅ Auto-applied: mod-20260120-001
+  ✅ Auto-applied: mod-20260120-claude-md
+
+Auto-applied 3 modifications with confidence >= 0.9
+Evaluated 7 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+
+Generated 3 modification proposals:
+
+  mod-20260121-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260121-001: Consider /clear more often - avg session is 133 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260121-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ✅ Auto-applied: mod-20260121-000
+  ✅ Auto-applied: mod-20260121-001
+  ✅ Auto-applied: mod-20260121-claude-md
+
+Auto-applied 3 modifications with confidence >= 0.9
+Evaluated 10 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+
+Generated 3 modification proposals:
+
+  mod-20260122-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260122-001: Consider /clear more often - avg session is 131 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260122-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ✅ Auto-applied: mod-20260122-000
+  ✅ Auto-applied: mod-20260122-001
+  ✅ Auto-applied: mod-20260122-claude-md
+
+Auto-applied 3 modifications with confidence >= 0.9
+Evaluated 13 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+
+Generated 3 modification proposals:
+
+  mod-20260123-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260123-001: Consider /clear more often - avg session is 132 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260123-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ✅ Auto-applied: mod-20260123-000
+  ✅ Auto-applied: mod-20260123-001
+  ✅ Auto-applied: mod-20260123-claude-md
+
+Auto-applied 3 modifications with confidence >= 0.9
+Evaluated 16 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+
+Generated 4 modification proposals:
+
+  mod-20260124-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260124-001: Consider /clear more often - avg session is 141 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260124-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260124-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ✅ Auto-applied: mod-20260124-000
+  ✅ Auto-applied: mod-20260124-001
+  ✅ Auto-applied: mod-20260124-002
+  ✅ Auto-applied: mod-20260124-claude-md
+
+Auto-applied 4 modifications with confidence >= 0.9
+Evaluated 21 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+
+Generated 4 modification proposals:
+
+  mod-20260125-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260125-001: Consider /clear more often - avg session is 142 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260125-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260125-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ✅ Auto-applied: mod-20260125-000
+  ✅ Auto-applied: mod-20260125-001
+  ✅ Auto-applied: mod-20260125-002
+  ✅ Auto-applied: mod-20260125-claude-md
+
+Auto-applied 4 modifications with confidence >= 0.9
+Evaluated 25 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+
+Generated 4 modification proposals:
+
+  mod-20260126-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260126-001: Consider /clear more often - avg session is 141 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260126-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260126-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ✅ Auto-applied: mod-20260126-000
+  ✅ Auto-applied: mod-20260126-001
+  ✅ Auto-applied: mod-20260126-002
+  ✅ Auto-applied: mod-20260126-claude-md
+
+Auto-applied 4 modifications with confidence >= 0.9
+Evaluated 29 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+  ⚠️ mod-20260126-000: +0.00% improvement
+  ⚠️ mod-20260126-001: +0.00% improvement
+  ⚠️ mod-20260126-002: +0.00% improvement
+  ⚠️ mod-20260126-claude-md: +0.00% improvement
+
+Generated 4 modification proposals:
+
+  mod-20260127-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260127-001: Consider /clear more often - avg session is 151 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260127-002: Git issues recurring (9 failures). Consider pre-session git health check.
+     Type: preventive | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Add git status check to session start
+
+  mod-20260127-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ✅ Auto-applied: mod-20260127-000
+  ✅ Auto-applied: mod-20260127-001
+  ✅ Auto-applied: mod-20260127-002
+  ✅ Auto-applied: mod-20260127-claude-md
+
+Auto-applied 4 modifications with confidence >= 0.9
+Evaluated 33 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+  ⚠️ mod-20260126-000: +0.00% improvement
+  ⚠️ mod-20260126-001: +0.00% improvement
+  ⚠️ mod-20260126-002: +0.00% improvement
+  ⚠️ mod-20260126-claude-md: +0.00% improvement
+  ⚠️ mod-20260127-000: +0.00% improvement
+  ⚠️ mod-20260127-001: +0.00% improvement
+  ⚠️ mod-20260127-002: +0.00% improvement
+  ⚠️ mod-20260127-claude-md: +0.00% improvement
+
+Generated 3 modification proposals:
+
+  mod-20260128-000: Batch related queries into fewer sessions
+     Type: behavior | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Could improve cache efficiency by 2-5%
+
+  mod-20260128-001: Consider /clear more often - avg session is 150 messages
+     Type: efficiency | Target: CLAUDE.md
+     Confidence: 0.95 | Impact: Maintain context quality and cache efficiency
+
+  mod-20260128-claude-md: Update CLAUDE.md with learned patterns
+     Type: claude_md_update | Target: CLAUDE.md
+     Confidence: 0.9 | Impact: Better session initialization and context awareness
+
+Apply with: meta-analyzer apply <mod_id>
+Preview with: meta-analyzer apply <mod_id> --dry-run
+  ✅ Auto-applied: mod-20260128-000
+  ✅ Auto-applied: mod-20260128-001
+  ✅ Auto-applied: mod-20260128-claude-md
+
+Auto-applied 3 modifications with confidence >= 0.9
+Evaluated 36 applied modifications:
+  ⚠️ mod-20260119-claude-md: +0.00% improvement
+  ⚠️ mod-20260119-000: +0.00% improvement
+  ⚠️ mod-20260119-002: +0.00% improvement
+  ⚠️ mod-20260119-001: +0.00% improvement
+  ⚠️ mod-20260120-000: +0.00% improvement
+  ⚠️ mod-20260120-001: +0.00% improvement
+  ⚠️ mod-20260120-claude-md: +0.00% improvement
+  ⚠️ mod-20260121-000: +0.00% improvement
+  ⚠️ mod-20260121-001: +0.00% improvement
+  ⚠️ mod-20260121-claude-md: +0.00% improvement
+  ⚠️ mod-20260122-000: +0.00% improvement
+  ⚠️ mod-20260122-001: +0.00% improvement
+  ⚠️ mod-20260122-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-000: +0.00% improvement
+  ⚠️ mod-20260123-001: +0.00% improvement
+  ⚠️ mod-20260123-claude-md: +0.00% improvement
+  ⚠️ mod-20260123-002: +0.00% improvement
+  ⚠️ mod-20260124-000: +0.00% improvement
+  ⚠️ mod-20260124-001: +0.00% improvement
+  ⚠️ mod-20260124-002: +0.00% improvement
+  ⚠️ mod-20260124-claude-md: +0.00% improvement
+  ⚠️ mod-20260125-000: +0.00% improvement
+  ⚠️ mod-20260125-001: +0.00% improvement
+  ⚠️ mod-20260125-002: +0.00% improvement
+  ⚠️ mod-20260125-claude-md: +0.00% improvement
+  ⚠️ mod-20260126-000: +0.00% improvement
+  ⚠️ mod-20260126-001: +0.00% improvement
+  ⚠️ mod-20260126-002: +0.00% improvement
+  ⚠️ mod-20260126-claude-md: +0.00% improvement
+  ⚠️ mod-20260127-000: +0.00% improvement
+  ⚠️ mod-20260127-001: +0.00% improvement
+  ⚠️ mod-20260127-002: +0.00% improvement
+  ⚠️ mod-20260127-claude-md: +0.00% improvement
+  ⚠️ mod-20260128-000: +0.00% improvement
+  ⚠️ mod-20260128-001: +0.00% improvement
+  ⚠️ mod-20260128-claude-md: +0.00% improvement

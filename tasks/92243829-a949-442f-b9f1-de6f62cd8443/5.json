@@ -1,0 +1,9 @@
+{
+  "id": "5",
+  "subject": "Implement ecosystem intelligence brief (Phase 5)",
+  "description": "Create generate_ecosystem_brief.py with comprehensive multi-project dashboard showing: system health (21 projects), top cross-project innovations, package updates, synergies, 7-day roadmap, meta-vengine evolution changelog, ecosystem metrics. Modify session-optimizer-start.sh to inject brief on session start.\n\nSuccess criteria:\n- Brief displays all sections\n- Cross-project synergies highlighted\n- Dependency-ordered roadmap shown\n- Meta-vengine evolution included\n- Links functional\n\nFiles to create:\n- ~/researchgravity/orchestrator/generate_ecosystem_brief.py (~400 lines)",
+  "activeForm": "Implementing morning brief delivery",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

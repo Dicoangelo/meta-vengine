@@ -51,6 +51,7 @@ ACTIVITY_EVENTS = DATA_DIR / "activity-events.jsonl"
 DETECTED_PATTERNS = KERNEL_DIR / "detected-patterns.json"
 IDENTITY_JSON = KERNEL_DIR / "identity.json"
 LEARNINGS_MD = AGENT_CORE_DIR / "memory" / "learnings.md"
+RECOVERY_OUTCOMES = DATA_DIR / "recovery-outcomes.jsonl"
 
 # Outputs
 COEVO_CONFIG = KERNEL_DIR / "coevo-config.json"
@@ -193,6 +194,111 @@ def load_learnings() -> str:
     return ""
 
 
+def load_recovery_outcomes(since_days: int = 30) -> List[Dict[str, Any]]:
+    """Load recovery outcomes for pattern analysis."""
+    outcomes = []
+    if RECOVERY_OUTCOMES.exists():
+        cutoff = datetime.now() - timedelta(days=since_days)
+        cutoff_ts = cutoff.timestamp()
+        for line in RECOVERY_OUTCOMES.read_text().strip().split('\n'):
+            if line:
+                try:
+                    outcome = json.loads(line)
+                    ts = outcome.get('ts', 0)
+                    if ts > cutoff_ts:
+                        outcomes.append(outcome)
+                except:
+                    pass
+    return outcomes
+
+
+def analyze_recovery_patterns(outcomes: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Analyze recovery patterns for preventive recommendations."""
+    if not outcomes:
+        return {"total": 0, "patterns": [], "recurring": [], "recommendations": []}
+
+    # Group by category and action
+    category_stats = {}
+    action_stats = {}
+    recurring = []
+
+    for o in outcomes:
+        cat = o.get('category', 'unknown')
+        action = o.get('action', 'unknown')
+        success = o.get('success', False)
+        error_hash = o.get('error_hash', '')
+
+        # Category stats
+        if cat not in category_stats:
+            category_stats[cat] = {"total": 0, "success": 0, "failures": 0, "auto": 0}
+        category_stats[cat]["total"] += 1
+        if success:
+            category_stats[cat]["success"] += 1
+        else:
+            category_stats[cat]["failures"] += 1
+        if o.get('auto', False):
+            category_stats[cat]["auto"] += 1
+
+        # Action stats
+        key = f"{cat}:{action}"
+        if key not in action_stats:
+            action_stats[key] = {"count": 0, "success": 0, "error_hashes": set()}
+        action_stats[key]["count"] += 1
+        if success:
+            action_stats[key]["success"] += 1
+        if error_hash:
+            action_stats[key]["error_hashes"].add(error_hash)
+
+    # Identify recurring failures (>3 occurrences with failures)
+    for key, stats in action_stats.items():
+        failure_count = stats["count"] - stats["success"]
+        if failure_count >= 3:
+            recurring.append({
+                "action": key,
+                "failures": failure_count,
+                "unique_errors": len(stats["error_hashes"]),
+                "success_rate": round(stats["success"] / stats["count"], 2) if stats["count"] > 0 else 0
+            })
+
+    # Generate preventive recommendations
+    recommendations = []
+    for cat, stats in category_stats.items():
+        if stats["failures"] > 5:
+            if cat == "git":
+                recommendations.append({
+                    "type": "preventive",
+                    "category": cat,
+                    "message": f"Git issues recurring ({stats['failures']} failures). Consider pre-session git health check.",
+                    "action": "Add git status check to session start"
+                })
+            elif cat == "permissions":
+                recommendations.append({
+                    "type": "preventive",
+                    "category": cat,
+                    "message": f"Permission errors recurring ({stats['failures']} failures). Verify PATH and chmod settings.",
+                    "action": "Add permission verification to session start"
+                })
+            elif cat == "concurrency":
+                recommendations.append({
+                    "type": "preventive",
+                    "category": cat,
+                    "message": f"Lock issues recurring ({stats['failures']} failures). Consider lock cleanup on session start.",
+                    "action": "Auto-clear stale locks on session start"
+                })
+
+    return {
+        "total": len(outcomes),
+        "by_category": category_stats,
+        "patterns": [
+            {"action": k, "count": v["count"], "success_rate": round(v["success"] / v["count"], 2) if v["count"] > 0 else 0}
+            for k, v in sorted(action_stats.items(), key=lambda x: x[1]["count"], reverse=True)[:10]
+        ],
+        "recurring_failures": recurring,
+        "recommendations": recommendations,
+        "auto_fix_rate": round(sum(c["auto"] for c in category_stats.values()) / len(outcomes), 2) if outcomes else 0
+    }
+
+
 def aggregate_telemetry(days: int = 7) -> Dict[str, Any]:
     """Aggregate all telemetry data sources into unified view."""
     cutoff = datetime.now() - timedelta(days=days)
@@ -271,7 +377,8 @@ def aggregate_telemetry(days: int = 7) -> Dict[str, Any]:
         "rawCounts": {
             "dqScores": len(recent_dq),
             "activityEvents": len(recent_activity)
-        }
+        },
+        "recovery": analyze_recovery_patterns(load_recovery_outcomes(days))
     }
 
 
@@ -411,6 +518,34 @@ def analyze_patterns(telemetry: Dict[str, Any]) -> Dict[str, Any]:
                 "type": "efficiency",
                 "action": "Consider /clear more often - avg session is {:.0f} messages".format(avg_messages),
                 "impact": "Maintain context quality and cache efficiency"
+            })
+
+    # Recovery insights
+    recovery = telemetry.get('recovery', {})
+    if recovery.get('total', 0) > 0:
+        auto_fix_rate = recovery.get('auto_fix_rate', 0)
+        insights.append({
+            "type": "recovery",
+            "metric": "autoFixRate",
+            "value": auto_fix_rate,
+            "message": f"Auto-fix rate: {auto_fix_rate:.0%} of {recovery['total']} recovery actions"
+        })
+
+        # Add recurring failure warnings
+        for failure in recovery.get('recurring_failures', []):
+            insights.append({
+                "type": "warning",
+                "metric": "recurringFailure",
+                "value": failure['failures'],
+                "message": f"Recurring failure: {failure['action']} ({failure['failures']} times, {failure['success_rate']:.0%} success)"
+            })
+
+        # Add recovery recommendations
+        for rec in recovery.get('recommendations', []):
+            recommendations.append({
+                "type": "preventive",
+                "action": rec.get('message', ''),
+                "impact": rec.get('action', '')
             })
 
     return {
@@ -1331,6 +1466,17 @@ def main():
             for rec in analysis.get('recommendations', []):
                 print(f"  -> {rec['action']}")
                 print(f"     Impact: {rec['impact']}")
+
+            # Recovery metrics
+            recovery = telemetry.get('recovery', {})
+            if recovery.get('total', 0) > 0:
+                print(f"\n--- Recovery Metrics ---")
+                print(f"Total recoveries: {recovery['total']}")
+                print(f"Auto-fix rate: {recovery.get('auto_fix_rate', 0):.0%}")
+                if recovery.get('recurring_failures'):
+                    print(f"Recurring failures:")
+                    for f in recovery['recurring_failures'][:3]:
+                        print(f"  ! {f['action']}: {f['failures']} failures")
 
             print()
 

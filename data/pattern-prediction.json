@@ -1,0 +1,15 @@
+{
+  "generated": "2026-01-21T23:00:54.824159",
+  "prediction": {
+    "date": "2026-01-22",
+    "day": "thursday",
+    "likely_patterns": [
+      "general"
+    ],
+    "peak_hours": [
+      "14",
+      "15",
+      "16"
+    ]
+  }
+}

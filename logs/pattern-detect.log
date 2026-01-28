@@ -1,0 +1,1981 @@
+{
+  "detectedAt": "2026-01-19T12:59:12.444Z",
+  "windowMinutes": 30,
+  "activityCount": 3,
+  "patterns": [
+    {
+      "id": "debugging",
+      "name": "Debugging Session",
+      "icon": "🔍",
+      "confidence": 0.75,
+      "totalMatches": 3,
+      "matchingEvents": [
+        {
+          "timestamp": 1768825941063,
+          "text": "okay but keep doing what you were doing and figuri",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768827332088,
+          "text": "test debugging query",
+          "matches": 2
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/debug",
+          "label": "Run systematic debug",
+          "desc": "Comprehensive debugging workflow"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Better for complex analysis"
+        },
+        {
+          "type": "memory",
+          "value": "error patterns",
+          "label": "Recall error patterns",
+          "desc": "Load related debugging memories"
+        },
+        {
+          "type": "command",
+          "value": "git diff",
+          "label": "View recent changes",
+          "desc": "Check what changed recently"
+        }
+      ]
+    }
+  ]
+}
+{
+  "detectedAt": "2026-01-19T12:59:12.507Z",
+  "windowMinutes": 30,
+  "activityCount": 11,
+  "patterns": [
+    {
+      "id": "debugging",
+      "name": "Debugging Session",
+      "icon": "🔍",
+      "confidence": 1,
+      "totalMatches": 9,
+      "matchingEvents": [
+        {
+          "timestamp": 1768827332088,
+          "text": "test debugging query",
+          "matches": 2
+        },
+        {
+          "timestamp": 1768825941063,
+          "text": "okay but keep doing what you were doing and figuri",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768827206593,
+          "text": "This session is being continued from a previous co",
+          "matches": 2
+        },
+        {
+          "timestamp": 1768825941063,
+          "text": "okay but keep doing what you were doing and figuri",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768827206593,
+          "text": "This session is being continued from a previous co",
+          "matches": 2
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/debug",
+          "label": "Run systematic debug",
+          "desc": "Comprehensive debugging workflow"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Better for complex analysis"
+        },
+        {
+          "type": "memory",
+          "value": "error patterns",
+          "label": "Recall error patterns",
+          "desc": "Load related debugging memories"
+        },
+        {
+          "type": "command",
+          "value": "git diff",
+          "label": "View recent changes",
+          "desc": "Check what changed recently"
+        }
+      ]
+    },
+    {
+      "id": "deployment",
+      "name": "Deployment Session",
+      "icon": "🚀",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1768827206593,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768827206593,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "git status",
+          "label": "Check git status",
+          "desc": "Verify clean state"
+        },
+        {
+          "type": "skill",
+          "value": "/pr",
+          "label": "Create PR",
+          "desc": "Prepare for deployment"
+        },
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Production build",
+          "desc": "Verify build succeeds"
+        }
+      ]
+    }
+  ]
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-19T19:21:29.236Z",
+  "windowMinutes": 30,
+  "activityCount": 3,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-19T23:12:24.415Z",
+  "windowMinutes": 30,
+  "activityCount": 1,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-20T00:27:33.260Z",
+  "windowMinutes": 30,
+  "activityCount": 2,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-20T00:51:05.194Z",
+  "windowMinutes": 30,
+  "activityCount": 3,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-20T01:05:35.880Z",
+  "windowMinutes": 30,
+  "activityCount": 5,
+  "patterns": [
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 0.6666666666666666,
+      "totalMatches": 4,
+      "matchingEvents": [
+        {
+          "timestamp": 1768869801934,
+          "text": "was there any leaks ip api keys in the document?",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768870072153,
+          "text": "Explore the OS-App codebase at /Users/dicoangelo/O",
+          "matches": 3
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    }
+  ]
+}
+{
+  "detectedAt": "2026-01-20T01:27:06.406Z",
+  "windowMinutes": 30,
+  "activityCount": 2,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-20T04:41:09.801Z",
+  "windowMinutes": 30,
+  "activityCount": 4,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-20T06:02:22.457Z",
+  "windowMinutes": 30,
+  "activityCount": 8,
+  "patterns": [
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 0.5,
+      "totalMatches": 3,
+      "matchingEvents": [
+        {
+          "timestamp": 1768888071851,
+          "text": "the chief of staff architecture we created where w",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768888071851,
+          "text": "the chief of staff architecture we created where w",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768888576422,
+          "text": "SO THE ARCHITECTURE HOW DID I DO WHAT KIND OF LEVE",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    }
+  ]
+}
+{
+  "detectedAt": "2026-01-20T07:14:42.220Z",
+  "windowMinutes": 30,
+  "activityCount": 3,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-20T19:50:17.965Z",
+  "windowMinutes": 30,
+  "activityCount": 4,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-21T04:06:08.659Z",
+  "windowMinutes": 30,
+  "activityCount": 1,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-21T04:21:38.462Z",
+  "windowMinutes": 30,
+  "activityCount": 1,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-21T07:21:09.442Z",
+  "windowMinutes": 30,
+  "activityCount": 6,
+  "patterns": [
+    {
+      "id": "debugging",
+      "name": "Debugging Session",
+      "icon": "🔍",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1768978585255,
+          "text": "WHY DID WE LEAVE OUT SO MUCH ON THE RESUME JUST CU",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768979259322,
+          "text": "what do you think we can fix? and also commit push",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/debug",
+          "label": "Run systematic debug",
+          "desc": "Comprehensive debugging workflow"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Better for complex analysis"
+        },
+        {
+          "type": "memory",
+          "value": "error patterns",
+          "label": "Recall error patterns",
+          "desc": "Load related debugging memories"
+        },
+        {
+          "type": "command",
+          "value": "git diff",
+          "label": "View recent changes",
+          "desc": "Check what changed recently"
+        }
+      ]
+    }
+  ]
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-21T08:34:00.783Z",
+  "windowMinutes": 30,
+  "activityCount": 1,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-21T09:53:57.585Z",
+  "windowMinutes": 30,
+  "activityCount": 6,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-21T10:15:29.094Z",
+  "windowMinutes": 30,
+  "activityCount": 5,
+  "patterns": [
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 0.8333333333333334,
+      "totalMatches": 5,
+      "matchingEvents": [
+        {
+          "timestamp": 1768988904555,
+          "text": "Implement the following plan:\n\n# Plan: Supermemory",
+          "matches": 4
+        },
+        {
+          "timestamp": 1768989208335,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    },
+    {
+      "id": "deployment",
+      "name": "Deployment Session",
+      "icon": "🚀",
+      "confidence": 0.75,
+      "totalMatches": 3,
+      "matchingEvents": [
+        {
+          "timestamp": 1768988904555,
+          "text": "Implement the following plan:\n\n# Plan: Supermemory",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768989024954,
+          "text": "build flowkeys next",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768989208335,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "git status",
+          "label": "Check git status",
+          "desc": "Verify clean state"
+        },
+        {
+          "type": "skill",
+          "value": "/pr",
+          "label": "Create PR",
+          "desc": "Prepare for deployment"
+        },
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Production build",
+          "desc": "Verify build succeeds"
+        }
+      ]
+    },
+    {
+      "id": "performance",
+      "name": "Performance Session",
+      "icon": "⚡",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1768988904555,
+          "text": "Implement the following plan:\n\n# Plan: Supermemory",
+          "matches": 1
+        },
+        {
+          "timestamp": 1768989208335,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Build & analyze",
+          "desc": "Check bundle size"
+        },
+        {
+          "type": "memory",
+          "value": "performance patterns",
+          "label": "Recall optimizations",
+          "desc": "Load performance tips"
+        }
+      ]
+    }
+  ]
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-21T20:42:32.807Z",
+  "windowMinutes": 30,
+  "activityCount": 3,
+  "patterns": [
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 0.6666666666666666,
+      "totalMatches": 4,
+      "matchingEvents": [
+        {
+          "timestamp": 1769026596596,
+          "text": "wire it to the real subsystems i want the full thi",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769026611956,
+          "text": "I need to wire ARCHON's executeGoal to the real su",
+          "matches": 3
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    }
+  ]
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-22T02:11:11.948Z",
+  "windowMinutes": 30,
+  "activityCount": 6,
+  "patterns": [
+    {
+      "id": "research",
+      "name": "Research Session",
+      "icon": "📚",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1769046606465,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769046606465,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "python3 ~/researchgravity/status.py",
+          "label": "Check research status",
+          "desc": "View current research session"
+        },
+        {
+          "type": "memory",
+          "value": "research papers",
+          "label": "Recall papers",
+          "desc": "Load research context"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Deep analysis capability"
+        }
+      ]
+    }
+  ]
+}
+{
+  "detectedAt": "2026-01-22T02:35:17.273Z",
+  "windowMinutes": 30,
+  "activityCount": 2,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-22T02:45:39.728Z",
+  "windowMinutes": 30,
+  "activityCount": 6,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-22T04:25:04.973Z",
+  "windowMinutes": 30,
+  "activityCount": 18,
+  "patterns": [
+    {
+      "id": "debugging",
+      "name": "Debugging Session",
+      "icon": "🔍",
+      "confidence": 1,
+      "totalMatches": 6,
+      "matchingEvents": [
+        {
+          "timestamp": 1769054804336,
+          "text": "<task-notification>\n<task-id>b9c89bf</task-id>\n<ou",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769054804336,
+          "text": "<task-notification>\n<task-id>b9c89bf</task-id>\n<ou",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769054804336,
+          "text": "<task-notification>\n<task-id>b9c89bf</task-id>\n<ou",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769054804336,
+          "text": "<task-notification>\n<task-id>b9c89bf</task-id>\n<ou",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769054804336,
+          "text": "<task-notification>\n<task-id>b9c89bf</task-id>\n<ou",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/debug",
+          "label": "Run systematic debug",
+          "desc": "Comprehensive debugging workflow"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Better for complex analysis"
+        },
+        {
+          "type": "memory",
+          "value": "error patterns",
+          "label": "Recall error patterns",
+          "desc": "Load related debugging memories"
+        },
+        {
+          "type": "command",
+          "value": "git diff",
+          "label": "View recent changes",
+          "desc": "Check what changed recently"
+        }
+      ]
+    }
+  ]
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-22T06:46:58.690Z",
+  "windowMinutes": 30,
+  "activityCount": 3,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-22T17:43:31.348Z",
+  "windowMinutes": 30,
+  "activityCount": 1,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-22T17:58:47.203Z",
+  "windowMinutes": 30,
+  "activityCount": 13,
+  "patterns": [
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 0.6666666666666666,
+      "totalMatches": 4,
+      "matchingEvents": [
+        {
+          "timestamp": 1769103730123,
+          "text": "can you strip the background the theme and layout ",
+          "matches": 2
+        },
+        {
+          "timestamp": 1769103730123,
+          "text": "can you strip the background the theme and layout ",
+          "matches": 2
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Research Session",
+      "icon": "📚",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1769103401223,
+          "text": "file:///Users/dicoangelo/.agent-core/pitch-deck/02",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769103401223,
+          "text": "file:///Users/dicoangelo/.agent-core/pitch-deck/02",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "python3 ~/researchgravity/status.py",
+          "label": "Check research status",
+          "desc": "View current research session"
+        },
+        {
+          "type": "memory",
+          "value": "research papers",
+          "label": "Recall papers",
+          "desc": "Load research context"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Deep analysis capability"
+        }
+      ]
+    }
+  ]
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-22T18:43:10.921Z",
+  "windowMinutes": 30,
+  "activityCount": 2,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-22T18:57:56.196Z",
+  "windowMinutes": 30,
+  "activityCount": 4,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-22T19:24:06.667Z",
+  "windowMinutes": 30,
+  "activityCount": 1,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-23T07:34:31.875Z",
+  "windowMinutes": 30,
+  "activityCount": 3,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-23T07:49:33.549Z",
+  "windowMinutes": 30,
+  "activityCount": 4,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-23T21:35:23.868Z",
+  "windowMinutes": 30,
+  "activityCount": 1,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-24T03:43:36.594Z",
+  "windowMinutes": 30,
+  "activityCount": 9,
+  "patterns": [
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 0.6666666666666666,
+      "totalMatches": 4,
+      "matchingEvents": [
+        {
+          "timestamp": 1769225341850,
+          "text": "great now look at what you actually built review, ",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769225529544,
+          "text": "Implement the following plan:\n\n# Claude Ecosystem ",
+          "matches": 3
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    }
+  ]
+}
+{
+  "detectedAt": "2026-01-24T03:54:19.830Z",
+  "windowMinutes": 30,
+  "activityCount": 19,
+  "patterns": [
+    {
+      "id": "debugging",
+      "name": "Debugging Session",
+      "icon": "🔍",
+      "confidence": 1,
+      "totalMatches": 4,
+      "matchingEvents": [
+        {
+          "timestamp": 1769225529544,
+          "text": "Implement the following plan:\n\n# Claude Ecosystem ",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769225529544,
+          "text": "Implement the following plan:\n\n# Claude Ecosystem ",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769225844052,
+          "text": "SLIDES 15 -40 NEED BETTER FORMATTING AND WHY IS IT",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769225969823,
+          "text": "OKAY NOW COMPOUND IN FIXING AND IMPLEMENTING build",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/debug",
+          "label": "Run systematic debug",
+          "desc": "Comprehensive debugging workflow"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Better for complex analysis"
+        },
+        {
+          "type": "memory",
+          "value": "error patterns",
+          "label": "Recall error patterns",
+          "desc": "Load related debugging memories"
+        },
+        {
+          "type": "command",
+          "value": "git diff",
+          "label": "View recent changes",
+          "desc": "Check what changed recently"
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 1,
+      "totalMatches": 10,
+      "matchingEvents": [
+        {
+          "timestamp": 1769225529544,
+          "text": "Implement the following plan:\n\n# Claude Ecosystem ",
+          "matches": 3
+        },
+        {
+          "timestamp": 1769225341850,
+          "text": "great now look at what you actually built review, ",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769225529544,
+          "text": "Implement the following plan:\n\n# Claude Ecosystem ",
+          "matches": 3
+        },
+        {
+          "timestamp": 1769225988356,
+          "text": "Find all API route files in /Users/dicoangelo/Care",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769226180666,
+          "text": "This session is being continued from a previous co",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    }
+  ]
+}
+{
+  "detectedAt": "2026-01-24T04:16:41.150Z",
+  "windowMinutes": 30,
+  "activityCount": 5,
+  "patterns": [
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 1,
+      "totalMatches": 9,
+      "matchingEvents": [
+        {
+          "timestamp": 1769226456272,
+          "text": "continue doing things like this, go in plan mode, ",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769226516339,
+          "text": "Explore the pitch deck directory structure at ~/.a",
+          "matches": 2
+        },
+        {
+          "timestamp": 1769226516389,
+          "text": "Analyze the technical architecture and integration",
+          "matches": 6
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    },
+    {
+      "id": "deployment",
+      "name": "Deployment Session",
+      "icon": "🚀",
+      "confidence": 1,
+      "totalMatches": 5,
+      "matchingEvents": [
+        {
+          "timestamp": 1769226456272,
+          "text": "continue doing things like this, go in plan mode, ",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769226516389,
+          "text": "Analyze the technical architecture and integration",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769226849351,
+          "text": "in pitch deck, i accidently deleted the metaventio",
+          "matches": 3
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "git status",
+          "label": "Check git status",
+          "desc": "Verify clean state"
+        },
+        {
+          "type": "skill",
+          "value": "/pr",
+          "label": "Create PR",
+          "desc": "Prepare for deployment"
+        },
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Production build",
+          "desc": "Verify build succeeds"
+        }
+      ]
+    },
+    {
+      "id": "debugging",
+      "name": "Debugging Session",
+      "icon": "🔍",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1769226516339,
+          "text": "Explore the pitch deck directory structure at ~/.a",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769226516389,
+          "text": "Analyze the technical architecture and integration",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/debug",
+          "label": "Run systematic debug",
+          "desc": "Comprehensive debugging workflow"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Better for complex analysis"
+        },
+        {
+          "type": "memory",
+          "value": "error patterns",
+          "label": "Recall error patterns",
+          "desc": "Load related debugging memories"
+        },
+        {
+          "type": "command",
+          "value": "git diff",
+          "label": "View recent changes",
+          "desc": "Check what changed recently"
+        }
+      ]
+    }
+  ]
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-25T05:15:31.824Z",
+  "windowMinutes": 30,
+  "activityCount": 19,
+  "patterns": [
+    {
+      "id": "testing",
+      "name": "Testing Session",
+      "icon": "🧪",
+      "confidence": 1,
+      "totalMatches": 4,
+      "matchingEvents": [
+        {
+          "timestamp": 1769316968752,
+          "text": "Explore the statusline-setup we just completed. Re",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968753,
+          "text": "Explore the broader Claude Code session management",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968752,
+          "text": "Explore the statusline-setup we just completed. Re",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968753,
+          "text": "Explore the broader Claude Code session management",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/test",
+          "label": "Comprehensive Testing",
+          "desc": "Full test workflow"
+        },
+        {
+          "type": "command",
+          "value": "npm run test:coverage",
+          "label": "Coverage report",
+          "desc": "Check test coverage"
+        },
+        {
+          "type": "memory",
+          "value": "testing patterns",
+          "label": "Recall test patterns",
+          "desc": "Load testing best practices"
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "name": "Architecture Session",
+      "icon": "🏗️",
+      "confidence": 1,
+      "totalMatches": 22,
+      "matchingEvents": [
+        {
+          "timestamp": 1769316939127,
+          "text": "continue doing things like this, go in plan mode, ",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968752,
+          "text": "Explore the statusline-setup we just completed. Re",
+          "matches": 2
+        },
+        {
+          "timestamp": 1769316968753,
+          "text": "Explore the broader Claude Code session management",
+          "matches": 2
+        },
+        {
+          "timestamp": 1769316968754,
+          "text": "Analyze the meta-prompt architecture and sequencin",
+          "matches": 5
+        },
+        {
+          "timestamp": 1769317188419,
+          "text": "<local-command-stdout>You are already on the highe",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/arch",
+          "label": "Architecture Analysis",
+          "desc": "Analyze codebase structure"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Complex architectural decisions"
+        },
+        {
+          "type": "memory",
+          "value": "architecture decisions",
+          "label": "Recall decisions",
+          "desc": "Load past architecture choices"
+        }
+      ]
+    },
+    {
+      "id": "deployment",
+      "name": "Deployment Session",
+      "icon": "🚀",
+      "confidence": 1,
+      "totalMatches": 8,
+      "matchingEvents": [
+        {
+          "timestamp": 1769316968754,
+          "text": "Analyze the meta-prompt architecture and sequencin",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316939127,
+          "text": "continue doing things like this, go in plan mode, ",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968753,
+          "text": "Explore the broader Claude Code session management",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968754,
+          "text": "Analyze the meta-prompt architecture and sequencin",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769317188419,
+          "text": "<local-command-caveat>Caveat: The messages below w",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "git status",
+          "label": "Check git status",
+          "desc": "Verify clean state"
+        },
+        {
+          "type": "skill",
+          "value": "/pr",
+          "label": "Create PR",
+          "desc": "Prepare for deployment"
+        },
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Production build",
+          "desc": "Verify build succeeds"
+        }
+      ]
+    },
+    {
+      "id": "learning",
+      "name": "Learning Session",
+      "icon": "🎓",
+      "confidence": 1,
+      "totalMatches": 8,
+      "matchingEvents": [
+        {
+          "timestamp": 1769316968753,
+          "text": "Explore the broader Claude Code session management",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968754,
+          "text": "Analyze the meta-prompt architecture and sequencin",
+          "matches": 2
+        },
+        {
+          "timestamp": 1769316968752,
+          "text": "Explore the statusline-setup we just completed. Re",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968753,
+          "text": "Explore the broader Claude Code session management",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968754,
+          "text": "Analyze the meta-prompt architecture and sequencin",
+          "matches": 2
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "model",
+          "value": "haiku",
+          "label": "Switch to Haiku",
+          "desc": "Quick answers, lower cost"
+        },
+        {
+          "type": "memory",
+          "value": "store as fact",
+          "label": "Remember this",
+          "desc": "Store learnings in memory"
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Research Session",
+      "icon": "📚",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1769316968752,
+          "text": "Explore the statusline-setup we just completed. Re",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316968752,
+          "text": "Explore the statusline-setup we just completed. Re",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "python3 ~/researchgravity/status.py",
+          "label": "Check research status",
+          "desc": "View current research session"
+        },
+        {
+          "type": "memory",
+          "value": "research papers",
+          "label": "Recall papers",
+          "desc": "Load research context"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Deep analysis capability"
+        }
+      ]
+    },
+    {
+      "id": "refactoring",
+      "name": "Refactoring Session",
+      "icon": "🔧",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1769316377425,
+          "text": "Configure my statusLine from my shell PS1 configur",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769316448880,
+          "text": "Configure Claude Code statusLine to display:\n1. Cu",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/refactor",
+          "label": "Smart Refactor",
+          "desc": "Guided refactoring workflow"
+        },
+        {
+          "type": "command",
+          "value": "npm run lint",
+          "label": "Run linter",
+          "desc": "Check code quality"
+        },
+        {
+          "type": "command",
+          "value": "npm test",
+          "label": "Run tests",
+          "desc": "Verify refactoring"
+        }
+      ]
+    }
+  ]
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-26T06:41:05.323Z",
+  "windowMinutes": 30,
+  "activityCount": 26,
+  "patterns": [
+    {
+      "id": "deployment",
+      "name": "Deployment Session",
+      "icon": "🚀",
+      "confidence": 1,
+      "totalMatches": 4,
+      "matchingEvents": [
+        {
+          "timestamp": 1769408686482,
+          "text": "<local-command-caveat>Caveat: The messages below w",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769408703559,
+          "text": "<local-command-caveat>Caveat: The messages below w",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769408880627,
+          "text": "<local-command-caveat>Caveat: The messages below w",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769408917459,
+          "text": "<local-command-caveat>Caveat: The messages below w",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "git status",
+          "label": "Check git status",
+          "desc": "Verify clean state"
+        },
+        {
+          "type": "skill",
+          "value": "/pr",
+          "label": "Create PR",
+          "desc": "Prepare for deployment"
+        },
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Production build",
+          "desc": "Verify build succeeds"
+        }
+      ]
+    },
+    {
+      "id": "debugging",
+      "name": "Debugging Session",
+      "icon": "🔍",
+      "confidence": 0.75,
+      "totalMatches": 3,
+      "matchingEvents": [
+        {
+          "timestamp": 1769408703559,
+          "text": "<local-command-stdout>Failed to reconnect to githu",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769408880627,
+          "text": "<local-command-stdout>Failed to reconnect to githu",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769408917459,
+          "text": "<local-command-stdout>Failed to reconnect to githu",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "skill",
+          "value": "/debug",
+          "label": "Run systematic debug",
+          "desc": "Comprehensive debugging workflow"
+        },
+        {
+          "type": "model",
+          "value": "opus",
+          "label": "Switch to Opus",
+          "desc": "Better for complex analysis"
+        },
+        {
+          "type": "memory",
+          "value": "error patterns",
+          "label": "Recall error patterns",
+          "desc": "Load related debugging memories"
+        },
+        {
+          "type": "command",
+          "value": "git diff",
+          "label": "View recent changes",
+          "desc": "Check what changed recently"
+        }
+      ]
+    }
+  ]
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-26T22:59:58.655Z",
+  "windowMinutes": 30,
+  "activityCount": 1,
+  "patterns": []
+}
+{
+  "detectedAt": "2026-01-26T23:10:59.607Z",
+  "windowMinutes": 30,
+  "activityCount": 17,
+  "patterns": [
+    {
+      "id": "deployment",
+      "name": "Deployment Session",
+      "icon": "🚀",
+      "confidence": 0.75,
+      "totalMatches": 3,
+      "matchingEvents": [
+        {
+          "timestamp": 1769467861040,
+          "text": "there were deployed powerpoint presentations",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769467861040,
+          "text": "there were deployed powerpoint presentations",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769468624367,
+          "text": "which ones were deployed",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "git status",
+          "label": "Check git status",
+          "desc": "Verify clean state"
+        },
+        {
+          "type": "skill",
+          "value": "/pr",
+          "label": "Create PR",
+          "desc": "Prepare for deployment"
+        },
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Production build",
+          "desc": "Verify build succeeds"
+        }
+      ]
+    }
+  ]
+}
+{
+  "detectedAt": "2026-01-26T23:32:20.876Z",
+  "windowMinutes": 30,
+  "activityCount": 5,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-27T01:39:16.979Z",
+  "windowMinutes": 30,
+  "activityCount": 3,
+  "patterns": [
+    {
+      "id": "deployment",
+      "name": "Deployment Session",
+      "icon": "🚀",
+      "confidence": 0.5,
+      "totalMatches": 2,
+      "matchingEvents": [
+        {
+          "timestamp": 1769476671829,
+          "text": "What’s Working Extremely Well\n1. Positioning: You ",
+          "matches": 1
+        },
+        {
+          "timestamp": 1769477083384,
+          "text": "he are some additional notes by the way you may ha",
+          "matches": 1
+        }
+      ],
+      "suggestions": [
+        {
+          "type": "command",
+          "value": "git status",
+          "label": "Check git status",
+          "desc": "Verify clean state"
+        },
+        {
+          "type": "skill",
+          "value": "/pr",
+          "label": "Create PR",
+          "desc": "Prepare for deployment"
+        },
+        {
+          "type": "command",
+          "value": "npm run build",
+          "label": "Production build",
+          "desc": "Verify build succeeds"
+        }
+      ]
+    }
+  ]
+}
+{
+  "detectedAt": "2026-01-27T01:51:58.666Z",
+  "windowMinutes": 30,
+  "activityCount": 2,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "detectedAt": "2026-01-27T05:41:28.650Z",
+  "windowMinutes": 30,
+  "activityCount": 5,
+  "patterns": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}
+{
+  "patterns": [],
+  "activity": []
+}

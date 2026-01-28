@@ -1,0 +1,85 @@
+{
+  "overall_success_rate": 92.3,
+  "by_tool": {
+    "Bash": {
+      "rate": 84.8,
+      "total": 46
+    },
+    "Edit": {
+      "rate": 100.0,
+      "total": 18
+    },
+    "Read": {
+      "rate": 88.2,
+      "total": 17
+    },
+    "Write": {
+      "rate": 100.0,
+      "total": 17
+    },
+    "unknown": {
+      "rate": 47.1,
+      "total": 17
+    },
+    "TodoWrite": {
+      "rate": 100.0,
+      "total": 11
+    },
+    "Glob": {
+      "rate": 100.0,
+      "total": 11
+    },
+    "Grep": {
+      "rate": 100.0,
+      "total": 11
+    },
+    "WebFetch": {
+      "rate": 100.0,
+      "total": 11
+    },
+    "WebSearch": {
+      "rate": 100.0,
+      "total": 11
+    },
+    "Task": {
+      "rate": 100.0,
+      "total": 10
+    },
+    "mcp__chrome-devtools__click": {
+      "rate": 100.0,
+      "total": 10
+    },
+    "AskUserQuestion": {
+      "rate": 100.0,
+      "total": 9
+    },
+    "mcp__chrome-devtools__list_pages": {
+      "rate": 100.0,
+      "total": 9
+    },
+    "mcp__chrome-devtools__navigate_page": {
+      "rate": 100.0,
+      "total": 9
+    },
+    "mcp__chrome-devtools__take_snapshot": {
+      "rate": 100.0,
+      "total": 9
+    },
+    "mcp__chrome-devtools__take_screenshot": {
+      "rate": 100.0,
+      "total": 9
+    },
+    "mcp__chrome-devtools__evaluate_script": {
+      "rate": 100.0,
+      "total": 9
+    },
+    "mcp__chrome-devtools__press_key": {
+      "rate": 100.0,
+      "total": 9
+    },
+    "mcp__chrome-devtools__fill": {
+      "rate": 100.0,
+      "total": 9
+    }
+  }
+}

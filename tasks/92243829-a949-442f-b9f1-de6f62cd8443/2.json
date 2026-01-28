@@ -1,0 +1,9 @@
+{
+  "id": "2",
+  "subject": "Implement 6-agent parallel analysis (Phase 2 - Expanded)",
+  "description": "Create analyze_innovations.py to spawn 6 specialized agents (not 3): ResearchAgent, CodeAgent, DependencyAgent, CrossProjectAgent, PackageAgent, MetaVengineAgent. Implement ACE consensus with 6-agent DQ-weighted voting. Perform topological sort for dependency ordering (which projects must update first). Target: 15-30 findings per run with multi-target support.\n\nSuccess criteria:\n- 15-30 findings per run\n- 5-10 cross-project synergies detected\n- DQ scores >0.7\n- Valid dependency roadmap (no circular dependencies)\n- Cost: <$4/day\n\nFiles to create:\n- ~/researchgravity/orchestrator/analyze_innovations.py (~600 lines)\n- ~/researchgravity/orchestrator/dependency_graph.py (~200 lines)",
+  "activeForm": "Implementing parallel paper analysis",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

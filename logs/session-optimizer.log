@@ -1,0 +1,3475 @@
+2026-01-19T21:19:43.761Z Window initialized: window-2026-01-19-1600
+2026-01-19T22:37:13.296Z Window initialized: window-2026-01-19-1700
+2026-01-19T22:43:17.519Z Window initialized: window-2026-01-19-1700
+2026-01-19 17:43:59 Session optimizer stop hook started
+2026-01-19T22:43:59.353Z Session ended
+2026-01-19 17:43:59 Session engine end called
+2026-01-19 17:43:59 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-19 17:43:59 Feedback loop analysis complete
+2026-01-19 17:43:59 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █░░░░░░░░░ 5% | 13h 16m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 17 | Sonnet: 71 | Haiku: 357
+Budget:   29% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: testing
+2026-01-19 17:43:59 Session optimizer stop hook completed
+2026-01-19T22:44:11.928Z Window initialized: window-2026-01-19-1700
+2026-01-19T23:12:57.506Z Window initialized: window-2026-01-19-1800
+2026-01-19T23:51:25.499Z Window initialized: window-2026-01-19-1800
+2026-01-19T23:58:24.121Z Window initialized: window-2026-01-19-1800
+2026-01-20T00:35:02.997Z Window initialized: window-2026-01-20-1900
+2026-01-20T00:51:17.393Z Window initialized: window-2026-01-20-1900
+2026-01-20T03:44:40.114Z Window initialized: window-2026-01-20-2200
+2026-01-20T03:47:54.188Z Window initialized: window-2026-01-20-2200
+2026-01-19 22:51:47 Session optimizer stop hook started
+2026-01-20T03:51:48.102Z Session ended
+2026-01-19 22:51:48 Session engine end called
+2026-01-19 22:51:48 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-19 22:51:48 Feedback loop analysis complete
+2026-01-19 22:51:48 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 42% | 8h 8m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: architecture
+2026-01-19 22:51:48 Session optimizer stop hook completed
+2026-01-20T04:07:00.933Z Window initialized: window-2026-01-20-2300
+2026-01-20T04:47:14.452Z Window initialized: window-2026-01-20-2300
+2026-01-20T05:46:49.450Z Window initialized: window-2026-01-20-0000
+2026-01-20T06:58:19.414Z Window initialized: window-2026-01-20-0100
+2026-01-20T08:34:42.179Z Window initialized: window-2026-01-20-0300
+2026-01-20 03:58:42 Session optimizer stop hook started
+2026-01-20T08:58:42.941Z Session ended
+2026-01-20 03:58:42 Session engine end called
+2026-01-20 03:58:43 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-20 03:58:43 Feedback loop analysis complete
+2026-01-20 03:58:43 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████████░░ 78% | 3h 1m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-20 03:58:43 Session optimizer stop hook completed
+2026-01-20T08:58:45.270Z Window initialized: window-2026-01-20-0300
+2026-01-20T17:03:29.114Z Window initialized: window-2026-01-20-1200
+2026-01-20T18:26:54.710Z Window initialized: window-2026-01-20-1300
+2026-01-20T19:34:52.944Z Window initialized: window-2026-01-20-1400
+2026-01-20T22:06:11.023Z Window initialized: window-2026-01-20-1700
+2026-01-20T22:06:25.539Z Window initialized: window-2026-01-20-1700
+2026-01-20T22:47:56.166Z Window initialized: window-2026-01-20-1700
+2026-01-21T00:55:21.415Z Window initialized: window-2026-01-21-1900
+2026-01-21T01:33:17.285Z Window initialized: window-2026-01-21-2000
+2026-01-21T02:34:34.883Z Window initialized: window-2026-01-21-2100
+2026-01-20 21:41:20 Session optimizer stop hook started
+2026-01-21T02:41:21.117Z Session ended
+2026-01-20 21:41:21 Session engine end called
+2026-01-20 21:41:21 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-20 21:41:21 Feedback loop analysis complete
+2026-01-20 21:41:21 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███░░░░░░░ 33% | 9h 19m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-20 21:41:21 Session optimizer stop hook completed
+2026-01-21T02:41:22.945Z Window initialized: window-2026-01-21-2100
+2026-01-20 21:44:25 Session optimizer stop hook started
+2026-01-21T02:44:25.203Z Session ended
+2026-01-20 21:44:25 Session engine end called
+2026-01-20 21:44:25 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-20 21:44:25 Feedback loop analysis complete
+2026-01-20 21:44:25 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███░░░░░░░ 34% | 9h 16m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-20 21:44:25 Session optimizer stop hook completed
+2026-01-21T02:44:25.697Z Window initialized: window-2026-01-21-2100
+2026-01-21T02:53:52.839Z Window initialized: window-2026-01-21-2100
+2026-01-20 21:54:14 Session optimizer stop hook started
+2026-01-21T02:54:14.435Z Session ended
+2026-01-20 21:54:14 Session engine end called
+2026-01-20 21:54:14 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-20 21:54:14 Feedback loop analysis complete
+2026-01-20 21:54:14 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 35% | 9h 6m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-20 21:54:14 Session optimizer stop hook completed
+2026-01-21T02:54:16.295Z Window initialized: window-2026-01-21-2100
+2026-01-20 21:54:28 Session optimizer stop hook started
+2026-01-21T02:54:28.247Z Session ended
+2026-01-20 21:54:28 Session engine end called
+2026-01-20 21:54:28 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-20 21:54:28 Feedback loop analysis complete
+2026-01-20 21:54:28 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 35% | 9h 6m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-20 21:54:28 Session optimizer stop hook completed
+2026-01-21T02:54:28.873Z Window initialized: window-2026-01-21-2100
+2026-01-21T03:19:55.135Z Window initialized: window-2026-01-21-2200
+2026-01-20 22:28:23 Session optimizer stop hook started
+2026-01-21T03:28:23.605Z Session ended
+2026-01-20 22:28:23 Session engine end called
+2026-01-20 22:28:23 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-20 22:28:23 Feedback loop analysis complete
+2026-01-20 22:28:23 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 39% | 8h 32m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-20 22:28:23 Session optimizer stop hook completed
+2026-01-21T03:28:24.057Z Window initialized: window-2026-01-21-2200
+2026-01-20 22:28:32 Session optimizer stop hook started
+2026-01-21T03:28:32.425Z Session ended
+2026-01-20 22:28:32 Session engine end called
+2026-01-20 22:28:32 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-20 22:28:32 Feedback loop analysis complete
+2026-01-20 22:28:32 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 39% | 8h 31m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-20 22:28:32 Session optimizer stop hook completed
+2026-01-21T04:06:17.350Z Window initialized: window-2026-01-21-2300
+2026-01-21T04:57:59.393Z Window initialized: window-2026-01-21-2300
+2026-01-21T05:50:07.462Z Window initialized: window-2026-01-21-0000
+2026-01-21T05:51:05.007Z Window initialized: window-2026-01-21-0000
+2026-01-21 01:06:00 Session optimizer stop hook started
+2026-01-21T06:06:01.022Z Session ended
+2026-01-21 01:06:01 Session engine end called
+2026-01-21 01:06:01 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 01:06:01 Feedback loop analysis complete
+2026-01-21 01:06:01 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████░░░░ 58% | 5h 54m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-21 01:06:01 Session optimizer stop hook completed
+2026-01-21T06:06:02.446Z Window initialized: window-2026-01-21-0100
+2026-01-21T07:10:17.469Z Window initialized: window-2026-01-21-0200
+2026-01-21T07:16:12.046Z Window initialized: window-2026-01-21-0200
+2026-01-21 02:27:37 Session optimizer stop hook started
+2026-01-21T07:27:37.883Z Session ended
+2026-01-21 02:27:37 Session engine end called
+2026-01-21 02:27:38 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 02:27:38 Feedback loop analysis complete
+2026-01-21 02:27:38 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 68% | 4h 32m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: debugging
+2026-01-21 02:27:38 Session optimizer stop hook completed
+2026-01-21T07:27:38.544Z Window initialized: window-2026-01-21-0200
+2026-01-21T08:04:54.193Z Window initialized: window-2026-01-21-0300
+2026-01-21T08:05:23.113Z Window initialized: window-2026-01-21-0300
+2026-01-21 04:11:50 Session optimizer stop hook started
+2026-01-21T09:11:50.959Z Session ended
+2026-01-21 04:11:50 Session engine end called
+2026-01-21 04:11:51 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 04:11:51 Feedback loop analysis complete
+2026-01-21 04:11:51 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████████░░ 80% | 2h 48m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-21 04:11:51 Session optimizer stop hook completed
+2026-01-21T09:11:51.667Z Window initialized: window-2026-01-21-0400
+2026-01-21 04:20:23 Session optimizer stop hook started
+2026-01-21T09:20:24.958Z Session ended
+2026-01-21 04:20:24 Session engine end called
+2026-01-21 04:20:25 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 04:20:25 Feedback loop analysis complete
+2026-01-21 04:20:25 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████████░░ 81% | 2h 40m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-21 04:20:25 Session optimizer stop hook completed
+2026-01-21T09:20:26.050Z Window initialized: window-2026-01-21-0400
+2026-01-21 04:48:09 Session optimizer stop hook started
+2026-01-21T09:48:09.934Z Session ended
+2026-01-21 04:48:09 Session engine end called
+2026-01-21 04:48:10 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 04:48:10 Feedback loop analysis complete
+2026-01-21 04:48:11 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████████░░ 84% | 2h 12m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-21 04:48:11 Session optimizer stop hook completed
+2026-01-21T09:48:12.829Z Window initialized: window-2026-01-21-0400
+2026-01-21 04:51:36 Session optimizer stop hook started
+2026-01-21T09:51:37.161Z Session ended
+2026-01-21 04:51:37 Session engine end called
+2026-01-21 04:51:37 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 04:51:37 Feedback loop analysis complete
+2026-01-21 04:51:38 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████████░ 85% | 2h 8m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 04:51:38 Session optimizer stop hook completed
+2026-01-21T09:51:57.222Z Window initialized: window-2026-01-21-0400
+2026-01-21T09:53:17.550Z Window initialized: window-2026-01-21-0400
+2026-01-21 05:10:44 Session optimizer stop hook started
+2026-01-21T10:10:45.177Z Session ended
+2026-01-21 05:10:45 Session engine end called
+2026-01-21 05:10:45 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 05:10:45 Feedback loop analysis complete
+2026-01-21 05:10:46 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████████░ 87% | 1h 49m remaining
+Capacity: 🟡 MODERATE | Opus: 14 | Sonnet: 57 | Haiku: 288
+Budget:   42% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 05:10:46 Session optimizer stop hook completed
+2026-01-21T10:10:47.025Z Window initialized: window-2026-01-21-0500
+2026-01-21T10:15:38.678Z Window initialized: window-2026-01-21-0500
+2026-01-21 05:15:55 Session optimizer stop hook started
+2026-01-21T10:15:56.816Z Session ended
+2026-01-21 05:15:56 Session engine end called
+2026-01-21 05:15:57 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 05:15:57 Feedback loop analysis complete
+2026-01-21 05:15:57 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████████░ 88% | 1h 44m remaining
+Capacity: 🟡 MODERATE | Opus: 14 | Sonnet: 57 | Haiku: 288
+Budget:   42% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 05:15:57 Session optimizer stop hook completed
+2026-01-21T10:15:58.925Z Window initialized: window-2026-01-21-0500
+2026-01-21 05:22:37 Session optimizer stop hook started
+2026-01-21T10:22:37.670Z Session ended
+2026-01-21 05:22:37 Session engine end called
+2026-01-21 05:22:38 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 05:22:38 Feedback loop analysis complete
+2026-01-21 05:22:38 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████████░ 88% | 1h 37m remaining
+Capacity: 🟡 MODERATE | Opus: 14 | Sonnet: 57 | Haiku: 288
+Budget:   42% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 05:22:38 Session optimizer stop hook completed
+2026-01-21T10:22:38.366Z Window initialized: window-2026-01-21-0500
+2026-01-21T10:48:05.341Z Window initialized: window-2026-01-21-0500
+2026-01-21T10:51:50.100Z Window initialized: window-2026-01-21-0500
+2026-01-21 05:56:57 Session optimizer stop hook started
+2026-01-21T10:56:57.910Z Session ended
+2026-01-21 05:56:57 Session engine end called
+2026-01-21 05:56:58 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 05:56:58 Feedback loop analysis complete
+2026-01-21 05:56:58 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████████░ 92% | 1h 3m remaining
+Capacity: 🟡 MODERATE | Opus: 14 | Sonnet: 57 | Haiku: 288
+Budget:   42% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 05:56:58 Session optimizer stop hook completed
+2026-01-21 05:56:58 Supermemory sync triggered
+2026-01-21T10:57:00.922Z Window initialized: window-2026-01-21-0500
+2026-01-21T11:01:06.665Z Window initialized: window-2026-01-21-0600
+2026-01-21T11:10:29.289Z Window initialized: window-2026-01-21-0600
+2026-01-21 06:16:23 Session optimizer stop hook started
+2026-01-21T11:16:23.988Z Session ended
+2026-01-21 06:16:24 Session engine end called
+2026-01-21 06:16:24 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 06:16:24 Feedback loop analysis complete
+2026-01-21 06:16:24 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 95% | 44m remaining
+Capacity: 🟠 LOW | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 06:16:24 Session optimizer stop hook completed
+2026-01-21 06:16:24 Supermemory sync triggered
+2026-01-21T11:16:25.927Z Window initialized: window-2026-01-21-0600
+2026-01-21 06:28:59 Session optimizer stop hook started
+2026-01-21T11:28:59.634Z Session ended
+2026-01-21 06:28:59 Session engine end called
+2026-01-21 06:28:59 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 06:29:00 Feedback loop analysis complete
+2026-01-21 06:29:00 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 96% | 31m remaining
+Capacity: 🟠 LOW | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 06:29:00 Session optimizer stop hook completed
+2026-01-21 06:29:00 Supermemory sync triggered
+2026-01-21T11:29:07.985Z Window initialized: window-2026-01-21-0600
+2026-01-21 06:36:29 Session optimizer stop hook started
+2026-01-21T11:36:29.697Z Session ended
+2026-01-21 06:36:29 Session engine end called
+2026-01-21 06:36:29 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 06:36:30 Feedback loop analysis complete
+2026-01-21 06:36:30 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 97% | 23m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 06:36:30 Session optimizer stop hook completed
+2026-01-21 06:36:30 Supermemory sync triggered
+2026-01-21T11:36:31.729Z Window initialized: window-2026-01-21-0600
+2026-01-21 06:43:56 Session optimizer stop hook started
+2026-01-21T11:43:57.089Z Session ended
+2026-01-21 06:43:57 Session engine end called
+2026-01-21 06:43:57 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 06:43:57 Feedback loop analysis complete
+2026-01-21 06:43:57 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 98% | 16m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 06:43:57 Session optimizer stop hook completed
+2026-01-21 06:43:57 Supermemory sync triggered
+2026-01-21T11:44:10.066Z Window initialized: window-2026-01-21-0600
+2026-01-21T11:45:36.464Z Window initialized: window-2026-01-21-0600
+2026-01-21 07:24:02 Session optimizer stop hook started
+2026-01-21T12:24:03.948Z Session ended
+2026-01-21 07:24:04 Session engine end called
+2026-01-21 07:24:06 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 07:24:06 Feedback loop analysis complete
+2026-01-21 07:24:07 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-21 07:24:07 Session optimizer stop hook completed
+2026-01-21 07:24:07 Supermemory sync triggered
+2026-01-21T12:24:10.537Z Window initialized: window-2026-01-21-0700
+2026-01-21 07:34:25 Session optimizer stop hook started
+2026-01-21T12:34:26.613Z Session ended
+2026-01-21 07:34:26 Session engine end called
+2026-01-21 07:34:27 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 07:34:27 Feedback loop analysis complete
+2026-01-21 07:34:27 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █░░░░░░░░░ 11% | 4h 26m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 12:15 PM | Pattern: general
+2026-01-21 07:34:27 Session optimizer stop hook completed
+2026-01-21 07:34:27 Supermemory sync triggered
+2026-01-21T12:34:29.282Z Window initialized: window-2026-01-21-0700
+2026-01-21 07:36:39 Session optimizer stop hook started
+2026-01-21T12:36:40.056Z Session ended
+2026-01-21 07:36:40 Session engine end called
+2026-01-21 07:36:40 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 07:36:40 Feedback loop analysis complete
+2026-01-21 07:36:40 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █░░░░░░░░░ 12% | 4h 23m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 12:15 PM | Pattern: general
+2026-01-21 07:36:40 Session optimizer stop hook completed
+2026-01-21 07:36:40 Supermemory sync triggered
+2026-01-21T12:36:49.240Z Window initialized: window-2026-01-21-0700
+2026-01-21T12:47:18.680Z Window initialized: window-2026-01-21-0700
+2026-01-21T12:47:18.741Z Window initialized: window-2026-01-21-0700
+2026-01-21T12:47:18.982Z Window initialized: window-2026-01-21-0700
+2026-01-21 07:49:22 Session optimizer stop hook started
+2026-01-21T12:49:22.453Z Session ended
+2026-01-21 07:49:22 Session engine end called
+2026-01-21 07:49:22 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 07:49:22 Feedback loop analysis complete
+2026-01-21 07:49:22 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██░░░░░░░░ 16% | 4h 11m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 12:15 PM | Pattern: general
+2026-01-21 07:49:22 Session optimizer stop hook completed
+2026-01-21 07:49:22 Supermemory sync triggered
+2026-01-21 07:49:29 Session optimizer stop hook started
+2026-01-21T12:49:29.901Z Session ended
+2026-01-21 07:49:29 Session engine end called
+2026-01-21 07:49:30 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 07:49:30 Feedback loop analysis complete
+2026-01-21 07:49:30 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██░░░░░░░░ 17% | 4h 10m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 12:15 PM | Pattern: general
+2026-01-21 07:49:30 Session optimizer stop hook completed
+2026-01-21 07:49:30 Supermemory sync triggered
+2026-01-21 07:49:50 Session optimizer stop hook started
+2026-01-21T12:49:50.192Z Session ended
+2026-01-21 07:49:50 Session engine end called
+2026-01-21 07:49:50 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 07:49:50 Feedback loop analysis complete
+2026-01-21 07:49:50 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██░░░░░░░░ 17% | 4h 10m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 12:15 PM | Pattern: general
+2026-01-21 07:49:50 Session optimizer stop hook completed
+2026-01-21 07:49:50 Supermemory sync triggered
+2026-01-21T12:51:40.455Z Window initialized: window-2026-01-21-0700
+2026-01-21T12:51:40.474Z Window initialized: window-2026-01-21-0700
+2026-01-21T12:51:40.494Z Window initialized: window-2026-01-21-0700
+2026-01-21T12:51:40.598Z Error loading /Users/dicoangelo/.claude/kernel/session-state.json: Unexpected end of JSON input
+2026-01-21T12:51:40.606Z Error loading /Users/dicoangelo/.claude/kernel/session-state.json: Unexpected non-whitespace character after JSON at position 1136 (line 58 column 2)
+2026-01-21T12:51:40.606Z Error loading /Users/dicoangelo/.claude/kernel/session-state.json: Unexpected non-whitespace character after JSON at position 1136 (line 58 column 2)
+2026-01-21T12:51:40.636Z Error loading /Users/dicoangelo/.claude/kernel/session-state.json: Unexpected non-whitespace character after JSON at position 1136 (line 58 column 2)
+2026-01-21 07:53:22 Session optimizer stop hook started
+2026-01-21T12:53:22.934Z Session ended
+2026-01-21 07:53:22 Session engine end called
+2026-01-21 07:53:23 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 07:53:23 Feedback loop analysis complete
+2026-01-21 07:53:23 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██░░░░░░░░ 18% | 4h 7m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 12:15 PM | Pattern: general
+2026-01-21 07:53:23 Session optimizer stop hook completed
+2026-01-21 07:53:23 Supermemory sync triggered
+2026-01-21 07:53:31 Session optimizer stop hook started
+2026-01-21T12:53:31.429Z Session ended
+2026-01-21 07:53:31 Session engine end called
+2026-01-21 07:53:31 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 07:53:31 Feedback loop analysis complete
+2026-01-21 07:53:31 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██░░░░░░░░ 18% | 4h 6m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 12:15 PM | Pattern: general
+2026-01-21 07:53:31 Session optimizer stop hook completed
+2026-01-21 07:53:31 Supermemory sync triggered
+2026-01-21 07:53:43 Session optimizer stop hook started
+2026-01-21T12:53:43.414Z Session ended
+2026-01-21 07:53:43 Session engine end called
+2026-01-21 07:53:43 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 07:53:43 Feedback loop analysis complete
+2026-01-21 07:53:43 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██░░░░░░░░ 18% | 4h 6m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 12:15 PM | Pattern: general
+2026-01-21 07:53:43 Session optimizer stop hook completed
+2026-01-21 07:53:43 Supermemory sync triggered
+2026-01-21T12:53:49.701Z Window initialized: window-2026-01-21-0700
+2026-01-21T12:53:54.204Z Window initialized: window-2026-01-21-0700
+2026-01-21T13:03:54.668Z Window initialized: window-2026-01-21-0800
+2026-01-21T13:15:32.356Z Window initialized: window-2026-01-21-0800
+2026-01-21T13:21:34.267Z Window initialized: window-2026-01-21-0800
+2026-01-21T13:54:43.518Z Window initialized: window-2026-01-21-0800
+2026-01-21T14:01:26.449Z Window initialized: window-2026-01-21-0900
+2026-01-21T14:38:53.241Z Window initialized: window-2026-01-21-0900
+2026-01-21T20:42:53.143Z Window initialized: window-2026-01-21-1500
+2026-01-21T20:44:08.782Z Window initialized: window-2026-01-21-1500
+2026-01-21T20:44:10.488Z Window initialized: window-2026-01-21-1500
+2026-01-21T20:44:10.967Z Window initialized: window-2026-01-21-1500
+2026-01-21T20:44:29.305Z Window initialized: window-2026-01-21-1500
+2026-01-21 15:46:20 Session optimizer stop hook started
+2026-01-21T20:46:22.540Z Session ended
+2026-01-21 15:46:22 Session engine end called
+2026-01-21 15:46:23 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 15:46:23 Feedback loop analysis complete
+2026-01-21 15:46:23 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████████░░ 75% | 1h 14m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: architecture
+2026-01-21 15:46:23 Session optimizer stop hook completed
+2026-01-21 15:46:24 Pattern detection completed
+2026-01-21 15:46:24 Routing metrics tracked
+2026-01-21 15:46:24 Supermemory sync triggered
+2026-01-21T21:54:28.384Z Window initialized: window-2026-01-21-1600
+2026-01-22T00:37:41.058Z Window initialized: window-2026-01-22-1900
+2026-01-22T01:49:50.920Z Window initialized: window-2026-01-22-2000
+2026-01-22T01:51:12.109Z Window initialized: window-2026-01-22-2000
+2026-01-22T02:15:34.101Z Window initialized: window-2026-01-22-2100
+2026-01-22T02:31:18.558Z Window initialized: window-2026-01-22-2100
+2026-01-22T02:35:40.199Z Window initialized: window-2026-01-22-2100
+2026-01-22T02:37:13.478Z Window initialized: window-2026-01-22-2100
+2026-01-21 21:37:54 Session optimizer stop hook started
+2026-01-22T02:37:55.112Z Session ended
+2026-01-21 21:37:55 Session engine end called
+2026-01-21 21:37:55 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 21:37:55 Feedback loop analysis complete
+2026-01-21 21:37:56 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███░░░░░░░ 33% | 9h 22m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-21 21:37:56 Session optimizer stop hook completed
+2026-01-21 21:37:56 Pattern detection completed
+2026-01-21 21:37:56 Routing metrics tracked
+2026-01-21 21:37:56 Supermemory sync triggered
+2026-01-22T02:45:09.584Z Window initialized: window-2026-01-22-2100
+2026-01-22T02:45:45.079Z Window initialized: window-2026-01-22-2100
+2026-01-21 21:45:47 Session optimizer stop hook started
+2026-01-22T02:45:48.611Z Session ended
+2026-01-21 21:45:48 Session engine end called
+2026-01-21 21:45:49 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 21:45:49 Feedback loop analysis complete
+2026-01-21 21:45:49 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███░░░░░░░ 34% | 9h 14m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-21 21:45:49 Session optimizer stop hook completed
+2026-01-21 21:45:49 Pattern detection completed
+2026-01-21 21:45:49 Routing metrics tracked
+2026-01-21 21:45:49 Supermemory sync triggered
+2026-01-22T02:51:38.272Z Window initialized: window-2026-01-22-2100
+2026-01-21 21:52:07 Session optimizer stop hook started
+2026-01-22T02:52:08.857Z Session ended
+2026-01-21 21:52:08 Session engine end called
+2026-01-21 21:52:10 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 21:52:10 Feedback loop analysis complete
+2026-01-21 21:52:10 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 35% | 9h 8m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-21 21:52:10 Session optimizer stop hook completed
+2026-01-21 21:52:10 Pattern detection completed
+2026-01-21 21:52:10 Routing metrics tracked
+2026-01-21 21:52:10 Supermemory sync triggered
+2026-01-21 21:57:09 Session optimizer stop hook started
+2026-01-22T02:57:10.828Z Session ended
+2026-01-21 21:57:10 Session engine end called
+2026-01-21 21:57:12 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-21 21:57:12 Feedback loop analysis complete
+2026-01-21 21:57:12 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 35% | 9h 3m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-21 21:57:12 Session optimizer stop hook completed
+2026-01-21 21:57:13 Pattern detection completed
+2026-01-21 21:57:13 Routing metrics tracked
+2026-01-21 21:57:13 Supermemory sync triggered
+2026-01-22T02:57:25.083Z Window initialized: window-2026-01-22-2100
+2026-01-22T03:20:46.326Z Window initialized: window-2026-01-22-2200
+2026-01-21 23:08:20 Session optimizer stop hook started
+2026-01-21 23:08:21 Session optimizer stop hook started
+2026-01-21 23:08:21 Session optimizer stop hook started
+2026-01-21 23:08:21 Session optimizer stop hook started
+2026-01-21 23:08:21 Session optimizer stop hook started
+2026-01-21 23:08:21 Session optimizer stop hook started
+2026-01-21 23:08:22 Session optimizer stop hook started
+2026-01-22T04:19:40.347Z Window initialized: window-2026-01-22-2300
+2026-01-22T04:23:27.293Z Window initialized: window-2026-01-22-2300
+2026-01-22T06:14:09.055Z Window initialized: window-2026-01-22-0100
+2026-01-22T06:28:59.045Z Window initialized: window-2026-01-22-0100
+2026-01-22T06:34:32.476Z Window initialized: window-2026-01-22-0100
+2026-01-22T07:42:28.641Z Window initialized: window-2026-01-22-0200
+2026-01-22T09:47:00.762Z Window initialized: window-2026-01-22-0400
+2026-01-22T11:52:01.936Z Window initialized: window-2026-01-22-0600
+2026-01-22T17:43:41.123Z Window initialized: window-2026-01-22-1200
+2026-01-22T17:58:53.665Z Window initialized: window-2026-01-22-1200
+2026-01-22T18:13:50.747Z Window initialized: window-2026-01-22-1300
+2026-01-22T18:19:03.771Z Window initialized: window-2026-01-22-1300
+2026-01-22T18:45:20.952Z Window initialized: window-2026-01-22-1300
+2026-01-22T18:54:55.160Z Window initialized: window-2026-01-22-1300
+2026-01-22T19:26:03.728Z Window initialized: window-2026-01-22-1400
+2026-01-22T19:59:23.675Z Window initialized: window-2026-01-22-1400
+2026-01-22T20:05:00.082Z Window initialized: window-2026-01-22-1500
+2026-01-22T20:37:33.871Z Window initialized: window-2026-01-22-1500
+2026-01-22T21:02:08.776Z Window initialized: window-2026-01-22-1600
+2026-01-22 16:28:51 Session optimizer stop hook started
+2026-01-22T21:28:52.389Z Session ended
+2026-01-22 16:28:52 Session engine end called
+2026-01-22 16:28:52 Session agents analysis complete
+Traceback (most recent call last):
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 444, in <module>
+    analysis = loop.analyze_sessions(days)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 67, in analyze_sessions
+    sessions = self._load_session_data(cutoff)
+  File "/Users/dicoangelo/.claude/scripts/session-optimizer/feedback_loop.py", line 375, in _load_session_data
+    if ts >= cutoff:
+       ^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+2026-01-22 16:28:52 Feedback loop analysis complete
+2026-01-22 16:28:52 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████████░ 90% | 31m remaining
+Capacity: 🟠 LOW | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-22 16:28:52 Session optimizer stop hook completed
+2026-01-22 16:28:52 Pattern detection completed
+2026-01-22 16:28:52 Routing metrics tracked
+2026-01-22 16:28:52 Supermemory sync triggered
+2026-01-22T21:29:00.626Z Window initialized: window-2026-01-22-1600
+2026-01-22T21:32:51.302Z Window initialized: window-2026-01-22-1600
+2026-01-22T23:27:42.092Z Window initialized: window-2026-01-22-1800
+2026-01-22T23:36:07.699Z Window initialized: window-2026-01-22-1800
+2026-01-22 18:53:15 Session optimizer stop hook started
+2026-01-22T23:53:16.503Z Session ended
+2026-01-22 18:53:16 Session engine end called
+2026-01-22 18:53:16 Session agents analysis complete
+Analyzed 39 sessions
+
+Patterns detected: 0
+2026-01-22 18:53:16 Feedback loop analysis complete
+2026-01-22 18:53:17 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █░░░░░░░░░ 13% | 12h 7m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: architecture
+2026-01-22 18:53:17 Session optimizer stop hook completed
+2026-01-22 18:53:17 Pattern detection completed
+2026-01-22 18:53:17 Routing metrics tracked
+2026-01-22 18:53:17 Supermemory sync triggered
+2026-01-22T23:53:24.863Z Window initialized: window-2026-01-22-1800
+2026-01-23T01:37:57.584Z Window initialized: window-2026-01-23-2000
+2026-01-23T06:52:26.167Z Window initialized: window-2026-01-23-0100
+2026-01-23T07:49:43.519Z Window initialized: window-2026-01-23-0200
+2026-01-23T07:49:46.951Z Window initialized: window-2026-01-23-0200
+2026-01-23T08:08:30.600Z Window initialized: window-2026-01-23-0300
+2026-01-23T08:30:48.900Z Window initialized: window-2026-01-23-0300
+2026-01-23T18:25:11.639Z Window initialized: window-2026-01-23-1300
+2026-01-23 13:48:38 Session optimizer stop hook started
+2026-01-23T18:48:38.501Z Session ended
+2026-01-23 13:48:38 Session engine end called
+2026-01-23 13:48:38 Session agents analysis complete
+Analyzed 40 sessions
+
+Patterns detected: 0
+2026-01-23 13:48:38 Feedback loop analysis complete
+2026-01-23 13:48:39 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 36% | 3h 11m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 13:48:39 Session optimizer stop hook completed
+2026-01-23 13:48:39 Pattern detection completed
+2026-01-23 13:48:39 Routing metrics tracked
+2026-01-23 13:48:39 Supermemory sync triggered
+2026-01-23T18:48:51.387Z Window initialized: window-2026-01-23-1300
+2026-01-23 13:49:15 Session optimizer stop hook started
+2026-01-23T18:49:15.965Z Session ended
+2026-01-23 13:49:15 Session engine end called
+2026-01-23 13:49:16 Session agents analysis complete
+Analyzed 41 sessions
+
+Patterns detected: 0
+2026-01-23 13:49:16 Feedback loop analysis complete
+2026-01-23 13:49:16 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 36% | 3h 11m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 13:49:16 Session optimizer stop hook completed
+2026-01-23 13:49:16 Pattern detection completed
+2026-01-23 13:49:16 Routing metrics tracked
+2026-01-23 13:49:16 Supermemory sync triggered
+2026-01-23T18:49:31.069Z Window initialized: window-2026-01-23-1300
+2026-01-23T18:49:56.281Z Window initialized: window-2026-01-23-1300
+2026-01-23T18:51:53.544Z Window initialized: window-2026-01-23-1300
+2026-01-23T19:25:19.658Z Window initialized: window-2026-01-23-1400
+2026-01-23 14:52:01 Session optimizer stop hook started
+2026-01-23T19:52:01.843Z Session ended
+2026-01-23 14:52:01 Session engine end called
+2026-01-23 14:52:02 Session agents analysis complete
+Analyzed 42 sessions
+
+Patterns detected: 0
+2026-01-23 14:52:02 Feedback loop analysis complete
+2026-01-23 14:52:02 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████░░░░ 57% | 2h 8m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 14:52:02 Session optimizer stop hook completed
+2026-01-23 14:52:02 Pattern detection completed
+2026-01-23 14:52:02 Routing metrics tracked
+2026-01-23 14:52:02 Supermemory sync triggered
+2026-01-23T19:52:24.489Z Window initialized: window-2026-01-23-1400
+2026-01-23 15:06:27 Session optimizer stop hook started
+2026-01-23T20:06:27.386Z Session ended
+2026-01-23 15:06:27 Session engine end called
+2026-01-23 15:06:27 Session agents analysis complete
+Analyzed 43 sessions
+
+Patterns detected: 0
+2026-01-23 15:06:27 Feedback loop analysis complete
+2026-01-23 15:06:27 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████░░░░ 62% | 1h 54m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:06:27 Session optimizer stop hook completed
+2026-01-23 15:06:27 Pattern detection completed
+2026-01-23 15:06:27 Routing metrics tracked
+2026-01-23 15:06:27 Supermemory sync triggered
+2026-01-23 15:06:39 Session optimizer stop hook started
+2026-01-23T20:06:39.622Z Session ended
+2026-01-23 15:06:39 Session engine end called
+2026-01-23 15:06:40 Session agents analysis complete
+Analyzed 44 sessions
+
+Patterns detected: 0
+2026-01-23 15:06:40 Feedback loop analysis complete
+2026-01-23 15:06:40 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████░░░░ 62% | 1h 53m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:06:40 Session optimizer stop hook completed
+2026-01-23 15:06:40 Pattern detection completed
+2026-01-23 15:06:40 Routing metrics tracked
+2026-01-23 15:06:40 Supermemory sync triggered
+2026-01-23T20:06:46.132Z Window initialized: window-2026-01-23-1500
+2026-01-23T20:06:59.362Z Window initialized: window-2026-01-23-1500
+2026-01-23 15:38:51 Session optimizer stop hook started
+2026-01-23 15:38:51 Session optimizer stop hook started
+2026-01-23 15:38:51 Session optimizer stop hook started
+2026-01-23 15:38:52 Session optimizer stop hook started
+2026-01-23 15:38:52 Session optimizer stop hook started
+2026-01-23 15:38:52 Session optimizer stop hook started
+2026-01-23 15:38:52 Session optimizer stop hook started
+2026-01-23 15:38:52 Session optimizer stop hook started
+2026-01-23 15:38:52 Session optimizer stop hook started
+2026-01-23 15:38:52 Session optimizer stop hook started
+2026-01-23 15:38:52 Session optimizer stop hook started
+2026-01-23 15:38:52 Session optimizer stop hook started
+2026-01-23 15:38:53 Session optimizer stop hook started
+2026-01-23 15:38:54 Session optimizer stop hook started
+2026-01-23T20:38:57.270Z Session ended
+2026-01-23 15:38:57 Session engine end called
+2026-01-23T20:38:58.557Z Session ended
+2026-01-23T20:38:59.302Z Session ended
+2026-01-23 15:38:59 Session engine end called
+2026-01-23T20:38:59.396Z Session ended
+2026-01-23T20:38:59.557Z Session ended
+2026-01-23 15:39:00 Session engine end called
+2026-01-23 15:39:00 Session engine end called
+2026-01-23T20:39:00.135Z Session ended
+2026-01-23T20:39:00.540Z Session ended
+2026-01-23 15:39:00 Session engine end called
+2026-01-23 15:39:00 Session engine end called
+2026-01-23T20:39:00.904Z Session ended
+2026-01-23 15:39:00 Session engine end called
+2026-01-23T20:39:01.451Z Session ended
+2026-01-23T20:39:01.514Z Session ended
+2026-01-23 15:39:01 Session engine end called
+2026-01-23T20:39:01.895Z Session ended
+2026-01-23T20:39:01.845Z Session ended
+2026-01-23T20:39:01.997Z Session ended
+2026-01-23 15:39:01 Session engine end called
+2026-01-23 15:39:02 Session engine end called
+2026-01-23 15:39:02 Session engine end called
+2026-01-23T20:39:02.541Z Session ended
+2026-01-23 15:39:02 Session engine end called
+2026-01-23 15:39:02 Session engine end called
+2026-01-23 15:39:02 Session engine end called
+2026-01-23 15:39:15 Session agents analysis complete
+Analyzed 58 sessions
+
+Patterns detected: 0
+2026-01-23 15:39:16 Session agents analysis complete
+2026-01-23 15:39:16 Session agents analysis complete
+2026-01-23 15:39:16 Session agents analysis complete
+2026-01-23 15:39:17 Session agents analysis complete
+2026-01-23 15:39:17 Feedback loop analysis complete
+Analyzed 58 sessions
+
+Patterns detected: 0
+2026-01-23 15:39:17 Session agents analysis complete
+2026-01-23 15:39:17 Feedback loop analysis complete
+2026-01-23 15:39:17 Session agents analysis complete
+2026-01-23 15:39:17 Session agents analysis complete
+2026-01-23 15:39:17 Session agents analysis complete
+Analyzed 58 sessions
+
+Patterns detected: 0
+2026-01-23 15:39:17 Session agents analysis complete
+Analyzed 58 sessions
+
+Patterns detected: 0
+2026-01-23 15:39:17 Feedback loop analysis complete
+2026-01-23 15:39:17 Session agents analysis complete
+2026-01-23 15:39:17 Feedback loop analysis complete
+2026-01-23 15:39:17 Session agents analysis complete
+Analyzed 58 sessions
+
+Patterns detected: 0
+Analyzed 58 sessions
+
+Patterns detected: 0
+2026-01-23 15:39:18 Feedback loop analysis complete
+2026-01-23 15:39:18 Session agents analysis complete
+2026-01-23 15:39:18 Session agents analysis complete
+Analyzed 58 sessions
+
+Patterns detected: 0
+Analyzed 58 sessions
+
+Patterns detected: 0
+Analyzed 58 sessions
+
+Patterns detected: 0
+2026-01-23 15:39:18 Feedback loop analysis complete
+2026-01-23 15:39:18 Feedback loop analysis complete
+Analyzed 58 sessions
+
+Patterns detected: 0
+2026-01-23 15:39:18 Feedback loop analysis complete
+Analyzed 58 sessions
+
+Patterns detected: 0
+Analyzed 58 sessions
+
+Patterns detected: 0
+Analyzed 58 sessions
+
+Patterns detected: 0
+2026-01-23 15:39:18 Feedback loop analysis complete
+2026-01-23 15:39:18 Feedback loop analysis complete
+2026-01-23 15:39:18 Feedback loop analysis complete
+2026-01-23 15:39:19 Feedback loop analysis complete
+2026-01-23 15:39:19 Feedback loop analysis complete
+Analyzed 58 sessions
+
+Patterns detected: 0
+2026-01-23 15:39:19 Feedback loop analysis complete
+2026-01-23 15:39:19 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:19 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:19 Session optimizer stop hook completed
+2026-01-23 15:39:19 Session optimizer stop hook completed
+2026-01-23 15:39:19 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:19 Session optimizer stop hook completed
+2026-01-23 15:39:20 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:20 Session optimizer stop hook completed
+2026-01-23 15:39:20 Pattern detection completed
+2026-01-23 15:39:20 Pattern detection completed
+2026-01-23 15:39:20 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:20 Session optimizer stop hook completed
+2026-01-23 15:39:20 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:20 Session optimizer stop hook completed
+2026-01-23 15:39:20 Pattern detection completed
+2026-01-23 15:39:20 Pattern detection completed
+2026-01-23 15:39:20 Routing metrics tracked
+2026-01-23 15:39:20 Supermemory sync triggered
+2026-01-23 15:39:20 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:20 Session optimizer stop hook completed
+2026-01-23 15:39:21 Routing metrics tracked
+2026-01-23 15:39:21 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:21 Session optimizer stop hook completed
+2026-01-23 15:39:21 Supermemory sync triggered
+2026-01-23 15:39:21 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:21 Session optimizer stop hook completed
+2026-01-23 15:39:21 Pattern detection completed
+2026-01-23 15:39:21 Pattern detection completed
+2026-01-23 15:39:21 Routing metrics tracked
+2026-01-23 15:39:21 Pattern detection completed
+2026-01-23 15:39:21 Supermemory sync triggered
+2026-01-23 15:39:21 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:21 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:21 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:21 Session optimizer stop hook completed
+2026-01-23 15:39:21 Routing metrics tracked
+2026-01-23 15:39:21 Session optimizer stop hook completed
+2026-01-23 15:39:21 Session optimizer stop hook completed
+2026-01-23 15:39:21 Supermemory sync triggered
+2026-01-23 15:39:21 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:21 Session optimizer stop hook completed
+2026-01-23 15:39:22 Routing metrics tracked
+2026-01-23 15:39:22 Supermemory sync triggered
+2026-01-23 15:39:22 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 73% | 1h 21m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:39:22 Session optimizer stop hook completed
+2026-01-23 15:39:22 Pattern detection completed
+2026-01-23 15:39:22 Pattern detection completed
+2026-01-23 15:39:22 Routing metrics tracked
+2026-01-23 15:39:22 Pattern detection completed
+2026-01-23 15:39:22 Supermemory sync triggered
+2026-01-23 15:39:22 Pattern detection completed
+2026-01-23 15:39:22 Pattern detection completed
+2026-01-23 15:39:22 Pattern detection completed
+2026-01-23 15:39:22 Pattern detection completed
+2026-01-23 15:39:22 Routing metrics tracked
+2026-01-23 15:39:22 Supermemory sync triggered
+2026-01-23 15:39:23 Routing metrics tracked
+2026-01-23 15:39:23 Supermemory sync triggered
+2026-01-23 15:39:23 Routing metrics tracked
+2026-01-23 15:39:23 Routing metrics tracked
+2026-01-23 15:39:23 Routing metrics tracked
+2026-01-23 15:39:23 Routing metrics tracked
+2026-01-23 15:39:23 Supermemory sync triggered
+2026-01-23 15:39:23 Supermemory sync triggered
+2026-01-23 15:39:23 Supermemory sync triggered
+2026-01-23 15:39:23 Supermemory sync triggered
+2026-01-23 15:39:23 Routing metrics tracked
+2026-01-23 15:39:23 Routing metrics tracked
+2026-01-23 15:39:23 Supermemory sync triggered
+2026-01-23 15:39:23 Supermemory sync triggered
+2026-01-23 15:40:18 Session optimizer stop hook started
+2026-01-23 15:40:18 Session optimizer stop hook started
+2026-01-23 15:40:18 Session optimizer stop hook started
+2026-01-23 15:40:18 Session optimizer stop hook started
+2026-01-23 15:40:19 Session optimizer stop hook started
+2026-01-23 15:40:19 Session optimizer stop hook started
+2026-01-23 15:40:19 Session optimizer stop hook started
+2026-01-23 15:40:20 Session optimizer stop hook started
+2026-01-23 15:40:20 Session optimizer stop hook started
+2026-01-23 15:40:20 Session optimizer stop hook started
+2026-01-23 15:40:20 Session optimizer stop hook started
+2026-01-23T20:40:21.768Z Session ended
+2026-01-23 15:40:21 Session optimizer stop hook started
+2026-01-23 15:40:21 Session optimizer stop hook started
+2026-01-23T20:40:22.008Z Session ended
+2026-01-23 15:40:21 Session optimizer stop hook started
+2026-01-23T20:40:22.112Z Session ended
+2026-01-23 15:40:22 Session engine end called
+2026-01-23 15:40:22 Session engine end called
+2026-01-23 15:40:22 Session engine end called
+2026-01-23T20:40:23.282Z Session ended
+2026-01-23 15:40:23 Session engine end called
+2026-01-23T20:40:24.476Z Session ended
+2026-01-23 15:40:24 Session engine end called
+2026-01-23T20:40:25.352Z Session ended
+2026-01-23T20:40:25.420Z Session ended
+2026-01-23 15:40:25 Session engine end called
+2026-01-23T20:40:25.832Z Session ended
+2026-01-23T20:40:25.884Z Session ended
+2026-01-23T20:40:25.886Z Session ended
+2026-01-23 15:40:25 Session engine end called
+2026-01-23T20:40:26.131Z Session ended
+2026-01-23T20:40:26.201Z Session ended
+2026-01-23 15:40:26 Session engine end called
+2026-01-23 15:40:26 Session engine end called
+2026-01-23 15:40:26 Session engine end called
+2026-01-23 15:40:26 Session engine end called
+2026-01-23 15:40:26 Session engine end called
+2026-01-23T20:40:26.810Z Session ended
+2026-01-23T20:40:27.064Z Session ended
+2026-01-23 15:40:27 Session engine end called
+2026-01-23 15:40:27 Session engine end called
+2026-01-23 15:40:30 Session agents analysis complete
+2026-01-23 15:40:30 Session agents analysis complete
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:31 Session agents analysis complete
+2026-01-23 15:40:31 Feedback loop analysis complete
+2026-01-23 15:40:31 Session agents analysis complete
+Analyzed 72 sessions
+
+Patterns detected: 0
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:31 Feedback loop analysis complete
+2026-01-23 15:40:31 Feedback loop analysis complete
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:31 Feedback loop analysis complete
+2026-01-23 15:40:31 Session agents analysis complete
+2026-01-23 15:40:31 Session agents analysis complete
+2026-01-23 15:40:31 Session agents analysis complete
+2026-01-23 15:40:31 Session agents analysis complete
+Analyzed 72 sessions
+
+Patterns detected: 0
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:31 Feedback loop analysis complete
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:31 Session agents analysis complete
+2026-01-23 15:40:31 Session agents analysis complete
+2026-01-23 15:40:31 Session agents analysis complete
+2026-01-23 15:40:31 Feedback loop analysis complete
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:32 Feedback loop analysis complete
+2026-01-23 15:40:32 Session agents analysis complete
+2026-01-23 15:40:32 Feedback loop analysis complete
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:32 Session agents analysis complete
+2026-01-23 15:40:32 Session agents analysis complete
+2026-01-23 15:40:32 Feedback loop analysis complete
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:32 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:32 Feedback loop analysis complete
+2026-01-23 15:40:32 Session optimizer stop hook completed
+Analyzed 72 sessions
+
+Patterns detected: 0
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:32 Feedback loop analysis complete
+Analyzed 72 sessions
+
+Patterns detected: 0
+Analyzed 72 sessions
+
+Patterns detected: 0
+2026-01-23 15:40:32 Feedback loop analysis complete
+2026-01-23 15:40:32 Feedback loop analysis complete
+2026-01-23 15:40:32 Feedback loop analysis complete
+2026-01-23 15:40:32 Pattern detection completed
+2026-01-23 15:40:32 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:32 Session optimizer stop hook completed
+2026-01-23 15:40:32 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:32 Routing metrics tracked
+2026-01-23 15:40:32 Session optimizer stop hook completed
+2026-01-23 15:40:32 Supermemory sync triggered
+2026-01-23 15:40:32 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:32 Session optimizer stop hook completed
+2026-01-23 15:40:32 Pattern detection completed
+2026-01-23 15:40:32 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:32 Pattern detection completed
+2026-01-23 15:40:32 Session optimizer stop hook completed
+2026-01-23 15:40:32 Pattern detection completed
+2026-01-23 15:40:32 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:32 Routing metrics tracked
+2026-01-23 15:40:32 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:32 Pattern detection completed
+2026-01-23 15:40:32 Routing metrics tracked
+2026-01-23 15:40:32 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:32 Session optimizer stop hook completed
+2026-01-23 15:40:32 Session optimizer stop hook completed
+2026-01-23 15:40:32 Session optimizer stop hook completed
+2026-01-23 15:40:32 Supermemory sync triggered
+2026-01-23 15:40:32 Supermemory sync triggered
+2026-01-23 15:40:33 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:33 Session optimizer stop hook completed
+2026-01-23 15:40:33 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:33 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:33 Pattern detection completed
+2026-01-23 15:40:33 Session optimizer stop hook completed
+2026-01-23 15:40:33 Session optimizer stop hook completed
+2026-01-23 15:40:33 Routing metrics tracked
+2026-01-23 15:40:33 Supermemory sync triggered
+2026-01-23 15:40:33 Pattern detection completed
+2026-01-23 15:40:33 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:33 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:33 Session optimizer stop hook completed
+2026-01-23 15:40:33 Pattern detection completed
+2026-01-23 15:40:33 Session optimizer stop hook completed
+2026-01-23 15:40:33 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:40:33 Session optimizer stop hook completed
+2026-01-23 15:40:33 Routing metrics tracked
+2026-01-23 15:40:33 Pattern detection completed
+2026-01-23 15:40:33 Supermemory sync triggered
+2026-01-23 15:40:33 Routing metrics tracked
+2026-01-23 15:40:33 Supermemory sync triggered
+2026-01-23 15:40:33 Pattern detection completed
+2026-01-23 15:40:33 Pattern detection completed
+2026-01-23 15:40:33 Routing metrics tracked
+2026-01-23 15:40:33 Pattern detection completed
+2026-01-23 15:40:33 Pattern detection completed
+2026-01-23 15:40:33 Supermemory sync triggered
+2026-01-23 15:40:33 Routing metrics tracked
+2026-01-23 15:40:33 Routing metrics tracked
+2026-01-23 15:40:33 Supermemory sync triggered
+2026-01-23 15:40:33 Pattern detection completed
+2026-01-23 15:40:33 Routing metrics tracked
+2026-01-23 15:40:33 Supermemory sync triggered
+2026-01-23 15:40:33 Supermemory sync triggered
+2026-01-23 15:40:33 Routing metrics tracked
+2026-01-23 15:40:33 Supermemory sync triggered
+2026-01-23 15:40:33 Routing metrics tracked
+2026-01-23 15:40:33 Supermemory sync triggered
+2026-01-23 15:40:34 Routing metrics tracked
+2026-01-23 15:40:34 Supermemory sync triggered
+2026-01-23 15:40:34 Routing metrics tracked
+2026-01-23 15:40:34 Supermemory sync triggered
+2026-01-23 15:41:03 Session optimizer stop hook started
+2026-01-23 15:41:03 Session optimizer stop hook started
+2026-01-23 15:41:03 Session optimizer stop hook started
+2026-01-23 15:41:04 Session optimizer stop hook started
+2026-01-23 15:41:04 Session optimizer stop hook started
+2026-01-23 15:41:05 Session optimizer stop hook started
+2026-01-23 15:41:06 Session optimizer stop hook started
+2026-01-23 15:41:07 Session optimizer stop hook started
+2026-01-23 15:41:07 Session optimizer stop hook started
+2026-01-23 15:41:08 Session optimizer stop hook started
+2026-01-23 15:41:09 Session optimizer stop hook started
+2026-01-23 15:41:09 Session optimizer stop hook started
+2026-01-23 15:41:10 Session optimizer stop hook started
+2026-01-23T20:41:12.119Z Session ended
+2026-01-23T20:41:12.478Z Session ended
+2026-01-23T20:41:12.442Z Session ended
+2026-01-23T20:41:12.510Z Session ended
+2026-01-23 15:41:12 Session engine end called
+2026-01-23 15:41:12 Session engine end called
+2026-01-23T20:41:12.758Z Session ended
+2026-01-23 15:41:12 Session engine end called
+2026-01-23 15:41:12 Session engine end called
+2026-01-23 15:41:13 Session engine end called
+2026-01-23T20:41:13.715Z Session ended
+2026-01-23T20:41:13.981Z Session ended
+2026-01-23 15:41:14 Session engine end called
+2026-01-23T20:41:14.442Z Session ended
+2026-01-23T20:41:14.461Z Session ended
+2026-01-23 15:41:14 Session engine end called
+2026-01-23 15:41:15 Session engine end called
+2026-01-23 15:41:15 Session engine end called
+2026-01-23T20:41:16.504Z Session ended
+2026-01-23T20:41:16.674Z Session ended
+2026-01-23T20:41:16.675Z Session ended
+2026-01-23 15:41:16 Session engine end called
+2026-01-23 15:41:16 Session engine end called
+2026-01-23 15:41:16 Session engine end called
+2026-01-23T20:41:18.199Z Session ended
+2026-01-23 15:41:18 Session engine end called
+2026-01-23 15:41:22 Session agents analysis complete
+2026-01-23 15:41:22 Session optimizer stop hook started
+2026-01-23 15:41:22 Session agents analysis complete
+2026-01-23 15:41:22 Session agents analysis complete
+Analyzed 85 sessions
+
+Patterns detected: 0
+2026-01-23 15:41:22 Session agents analysis complete
+Analyzed 85 sessions
+
+Patterns detected: 0
+2026-01-23 15:41:22 Feedback loop analysis complete
+2026-01-23 15:41:22 Feedback loop analysis complete
+2026-01-23 15:41:22 Session agents analysis complete
+Analyzed 85 sessions
+
+Patterns detected: 0
+Analyzed 85 sessions
+
+Patterns detected: 0
+2026-01-23T20:41:23.014Z Session ended
+2026-01-23 15:41:23 Session agents analysis complete
+2026-01-23 15:41:23 Feedback loop analysis complete
+2026-01-23 15:41:23 Session agents analysis complete
+2026-01-23 15:41:23 Feedback loop analysis complete
+2026-01-23 15:41:23 Session engine end called
+2026-01-23 15:41:23 Session agents analysis complete
+Analyzed 86 sessions
+
+Patterns detected: 0
+2026-01-23 15:41:23 Session agents analysis complete
+2026-01-23 15:41:23 Session agents analysis complete
+2026-01-23 15:41:23 Feedback loop analysis complete
+Analyzed 86 sessions
+
+Patterns detected: 0
+2026-01-23 15:41:23 Session agents analysis complete
+2026-01-23 15:41:23 Feedback loop analysis complete
+Analyzed 86 sessions
+
+Patterns detected: 0
+Analyzed 86 sessions
+
+Patterns detected: 0
+2026-01-23 15:41:23 Feedback loop analysis complete
+Analyzed 86 sessions
+
+Patterns detected: 0
+2026-01-23 15:41:23 Feedback loop analysis complete
+Analyzed 86 sessions
+
+Patterns detected: 0
+Analyzed 86 sessions
+
+Patterns detected: 0
+2026-01-23T20:41:23.563Z Error loading /Users/dicoangelo/.claude/kernel/session-state.json: Unexpected end of JSON input
+2026-01-23T20:41:23.563Z Error loading /Users/dicoangelo/.claude/kernel/session-state.json: Unexpected end of JSON input
+2026-01-23 15:41:23 Feedback loop analysis complete
+2026-01-23 15:41:23 Feedback loop analysis complete
+2026-01-23 15:41:23 Feedback loop analysis complete
+2026-01-23 15:41:23 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ░░░░░░░░░░ 0% | 5h 0m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 10 | Sonnet: 100 | Haiku: 400
+Budget:   0% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-01-23 15:41:23 Session optimizer stop hook completed
+2026-01-23 15:41:23 Session agents analysis complete
+2026-01-23 15:41:23 Pattern detection completed
+Analyzed 86 sessions
+
+Patterns detected: 0
+2026-01-23 15:41:23 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:23 Session optimizer stop hook completed
+2026-01-23 15:41:23 Feedback loop analysis complete
+2026-01-23 15:41:23 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:23 Session optimizer stop hook completed
+2026-01-23 15:41:24 Session agents analysis complete
+2026-01-23 15:41:24 Pattern detection completed
+Analyzed 86 sessions
+
+Patterns detected: 0
+2026-01-23 15:41:24 Feedback loop analysis complete
+2026-01-23 15:41:24 Pattern detection completed
+2026-01-23 15:41:24 Routing metrics tracked
+2026-01-23 15:41:24 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:24 Supermemory sync triggered
+2026-01-23 15:41:24 Routing metrics tracked
+2026-01-23 15:41:24 Session optimizer stop hook completed
+2026-01-23 15:41:24 Supermemory sync triggered
+2026-01-23 15:41:24 Routing metrics tracked
+2026-01-23 15:41:24 Supermemory sync triggered
+2026-01-23 15:41:24 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:24 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:24 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:24 Session optimizer stop hook completed
+2026-01-23 15:41:24 Session optimizer stop hook completed
+2026-01-23 15:41:24 Pattern detection completed
+2026-01-23 15:41:24 Session optimizer stop hook completed
+2026-01-23 15:41:24 Pattern detection completed
+2026-01-23 15:41:24 Pattern detection completed
+2026-01-23 15:41:24 Routing metrics tracked
+2026-01-23 15:41:24 Supermemory sync triggered
+2026-01-23 15:41:24 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:24 Session optimizer stop hook completed
+2026-01-23 15:41:24 Pattern detection completed
+2026-01-23 15:41:24 Routing metrics tracked
+2026-01-23 15:41:24 Routing metrics tracked
+2026-01-23 15:41:24 Supermemory sync triggered
+2026-01-23 15:41:24 Supermemory sync triggered
+2026-01-23 15:41:24 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:24 Session optimizer stop hook completed
+2026-01-23 15:41:24 Pattern detection completed
+2026-01-23 15:41:24 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:24 Session optimizer stop hook completed
+2026-01-23 15:41:24 Routing metrics tracked
+2026-01-23 15:41:24 Supermemory sync triggered
+2026-01-23 15:41:25 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:25 Session optimizer stop hook completed
+2026-01-23 15:41:25 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:25 Session optimizer stop hook completed
+2026-01-23 15:41:25 Pattern detection completed
+2026-01-23 15:41:25 Pattern detection completed
+2026-01-23 15:41:25 Pattern detection completed
+2026-01-23 15:41:25 Routing metrics tracked
+2026-01-23 15:41:25 Pattern detection completed
+2026-01-23 15:41:25 Routing metrics tracked
+2026-01-23 15:41:25 Supermemory sync triggered
+2026-01-23 15:41:25 Supermemory sync triggered
+2026-01-23 15:41:25 Routing metrics tracked
+2026-01-23 15:41:25 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:25 Supermemory sync triggered
+2026-01-23 15:41:25 Session optimizer stop hook completed
+2026-01-23 15:41:25 Routing metrics tracked
+2026-01-23 15:41:26 Supermemory sync triggered
+2026-01-23 15:41:26 Routing metrics tracked
+2026-01-23 15:41:26 Supermemory sync triggered
+2026-01-23 15:41:26 Pattern detection completed
+2026-01-23 15:41:26 Routing metrics tracked
+2026-01-23 15:41:26 Supermemory sync triggered
+2026-01-23 15:41:26 Session agents analysis complete
+Analyzed 86 sessions
+
+Patterns detected: 0
+2026-01-23 15:41:26 Feedback loop analysis complete
+2026-01-23 15:41:27 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 19m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:41:27 Session optimizer stop hook completed
+2026-01-23 15:41:27 Pattern detection completed
+2026-01-23 15:41:27 Routing metrics tracked
+2026-01-23 15:41:27 Supermemory sync triggered
+2026-01-23T20:41:30.871Z Window initialized: window-2026-01-23-1500
+2026-01-23 15:42:42 Session optimizer stop hook started
+2026-01-23 15:42:43 Session optimizer stop hook started
+2026-01-23 15:42:43 Session optimizer stop hook started
+2026-01-23 15:42:43 Session optimizer stop hook started
+2026-01-23T20:42:43.469Z Session ended
+2026-01-23T20:42:43.547Z Session ended
+2026-01-23 15:42:43 Session optimizer stop hook started
+2026-01-23 15:42:43 Session engine end called
+2026-01-23 15:42:43 Session engine end called
+2026-01-23T20:42:43.693Z Session ended
+2026-01-23 15:42:43 Session optimizer stop hook started
+2026-01-23T20:42:43.753Z Session ended
+2026-01-23 15:42:43 Session engine end called
+2026-01-23 15:42:44 Session engine end called
+2026-01-23T20:42:44.283Z Session ended
+2026-01-23T20:42:44.376Z Session ended
+2026-01-23 15:42:44 Session engine end called
+2026-01-23 15:42:44 Session engine end called
+2026-01-23 15:42:44 Session optimizer stop hook started
+2026-01-23 15:42:44 Session optimizer stop hook started
+2026-01-23 15:42:45 Session optimizer stop hook started
+2026-01-23T20:42:45.312Z Session ended
+2026-01-23T20:42:45.372Z Session ended
+2026-01-23 15:42:45 Session engine end called
+2026-01-23 15:42:45 Session engine end called
+2026-01-23 15:42:45 Session optimizer stop hook started
+2026-01-23 15:42:45 Session optimizer stop hook started
+2026-01-23T20:42:45.803Z Session ended
+2026-01-23 15:42:45 Session engine end called
+2026-01-23T20:42:46.599Z Session ended
+2026-01-23 15:42:46 Session agents analysis complete
+2026-01-23T20:42:46.801Z Session ended
+2026-01-23 15:42:46 Session engine end called
+2026-01-23 15:42:46 Session engine end called
+2026-01-23 15:42:47 Session agents analysis complete
+2026-01-23 15:42:47 Session agents analysis complete
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:47 Session agents analysis complete
+2026-01-23 15:42:47 Feedback loop analysis complete
+2026-01-23 15:42:47 Session agents analysis complete
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:47 Session agents analysis complete
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:47 Feedback loop analysis complete
+2026-01-23 15:42:47 Feedback loop analysis complete
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:47 Feedback loop analysis complete
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:48 Feedback loop analysis complete
+2026-01-23 15:42:48 Session agents analysis complete
+2026-01-23 15:42:48 Session agents analysis complete
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:48 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:48 Feedback loop analysis complete
+2026-01-23 15:42:48 Session optimizer stop hook completed
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:48 Feedback loop analysis complete
+2026-01-23 15:42:48 Session agents analysis complete
+2026-01-23 15:42:48 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:48 Session optimizer stop hook completed
+2026-01-23 15:42:48 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:48 Session optimizer stop hook completed
+2026-01-23 15:42:48 Feedback loop analysis complete
+2026-01-23 15:42:48 Pattern detection completed
+2026-01-23 15:42:48 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:48 Session optimizer stop hook completed
+2026-01-23 15:42:48 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:48 Session optimizer stop hook completed
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:48 Feedback loop analysis complete
+2026-01-23 15:42:48 Pattern detection completed
+2026-01-23 15:42:48 Pattern detection completed
+2026-01-23 15:42:49 Pattern detection completed
+2026-01-23 15:42:49 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:49 Routing metrics tracked
+2026-01-23 15:42:49 Session optimizer stop hook completed
+2026-01-23 15:42:49 Pattern detection completed
+2026-01-23 15:42:49 Supermemory sync triggered
+2026-01-23 15:42:49 Routing metrics tracked
+2026-01-23 15:42:49 Supermemory sync triggered
+2026-01-23 15:42:49 Routing metrics tracked
+2026-01-23 15:42:49 Supermemory sync triggered
+2026-01-23 15:42:49 Routing metrics tracked
+2026-01-23 15:42:49 Supermemory sync triggered
+2026-01-23 15:42:49 Session agents analysis complete
+2026-01-23 15:42:49 Routing metrics tracked
+2026-01-23 15:42:49 Session agents analysis complete
+2026-01-23 15:42:49 Supermemory sync triggered
+2026-01-23 15:42:49 Pattern detection completed
+2026-01-23 15:42:49 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:49 Session optimizer stop hook completed
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:49 Routing metrics tracked
+2026-01-23 15:42:49 Supermemory sync triggered
+2026-01-23 15:42:49 Pattern detection completed
+2026-01-23 15:42:49 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:49 Session optimizer stop hook completed
+Analyzed 97 sessions
+
+Patterns detected: 0
+2026-01-23 15:42:49 Feedback loop analysis complete
+2026-01-23 15:42:49 Feedback loop analysis complete
+2026-01-23 15:42:49 Routing metrics tracked
+2026-01-23 15:42:49 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:49 Session optimizer stop hook completed
+2026-01-23 15:42:49 Pattern detection completed
+2026-01-23 15:42:49 Supermemory sync triggered
+2026-01-23 15:42:49 Pattern detection completed
+2026-01-23 15:42:49 Routing metrics tracked
+2026-01-23 15:42:49 Supermemory sync triggered
+2026-01-23 15:42:49 Routing metrics tracked
+2026-01-23 15:42:49 Supermemory sync triggered
+2026-01-23 15:42:50 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:50 Session optimizer stop hook completed
+2026-01-23 15:42:50 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 74% | 1h 17m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-23 15:42:50 Session optimizer stop hook completed
+2026-01-23 15:42:50 Pattern detection completed
+2026-01-23 15:42:50 Pattern detection completed
+2026-01-23 15:42:50 Routing metrics tracked
+2026-01-23 15:42:50 Supermemory sync triggered
+2026-01-23 15:42:50 Routing metrics tracked
+2026-01-23 15:42:50 Supermemory sync triggered
+2026-01-23T20:47:00.353Z Window initialized: window-2026-01-23-1500
+2026-01-23T20:47:08.331Z Window initialized: window-2026-01-23-1500
+2026-01-23T21:11:42.931Z Window initialized: window-2026-01-23-1600
+2026-01-23T21:14:26.247Z Window initialized: window-2026-01-23-1600
+2026-01-23T21:19:04.901Z Window initialized: window-2026-01-23-1600
+2026-01-23 16:35:35 Session optimizer stop hook started
+2026-01-23T21:35:35.292Z Session ended
+2026-01-23 16:35:35 Session engine end called
+2026-01-23 16:35:35 Session agents analysis complete
+Analyzed 98 sessions
+
+Patterns detected: 0
+2026-01-23 16:35:35 Feedback loop analysis complete
+2026-01-23 16:35:35 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████████░ 92% | 24m remaining
+Capacity: 🟠 LOW | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 16:35:35 Session optimizer stop hook completed
+2026-01-23 16:35:35 Pattern detection completed
+2026-01-23 16:35:35 Routing metrics tracked
+2026-01-23 16:35:35 Supermemory sync triggered
+2026-01-23 16:35:35 Snapshot timestamp updated
+2026-01-23 16:35:36 Incremental token tracking completed
+2026-01-23 16:49:56 Session optimizer stop hook started
+2026-01-23T21:49:56.961Z Session ended
+2026-01-23 16:49:56 Session engine end called
+2026-01-23 16:49:57 Session agents analysis complete
+Analyzed 99 sessions
+
+Patterns detected: 0
+2026-01-23 16:49:57 Feedback loop analysis complete
+2026-01-23 16:49:58 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 97% | 10m remaining
+Capacity: 🟠 LOW | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 16:49:58 Session optimizer stop hook completed
+2026-01-23 16:49:58 Pattern detection completed
+2026-01-23 16:49:58 Routing metrics tracked
+2026-01-23 16:49:58 Supermemory sync triggered
+2026-01-23 16:49:58 Snapshot timestamp updated
+2026-01-23 16:49:58 Incremental token tracking completed
+2026-01-23T21:50:27.259Z Window initialized: window-2026-01-23-1600
+2026-01-23 16:59:18 Session optimizer stop hook started
+2026-01-23T21:59:18.872Z Session ended
+2026-01-23 16:59:18 Session engine end called
+2026-01-23 16:59:19 Session agents analysis complete
+Analyzed 100 sessions
+
+Patterns detected: 0
+2026-01-23 16:59:19 Feedback loop analysis complete
+2026-01-23 16:59:19 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 1m remaining
+Capacity: 🔴 CRITICAL | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: architecture
+2026-01-23 16:59:19 Session optimizer stop hook completed
+2026-01-23 16:59:19 Pattern detection completed
+2026-01-23 16:59:19 Routing metrics tracked
+2026-01-23 16:59:19 Supermemory sync triggered
+2026-01-23 16:59:19 Snapshot timestamp updated
+2026-01-23 16:59:19 Incremental token tracking completed
+2026-01-23T21:59:39.624Z Window initialized: window-2026-01-23-1600
+2026-01-23T21:59:58.822Z Window initialized: window-2026-01-23-1600
+2026-01-23 17:00:20 Session optimizer stop hook started
+2026-01-23T22:00:20.936Z Session ended
+2026-01-23 17:00:20 Session engine end called
+2026-01-23 17:00:21 Session agents analysis complete
+Analyzed 101 sessions
+
+Patterns detected: 0
+2026-01-23 17:00:21 Feedback loop analysis complete
+2026-01-23 17:00:21 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🔴 CRITICAL | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 17:00:21 Session optimizer stop hook completed
+2026-01-23 17:00:21 Pattern detection completed
+2026-01-23 17:00:21 Routing metrics tracked
+2026-01-23 17:00:21 Supermemory sync triggered
+2026-01-23 17:00:22 Snapshot timestamp updated
+2026-01-23 17:00:22 Incremental token tracking completed
+2026-01-23T22:00:42.024Z Window initialized: window-2026-01-23-1700
+2026-01-23 17:01:42 Session optimizer stop hook started
+2026-01-23T22:01:42.593Z Session ended
+2026-01-23 17:01:42 Session engine end called
+2026-01-23 17:01:42 Session agents analysis complete
+Analyzed 102 sessions
+
+Patterns detected: 0
+2026-01-23 17:01:42 Feedback loop analysis complete
+2026-01-23 17:01:43 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ░░░░░░░░░░ 0% | 13h 58m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 17:01:43 Session optimizer stop hook completed
+2026-01-23 17:01:43 Pattern detection completed
+2026-01-23 17:01:43 Routing metrics tracked
+2026-01-23 17:01:43 Supermemory sync triggered
+2026-01-23 17:01:43 Snapshot timestamp updated
+2026-01-23 17:01:43 Incremental token tracking completed
+2026-01-23 17:01:55 Session optimizer stop hook started
+2026-01-23T22:01:55.612Z Session ended
+2026-01-23 17:01:55 Session engine end called
+2026-01-23 17:01:55 Session agents analysis complete
+Analyzed 103 sessions
+
+Patterns detected: 0
+2026-01-23 17:01:55 Feedback loop analysis complete
+2026-01-23 17:01:56 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ░░░░░░░░░░ 0% | 13h 58m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 17:01:56 Session optimizer stop hook completed
+2026-01-23 17:01:56 Pattern detection completed
+2026-01-23 17:01:56 Routing metrics tracked
+2026-01-23 17:01:56 Supermemory sync triggered
+2026-01-23 17:01:56 Snapshot timestamp updated
+2026-01-23 17:01:56 Incremental token tracking completed
+2026-01-23T22:22:57.708Z Window initialized: window-2026-01-23-1700
+2026-01-23 17:35:47 Session optimizer stop hook started
+2026-01-23T22:35:47.814Z Session ended
+2026-01-23 17:35:47 Session engine end called
+2026-01-23 17:35:48 Session agents analysis complete
+Analyzed 104 sessions
+
+Patterns detected: 0
+2026-01-23 17:35:48 Feedback loop analysis complete
+2026-01-23 17:35:48 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ░░░░░░░░░░ 4% | 13h 24m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 17:35:48 Session optimizer stop hook completed
+2026-01-23 17:35:48 Pattern detection completed
+2026-01-23 17:35:48 Routing metrics tracked
+2026-01-23 17:35:48 Supermemory sync triggered
+2026-01-23 17:35:48 Snapshot timestamp updated
+2026-01-23 17:35:48 Incremental token tracking completed
+2026-01-23T22:36:06.135Z Window initialized: window-2026-01-23-1700
+2026-01-23 17:50:07 Session optimizer stop hook started
+2026-01-23T22:50:07.948Z Session ended
+2026-01-23 17:50:07 Session engine end called
+2026-01-23 17:50:08 Session agents analysis complete
+Analyzed 105 sessions
+
+Patterns detected: 0
+2026-01-23 17:50:08 Feedback loop analysis complete
+2026-01-23 17:50:08 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █░░░░░░░░░ 6% | 13h 10m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 17:50:08 Session optimizer stop hook completed
+2026-01-23 17:50:08 Pattern detection completed
+2026-01-23 17:50:08 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-23 17:50:08 Routing feedback collected
+2026-01-23 17:50:08 Supermemory sync triggered
+2026-01-23 17:50:08 Snapshot timestamp updated
+2026-01-23 17:50:09 Incremental token tracking completed
+2026-01-23T22:50:40.749Z Window initialized: window-2026-01-23-1700
+2026-01-23T23:02:15.087Z Window initialized: window-2026-01-23-1800
+2026-01-23T23:02:28.023Z Window initialized: window-2026-01-23-1800
+2026-01-23 18:07:27 Session optimizer stop hook started
+2026-01-23T23:07:27.581Z Session ended
+2026-01-23 18:07:27 Session engine end called
+2026-01-23 18:07:27 Session agents analysis complete
+Analyzed 106 sessions
+
+Patterns detected: 0
+2026-01-23 18:07:27 Feedback loop analysis complete
+2026-01-23 18:07:28 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █░░░░░░░░░ 8% | 12h 53m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 18:07:28 Session optimizer stop hook completed
+2026-01-23 18:07:28 Pattern detection completed
+2026-01-23 18:07:28 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-23 18:07:28 Routing feedback collected
+2026-01-23 18:07:28 Supermemory sync triggered
+2026-01-23 18:07:28 Snapshot timestamp updated
+2026-01-23 18:07:28 Incremental token tracking completed
+2026-01-23T23:07:42.922Z Window initialized: window-2026-01-23-1800
+2026-01-23T23:18:54.568Z Window initialized: window-2026-01-23-1800
+2026-01-23 18:31:34 Session optimizer stop hook started
+2026-01-23T23:31:34.837Z Session ended
+2026-01-23 18:31:34 Session engine end called
+2026-01-23 18:31:35 Session agents analysis complete
+Analyzed 107 sessions
+
+Patterns detected: 0
+2026-01-23 18:31:35 Feedback loop analysis complete
+2026-01-23 18:31:35 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █░░░░░░░░░ 11% | 12h 28m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 22 | Sonnet: 88 | Haiku: 441
+Budget:   12% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 18:31:35 Session optimizer stop hook completed
+2026-01-23 18:31:35 Pattern detection completed
+2026-01-23 18:31:35 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-23 18:31:35 Routing feedback collected
+2026-01-23 18:31:35 Supermemory sync triggered
+2026-01-23 18:31:35 Snapshot timestamp updated
+2026-01-23 18:31:35 Incremental token tracking completed
+2026-01-23T23:31:50.980Z Window initialized: window-2026-01-23-1800
+2026-01-24T00:48:03.139Z Window initialized: window-2026-01-24-1900
+2026-01-24T00:54:13.699Z Window initialized: window-2026-01-24-1900
+2026-01-24T01:15:15.157Z Window initialized: window-2026-01-24-2000
+2026-01-24T01:31:30.733Z Window initialized: window-2026-01-24-2000
+2026-01-24T01:38:04.432Z Window initialized: window-2026-01-24-2000
+2026-01-24T01:52:34.159Z Window initialized: window-2026-01-24-2000
+2026-01-24T01:52:56.967Z Window initialized: window-2026-01-24-2000
+2026-01-23 21:03:06 Session optimizer stop hook started
+2026-01-24T02:03:06.945Z Session ended
+2026-01-23 21:03:06 Session engine end called
+2026-01-23 21:03:07 Session agents analysis complete
+Analyzed 108 sessions
+
+Patterns detected: 0
+2026-01-23 21:03:07 Feedback loop analysis complete
+2026-01-23 21:03:07 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███░░░░░░░ 29% | 9h 57m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 21:03:07 Session optimizer stop hook completed
+2026-01-23 21:03:07 Pattern detection completed
+2026-01-23 21:03:07 Routing metrics tracked
+Feedback collected: unknown -> partial
+2026-01-23 21:03:07 Routing feedback collected
+2026-01-23 21:03:07 Supermemory sync triggered
+2026-01-23 21:03:07 Snapshot timestamp updated
+2026-01-23 21:03:07 Incremental token tracking completed
+2026-01-24T02:03:23.707Z Window initialized: window-2026-01-24-2100
+2026-01-24T02:28:43.785Z Window initialized: window-2026-01-24-2100
+2026-01-23 21:31:28 Session optimizer stop hook started
+2026-01-24T02:31:29.014Z Session ended
+2026-01-23 21:31:29 Session engine end called
+2026-01-23 21:31:29 Session agents analysis complete
+Analyzed 109 sessions
+
+Patterns detected: 0
+2026-01-23 21:31:29 Feedback loop analysis complete
+2026-01-23 21:31:29 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███░░░░░░░ 32% | 9h 29m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 21:31:29 Session optimizer stop hook completed
+2026-01-23 21:31:29 Pattern detection completed
+2026-01-23 21:31:29 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-23 21:31:29 Routing feedback collected
+2026-01-23 21:31:29 Supermemory sync triggered
+2026-01-23 21:31:29 Snapshot timestamp updated
+2026-01-23 21:31:29 Incremental token tracking completed
+2026-01-24T02:31:45.197Z Window initialized: window-2026-01-24-2100
+2026-01-24T03:00:55.673Z Window initialized: window-2026-01-24-2200
+2026-01-24T03:06:22.849Z Window initialized: window-2026-01-24-2200
+2026-01-23 22:31:22 Session optimizer stop hook started
+2026-01-24T03:31:22.538Z Session ended
+2026-01-23 22:31:22 Session engine end called
+2026-01-23 22:31:23 Session agents analysis complete
+Analyzed 110 sessions
+
+Patterns detected: 0
+2026-01-23 22:31:23 Feedback loop analysis complete
+2026-01-23 22:31:23 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 39% | 8h 29m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: refactoring
+2026-01-23 22:31:23 Session optimizer stop hook completed
+2026-01-23 22:31:23 Pattern detection completed
+2026-01-23 22:31:23 Routing metrics tracked
+Feedback collected: unknown -> partial
+2026-01-23 22:31:23 Routing feedback collected
+2026-01-23 22:31:23 Supermemory sync triggered
+2026-01-23 22:31:23 Snapshot timestamp updated
+2026-01-23 22:31:23 Incremental token tracking completed
+2026-01-24T03:31:55.513Z Window initialized: window-2026-01-24-2200
+2026-01-24T03:39:14.215Z Window initialized: window-2026-01-24-2200
+2026-01-24T03:42:46.472Z Window initialized: window-2026-01-24-2200
+2026-01-24T03:48:29.304Z Window initialized: window-2026-01-24-2200
+2026-01-24T04:05:37.120Z Window initialized: window-2026-01-24-2300
+2026-01-24T04:05:42.164Z Window initialized: window-2026-01-24-2300
+2026-01-24T04:18:10.686Z Window initialized: window-2026-01-24-2300
+2026-01-24T04:20:43.597Z Window initialized: window-2026-01-24-2300
+2026-01-24T04:23:15.308Z Window initialized: window-2026-01-24-2300
+2026-01-24T04:26:56.531Z Window initialized: window-2026-01-24-2300
+2026-01-23 23:34:47 Session optimizer stop hook started
+2026-01-24T04:34:48.183Z Session ended
+2026-01-23 23:34:48 Session engine end called
+2026-01-23 23:34:48 Session agents analysis complete
+Analyzed 111 sessions
+
+Patterns detected: 0
+2026-01-23 23:34:48 Feedback loop analysis complete
+2026-01-23 23:34:48 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████░░░░░ 47% | 7h 25m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: architecture
+2026-01-23 23:34:48 Session optimizer stop hook completed
+2026-01-23 23:34:48 Pattern detection completed
+2026-01-23 23:34:48 Routing metrics tracked
+Feedback collected: unknown -> partial
+2026-01-23 23:34:48 Routing feedback collected
+2026-01-23 23:34:48 Supermemory sync triggered
+2026-01-23 23:34:48 Snapshot timestamp updated
+2026-01-23 23:34:48 Incremental token tracking completed
+2026-01-24T04:35:05.579Z Window initialized: window-2026-01-24-2300
+2026-01-23 23:41:18 Session optimizer stop hook started
+2026-01-24T04:41:18.505Z Session ended
+2026-01-23 23:41:18 Session engine end called
+2026-01-23 23:41:18 Session agents analysis complete
+Analyzed 112 sessions
+
+Patterns detected: 0
+2026-01-23 23:41:18 Feedback loop analysis complete
+2026-01-23 23:41:18 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████░░░░░ 48% | 7h 19m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: architecture
+2026-01-23 23:41:18 Session optimizer stop hook completed
+2026-01-23 23:41:18 Pattern detection completed
+2026-01-23 23:41:19 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-23 23:41:19 Routing feedback collected
+2026-01-23 23:41:19 Supermemory sync triggered
+2026-01-23 23:41:19 Snapshot timestamp updated
+2026-01-23 23:41:19 Incremental token tracking completed
+2026-01-24T04:41:34.631Z Window initialized: window-2026-01-24-2300
+2026-01-23 23:48:56 Session optimizer stop hook started
+2026-01-24T04:48:57.211Z Session ended
+2026-01-23 23:48:57 Session engine end called
+2026-01-23 23:48:57 Session agents analysis complete
+Analyzed 113 sessions
+
+Patterns detected: 0
+2026-01-23 23:48:57 Feedback loop analysis complete
+2026-01-23 23:48:57 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████░░░░░ 49% | 7h 11m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 23:48:57 Session optimizer stop hook completed
+2026-01-23 23:48:57 Pattern detection completed
+2026-01-23 23:48:57 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-23 23:48:57 Routing feedback collected
+2026-01-23 23:48:57 Supermemory sync triggered
+2026-01-23 23:48:57 Snapshot timestamp updated
+2026-01-23 23:48:58 Incremental token tracking completed
+2026-01-24T04:49:14.515Z Window initialized: window-2026-01-24-2300
+2026-01-23 23:53:44 Session optimizer stop hook started
+2026-01-24T04:53:44.502Z Session ended
+2026-01-23 23:53:44 Session engine end called
+2026-01-23 23:53:44 Session agents analysis complete
+Analyzed 114 sessions
+
+Patterns detected: 0
+2026-01-23 23:53:45 Feedback loop analysis complete
+2026-01-23 23:53:45 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████░░░░░ 49% | 7h 6m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 23:53:45 Session optimizer stop hook completed
+2026-01-23 23:53:45 Pattern detection completed
+2026-01-23 23:53:45 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-23 23:53:45 Routing feedback collected
+2026-01-23 23:53:45 Supermemory sync triggered
+2026-01-23 23:53:45 Snapshot timestamp updated
+2026-01-23 23:53:45 Incremental token tracking completed
+2026-01-24T04:54:04.598Z Window initialized: window-2026-01-24-2300
+2026-01-23 23:55:03 Session optimizer stop hook started
+2026-01-24T04:55:03.810Z Session ended
+2026-01-23 23:55:03 Session engine end called
+2026-01-23 23:55:04 Session agents analysis complete
+Analyzed 115 sessions
+
+Patterns detected: 0
+2026-01-23 23:55:04 Feedback loop analysis complete
+2026-01-23 23:55:04 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████░░░░░ 49% | 7h 5m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-23 23:55:04 Session optimizer stop hook completed
+2026-01-23 23:55:04 Pattern detection completed
+2026-01-23 23:55:04 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-23 23:55:04 Routing feedback collected
+2026-01-23 23:55:04 Supermemory sync triggered
+2026-01-23 23:55:04 Snapshot timestamp updated
+2026-01-23 23:55:04 Incremental token tracking completed
+2026-01-24T04:55:58.479Z Window initialized: window-2026-01-24-2300
+2026-01-24T05:27:05.604Z Window initialized: window-2026-01-24-0000
+2026-01-24T07:24:48.985Z Window initialized: window-2026-01-24-0200
+2026-01-24 02:25:11 Session optimizer stop hook started
+2026-01-24T07:25:12.059Z Session ended
+2026-01-24 02:25:12 Session engine end called
+2026-01-24 02:25:12 Session agents analysis complete
+Analyzed 116 sessions
+
+Patterns detected: 0
+2026-01-24 02:25:12 Feedback loop analysis complete
+2026-01-24 02:25:12 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 67% | 4h 35m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-24 02:25:12 Session optimizer stop hook completed
+2026-01-24 02:25:12 Pattern detection completed
+2026-01-24 02:25:12 Routing metrics tracked
+Feedback collected: unknown -> success
+2026-01-24 02:25:12 Routing feedback collected
+2026-01-24 02:25:12 Supermemory sync triggered
+2026-01-24 02:25:12 Snapshot timestamp updated
+2026-01-24 02:25:12 Incremental token tracking completed
+2026-01-24T07:25:24.030Z Window initialized: window-2026-01-24-0200
+2026-01-24T07:38:32.152Z Window initialized: window-2026-01-24-0200
+2026-01-24T07:39:11.871Z Window initialized: window-2026-01-24-0200
+2026-01-24 02:54:11 Session optimizer stop hook started
+2026-01-24T07:54:11.237Z Session ended
+2026-01-24 02:54:11 Session engine end called
+2026-01-24 02:54:11 Session agents analysis complete
+Analyzed 117 sessions
+
+Patterns detected: 0
+2026-01-24 02:54:11 Feedback loop analysis complete
+2026-01-24 02:54:11 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 71% | 4h 6m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-24 02:54:11 Session optimizer stop hook completed
+2026-01-24 02:54:11 Pattern detection completed
+2026-01-24 02:54:11 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-24 02:54:11 Routing feedback collected
+2026-01-24 02:54:11 Supermemory sync triggered
+2026-01-24 02:54:11 Snapshot timestamp updated
+2026-01-24 02:54:11 Incremental token tracking completed
+2026-01-24T08:07:49.889Z Window initialized: window-2026-01-24-0300
+2026-01-24 03:34:39 Session optimizer stop hook started
+2026-01-24T08:34:39.371Z Session ended
+2026-01-24 03:34:39 Session engine end called
+2026-01-24 03:34:39 Session agents analysis complete
+Analyzed 118 sessions
+
+Patterns detected: 0
+2026-01-24 03:34:39 Feedback loop analysis complete
+2026-01-24 03:34:39 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████████░░ 76% | 3h 25m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-24 03:34:39 Session optimizer stop hook completed
+2026-01-24 03:34:39 Pattern detection completed
+2026-01-24 03:34:39 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-24 03:34:39 Routing feedback collected
+2026-01-24 03:34:39 Supermemory sync triggered
+2026-01-24 03:34:39 Snapshot timestamp updated
+2026-01-24 03:34:40 Incremental token tracking completed
+2026-01-24T08:58:44.255Z Window initialized: window-2026-01-24-0300
+2026-01-24T10:23:08.439Z Window initialized: window-2026-01-24-0500
+2026-01-24 13:26:15 Session optimizer stop hook started
+2026-01-24T18:26:15.984Z Session ended
+2026-01-24 13:26:15 Session engine end called
+2026-01-24 13:26:16 Session agents analysis complete
+Analyzed 119 sessions
+
+Patterns detected: 0
+2026-01-24 13:26:16 Feedback loop analysis complete
+2026-01-24 13:26:16 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-24 13:26:16 Session optimizer stop hook completed
+2026-01-24 13:26:16 Pattern detection completed
+2026-01-24 13:26:16 Routing metrics tracked
+Feedback collected: unknown -> partial
+2026-01-24 13:26:16 Routing feedback collected
+2026-01-24 13:26:16 Supermemory sync triggered
+2026-01-24 13:26:16 Snapshot timestamp updated
+2026-01-24 13:26:16 Incremental token tracking completed
+2026-01-24 15:51:50 Session optimizer stop hook started
+2026-01-24 15:51:50 Session optimizer stop hook started
+2026-01-24T20:51:51.751Z Session ended
+2026-01-24 15:51:51 Session engine end called
+2026-01-24T20:51:52.284Z Session ended
+2026-01-24 15:51:52 Session engine end called
+2026-01-24 15:51:52 Session agents analysis complete
+Analyzed 121 sessions
+
+Patterns detected: 0
+2026-01-24 15:51:52 Feedback loop analysis complete
+2026-01-24 15:51:52 Session agents analysis complete
+Analyzed 121 sessions
+
+Patterns detected: 0
+2026-01-24 15:51:52 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-24 15:51:52 Feedback loop analysis complete
+2026-01-24 15:51:52 Session optimizer stop hook completed
+2026-01-24 15:51:53 Pattern detection completed
+2026-01-24 15:51:53 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-24 15:51:53 Session optimizer stop hook completed
+2026-01-24 15:51:53 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-24 15:51:53 Pattern detection completed
+2026-01-24 15:51:53 Routing feedback collected
+2026-01-24 15:51:53 Supermemory sync triggered
+2026-01-24 15:51:53 Snapshot timestamp updated
+2026-01-24 15:51:53 Routing metrics tracked
+2026-01-24 15:51:53 Incremental token tracking completed
+Feedback collected: haiku -> success
+2026-01-24 15:51:53 Routing feedback collected
+2026-01-24 15:51:53 Supermemory sync triggered
+2026-01-24 15:51:53 Snapshot timestamp updated
+2026-01-24 15:51:53 Incremental token tracking completed
+2026-01-24 16:11:56 Session optimizer stop hook started
+2026-01-24T21:11:56.779Z Session ended
+2026-01-24 16:11:56 Session engine end called
+2026-01-24 16:11:57 Session agents analysis complete
+Analyzed 122 sessions
+
+Patterns detected: 0
+2026-01-24 16:11:57 Feedback loop analysis complete
+2026-01-24 16:11:57 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-24 16:11:57 Session optimizer stop hook completed
+2026-01-24 16:11:57 Pattern detection completed
+2026-01-24 16:11:57 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-24 16:11:57 Routing feedback collected
+2026-01-24 16:11:57 Supermemory sync triggered
+2026-01-24 16:11:57 Snapshot timestamp updated
+2026-01-24 16:11:57 Incremental token tracking completed
+2026-01-24 16:17:04 Session optimizer stop hook started
+2026-01-24T21:17:04.372Z Session ended
+2026-01-24 16:17:04 Session engine end called
+2026-01-24 16:17:04 Session agents analysis complete
+Analyzed 123 sessions
+
+Patterns detected: 0
+2026-01-24 16:17:04 Feedback loop analysis complete
+2026-01-24 16:17:05 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🟡 MODERATE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: architecture
+2026-01-24 16:17:05 Session optimizer stop hook completed
+2026-01-24 16:17:05 Pattern detection completed
+2026-01-24 16:17:05 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-24 16:17:05 Routing feedback collected
+2026-01-24 16:17:05 Supermemory sync triggered
+2026-01-24 16:17:05 Snapshot timestamp updated
+2026-01-24 16:17:05 Incremental token tracking completed
+2026-01-24T21:23:19.579Z Window initialized: window-2026-01-24-1600
+2026-01-24T21:23:19.626Z Window initialized: window-2026-01-24-1600
+2026-01-24 16:23:30 Session optimizer stop hook started
+2026-01-24T21:23:31.197Z Session ended
+2026-01-24 16:23:31 Session engine end called
+2026-01-24 16:23:31 Session agents analysis complete
+Analyzed 124 sessions
+
+Patterns detected: 0
+2026-01-24 16:23:31 Feedback loop analysis complete
+2026-01-24 16:23:31 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████████░ 88% | 36m remaining
+Capacity: 🟠 LOW | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-24 16:23:31 Session optimizer stop hook completed
+2026-01-24 16:23:31 Pattern detection completed
+2026-01-24 16:23:31 Routing metrics tracked
+Feedback collected: unknown -> partial
+2026-01-24 16:23:31 Routing feedback collected
+2026-01-24 16:23:31 Supermemory sync triggered
+2026-01-24 16:23:31 Snapshot timestamp updated
+2026-01-24 16:23:31 Incremental token tracking completed
+2026-01-24 20:18:14 Session optimizer stop hook started
+2026-01-25T01:18:14.959Z Session ended
+2026-01-24 20:18:15 Session engine end called
+2026-01-24 20:18:15 Session agents analysis complete
+Analyzed 125 sessions
+
+Patterns detected: 0
+2026-01-24 20:18:15 Feedback loop analysis complete
+2026-01-24 20:18:15 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🟠 LOW | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-24 20:18:15 Session optimizer stop hook completed
+2026-01-24 20:18:15 Pattern detection completed
+2026-01-24 20:18:16 Routing metrics tracked
+Feedback collected: unknown -> partial
+2026-01-24 20:18:16 Routing feedback collected
+2026-01-24 20:18:16 Supermemory sync triggered
+2026-01-24 20:18:16 Snapshot timestamp updated
+2026-01-24 20:18:16 Incremental token tracking completed
+2026-01-24 20:53:27 Session optimizer stop hook started
+2026-01-25T01:53:28.256Z Session ended
+2026-01-24 20:53:28 Session engine end called
+2026-01-24 20:53:28 Session agents analysis complete
+Analyzed 126 sessions
+
+Patterns detected: 0
+2026-01-24 20:53:28 Feedback loop analysis complete
+2026-01-24 20:53:28 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🟠 LOW | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-24 20:53:28 Session optimizer stop hook completed
+2026-01-24 20:53:28 Pattern detection completed
+2026-01-24 20:53:28 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-24 20:53:28 Routing feedback collected
+2026-01-24 20:53:29 Supermemory sync triggered
+2026-01-24 20:53:29 Snapshot timestamp updated
+2026-01-24 20:53:29 Incremental token tracking completed
+2026-01-25T02:15:34.598Z Window initialized: window-2026-01-25-2100
+2026-01-25T04:44:51.326Z Window initialized: window-2026-01-25-2300
+2026-01-25T07:05:02.765Z Window initialized: window-2026-01-25-0200
+2026-01-25 02:07:16 Session optimizer stop hook started
+2026-01-25T07:07:16.705Z Session ended
+2026-01-25 02:07:16 Session engine end called
+2026-01-25 02:07:17 Session agents analysis complete
+Analyzed 127 sessions
+
+Patterns detected: 0
+2026-01-25 02:07:17 Feedback loop analysis complete
+2026-01-25 02:07:17 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 65% | 4h 53m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-25 02:07:17 Session optimizer stop hook completed
+2026-01-25 02:07:17 Pattern detection completed
+2026-01-25 02:07:17 Routing metrics tracked
+Feedback collected: unknown -> partial
+2026-01-25 02:07:17 Routing feedback collected
+2026-01-25 02:07:17 Supermemory sync triggered
+2026-01-25 02:07:17 Snapshot timestamp updated
+2026-01-25 02:07:17 Incremental token tracking completed
+2026-01-25 02:39:36 Session optimizer stop hook started
+2026-01-25T07:39:36.783Z Session ended
+2026-01-25 02:39:36 Session engine end called
+2026-01-25 02:39:37 Session agents analysis complete
+Analyzed 128 sessions
+
+Patterns detected: 0
+2026-01-25 02:39:37 Feedback loop analysis complete
+2026-01-25 02:39:37 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 69% | 4h 20m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-25 02:39:37 Session optimizer stop hook completed
+2026-01-25 02:39:37 Pattern detection completed
+2026-01-25 02:39:37 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-25 02:39:37 Routing feedback collected
+2026-01-25 02:39:37 Supermemory sync triggered
+2026-01-25 02:39:37 Snapshot timestamp updated
+2026-01-25 02:39:37 Incremental token tracking completed
+2026-01-26T01:50:57.877Z Window initialized: window-2026-01-26-2000
+2026-01-25 21:00:01 Session optimizer stop hook started
+2026-01-26T02:00:02.254Z Session ended
+2026-01-25 21:00:02 Session engine end called
+2026-01-25 21:00:02 Session agents analysis complete
+Analyzed 129 sessions
+
+Patterns detected: 0
+2026-01-25 21:00:02 Feedback loop analysis complete
+2026-01-25 21:00:02 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███░░░░░░░ 29% | 10h 0m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-25 21:00:02 Session optimizer stop hook completed
+2026-01-25 21:00:03 Pattern detection completed
+2026-01-25 21:00:03 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-25 21:00:03 Routing feedback collected
+2026-01-25 21:00:03 Supermemory sync triggered
+2026-01-25 21:00:03 Snapshot timestamp updated
+2026-01-25 21:00:03 Incremental token tracking completed
+2026-01-26T02:00:33.376Z Window initialized: window-2026-01-26-2100
+2026-01-26T02:45:35.316Z Window initialized: window-2026-01-26-2100
+2026-01-26T02:51:26.273Z Window initialized: window-2026-01-26-2100
+2026-01-25 22:00:11 Session optimizer stop hook started
+2026-01-26T03:00:11.928Z Session ended
+2026-01-25 22:00:11 Session engine end called
+2026-01-25 22:00:12 Session agents analysis complete
+Analyzed 130 sessions
+
+Patterns detected: 0
+2026-01-25 22:00:12 Feedback loop analysis complete
+2026-01-25 22:00:12 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 36% | 9h 0m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-25 22:00:12 Session optimizer stop hook completed
+2026-01-25 22:00:12 Pattern detection completed
+2026-01-25 22:00:12 Routing metrics tracked
+Feedback collected: unknown -> research
+2026-01-25 22:00:12 Routing feedback collected
+2026-01-25 22:00:12 Supermemory sync triggered
+2026-01-25 22:00:12 Snapshot timestamp updated
+2026-01-25 22:00:12 Incremental token tracking completed
+2026-01-26T03:00:34.968Z Window initialized: window-2026-01-26-2200
+2026-01-26T03:49:48.962Z Window initialized: window-2026-01-26-2200
+2026-01-26T04:09:47.851Z Window initialized: window-2026-01-26-2300
+2026-01-25 23:48:04 Session optimizer stop hook started
+2026-01-26T04:48:04.186Z Session ended
+2026-01-25 23:48:04 Session engine end called
+2026-01-25 23:48:04 Session agents analysis complete
+Analyzed 131 sessions
+
+Patterns detected: 0
+2026-01-25 23:48:04 Feedback loop analysis complete
+2026-01-25 23:48:04 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████░░░░░ 49% | 7h 12m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 21 | Sonnet: 86 | Haiku: 431
+Budget:   14% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-25 23:48:04 Session optimizer stop hook completed
+2026-01-25 23:48:04 Pattern detection completed
+2026-01-25 23:48:04 Routing metrics tracked
+Feedback collected: unknown -> research
+2026-01-25 23:48:04 Routing feedback collected
+2026-01-25 23:48:04 Supermemory sync triggered
+2026-01-25 23:48:04 Snapshot timestamp updated
+2026-01-25 23:48:04 Incremental token tracking completed
+2026-01-26T05:11:51.318Z Window initialized: window-2026-01-26-0000
+2026-01-26T05:37:11.066Z Window initialized: window-2026-01-26-0000
+2026-01-26T06:12:11.575Z Window initialized: window-2026-01-26-0100
+2026-01-26T06:29:36.214Z Window initialized: window-2026-01-26-0100
+2026-01-26 01:30:18 Session optimizer stop hook started
+2026-01-26T06:30:18.320Z Session ended
+2026-01-26 01:30:18 Session engine end called
+2026-01-26 01:30:18 Session agents analysis complete
+Analyzed 132 sessions
+
+Patterns detected: 0
+2026-01-26 01:30:18 Feedback loop analysis complete
+2026-01-26 01:30:18 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████░░░░ 61% | 5h 30m remaining
+Capacity: 🟡 MODERATE | Opus: 11 | Sonnet: 44 | Haiku: 224
+Budget:   55% utilized | Recommended: sonnet
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-26 01:30:18 Session optimizer stop hook completed
+2026-01-26 01:30:18 Pattern detection completed
+2026-01-26 01:30:18 Routing metrics tracked
+Feedback collected: unknown -> research
+2026-01-26 01:30:18 Routing feedback collected
+2026-01-26 01:30:18 Supermemory sync triggered
+2026-01-26 01:30:18 Snapshot timestamp updated
+2026-01-26 01:30:18 Incremental token tracking completed
+2026-01-26T06:41:17.624Z Window initialized: window-2026-01-26-0100
+2026-01-26T07:11:13.435Z Window initialized: window-2026-01-26-0200
+2026-01-26T07:25:25.484Z Window initialized: window-2026-01-26-0200
+2026-01-26T07:31:41.283Z Window initialized: window-2026-01-26-0200
+2026-01-26T07:46:32.354Z Window initialized: window-2026-01-26-0200
+2026-01-26 02:48:06 Session optimizer stop hook started
+2026-01-26T07:48:07.094Z Session ended
+2026-01-26 02:48:07 Session engine end called
+2026-01-26 02:48:07 Session agents analysis complete
+Analyzed 133 sessions
+
+Patterns detected: 0
+2026-01-26 02:48:07 Feedback loop analysis complete
+2026-01-26 02:48:07 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 70% | 4h 12m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-26 02:48:07 Session optimizer stop hook completed
+2026-01-26 02:48:07 Pattern detection completed
+2026-01-26 02:48:07 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-26 02:48:07 Routing feedback collected
+2026-01-26 02:48:07 Supermemory sync triggered
+2026-01-26 02:48:07 Snapshot timestamp updated
+2026-01-26 02:48:07 Incremental token tracking completed
+2026-01-26T07:49:38.093Z Window initialized: window-2026-01-26-0200
+2026-01-26T07:57:34.492Z Window initialized: window-2026-01-26-0200
+2026-01-26T08:24:31.300Z Window initialized: window-2026-01-26-0300
+2026-01-26T08:38:50.589Z Window initialized: window-2026-01-26-0300
+2026-01-26T08:39:18.502Z Window initialized: window-2026-01-26-0300
+2026-01-26T09:03:02.833Z Window initialized: window-2026-01-26-0400
+2026-01-26 04:04:34 Session optimizer stop hook started
+2026-01-26T09:04:35.119Z Session ended
+2026-01-26 04:04:35 Session engine end called
+2026-01-26 04:04:35 Session agents analysis complete
+Analyzed 134 sessions
+
+Patterns detected: 0
+2026-01-26 04:04:35 Feedback loop analysis complete
+2026-01-26 04:04:35 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████████░░ 79% | 2h 55m remaining
+Capacity: 🔴 CRITICAL | Opus: 0 | Sonnet: 0 | Haiku: 0
+Budget:   100% utilized | Recommended: haiku
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-26 04:04:35 Session optimizer stop hook completed
+2026-01-26 04:04:35 Pattern detection completed
+2026-01-26 04:04:35 Routing metrics tracked
+Feedback collected: unknown -> partial
+2026-01-26 04:04:35 Routing feedback collected
+2026-01-26 04:04:35 Supermemory sync triggered
+2026-01-26 04:04:35 Snapshot timestamp updated
+2026-01-26 04:04:35 Incremental token tracking completed
+2026-01-26T09:04:59.447Z Window initialized: window-2026-01-26-0400
+2026-01-26T10:24:01.027Z Window initialized: window-2026-01-26-0500
+2026-01-26T10:34:14.149Z Window initialized: window-2026-01-26-0500
+2026-01-26T10:58:57.296Z Window initialized: window-2026-01-26-0500
+2026-01-26T11:18:44.383Z Window initialized: window-2026-01-26-0600
+2026-01-26T11:53:00.453Z Window initialized: window-2026-01-26-0600
+2026-01-26T11:56:21.099Z Window initialized: window-2026-01-26-0600
+2026-01-26T11:58:27.063Z Window initialized: window-2026-01-26-0600
+2026-01-26T12:11:43.071Z Window initialized: window-2026-01-26-0700
+2026-01-26T12:27:35.145Z Window initialized: window-2026-01-26-0700
+2026-01-26T13:03:40.835Z Window initialized: window-2026-01-26-0800
+2026-01-26T18:55:12.872Z Window initialized: window-2026-01-26-1300
+2026-01-26T18:56:39.882Z Window initialized: window-2026-01-26-1300
+2026-01-26T23:00:06.958Z Window initialized: window-2026-01-26-1800
+2026-01-26T23:11:11.537Z Window initialized: window-2026-01-26-1800
+2026-01-26T23:32:42.873Z Window initialized: window-2026-01-26-1800
+2026-01-27T00:28:25.351Z Window initialized: window-2026-01-27-1900
+2026-01-27T00:33:24.615Z Window initialized: window-2026-01-27-1900
+2026-01-26 19:37:56 Session optimizer stop hook started
+2026-01-27T00:37:57.233Z Session ended
+2026-01-26 19:37:57 Session engine end called
+2026-01-26 19:37:58 Session agents analysis complete
+Analyzed 134 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-26 19:37:58 Feedback loop analysis complete
+2026-01-26 19:37:58 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██░░░░░░░░ 19% | 11h 22m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-26 19:37:58 Session optimizer stop hook completed
+2026-01-26 19:37:58 Pattern detection completed
+2026-01-26 19:37:58 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-26 19:37:58 Routing feedback collected
+2026-01-26 19:37:58 Supermemory sync triggered
+2026-01-26 19:37:58 Snapshot timestamp updated
+2026-01-26 19:37:59 Incremental token tracking completed
+2026-01-27T00:38:32.888Z Window initialized: window-2026-01-27-1900
+2026-01-27T00:55:30.851Z Window initialized: window-2026-01-27-1900
+2026-01-26 20:52:38 Session optimizer stop hook started
+2026-01-27T01:52:41.248Z Session ended
+2026-01-26 20:52:42 Session engine end called
+2026-01-26 20:52:51 Session agents analysis complete
+Analyzed 135 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.55 (conf: 0.6640000000000001)
+2026-01-26 20:52:51 Feedback loop analysis complete
+2026-01-26 20:52:51 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███░░░░░░░ 28% | 10h 7m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-26 20:52:51 Session optimizer stop hook completed
+2026-01-26 20:52:51 Pattern detection completed
+2026-01-26 20:52:51 Routing metrics tracked
+Feedback collected: unknown -> partial
+2026-01-26 20:52:51 Routing feedback collected
+2026-01-26 20:52:51 Supermemory sync triggered
+2026-01-26 20:52:51 Snapshot timestamp updated
+2026-01-26 20:52:51 Incremental token tracking completed
+2026-01-27T02:12:49.439Z Window initialized: window-2026-01-27-2100
+2026-01-27T02:46:09.762Z Window initialized: window-2026-01-27-2100
+2026-01-26 21:48:08 Session optimizer stop hook started
+2026-01-27T02:48:09.394Z Session ended
+2026-01-26 21:48:09 Session engine end called
+2026-01-26 21:48:11 Session agents analysis complete
+Analyzed 136 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-26 21:48:11 Feedback loop analysis complete
+2026-01-26 21:48:12 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███░░░░░░░ 34% | 9h 12m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-26 21:48:12 Session optimizer stop hook completed
+2026-01-26 21:48:12 Pattern detection completed
+2026-01-26 21:48:13 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-26 21:48:13 Routing feedback collected
+2026-01-26 21:48:13 Supermemory sync triggered
+2026-01-26 21:48:13 Snapshot timestamp updated
+2026-01-26 21:48:14 Incremental token tracking completed
+2026-01-26 21:52:28 Session optimizer stop hook started
+2026-01-27T02:52:29.717Z Session ended
+2026-01-26 21:52:30 Session engine end called
+2026-01-26 21:52:39 Session agents analysis complete
+Analyzed 137 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-26 21:52:39 Feedback loop analysis complete
+2026-01-26 21:52:39 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ████░░░░░░ 35% | 9h 7m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-26 21:52:39 Session optimizer stop hook completed
+2026-01-26 21:52:39 Pattern detection completed
+2026-01-26 21:52:39 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-26 21:52:40 Routing feedback collected
+2026-01-26 21:52:40 Supermemory sync triggered
+2026-01-26 21:52:40 Snapshot timestamp updated
+2026-01-26 21:52:41 Incremental token tracking completed
+2026-01-27T02:52:56.281Z Window initialized: window-2026-01-27-2100
+2026-01-27T04:39:05.919Z Window initialized: window-2026-01-27-2300
+2026-01-27T05:23:35.589Z Window initialized: window-2026-01-27-0000
+2026-01-27T05:31:45.119Z Window initialized: window-2026-01-27-0000
+2026-01-27 00:40:44 Session optimizer stop hook started
+2026-01-27T05:40:44.662Z Session ended
+2026-01-27 00:40:44 Session engine end called
+2026-01-27 00:40:45 Session agents analysis complete
+Analyzed 137 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-27 00:40:45 Feedback loop analysis complete
+2026-01-27 00:40:45 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████░░░░ 55% | 6h 19m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-27 00:40:45 Session optimizer stop hook completed
+2026-01-27 00:40:45 Pattern detection completed
+2026-01-27 00:40:45 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-27 00:40:45 Routing feedback collected
+2026-01-27 00:40:45 Supermemory sync triggered
+2026-01-27 00:40:45 Snapshot timestamp updated
+2026-01-27 00:40:45 Incremental token tracking completed
+2026-01-27T05:41:17.562Z Window initialized: window-2026-01-27-0000
+2026-01-27 01:29:51 Session optimizer stop hook started
+2026-01-27T06:29:51.915Z Session ended
+2026-01-27 01:29:51 Session engine end called
+2026-01-27 01:29:52 Session agents analysis complete
+Analyzed 138 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-27 01:29:52 Feedback loop analysis complete
+2026-01-27 01:29:52 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████░░░░ 61% | 5h 30m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: debugging
+2026-01-27 01:29:52 Session optimizer stop hook completed
+2026-01-27 01:29:52 Pattern detection completed
+2026-01-27 01:29:52 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-27 01:29:52 Routing feedback collected
+2026-01-27 01:29:52 Supermemory sync triggered
+2026-01-27 01:29:52 Snapshot timestamp updated
+2026-01-27 01:29:53 Incremental token tracking completed
+2026-01-27 01:45:00 Session optimizer stop hook started
+2026-01-27T06:45:00.959Z Session ended
+2026-01-27 01:45:00 Session engine end called
+2026-01-27 01:45:01 Session agents analysis complete
+Analyzed 139 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-27 01:45:01 Feedback loop analysis complete
+2026-01-27 01:45:02 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████░░░░ 63% | 5h 15m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: debugging
+2026-01-27 01:45:02 Session optimizer stop hook completed
+2026-01-27 01:45:02 Pattern detection completed
+2026-01-27 01:45:02 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-27 01:45:02 Routing feedback collected
+2026-01-27 01:45:02 Supermemory sync triggered
+2026-01-27 01:45:02 Snapshot timestamp updated
+2026-01-27 01:45:02 Incremental token tracking completed
+2026-01-27T06:55:07.445Z Window initialized: window-2026-01-27-0100
+2026-01-27 02:25:28 Session optimizer stop hook started
+2026-01-27T07:25:28.343Z Session ended
+2026-01-27 02:25:28 Session engine end called
+2026-01-27 02:25:29 Session agents analysis complete
+Analyzed 140 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-27 02:25:29 Feedback loop analysis complete
+2026-01-27 02:25:29 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ███████░░░ 67% | 4h 35m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-27 02:25:29 Session optimizer stop hook completed
+2026-01-27 02:25:29 Pattern detection completed
+2026-01-27 02:25:29 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-27 02:25:29 Routing feedback collected
+2026-01-27 02:25:29 Supermemory sync triggered
+2026-01-27 02:25:29 Snapshot timestamp updated
+2026-01-27 02:25:29 Incremental token tracking completed
+2026-01-27T09:29:22.792Z Window initialized: window-2026-01-27-0400
+2026-01-27T11:41:53.428Z Window initialized: window-2026-01-27-0600
+2026-01-27 06:42:02 Session optimizer stop hook started
+2026-01-27T11:42:03.309Z Session ended
+2026-01-27 06:42:03 Session engine end called
+2026-01-27 06:42:04 Session agents analysis complete
+Analyzed 140 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-27 06:42:04 Feedback loop analysis complete
+2026-01-27 06:42:04 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 98% | 18m remaining
+Capacity: 🔴 CRITICAL | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-27 06:42:04 Session optimizer stop hook completed
+2026-01-27 06:42:04 Pattern detection completed
+2026-01-27 06:42:04 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-27 06:42:04 Routing feedback collected
+2026-01-27 06:42:04 Supermemory sync triggered
+2026-01-27 06:42:04 Snapshot timestamp updated
+2026-01-27 06:42:04 Incremental token tracking completed
+2026-01-27T11:42:35.019Z Window initialized: window-2026-01-27-0600
+2026-01-27 06:43:00 Session optimizer stop hook started
+2026-01-27T11:43:01.180Z Session ended
+2026-01-27 06:43:01 Session engine end called
+2026-01-27 06:43:01 Session agents analysis complete
+Analyzed 141 sessions
+
+Patterns detected: 0
+2026-01-27 06:43:01 Feedback loop analysis complete
+2026-01-27 06:43:02 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 98% | 17m remaining
+Capacity: 🔴 CRITICAL | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-27 06:43:02 Session optimizer stop hook completed
+2026-01-27 06:43:02 Pattern detection completed
+2026-01-27 06:43:02 Routing metrics tracked
+Feedback collected: haiku -> success
+2026-01-27 06:43:02 Routing feedback collected
+2026-01-27 06:43:02 Supermemory sync triggered
+2026-01-27 06:43:02 Snapshot timestamp updated
+2026-01-27 06:43:02 Incremental token tracking completed
+2026-01-27T11:43:30.752Z Window initialized: window-2026-01-27-0600
+2026-01-27 06:59:36 Session optimizer stop hook started
+2026-01-27T11:59:36.326Z Session ended
+2026-01-27 06:59:36 Session engine end called
+2026-01-27 06:59:37 Session agents analysis complete
+Analyzed 142 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-27 06:59:37 Feedback loop analysis complete
+2026-01-27 06:59:37 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🔴 CRITICAL | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-27 06:59:37 Session optimizer stop hook completed
+2026-01-27 06:59:37 Pattern detection completed
+2026-01-27 06:59:37 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-27 06:59:37 Routing feedback collected
+2026-01-27 06:59:37 Supermemory sync triggered
+2026-01-27 06:59:37 Snapshot timestamp updated
+2026-01-27 06:59:37 Incremental token tracking completed
+2026-01-27 13:19:55 Session optimizer stop hook started
+2026-01-27T18:19:56.224Z Session ended
+2026-01-27 13:19:56 Session engine end called
+2026-01-27 13:19:56 Session agents analysis complete
+Analyzed 143 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-27 13:19:56 Feedback loop analysis complete
+2026-01-27 13:19:57 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🔴 CRITICAL | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 07:15 AM | Pattern: general
+2026-01-27 13:19:57 Session optimizer stop hook completed
+2026-01-27 13:19:57 Pattern detection completed
+2026-01-27 13:19:57 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-27 13:19:57 Routing feedback collected
+2026-01-27 13:19:57 Supermemory sync triggered
+2026-01-27 13:19:57 Snapshot timestamp updated
+2026-01-27 13:19:57 Incremental token tracking completed
+2026-01-27T18:20:24.332Z Window initialized: window-2026-01-27-1300
+2026-01-27T18:22:57.613Z Window initialized: window-2026-01-27-1300
+2026-01-27 18:02:04 Session optimizer stop hook started
+2026-01-27T23:02:04.713Z Session ended
+2026-01-27 18:02:04 Session engine end called
+2026-01-27 18:02:05 Session agents analysis complete
+Analyzed 144 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-27 18:02:05 Feedback loop analysis complete
+2026-01-27 18:02:05 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-27 18:02:05 Session optimizer stop hook completed
+2026-01-27 18:02:05 Pattern detection completed
+2026-01-27 18:02:05 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-27 18:02:05 Routing feedback collected
+2026-01-27 18:02:05 Supermemory sync triggered
+2026-01-27 18:02:05 Snapshot timestamp updated
+2026-01-27 18:02:05 Incremental token tracking completed
+2026-01-27 18:13:08 Session optimizer stop hook started
+2026-01-27T23:13:08.994Z Session ended
+2026-01-27 18:13:09 Session engine end called
+2026-01-27 18:13:09 Session agents analysis complete
+Analyzed 145 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-27 18:13:09 Feedback loop analysis complete
+2026-01-27 18:13:09 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████████ 100% | 0m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: general
+2026-01-27 18:13:09 Session optimizer stop hook completed
+2026-01-27 18:13:09 Pattern detection completed
+2026-01-27 18:13:09 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-27 18:13:09 Routing feedback collected
+2026-01-27 18:13:09 Supermemory sync triggered
+2026-01-27 18:13:09 Snapshot timestamp updated
+2026-01-27 18:13:09 Incremental token tracking completed
+2026-01-28T03:46:32.863Z Window initialized: window-2026-01-28-2200
+2026-01-28T03:49:21.178Z Window initialized: window-2026-01-28-2200
+2026-01-28T04:49:48.859Z Window initialized: window-2026-01-28-2300
+2026-01-28 00:34:29 Session optimizer stop hook started
+2026-01-28T05:34:29.193Z Session ended
+2026-01-28 00:34:29 Session engine end called
+2026-01-28 00:34:29 Session agents analysis complete
+Analyzed 140 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-28 00:34:30 Feedback loop analysis complete
+2026-01-28 00:34:30 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: █████░░░░░ 54% | 6h 25m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-28 00:34:30 Session optimizer stop hook completed
+2026-01-28 00:34:30 Pattern detection completed
+2026-01-28 00:34:30 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-28 00:34:30 Routing feedback collected
+2026-01-28 00:34:30 Supermemory sync triggered
+2026-01-28 00:34:30 Snapshot timestamp updated
+2026-01-28 00:34:30 Incremental token tracking completed
+2026-01-28 01:59:55 Session optimizer stop hook started
+2026-01-28T06:59:55.690Z Session ended
+2026-01-28 01:59:55 Session engine end called
+2026-01-28 01:59:56 Session agents analysis complete
+Analyzed 140 sessions
+
+Patterns detected: 1
+  - quality_decline: Quality trend: -0.81 (conf: 0.742)
+2026-01-28 01:59:56 Feedback loop analysis complete
+2026-01-28 01:59:56 Session summary: 
+━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position: ██████░░░░ 64% | 5h 0m remaining
+Capacity: 🟢 COMFORTABLE | Opus: 25 | Sonnet: 100 | Haiku: 500
+Budget:   0% utilized | Recommended: opus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prediction: Optimal next window 05:15 PM | Pattern: debugging
+2026-01-28 01:59:56 Session optimizer stop hook completed
+2026-01-28 01:59:56 Pattern detection completed
+2026-01-28 01:59:56 Routing metrics tracked
+Feedback collected: haiku -> abandoned
+2026-01-28 01:59:57 Routing feedback collected
+2026-01-28 01:59:57 Supermemory sync triggered
+2026-01-28 01:59:57 Snapshot timestamp updated
+2026-01-28 01:59:57 Incremental token tracking completed
+2026-01-28T08:05:55.273Z Window initialized: window-2026-01-28-0300

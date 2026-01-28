@@ -1,28 +1,19 @@
 {
-  "generated_at": "2026-01-21T05:15:39.083141",
+  "generated_at": "2026-01-28T03:05:55.643918",
   "predictions": {
-    "timestamp": "2026-01-21T05:15:39.098425",
-    "factors": [
-      {
-        "factor": "time_of_day",
-        "hour": 5,
-        "success_rate": 0.667,
-        "sample_size": 3
-      },
-      {
-        "factor": "day_of_week",
-        "day": "Wednesday",
-        "success_rate": 0.667,
-        "sample_size": 3
-      }
+    "timestamp": "2026-01-28T03:05:55.645551",
+    "factors": [],
+    "recommendations": [
+      "Best performing model: unknown (72% success, 693 sessions)"
     ],
-    "recommendations": [],
-    "confidence": 0.667
+    "confidence": 0.5
   },
   "recent_learnings": [],
-  "recommendations": [],
+  "recommendations": [
+    "Best performing model: unknown (72% success, 693 sessions)"
+  ],
   "context": {
-    "capacity_tier": "MODERATE",
+    "capacity_tier": "COMFORTABLE",
     "opus_remaining": 0,
     "sonnet_remaining": 0,
     "expertise": [
@@ -40,9 +31,7 @@
       "tokenOptimization": true,
       "costAwareness": "medium",
       "verbosity": "concise"
-    },
-    "detected_pattern": "architecture",
-    "pattern_confidence": 0.8333333333333334
+    }
   },
   "warnings": []
 }

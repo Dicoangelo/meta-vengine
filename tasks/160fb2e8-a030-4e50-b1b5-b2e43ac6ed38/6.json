@@ -1,0 +1,12 @@
+{
+  "id": "6",
+  "subject": "Build adaptive threshold learning",
+  "description": "Learn optimal complexity thresholds from DQ scores:\n- Track DQ score outcomes per complexity tier (fast/balanced/deep)\n- Calculate tier effectiveness: avg DQ score per tier over time\n- Implement threshold adjustment algorithm:\n  - If deep tier DQ < balanced DQ: raise deepThreshold\n  - If fast tier DQ > balanced DQ: lower balancedThreshold\n- Weekly recalibration with decay factor\n- Integrate with existing DQ scoring system (~/.claude/kernel/dq-scores.jsonl)\n- Add `getAdaptiveThresholds()` API\n\nThis creates a feedback loop: routing decisions → DQ scores → threshold adjustment",
+  "activeForm": "Building adaptive learning",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": [
+    "3",
+    "4"
+  ]
+}

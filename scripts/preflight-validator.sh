@@ -53,5 +53,3 @@ preflight_git() {
     touch "$cache_file"
     return 0
 }
-
-export -f preflight_git

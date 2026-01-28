@@ -1069,19 +1069,26 @@ def main():
     else:
         engine.print_summary()
 
-    # Log outcome
-    outcome_file = DATA_DIR / "self-heal-outcomes.jsonl"
+    # Log outcome with dual-write to JSONL + SQLite
     try:
-        with open(outcome_file, "a") as f:
-            f.write(json.dumps({
-                "ts": int(now_local().timestamp()),
-                "ok": engine.report()["ok"],
-                "warn": engine.report()["warnings"],
-                "error": engine.report()["errors"],
-                "fixed": engine.report()["fixes_successful"],
-            }) + "\n")
-    except Exception:
-        pass
+        ts = int(now_local().timestamp())
+        ok_count = engine.report()["ok"]
+        warn_count = engine.report()["warnings"]
+        error_count = engine.report()["errors"]
+        fixed_count = engine.report()["fixes_successful"]
+
+        # Import dual-write library
+        sys.path.insert(0, str(HOME / ".claude/hooks"))
+        from dual_write_lib import log_self_heal_outcome
+
+        log_self_heal_outcome(
+            ok=ok_count,
+            warn=warn_count,
+            error=error_count,
+            fixed=fixed_count
+        )
+    except Exception as e:
+        sys.stderr.write(f"Warning: Failed to log self-heal outcome: {e}\n")
 
     # Exit codes
     report = engine.report()

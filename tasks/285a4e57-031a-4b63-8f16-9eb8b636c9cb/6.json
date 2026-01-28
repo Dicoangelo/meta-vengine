@@ -1,0 +1,9 @@
+{
+  "id": "6",
+  "subject": "Implement dynamic navigation generation",
+  "description": "Create generate_navigation.py script to auto-generate table of contents sidebar from slide metadata. Navigation should categorize slides by section, highlight current slide, and include keyboard shortcuts.",
+  "activeForm": "Implementing dynamic navigation generation",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

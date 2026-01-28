@@ -199,19 +199,147 @@
       "actual": "abandoned",
       "actual_normalized": "abandoned",
       "correct": true
+    },
+    {
+      "timestamp": "2026-01-26T19:37:57.893200",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-26T20:52:50.061384",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-26T21:48:09.894158",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-26T21:52:35.693891",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-27T00:40:44.988482",
+      "predicted": "partial",
+      "predicted_normalized": "partial",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": false
+    },
+    {
+      "timestamp": "2026-01-27T01:29:52.134888",
+      "predicted": "partial",
+      "predicted_normalized": "partial",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": false
+    },
+    {
+      "timestamp": "2026-01-27T01:45:01.361807",
+      "predicted": "partial",
+      "predicted_normalized": "partial",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": false
+    },
+    {
+      "timestamp": "2026-01-27T02:25:28.573625",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-27T06:42:03.624971",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-27T06:43:01.503608",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-27T06:59:36.565562",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-27T13:19:56.379166",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-27T18:02:04.938263",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-27T18:13:09.139513",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-28T00:34:29.467007",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
+    },
+    {
+      "timestamp": "2026-01-28T01:59:56.233339",
+      "predicted": "abandon",
+      "predicted_normalized": "abandoned",
+      "actual": "abandoned",
+      "actual_normalized": "abandoned",
+      "correct": true
     }
   ],
   "model_routes": {
     "deep_night_simple": {
       "model": "haiku",
       "successes": 0,
-      "failures": 15,
+      "failures": 21,
       "confidence": 0.0
     },
     "dip_simple": {
       "model": "haiku",
       "successes": 0,
-      "failures": 1,
+      "failures": 2,
       "confidence": 0.0
     },
     "peak_afternoon_simple": {
@@ -221,6 +349,12 @@
       "confidence": 0.0
     },
     "evening_simple": {
+      "model": "haiku",
+      "successes": 0,
+      "failures": 9,
+      "confidence": 0.0
+    },
+    "morning_simple": {
       "model": "haiku",
       "successes": 0,
       "failures": 3,

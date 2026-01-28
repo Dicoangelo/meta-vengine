@@ -1,0 +1,11 @@
+{
+  "id": "2",
+  "subject": "Extract mode handlers from orchestrator",
+  "description": "Refactor orchestrator.ts (27KB) by extracting mode-specific logic:\n- Create `services/voiceNexus/modes/` directory\n- Extract `realtimeMode.ts` - Gemini Live bidirectional handling\n- Extract `turnBasedMode.ts` - Browser STT → Claude → ElevenLabs flow\n- Extract `hybridMode.ts` - Gemini STT → Claude → ElevenLabs flow\n- Each mode implements common interface: `start()`, `stop()`, `processInput()`\n- Orchestrator becomes thin coordinator selecting and delegating to modes\n\nGoal: Reduce orchestrator from 27KB to ~10KB coordination-only code",
+  "activeForm": "Extracting mode handlers",
+  "status": "pending",
+  "blocks": [
+    "4"
+  ],
+  "blockedBy": []
+}

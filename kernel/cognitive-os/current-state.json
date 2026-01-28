@@ -1,42 +1,41 @@
 {
-  "timestamp": "2026-01-26T07:11:43.224606",
-  "greeting": "Good morning. MED energy day ahead.",
+  "timestamp": "2026-01-28T03:05:55.633994",
+  "greeting": "Late night session. Deep focus or danger zone - be intentional. This is one of your peak productivity hours.",
   "cognitive_state": {
-    "mode": "morning",
-    "energy_level": 0.48,
-    "focus_quality": 0.55,
-    "is_personal_peak": false
+    "mode": "deep_night",
+    "energy_level": 0.7,
+    "focus_quality": 0.71,
+    "is_personal_peak": true
   },
   "day_context": {
-    "day": "Monday",
-    "energy": "MED",
+    "day": "Wednesday",
+    "energy": "HIGH",
     "optimal_tasks": [
-      "architecture",
-      "complex_problems",
-      "planning"
+      "debug",
+      "iterate",
+      "refine"
     ]
   },
   "predictions": {
-    "initial_fate": "abandon",
-    "success_probability": 0.186,
+    "initial_fate": "partial",
+    "success_probability": 0.302,
     "budget_reconciled": true
   },
   "budget": {
-    "tier": "CRITICAL",
-    "utilization": 100,
-    "recommended_model": "haiku"
+    "tier": "COMFORTABLE",
+    "utilization": 0,
+    "recommended_model": "opus"
   },
   "routing": {
     "recommended_model": "haiku",
-    "reasoning": "Cognitive mode: morning | Task complexity: simple | Energy level: 0.48",
+    "reasoning": "Cognitive mode: deep_night | Personal peak hour detected | Task complexity: simple | Energy level: 0.7",
     "budget_override": null
   },
   "warnings": [
-    "Budget CRITICAL (100% used) - may limit session success",
-    "Context 100% saturated - consider /clear soon"
+    "Late night session - ensure intentional, not exhaustion-driven"
   ],
   "recommendations": [
-    "Best for now: documentation, routine_fixes",
-    "Balanced energy. Good for: architecture, complex_problems"
+    "Best for now: architecture, complex_refactor",
+    "High energy day! Tackle your hardest problems: debug, iterate"
   ]
 }

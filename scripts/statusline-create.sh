@@ -1,0 +1,410 @@
+#!/bin/bash
+# Statusline Command Generator
+# Interactive script to generate metric-specific statusline commands
+# Usage: bash ~/.claude/scripts/statusline-create.sh
+
+set -euo pipefail
+
+# Colors for UI
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# ════════════════════════════════════════════════════════════════════════════
+# HELPER FUNCTIONS
+# ════════════════════════════════════════════════════════════════════════════
+
+print_header() {
+    echo ""
+    echo -e "${BLUE}═══════════════════════════════════════════════════════════${NC}"
+    echo -e "${BLUE}  $1${NC}"
+    echo -e "${BLUE}═══════════════════════════════════════════════════════════${NC}"
+    echo ""
+}
+
+print_section() {
+    echo -e "${YELLOW}→ $1${NC}"
+}
+
+read_input() {
+    local prompt="$1"
+    local default="${2:-}"
+
+    if [[ -n "$default" ]]; then
+        read -p "$(echo -e ${GREEN}${prompt}${NC}) [${default}]: " response
+        echo "${response:-$default}"
+    else
+        read -p "$(echo -e ${GREEN}${prompt}${NC}): " response
+        echo "$response"
+    fi
+}
+
+read_choice() {
+    local prompt="$1"
+    shift
+    local options=("$@")
+
+    echo -e "${GREEN}${prompt}${NC}"
+    for i in "${!options[@]}"; do
+        echo "  $((i+1))) ${options[$i]}"
+    done
+
+    read -p "Select (1-${#options[@]}): " choice
+    echo "${options[$((choice-1))]}"
+}
+
+# ════════════════════════════════════════════════════════════════════════════
+# INTERACTIVE CONFIGURATION
+# ════════════════════════════════════════════════════════════════════════════
+
+print_header "STATUSLINE COMMAND GENERATOR"
+
+print_section "Step 1: Metric Identification"
+metric_name=$(read_input "Metric name (e.g., cache-hit-rate, token-budget, memory-usage)")
+metric_slug=$(echo "$metric_name" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+
+print_section "Step 2: Data Source"
+data_source=$(read_choice "Where is the metric data?" \
+    "JSON from stdin (Claude Code native)" \
+    "JSON file on disk" \
+    "Command output (shell command)" \
+    "Multiple sources (stdin primary, file fallback)")
+
+print_section "Step 3: Data Path Configuration"
+
+case "$data_source" in
+    "JSON from stdin"*)
+        json_source="stdin"
+        json_path=$(read_input "JSON field path (e.g., .cache.hit_rate or .metrics.tokens.used)")
+        file_source=""
+        ;;
+    "JSON file"*)
+        json_source="file"
+        file_source=$(read_input "File path (e.g., \$HOME/.claude/cache.json)")
+        json_path=$(read_input "JSON field path")
+        ;;
+    "Command output"*)
+        json_source="command"
+        command_source=$(read_input "Command to run (e.g., curl https://api.example.com/metrics)")
+        json_path=$(read_input "JSON field path to extract from output")
+        file_source=""
+        ;;
+    "Multiple sources"*)
+        json_source="multi"
+        json_path=$(read_input "JSON field path")
+        command_source=$(read_input "Command to run first (or leave blank to skip): ")
+        file_source=$(read_input "Fallback file path (or leave blank to skip): ")
+        ;;
+esac
+
+print_section "Step 4: Display Format"
+display_format=$(read_choice "How should the metric be displayed?" \
+    "Progress bar (0-100%)" \
+    "Gauge with percentage" \
+    "Numeric with label" \
+    "Trend indicator (↑/↓/→)" \
+    "Bar chart (like progress)")
+
+print_section "Step 5: Formatting Rules"
+display_label=$(read_input "Display label (e.g., 'Cache Hit', 'Tokens Used', 'Memory')")
+unit=$(read_input "Unit (e.g., '%', 'k', 'ms', or leave blank): " "")
+
+# Additional format options
+case "$display_format" in
+    "Progress bar"*)
+        bar_width=$(read_input "Bar width in characters" "20")
+        max_value=$(read_input "Maximum value for scaling (e.g., 100 for percentage)" "100")
+        ;;
+    "Numeric"*)
+        format_type=$(read_choice "Number format?" \
+            "Raw (1234)" \
+            "k/M suffixes (1.2k, 3.4M)" \
+            "Decimal (1 decimal place)" \
+            "Percentage (0-100)")
+        ;;
+esac
+
+print_section "Step 6: Caching & Performance"
+cache_enabled=$(read_choice "Enable caching?" \
+    "Yes (10 second TTL)" \
+    "Yes (custom TTL)" \
+    "No")
+
+case "$cache_enabled" in
+    "Yes (custom"*)
+        cache_ttl=$(read_input "Cache TTL in seconds" "10")
+        ;;
+    "Yes"*)
+        cache_ttl="10"
+        ;;
+    *)
+        cache_ttl="0"
+        ;;
+esac
+
+print_section "Step 7: Location & Integration"
+output_file=$(read_input "Output file path" "$HOME/.claude/statusline-${metric_slug}.sh")
+
+# ════════════════════════════════════════════════════════════════════════════
+# GENERATE SCRIPT
+# ════════════════════════════════════════════════════════════════════════════
+
+generate_script() {
+    cat > "$output_file" << 'EOFSCRIPT'
+#!/bin/bash
+# Auto-generated Statusline Command - METRIC_NAME
+# Generated by: statusline-create.sh
+# Data source: JSON_SOURCE
+# Update: bash DATA_SOURCE to refresh
+
+set -euo pipefail
+
+# Configuration
+METRIC_NAME="METRIC_NAME"
+METRIC_SLUG="METRIC_SLUG"
+JSON_PATH="JSON_PATH"
+CACHE_TTL=CACHE_TTL
+DISPLAY_LABEL="DISPLAY_LABEL"
+UNIT="UNIT"
+
+# File paths
+CACHE_DIR="${HOME}/.claude/tmp"
+CACHE_FILE="${CACHE_DIR}/statusline-${METRIC_SLUG}-cache"
+FILE_SOURCE="FILE_SOURCE"
+COMMAND_SOURCE="COMMAND_SOURCE"
+
+mkdir -p "$CACHE_DIR" 2>/dev/null || true
+
+# ════════════════════════════════════════════════════════════════════════════
+# CACHING LAYER
+# ════════════════════════════════════════════════════════════════════════════
+
+is_cache_valid() {
+    [[ $CACHE_TTL -eq 0 ]] && return 1  # Caching disabled
+    [[ -f "$CACHE_FILE" ]] || return 1
+    local cache_time
+    cache_time=$(head -n1 "$CACHE_FILE" 2>/dev/null || echo "0")
+    local now
+    now=$(date +%s)
+    local age=$((now - cache_time))
+    [[ $age -lt $CACHE_TTL ]]
+}
+
+get_cached_output() {
+    tail -n1 "$CACHE_FILE" 2>/dev/null || echo ""
+}
+
+set_cache() {
+    if [[ $CACHE_TTL -gt 0 ]]; then
+        local output="$1"
+        { date +%s; echo "$output"; } > "$CACHE_FILE" 2>/dev/null || true
+    fi
+}
+
+# ════════════════════════════════════════════════════════════════════════════
+# DATA RETRIEVAL
+# ════════════════════════════════════════════════════════════════════════════
+
+get_data_source() {
+    local source_type="JSON_SOURCE"
+
+    case "$source_type" in
+        "stdin")
+            cat 2>/dev/null || echo ""
+            ;;
+        "file")
+            [[ -f "$FILE_SOURCE" ]] && cat "$FILE_SOURCE" || echo ""
+            ;;
+        "command")
+            eval "$COMMAND_SOURCE" 2>/dev/null || echo ""
+            ;;
+        "multi")
+            # Try command first
+            if [[ -n "$COMMAND_SOURCE" ]]; then
+                eval "$COMMAND_SOURCE" 2>/dev/null && return 0
+            fi
+            # Fall back to file
+            if [[ -n "$FILE_SOURCE" ]] && [[ -f "$FILE_SOURCE" ]]; then
+                cat "$FILE_SOURCE"
+            fi
+            ;;
+    esac
+}
+
+# ════════════════════════════════════════════════════════════════════════════
+# FORMATTING FUNCTIONS
+# ════════════════════════════════════════════════════════════════════════════
+
+render_progress_bar() {
+    local value="$1"
+    local max="${2:-100}"
+    local width="${3:-20}"
+
+    # Clamp to max
+    if (( value > max )); then value=$max; fi
+    if (( value < 0 )); then value=0; fi
+
+    # Calculate filled
+    local filled=$(( (value * width) / max ))
+    local empty=$((width - filled))
+
+    # Render
+    if (( filled > 0 )); then
+        printf '█%.0s' $(seq 1 $filled)
+    fi
+    if (( empty > 0 )); then
+        printf '░%.0s' $(seq 1 $empty)
+    fi
+}
+
+format_number() {
+    local num="$1"
+    local format="${2:-raw}"  # raw, k/M, decimal, percent
+
+    # Ensure number
+    if ! [[ "$num" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+        echo "0"
+        return
+    fi
+
+    case "$format" in
+        "k/M")
+            if (( ${num%.*} >= 1000000 )); then
+                echo "scale=1; $num / 1000000" | bc | sed 's/\.0$//' | sed 's/$/M/'
+            elif (( ${num%.*} >= 1000 )); then
+                echo "scale=1; $num / 1000" | bc | sed 's/\.0$//' | sed 's/$/k/'
+            else
+                echo "$num"
+            fi
+            ;;
+        "decimal")
+            printf "%.1f" "$num"
+            ;;
+        "percent")
+            printf "%.0f%%" "$num"
+            ;;
+        *)
+            echo "$num"
+            ;;
+    esac
+}
+
+# ════════════════════════════════════════════════════════════════════════════
+# RENDER STATUSLINE
+# ════════════════════════════════════════════════════════════════════════════
+
+render_statusline() {
+    local json="$1"
+
+    # Extract value from JSON
+    local value
+    value=$(echo "$json" | jq -r "JSON_PATH // 0" 2>/dev/null || echo "0")
+
+    # Format output based on display type
+    case "DISPLAY_FORMAT" in
+        "Progress bar"*)
+            local bar
+            bar=$(render_progress_bar "$value" "BAR_WIDTH")
+            echo "${DISPLAY_LABEL} | $bar $value${UNIT}"
+            ;;
+        "Numeric"*)
+            local formatted
+            formatted=$(format_number "$value" "NUMBER_FORMAT")
+            echo "${DISPLAY_LABEL}: $formatted${UNIT}"
+            ;;
+        "Gauge"*)
+            local bar
+            bar=$(render_progress_bar "$value" "100" "15")
+            echo "${DISPLAY_LABEL} | $bar $value${UNIT}"
+            ;;
+        "Trend"*)
+            # Simple trend: compare to last value
+            echo "${DISPLAY_LABEL}: $value${UNIT}"
+            ;;
+        *)
+            echo "${DISPLAY_LABEL}: $value${UNIT}"
+            ;;
+    esac
+}
+
+# ════════════════════════════════════════════════════════════════════════════
+# MAIN EXECUTION
+# ════════════════════════════════════════════════════════════════════════════
+
+main() {
+    # Check cache
+    if is_cache_valid; then
+        get_cached_output
+        return 0
+    fi
+
+    # Get data
+    local json
+    json=$(get_data_source)
+
+    # Validate JSON
+    if ! echo "$json" | jq empty 2>/dev/null; then
+        echo "Error: Invalid JSON from data source"
+        return 1
+    fi
+
+    # Render
+    local output
+    output=$(render_statusline "$json")
+
+    # Cache and return
+    set_cache "$output"
+    echo "$output"
+}
+
+main 2>/dev/null || echo "${DISPLAY_LABEL}: unavailable"
+EOFSCRIPT
+
+    # Replace placeholders
+    sed -i '' \
+        -e "s|METRIC_NAME|$metric_name|g" \
+        -e "s|METRIC_SLUG|$metric_slug|g" \
+        -e "s|JSON_PATH|$json_path|g" \
+        -e "s|JSON_SOURCE|$json_source|g" \
+        -e "s|FILE_SOURCE|$file_source|g" \
+        -e "s|COMMAND_SOURCE|${command_source:-}|g" \
+        -e "s|CACHE_TTL|$cache_ttl|g" \
+        -e "s|DISPLAY_LABEL|$display_label|g" \
+        -e "s|UNIT|$unit|g" \
+        -e "s|DISPLAY_FORMAT|$display_format|g" \
+        -e "s|BAR_WIDTH|${bar_width:-20}|g" \
+        -e "s|NUMBER_FORMAT|${format_type:-raw}|g" \
+        "$output_file"
+
+    chmod +x "$output_file"
+}
+
+# ════════════════════════════════════════════════════════════════════════════
+# SUMMARY
+# ════════════════════════════════════════════════════════════════════════════
+
+generate_script
+
+print_header "GENERATION COMPLETE"
+
+echo -e "${GREEN}✓ Metric Statusline Created${NC}"
+echo ""
+echo "Metric:        $metric_name"
+echo "Slug:          $metric_slug"
+echo "Output:        $output_file"
+echo "Data source:   $json_source"
+echo "Display type:  $display_format"
+echo "Cache TTL:     ${cache_ttl}s"
+echo ""
+echo -e "${BLUE}Usage:${NC}"
+echo "  Direct:     bash $output_file"
+echo "  In statusLine: Add to ~/.claude/settings.json (statusLine section)"
+echo "  Test:       echo '{\"data\": 42}' | bash $output_file"
+echo ""
+echo -e "${YELLOW}Next steps:${NC}"
+echo "  1. Verify output: bash $output_file"
+echo "  2. Test with data: echo '{...}' | bash $output_file"
+echo "  3. Integrate into workflows"
+echo ""

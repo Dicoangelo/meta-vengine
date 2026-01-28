@@ -1,24 +1,13 @@
 {
-  "did": "did:d-ecosystem:sovereign-terminal-001",
+  "did": "did:claude:Dicoangelo-sovereign-mkl6494n",
   "version": "1.0.0",
-  "created": "2026-01-16T18:50:00.000Z",
-  "lastUpdated": "2026-01-16T19:31:00.654Z",
-  "tagline": "Let the invention be hidden in your vision",
+  "created": "2026-01-19T12:55:22.679Z",
+  "lastUpdated": "2026-01-19T13:21:06.568Z",
   "profile": {
-    "owner": "Dico Angelo",
-    "organization": "Black Amethyst AI",
-    "parent": "Metaventions AI",
-    "empire": "Black Amethyst Capital Key Holdings",
-    "ecosystem": "D-Ecosystem",
+    "owner": "Dicoangelo",
+    "organization": "",
     "instanceName": "Sovereign Terminal OS",
-    "purpose": "Architected Intelligence for the D-Ecosystem",
-    "philosophy": "Sovereign by design"
-  },
-  "architecture": {
-    "surface": "Metaventions AI",
-    "hidden": "D-Ecosystem",
-    "prefix": "D-",
-    "signature": "The invention IS hidden in the vision"
+    "purpose": "Agentic development assistant"
   },
   "preferences": {
     "defaultModel": "sonnet",
@@ -26,69 +15,58 @@
     "proactiveAssist": true,
     "memoryEvolution": true,
     "tokenOptimization": true,
-    "costAwareness": "high",
-    "verbosity": "concise",
-    "codeStyle": {
-      "language": "typescript",
-      "framework": "react",
-      "formatting": "prettier",
-      "testing": "vitest"
-    }
+    "costAwareness": "medium",
+    "verbosity": "concise"
   },
   "expertise": {
     "domains": [
+      "react",
       "typescript",
-      "react"
+      "architecture",
+      "debugging",
+      "routing",
+      "co-evolution",
+      "agentic-systems",
+      "python",
+      "testing",
+      "git",
+      "api",
+      "database",
+      "research",
+      "agent"
     ],
     "confidence": {
-      "react": 0.02857142857142857,
-      "typescript": 0.03333333333333333
+      "react": 1.0,
+      "typescript": 1.0,
+      "architecture": 1.0,
+      "debugging": 1.0,
+      "routing": 1.0,
+      "co-evolution": 0.85,
+      "agentic-systems": 0.8,
+      "python": 1.0,
+      "testing": 1.0,
+      "git": 1.0,
+      "api": 1.0,
+      "database": 1.0,
+      "research": 1.0,
+      "agent": 1.0
     },
-    "lastUpdated": "2026-01-16T19:01:06.594Z"
+    "lastUpdated": "2026-01-19T12:55:31.732Z"
   },
   "statistics": {
-    "totalSessions": 0,
-    "totalQueries": 1,
-    "totalTokens": 0,
-    "avgDQScore": 0.85,
-    "tokensSaved": 0,
-    "patternsDetected": {},
-    "modelUsage": {
-      "haiku": 0,
-      "sonnet": 1,
-      "opus": 0
+    "totalQueries": 67614,
+    "totalSessions": 694,
+    "totalMessages": 104599,
+    "totalTools": 32889,
+    "modelBreakdown": {
+      "opus": 50084,
+      "haiku": 9497,
+      "sonnet": 8033
     },
-    "skillsUsed": {},
-    "topKeywords": [
-      {
-        "word": "this",
-        "count": 2
-      },
-      {
-        "word": "error",
-        "count": 1
-      },
-      {
-        "word": "code",
-        "count": 1
-      },
-      {
-        "word": "debug",
-        "count": 1
-      },
-      {
-        "word": "issue",
-        "count": 1
-      },
-      {
-        "word": "working",
-        "count": 1
-      }
-    ]
+    "lastUpdated": "2026-01-28T03:51:24.660107"
   },
   "memory": {
-    "graphFile": "~/.claude/kernel/memory-graph.json",
-    "totalNotes": 5,
+    "totalNotes": 11,
     "totalLinks": 2,
     "topTopics": [
       "react",
@@ -96,59 +74,23 @@
       "composition",
       "use",
       "patterns",
-      "over",
-      "inheritance",
-      "better",
-      "reusability",
-      "react,patterns"
+      "test",
+      "system",
+      "architecture",
+      "queries",
+      "work"
     ]
   },
   "experience": {
-    "logFile": "~/.claude/kernel/experience-log.jsonl",
     "milestones": [],
     "achievements": [
       {
         "id": "first-query",
         "name": "First Query",
         "desc": "Made your first DQ-routed query",
-        "unlockedAt": "2026-01-16T19:01:19.274Z"
-      },
-      {
-        "id": "efficiency-expert",
-        "name": "Efficiency Expert",
-        "desc": "Maintained DQ score > 0.8",
-        "unlockedAt": "2026-01-16T19:01:19.276Z"
+        "unlockedAt": "2026-01-19T13:20:49.551Z"
       }
     ],
-    "learnings": [
-      {
-        "id": "source-tracing-2511",
-        "lesson": "Always trace source provenance before implementation",
-        "context": "When plan references 'internal frameworks' with file paths, READ those files to identify original research citations. The OS-App DQ Framework contained arXiv:2511.15755 (MyAntFarm.ai) but this was missed because the source wasn't read.",
-        "action": "Before implementing from any referenced framework, follow file paths to their origin and document all arXiv/research citations found",
-        "severity": "critical",
-        "learnedAt": "2026-01-16T19:15:00.000Z"
-      }
-    ]
-  },
-  "sources": {
-    "arXiv": [
-      "2511.15755",
-      "2403.16971",
-      "2502.12110",
-      "2505.14893",
-      "2512.14142",
-      "2504.19413",
-      "2601.01885",
-      "2507.18165"
-    ],
-    "frameworks": [
-      "AIOS",
-      "A-MEM",
-      "Mem0",
-      "Astraea",
-      "ProactiveVA",
-      "Sovereign AI Agents"
-    ]
+    "learnings": []
   }
 }

@@ -1,0 +1,9 @@
+{
+  "id": "4",
+  "subject": "Implement multi-target distribution across 21 projects (Phase 4)",
+  "description": "Create distribute_innovations.py for multi-repo GitHub issue/PR creation, NPM package publishing (auto for patches, manual for major), documentation auto-updates (pitch decks, landing page, GitHub profile), meta-vengine feedback loop integration, and Supermemory sync with full lineage tracking.\n\nSuccess criteria:\n- 8-15 GitHub issues (across 5-8 projects)\n- 3-5 draft PRs\n- 0-1 NPM packages auto-published\n- 3 documentation projects updated\n- Meta-vengine evolution triggered\n- Supermemory synced\n\nFiles to create:\n- ~/researchgravity/orchestrator/distribute_innovations.py (~800 lines)\n- ~/researchgravity/orchestrator/package_manager.py (~300 lines)\n- ~/researchgravity/orchestrator/meta_vengine_client.py (~250 lines)",
+  "activeForm": "Implementing automated integration layer",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

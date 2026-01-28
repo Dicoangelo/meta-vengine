@@ -1,0 +1,235 @@
+{
+  "version": "1.0.0",
+  "description": "Unified Learning Hub - Central coordination of all learning systems",
+  "last_sync": "2026-01-27T18:00:28.540166",
+  "sync_count": 2,
+  "sources": {
+    "cognitive_os": {
+      "path": "~/.claude/kernel/cognitive-os/learned-weights.json",
+      "type": "json",
+      "metrics": [
+        "fate_accuracy",
+        "mode_transitions",
+        "energy_patterns"
+      ]
+    },
+    "routing": {
+      "path": "~/.claude/kernel/baselines.json",
+      "type": "json",
+      "metrics": [
+        "dq_scores",
+        "model_distribution",
+        "complexity_accuracy"
+      ]
+    },
+    "patterns": {
+      "path": "~/.claude/kernel/detected-patterns.json",
+      "type": "json",
+      "metrics": [
+        "session_types",
+        "pattern_frequency",
+        "detection_accuracy"
+      ]
+    },
+    "supermemory": {
+      "path": "~/.claude/memory/supermemory.db",
+      "type": "sqlite",
+      "metrics": [
+        "memory_count",
+        "recall_frequency",
+        "spaced_repetition"
+      ]
+    },
+    "identity": {
+      "path": "~/.claude/kernel/identity.json",
+      "type": "json",
+      "metrics": [
+        "expertise_confidence",
+        "model_usage",
+        "achievements"
+      ]
+    },
+    "recovery": {
+      "path": "~/.claude/data/recovery-outcomes.jsonl",
+      "type": "jsonl",
+      "metrics": [
+        "fix_rate",
+        "recurring_errors",
+        "prevention_success"
+      ]
+    }
+  },
+  "cross_domain_insights": [
+    {
+      "type": "positive",
+      "domains": [
+        "routing",
+        "identity"
+      ],
+      "insight": "High DQ (0.733) correlates with strong react expertise",
+      "strength": "strong"
+    }
+  ],
+  "weekly_summaries": [
+    {
+      "week_ending": "2026-01-26T06:00:30.792057",
+      "key_metrics": {
+        "routing_dq": 0.719,
+        "prediction_accuracy": 0.9,
+        "recovery_success": 0.893,
+        "memories_added": 0,
+        "total_decisions": 574
+      },
+      "correlations_found": 1,
+      "suggestions_count": 0,
+      "top_suggestion": null
+    },
+    {
+      "week_ending": "2026-01-26T18:00:50.748268",
+      "key_metrics": {
+        "routing_dq": 0.73,
+        "prediction_accuracy": 0.9,
+        "recovery_success": 0.893,
+        "memories_added": 0,
+        "total_decisions": 523
+      },
+      "correlations_found": 1,
+      "suggestions_count": 0,
+      "top_suggestion": null
+    },
+    {
+      "week_ending": "2026-01-27T06:00:33.709742",
+      "key_metrics": {
+        "routing_dq": 0.732,
+        "prediction_accuracy": 0.85,
+        "recovery_success": 0.893,
+        "memories_added": 0,
+        "total_decisions": 491
+      },
+      "correlations_found": 1,
+      "suggestions_count": 0,
+      "top_suggestion": null
+    },
+    {
+      "week_ending": "2026-01-27T18:00:28.539169",
+      "key_metrics": {
+        "routing_dq": 0.733,
+        "prediction_accuracy": 0.85,
+        "recovery_success": 0.893,
+        "memories_added": 0,
+        "total_decisions": 492
+      },
+      "correlations_found": 1,
+      "suggestions_count": 0,
+      "top_suggestion": null
+    }
+  ],
+  "correlations": [],
+  "improvement_suggestions": [],
+  "aggregated_data": {
+    "cognitive_os": {
+      "fate_weights": {
+        "message_count": 0.25,
+        "tool_count": 0.25,
+        "intent_warmup": 0.2,
+        "model_efficiency": 0.15,
+        "time_of_day": 0.1,
+        "day_of_week": 0.05
+      },
+      "prediction_count": 36,
+      "recent_accuracy": 0.85,
+      "model_routes": {
+        "deep_night_simple": {
+          "model": "haiku",
+          "successes": 0,
+          "failures": 19,
+          "confidence": 0.0
+        },
+        "dip_simple": {
+          "model": "haiku",
+          "successes": 0,
+          "failures": 2,
+          "confidence": 0.0
+        },
+        "peak_afternoon_simple": {
+          "model": "haiku",
+          "successes": 0,
+          "failures": 5,
+          "confidence": 0.0
+        },
+        "evening_simple": {
+          "model": "haiku",
+          "successes": 0,
+          "failures": 7,
+          "confidence": 0.0
+        },
+        "morning_simple": {
+          "model": "haiku",
+          "successes": 0,
+          "failures": 3,
+          "confidence": 0.0
+        }
+      }
+    },
+    "routing": {
+      "version": "1.0.0",
+      "decisions_this_week": 492,
+      "model_distribution": {
+        "haiku": 268,
+        "sonnet": 68,
+        "opus": 156
+      },
+      "average_dq": 0.733
+    },
+    "patterns": {
+      "current_session_type": "unknown",
+      "session_type_distribution": {
+        "unknown": 26047
+      },
+      "total_events": 26047
+    },
+    "supermemory": {
+      "available": false,
+      "error": "no such table: memories"
+    },
+    "identity": {
+      "top_expertise": [
+        {
+          "domain": "react",
+          "confidence": 1.0
+        },
+        {
+          "domain": "typescript",
+          "confidence": 1.0
+        },
+        {
+          "domain": "architecture",
+          "confidence": 1.0
+        },
+        {
+          "domain": "debugging",
+          "confidence": 1.0
+        },
+        {
+          "domain": "routing",
+          "confidence": 1.0
+        }
+      ],
+      "total_queries": 66951,
+      "avg_dq": 0,
+      "model_usage": {}
+    },
+    "recovery": {
+      "total": 150,
+      "success_rate": 0.893,
+      "auto_fix_rate": 0.86,
+      "categories": {
+        "git": 118,
+        "permissions": 11,
+        "concurrency": 11,
+        "quota": 4,
+        "crash": 3
+      }
+    }
+  }
+}

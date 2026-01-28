@@ -1,0 +1,9 @@
+{
+  "id": "1",
+  "subject": "Implement Command Center Theme Panel",
+  "description": "Add light/dark toggle, color pickers, gradient preview, reset button, and localStorage persistence to command-center.html",
+  "activeForm": "Implementing theme panel",
+  "status": "in_progress",
+  "blocks": [],
+  "blockedBy": []
+}

@@ -1,0 +1,15 @@
+{
+  "cacheEfficiency": 93.1,
+  "dqScore": 0.608,
+  "dominantPattern": "coding",
+  "modsApplied": 138,
+  "autoApply": true,
+  "minConfidence": 0.7,
+  "lastAnalysis": "2026-01-28T03:51:25.206175",
+  "patterns": {
+    "coding": 60,
+    "debugging": 25,
+    "research": 15
+  },
+  "updated": "2026-01-28T03:51:25.206175"
+}

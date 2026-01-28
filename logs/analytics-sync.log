@@ -1,0 +1,459 @@
+08:44:46 Analytics sync started
+{
+  "patterns": [],
+  "activity": []
+}
+08:44:50 Patterns updated
+usage: routing-metrics.py [-h]
+                          {report,check-targets,check-data-quality,export,ab-test} ...
+routing-metrics.py: error: argument command: invalid choice: 'sync' (choose from report, check-targets, check-data-quality, export, ab-test)
+08:44:50 Routing metrics synced
+08:44:50 Analytics sync complete
+18:00:11 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+18:00:17 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 592,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.4183023648648649,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186823,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+18:00:17 Routing metrics synced
+18:00:18 Analytics sync complete
+06:00:08 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+06:00:12 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 568,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.41371478873239437,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186812,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+06:00:12 Routing metrics synced
+06:00:13 Analytics sync complete
+18:00:11 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+18:00:16 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 482,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.40471991701244814,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186785,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+18:00:16 Routing metrics synced
+18:00:17 Analytics sync complete
+06:00:14 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+06:00:38 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 429,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.3944988344988345,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186785,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+06:00:39 Routing metrics synced
+06:00:39 Analytics sync complete
+18:00:16 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+18:00:27 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 658,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.46859422492401215,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186847,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+18:00:28 Routing metrics synced
+18:00:28 Analytics sync complete
+06:00:14 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+06:00:23 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 633,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.46807266982622436,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186838,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+06:00:24 Routing metrics synced
+06:00:24 Analytics sync complete
+18:00:13 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+18:00:20 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 618,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.4670550161812298,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186833,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+18:00:20 Routing metrics synced
+18:00:21 Analytics sync complete
+06:00:14 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+06:00:22 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 566,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.46094169611307423,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186812,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+06:00:22 Routing metrics synced
+06:00:22 Analytics sync complete
+18:00:32 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+18:00:40 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 615,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.4958666666666667,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186832,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+18:00:41 Routing metrics synced
+18:00:41 Analytics sync complete
+18:00:21 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+18:00:30 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 516,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.5003565891472869,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186786,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+18:00:30 Routing metrics synced
+18:00:30 Analytics sync complete
+06:00:30 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+06:00:54 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 612,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.5267549019607843,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186831,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+06:00:55 Routing metrics synced
+06:00:55 Analytics sync complete
+18:00:21 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+18:00:29 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 481,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.604935550935551,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186785,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+18:00:29 Routing metrics synced
+18:00:29 Analytics sync complete
+06:00:21 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+06:00:29 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 574,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.6100243902439024,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186815,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+06:00:29 Routing metrics synced
+06:00:29 Analytics sync complete
+18:00:39 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+18:00:49 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 523,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.6163154875717017,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186791,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+18:00:49 Routing metrics synced
+18:00:49 Analytics sync complete
+06:00:23 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+06:00:31 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 491,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.619745417515275,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186785,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+06:00:32 Routing metrics synced
+06:00:32 Analytics sync complete
+18:00:20 Analytics sync started
+/Users/dicoangelo/.claude/scripts/analytics-auto-sync.sh: line 80: node: command not found
+18:00:27 Patterns updated
+{
+  "period": "Last 7 days",
+  "total_queries": 492,
+  "model_distribution": {
+    "haiku": 0.0,
+    "sonnet": 1.0,
+    "opus": 0.0
+  },
+  "avg_dq_score": null,
+  "avg_complexity": 0.6201117886178862,
+  "routing_latency": {
+    "avg": 42,
+    "p50": 42.0,
+    "p95": 42.0
+  },
+  "accuracy": 0.5,
+  "cost_reduction": 0.5018679950186785,
+  "targets_met": {
+    "accuracy": false,
+    "cost_reduction": true,
+    "p95_latency": true
+  }
+}
+18:00:27 Routing metrics synced
+18:00:27 Analytics sync complete

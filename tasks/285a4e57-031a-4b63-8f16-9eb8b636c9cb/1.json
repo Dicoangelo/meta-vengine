@@ -1,0 +1,9 @@
+{
+  "id": "1",
+  "subject": "Fix non-sequential slide IDs in V4_FIXED deck",
+  "description": "Create and run Python script to renumber all slides sequentially (1-25) in DECK_ENTERPRISE_V4_FIXED.html. Current issue: slide IDs jump from slide-5 to slide-new-demo-overview, breaking navigation. Script should create mapping, update all IDs and anchor links, and save as V5_RENUMBERED.html.",
+  "activeForm": "Fixing non-sequential slide IDs",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": []
+}

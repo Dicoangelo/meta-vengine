@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "enabled": true,
-  "autoApply": false,
+  "autoApply": true,
   "minConfidence": 0.7,
   "maxModificationsPerDay": 3,
   "rollbackOnEfficiencyDrop": 0.5,
@@ -67,5 +67,7 @@
       "Memoria",
       "IC-Cache"
     ]
-  }
+  },
+  "lastAnalysis": "2026-01-28T03:51:25.206175",
+  "cacheEfficiency": 93.1
 }

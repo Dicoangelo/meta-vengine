@@ -364,3 +364,4672 @@
     "confidence": 0.95
   }
 }
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-19T09:00:02.222278",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 0,
+      "totalSessions": 0,
+      "cacheEfficiency": 0,
+      "dqScoreAvg": 0.933,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [
+        {
+          "id": "debugging",
+          "name": "Debugging Session",
+          "icon": "\ud83d\udd0d",
+          "confidence": 1,
+          "totalMatches": 6,
+          "matchingEvents": [
+            {
+              "timestamp": 1768827332088,
+              "text": "test debugging query",
+              "matches": 2
+            },
+            {
+              "timestamp": 1768827206593,
+              "text": "This session is being continued from a previous co",
+              "matches": 2
+            },
+            {
+              "timestamp": 1768827206593,
+              "text": "This session is being continued from a previous co",
+              "matches": 2
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "skill",
+              "value": "/debug",
+              "label": "Run systematic debug",
+              "desc": "Comprehensive debugging workflow"
+            },
+            {
+              "type": "model",
+              "value": "opus",
+              "label": "Switch to Opus",
+              "desc": "Better for complex analysis"
+            },
+            {
+              "type": "memory",
+              "value": "error patterns",
+              "label": "Recall error patterns",
+              "desc": "Load related debugging memories"
+            },
+            {
+              "type": "command",
+              "value": "git diff",
+              "label": "View recent changes",
+              "desc": "Check what changed recently"
+            }
+          ]
+        },
+        {
+          "id": "deployment",
+          "name": "Deployment Session",
+          "icon": "\ud83d\ude80",
+          "confidence": 0.5,
+          "totalMatches": 2,
+          "matchingEvents": [
+            {
+              "timestamp": 1768827206593,
+              "text": "This session is being continued from a previous co",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768827206593,
+              "text": "This session is being continued from a previous co",
+              "matches": 1
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "command",
+              "value": "git status",
+              "label": "Check git status",
+              "desc": "Verify clean state"
+            },
+            {
+              "type": "skill",
+              "value": "/pr",
+              "label": "Create PR",
+              "desc": "Prepare for deployment"
+            },
+            {
+              "type": "command",
+              "value": "npm run build",
+              "label": "Production build",
+              "desc": "Verify build succeeds"
+            }
+          ]
+        }
+      ],
+      "distribution": {
+        "debugging": 61,
+        "learning": 71,
+        "architecture": 150,
+        "research": 138,
+        "refactoring": 8,
+        "testing": 74,
+        "deployment": 30,
+        "performance": 3
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [],
+      "hourDistribution": {}
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 147,
+      "activityEvents": 1448
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-19T09:00:02.222739",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 0,
+        "message": "Cache efficiency at 0%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.933,
+        "message": "High decision quality (0.933). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (28% of activity)"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-19T18:00:05.347524",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 42936,
+      "totalSessions": 345,
+      "cacheEfficiency": 94.53,
+      "dqScoreAvg": 0.933,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [
+        {
+          "id": "testing",
+          "name": "Testing Session",
+          "icon": "\ud83e\uddea",
+          "confidence": 1,
+          "totalMatches": 6,
+          "matchingEvents": [
+            {
+              "timestamp": 1768860639808,
+              "text": "test the sdk in a component",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768861579864,
+              "text": "This session is being continued from a previous co",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768861988235,
+              "text": "Explore the Claude/Anthropic integration in OS-App",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768861988240,
+              "text": "Explore the voice-related services in OS-App to un",
+              "matches": 2
+            },
+            {
+              "timestamp": 1768861988241,
+              "text": "Explore the Knowledge/Agent Core SDK integration:\n",
+              "matches": 1
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "skill",
+              "value": "/test",
+              "label": "Comprehensive Testing",
+              "desc": "Full test workflow"
+            },
+            {
+              "type": "command",
+              "value": "npm run test:coverage",
+              "label": "Coverage report",
+              "desc": "Check test coverage"
+            },
+            {
+              "type": "memory",
+              "value": "testing patterns",
+              "label": "Recall test patterns",
+              "desc": "Load testing best practices"
+            }
+          ]
+        },
+        {
+          "id": "architecture",
+          "name": "Architecture Session",
+          "icon": "\ud83c\udfd7\ufe0f",
+          "confidence": 1,
+          "totalMatches": 13,
+          "matchingEvents": [
+            {
+              "timestamp": 1768861579864,
+              "text": "This session is being continued from a previous co",
+              "matches": 3
+            },
+            {
+              "timestamp": 1768861944538,
+              "text": "I have claude, gemini, ellevenlabs can we make a u",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768861988235,
+              "text": "Explore the Claude/Anthropic integration in OS-App",
+              "matches": 3
+            },
+            {
+              "timestamp": 1768861988240,
+              "text": "Explore the voice-related services in OS-App to un",
+              "matches": 2
+            },
+            {
+              "timestamp": 1768861988241,
+              "text": "Explore the Knowledge/Agent Core SDK integration:\n",
+              "matches": 2
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "skill",
+              "value": "/arch",
+              "label": "Architecture Analysis",
+              "desc": "Analyze codebase structure"
+            },
+            {
+              "type": "model",
+              "value": "opus",
+              "label": "Switch to Opus",
+              "desc": "Complex architectural decisions"
+            },
+            {
+              "type": "memory",
+              "value": "architecture decisions",
+              "label": "Recall decisions",
+              "desc": "Load past architecture choices"
+            }
+          ]
+        },
+        {
+          "id": "performance",
+          "name": "Performance Session",
+          "icon": "\u26a1",
+          "confidence": 1,
+          "totalMatches": 4,
+          "matchingEvents": [
+            {
+              "timestamp": 1768860728988,
+              "text": "This session is being continued from a previous co",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768861579864,
+              "text": "This session is being continued from a previous co",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768861620606,
+              "text": "i want it to be persistent across all tabs, like m",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768861988241,
+              "text": "Explore the Knowledge/Agent Core SDK integration:\n",
+              "matches": 1
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "command",
+              "value": "npm run build",
+              "label": "Build & analyze",
+              "desc": "Check bundle size"
+            },
+            {
+              "type": "memory",
+              "value": "performance patterns",
+              "label": "Recall optimizations",
+              "desc": "Load performance tips"
+            }
+          ]
+        },
+        {
+          "id": "learning",
+          "name": "Learning Session",
+          "icon": "\ud83c\udf93",
+          "confidence": 0.5,
+          "totalMatches": 3,
+          "matchingEvents": [
+            {
+              "timestamp": 1768861988235,
+              "text": "Explore the Claude/Anthropic integration in OS-App",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768861988240,
+              "text": "Explore the voice-related services in OS-App to un",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768861988241,
+              "text": "Explore the Knowledge/Agent Core SDK integration:\n",
+              "matches": 1
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "model",
+              "value": "haiku",
+              "label": "Switch to Haiku",
+              "desc": "Quick answers, lower cost"
+            },
+            {
+              "type": "memory",
+              "value": "store as fact",
+              "label": "Remember this",
+              "desc": "Store learnings in memory"
+            }
+          ]
+        }
+      ],
+      "distribution": {
+        "debugging": 82,
+        "research": 153,
+        "testing": 84,
+        "architecture": 189,
+        "deployment": 31,
+        "refactoring": 7,
+        "learning": 86,
+        "performance": 13
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        19,
+        1
+      ],
+      "hourDistribution": {
+        "10": 9,
+        "11": 13,
+        "12": 25,
+        "13": 24,
+        "14": 12,
+        "15": 29,
+        "8": 13,
+        "19": 50,
+        "3": 34,
+        "4": 17,
+        "5": 8,
+        "6": 8,
+        "7": 8,
+        "16": 29,
+        "20": 52,
+        "0": 18,
+        "1": 35,
+        "2": 24,
+        "21": 26,
+        "17": 18,
+        "18": 30,
+        "23": 12,
+        "22": 18,
+        "9": 6
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 147,
+      "activityEvents": 1627
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-19T18:00:05.348068",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.53,
+        "message": "Cache efficiency at 94.53%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.933,
+        "message": "High decision quality (0.933). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (29% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          19,
+          1
+        ],
+        "message": "Peak productivity hours: 20:00, 19:00, 1:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 124 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-20T09:00:04.740070",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 50255,
+      "totalSessions": 384,
+      "cacheEfficiency": 94.53,
+      "dqScoreAvg": 0.933,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 91,
+        "deployment": 28,
+        "testing": 113,
+        "architecture": 269,
+        "learning": 100,
+        "refactoring": 6,
+        "research": 192,
+        "performance": 23
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        19,
+        3
+      ],
+      "hourDistribution": {
+        "10": 9,
+        "11": 13,
+        "12": 25,
+        "13": 24,
+        "14": 12,
+        "15": 29,
+        "8": 22,
+        "2": 25,
+        "3": 40,
+        "19": 50,
+        "22": 27,
+        "23": 21,
+        "4": 20,
+        "5": 11,
+        "6": 11,
+        "7": 10,
+        "16": 29,
+        "20": 59,
+        "0": 24,
+        "1": 38,
+        "21": 27,
+        "17": 18,
+        "18": 30,
+        "9": 7
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 147,
+      "activityEvents": 2052
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-20T09:00:04.740472",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.53,
+        "message": "Cache efficiency at 94.53%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.933,
+        "message": "High decision quality (0.933). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (33% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          19,
+          3
+        ],
+        "message": "Peak productivity hours: 20:00, 19:00, 3:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 131 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-20T18:00:06.057981",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 50255,
+      "totalSessions": 384,
+      "cacheEfficiency": 94.53,
+      "dqScoreAvg": 0.933,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 85,
+        "research": 214,
+        "testing": 130,
+        "learning": 106,
+        "architecture": 279,
+        "deployment": 14,
+        "performance": 23,
+        "refactoring": 5
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        19,
+        3
+      ],
+      "hourDistribution": {
+        "10": 9,
+        "11": 13,
+        "12": 25,
+        "13": 24,
+        "14": 12,
+        "15": 29,
+        "8": 22,
+        "2": 25,
+        "3": 40,
+        "19": 50,
+        "22": 27,
+        "23": 21,
+        "4": 20,
+        "5": 11,
+        "6": 11,
+        "7": 10,
+        "16": 29,
+        "20": 59,
+        "0": 24,
+        "1": 38,
+        "21": 27,
+        "17": 18,
+        "18": 30,
+        "9": 7
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 147,
+      "activityEvents": 1969
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-20T18:00:06.058480",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.53,
+        "message": "Cache efficiency at 94.53%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.933,
+        "message": "High decision quality (0.933). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (33% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          19,
+          3
+        ],
+        "message": "Peak productivity hours: 20:00, 19:00, 3:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 131 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-21T09:00:05.771813",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 62387,
+      "totalSessions": 466,
+      "cacheEfficiency": 94.53,
+      "dqScoreAvg": 0.933,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [
+        {
+          "id": "research",
+          "name": "Research Session",
+          "icon": "\ud83d\udcda",
+          "confidence": 1.0,
+          "totalMatches": 129,
+          "percentage": 38.7,
+          "historical": true,
+          "recentMatches": 5
+        },
+        {
+          "id": "implementation",
+          "name": "Implementation",
+          "icon": "\u2699\ufe0f",
+          "confidence": 1.0,
+          "totalMatches": 99,
+          "percentage": 29.7,
+          "historical": true
+        },
+        {
+          "id": "architecture",
+          "name": "Architecture Design",
+          "icon": "\ud83c\udfd7\ufe0f",
+          "confidence": 1.0,
+          "totalMatches": 57,
+          "percentage": 17.1,
+          "historical": true,
+          "recentMatches": 27
+        },
+        {
+          "id": "review",
+          "name": "Code Review",
+          "icon": "\ud83d\udc40",
+          "confidence": 1.0,
+          "totalMatches": 25,
+          "percentage": 7.5,
+          "historical": true
+        },
+        {
+          "id": "documentation",
+          "name": "Documentation",
+          "icon": "\ud83d\udcdd",
+          "confidence": 1.0,
+          "totalMatches": 18,
+          "percentage": 5.4,
+          "historical": true
+        },
+        {
+          "id": "testing",
+          "name": "Testing",
+          "icon": "\ud83e\uddea",
+          "confidence": 0.6,
+          "totalMatches": 2,
+          "percentage": 0.6,
+          "historical": true,
+          "recentMatches": 4
+        },
+        {
+          "id": "debugging",
+          "name": "Debugging",
+          "icon": "\ud83d\udc1b",
+          "confidence": 0.55,
+          "totalMatches": 1,
+          "percentage": 0.3,
+          "historical": true
+        },
+        {
+          "id": "optimization",
+          "name": "Optimization",
+          "icon": "\u26a1",
+          "confidence": 0.55,
+          "totalMatches": 1,
+          "percentage": 0.3,
+          "historical": true
+        },
+        {
+          "id": "learning",
+          "name": "Learning",
+          "icon": "\ud83c\udf93",
+          "confidence": 0.55,
+          "totalMatches": 1,
+          "percentage": 0.3,
+          "historical": true,
+          "recentMatches": 5
+        },
+        {
+          "id": "deployment",
+          "name": "Deployment Session",
+          "icon": "\ud83d\ude80",
+          "confidence": 0.75,
+          "totalMatches": 3,
+          "matchingEvents": [
+            {
+              "timestamp": 1768999913197,
+              "text": "You are researching a codebase. Your goal is to an",
+              "matches": 1
+            },
+            {
+              "timestamp": 1768999913200,
+              "text": "You are researching a codebase. Your goal is to un",
+              "matches": 1
+            },
+            {
+              "timestamp": 1769000040971,
+              "text": "You are implementing a feature in a codebase.\n\n## ",
+              "matches": 1
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "command",
+              "value": "git status",
+              "label": "Check git status",
+              "desc": "Verify clean state"
+            },
+            {
+              "type": "skill",
+              "value": "/pr",
+              "label": "Create PR",
+              "desc": "Prepare for deployment"
+            },
+            {
+              "type": "command",
+              "value": "npm run build",
+              "label": "Production build",
+              "desc": "Verify build succeeds"
+            }
+          ]
+        }
+      ],
+      "distribution": {
+        "debugging": 208,
+        "research": 298,
+        "testing": 258,
+        "architecture": 404,
+        "learning": 153,
+        "refactoring": 16,
+        "deployment": 19,
+        "performance": 36
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        19,
+        12
+      ],
+      "hourDistribution": {
+        "10": 24,
+        "11": 25,
+        "12": 50,
+        "13": 24,
+        "14": 12,
+        "15": 29,
+        "8": 26,
+        "2": 39,
+        "3": 43,
+        "19": 51,
+        "22": 29,
+        "23": 22,
+        "4": 25,
+        "5": 16,
+        "6": 17,
+        "7": 18,
+        "16": 31,
+        "20": 61,
+        "0": 27,
+        "1": 42,
+        "21": 30,
+        "17": 21,
+        "18": 31,
+        "9": 24
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 148,
+      "activityEvents": 3087
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-21T09:00:05.779538",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.53,
+        "message": "Cache efficiency at 94.53%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.933,
+        "message": "High decision quality (0.933). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (29% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          19,
+          12
+        ],
+        "message": "Peak productivity hours: 20:00, 19:00, 12:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 134 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-21T18:00:05.680781",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 64788,
+      "totalSessions": 475,
+      "cacheEfficiency": 94.53,
+      "dqScoreAvg": 0.933,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 212,
+        "architecture": 407,
+        "testing": 266,
+        "refactoring": 16,
+        "research": 303,
+        "learning": 156,
+        "deployment": 21,
+        "performance": 39
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        12,
+        19
+      ],
+      "hourDistribution": {
+        "10": 24,
+        "11": 25,
+        "12": 54,
+        "13": 28,
+        "14": 15,
+        "15": 30,
+        "8": 26,
+        "2": 39,
+        "3": 43,
+        "19": 51,
+        "22": 29,
+        "23": 22,
+        "4": 25,
+        "5": 16,
+        "6": 17,
+        "7": 18,
+        "16": 31,
+        "20": 68,
+        "0": 27,
+        "1": 42,
+        "21": 30,
+        "17": 21,
+        "18": 31,
+        "9": 24
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 148,
+      "activityEvents": 3222
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-21T18:00:05.682711",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.53,
+        "message": "Cache efficiency at 94.53%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.933,
+        "message": "High decision quality (0.933). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (29% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          12,
+          19
+        ],
+        "message": "Peak productivity hours: 20:00, 12:00, 19:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 136 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-22T09:00:03.891482",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 68351,
+      "totalSessions": 519,
+      "cacheEfficiency": 94.53,
+      "dqScoreAvg": 0.933,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 263,
+        "testing": 311,
+        "research": 376,
+        "learning": 183,
+        "architecture": 543,
+        "deployment": 32,
+        "refactoring": 32,
+        "performance": 65
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        12,
+        3
+      ],
+      "hourDistribution": {
+        "10": 25,
+        "11": 26,
+        "12": 54,
+        "13": 28,
+        "14": 15,
+        "15": 30,
+        "8": 27,
+        "2": 51,
+        "1": 46,
+        "3": 52,
+        "19": 51,
+        "22": 44,
+        "23": 23,
+        "4": 29,
+        "6": 22,
+        "5": 16,
+        "7": 20,
+        "16": 31,
+        "20": 74,
+        "0": 29,
+        "21": 36,
+        "17": 21,
+        "18": 31,
+        "9": 26
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 148,
+      "activityEvents": 4778
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-22T09:00:03.892513",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.53,
+        "message": "Cache efficiency at 94.53%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.933,
+        "message": "High decision quality (0.933). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (30% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          12,
+          3
+        ],
+        "message": "Peak productivity hours: 20:00, 12:00, 3:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 132 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-22T18:00:05.705935",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 70124,
+      "totalSessions": 534,
+      "cacheEfficiency": 94.53,
+      "dqScoreAvg": 0.933,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [
+        {
+          "id": "architecture",
+          "name": "Architecture Session",
+          "icon": "\ud83c\udfd7\ufe0f",
+          "confidence": 1,
+          "totalMatches": 9,
+          "matchingEvents": [
+            {
+              "timestamp": 1769117351205,
+              "text": "Implement the following plan:\n\n# Universal Codebas",
+              "matches": 2
+            },
+            {
+              "timestamp": 1769117361689,
+              "text": "Explore the OS-App codebase at ~/OS-App to underst",
+              "matches": 5
+            },
+            {
+              "timestamp": 1769117351205,
+              "text": "Implement the following plan:\n\n# Universal Codebas",
+              "matches": 2
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "skill",
+              "value": "/arch",
+              "label": "Architecture Analysis",
+              "desc": "Analyze codebase structure"
+            },
+            {
+              "type": "model",
+              "value": "opus",
+              "label": "Switch to Opus",
+              "desc": "Complex architectural decisions"
+            },
+            {
+              "type": "memory",
+              "value": "architecture decisions",
+              "label": "Recall decisions",
+              "desc": "Load past architecture choices"
+            }
+          ]
+        },
+        {
+          "id": "debugging",
+          "name": "Debugging Session",
+          "icon": "\ud83d\udd0d",
+          "confidence": 0.5,
+          "totalMatches": 2,
+          "matchingEvents": [
+            {
+              "timestamp": 1769117351205,
+              "text": "Implement the following plan:\n\n# Universal Codebas",
+              "matches": 1
+            },
+            {
+              "timestamp": 1769117351205,
+              "text": "Implement the following plan:\n\n# Universal Codebas",
+              "matches": 1
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "skill",
+              "value": "/debug",
+              "label": "Run systematic debug",
+              "desc": "Comprehensive debugging workflow"
+            },
+            {
+              "type": "model",
+              "value": "opus",
+              "label": "Switch to Opus",
+              "desc": "Better for complex analysis"
+            },
+            {
+              "type": "memory",
+              "value": "error patterns",
+              "label": "Recall error patterns",
+              "desc": "Load related debugging memories"
+            },
+            {
+              "type": "command",
+              "value": "git diff",
+              "label": "View recent changes",
+              "desc": "Check what changed recently"
+            }
+          ]
+        }
+      ],
+      "distribution": {
+        "debugging": 272,
+        "testing": 315,
+        "architecture": 555,
+        "research": 371,
+        "deployment": 32,
+        "learning": 195,
+        "refactoring": 34,
+        "performance": 66
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        19,
+        12
+      ],
+      "hourDistribution": {
+        "10": 25,
+        "11": 27,
+        "12": 54,
+        "13": 28,
+        "14": 15,
+        "15": 30,
+        "8": 27,
+        "2": 51,
+        "1": 46,
+        "3": 52,
+        "19": 56,
+        "22": 44,
+        "23": 23,
+        "4": 29,
+        "6": 22,
+        "5": 16,
+        "7": 21,
+        "16": 31,
+        "20": 80,
+        "0": 29,
+        "21": 39,
+        "17": 24,
+        "18": 35,
+        "9": 26
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 148,
+      "activityEvents": 4906
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-22T18:00:05.707402",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.53,
+        "message": "Cache efficiency at 94.53%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.933,
+        "message": "High decision quality (0.933). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (30% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          19,
+          12
+        ],
+        "message": "Peak productivity hours: 20:00, 19:00, 12:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 131 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-23T09:00:03.304558",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 73049,
+      "totalSessions": 552,
+      "cacheEfficiency": 94.53,
+      "dqScoreAvg": 0.932,
+      "dqTrend": "improving"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 305,
+        "research": 361,
+        "architecture": 578,
+        "learning": 186,
+        "testing": 332,
+        "deployment": 30,
+        "refactoring": 38,
+        "performance": 66
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        19,
+        12
+      ],
+      "hourDistribution": {
+        "10": 26,
+        "11": 27,
+        "12": 54,
+        "13": 28,
+        "14": 15,
+        "15": 30,
+        "8": 29,
+        "2": 53,
+        "1": 51,
+        "3": 52,
+        "19": 56,
+        "22": 45,
+        "23": 36,
+        "4": 29,
+        "6": 25,
+        "5": 19,
+        "7": 22,
+        "16": 31,
+        "20": 80,
+        "0": 34,
+        "21": 44,
+        "17": 24,
+        "18": 35,
+        "9": 27
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 152,
+      "activityEvents": 5167
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-23T09:00:03.305784",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 94.53,
+        "message": "Cache efficiency at 94.53%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.932,
+        "message": "High decision quality (0.932). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (30% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          19,
+          12
+        ],
+        "message": "Peak productivity hours: 20:00, 19:00, 12:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 132 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-23T18:00:07.281393",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 80210,
+      "totalSessions": 586,
+      "cacheEfficiency": 93.04,
+      "dqScoreAvg": 0,
+      "dqTrend": 0
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 28,
+        "architecture": 24,
+        "testing": 9,
+        "learning": 4,
+        "refactoring": 3,
+        "research": 2,
+        "deployment": 2
+      },
+      "dominant": "debugging"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        19,
+        22
+      ],
+      "hourDistribution": {
+        "10": 26,
+        "11": 27,
+        "12": 54,
+        "13": 28,
+        "14": 15,
+        "15": 30,
+        "8": 29,
+        "2": 53,
+        "1": 51,
+        "3": 52,
+        "19": 63,
+        "22": 60,
+        "23": 36,
+        "4": 29,
+        "6": 25,
+        "5": 19,
+        "7": 22,
+        "16": 31,
+        "20": 90,
+        "0": 34,
+        "18": 46,
+        "21": 57,
+        "17": 25,
+        "9": 27
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 0,
+      "activityEvents": 246
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-23T18:00:07.283913",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 93.04,
+        "message": "Cache efficiency at 93.04%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "debugging",
+        "message": "Dominant pattern: debugging (39% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          19,
+          22
+        ],
+        "message": "Peak productivity hours: 20:00, 19:00, 22:00"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "calibration",
+        "action": "Recalibrate DQ weights based on feedback correlation",
+        "impact": "Could improve routing accuracy by 10-15%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 137 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-24T09:00:00.681139",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 90484,
+      "totalSessions": 639,
+      "cacheEfficiency": 92.99,
+      "dqScoreAvg": 0.864,
+      "dqTrend": "stable"
+    },
+    "patterns": {
+      "detected": [
+        {
+          "id": "architecture",
+          "name": "Architecture Session",
+          "icon": "\ud83c\udfd7\ufe0f",
+          "confidence": 1,
+          "totalMatches": 10,
+          "matchingEvents": [
+            {
+              "timestamp": 1769240707988,
+              "text": "continue doing things like this, go in plan mode, ",
+              "matches": 1
+            },
+            {
+              "timestamp": 1769240740756,
+              "text": "Find and analyze all system architecture files, fo",
+              "matches": 3
+            },
+            {
+              "timestamp": 1769240740773,
+              "text": "Analyze the meta-prompt and instruction system:\n1.",
+              "matches": 1
+            },
+            {
+              "timestamp": 1769240740774,
+              "text": "Map the complete Antigravity ecosystem architectur",
+              "matches": 5
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "skill",
+              "value": "/arch",
+              "label": "Architecture Analysis",
+              "desc": "Analyze codebase structure"
+            },
+            {
+              "type": "model",
+              "value": "opus",
+              "label": "Switch to Opus",
+              "desc": "Complex architectural decisions"
+            },
+            {
+              "type": "memory",
+              "value": "architecture decisions",
+              "label": "Recall decisions",
+              "desc": "Load past architecture choices"
+            }
+          ]
+        },
+        {
+          "id": "deployment",
+          "name": "Deployment Session",
+          "icon": "\ud83d\ude80",
+          "confidence": 0.75,
+          "totalMatches": 3,
+          "matchingEvents": [
+            {
+              "timestamp": 1769240707988,
+              "text": "continue doing things like this, go in plan mode, ",
+              "matches": 1
+            },
+            {
+              "timestamp": 1769240740756,
+              "text": "Find and analyze all system architecture files, fo",
+              "matches": 1
+            },
+            {
+              "timestamp": 1769240740773,
+              "text": "Analyze the meta-prompt and instruction system:\n1.",
+              "matches": 1
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "command",
+              "value": "git status",
+              "label": "Check git status",
+              "desc": "Verify clean state"
+            },
+            {
+              "type": "skill",
+              "value": "/pr",
+              "label": "Create PR",
+              "desc": "Prepare for deployment"
+            },
+            {
+              "type": "command",
+              "value": "npm run build",
+              "label": "Production build",
+              "desc": "Verify build succeeds"
+            }
+          ]
+        },
+        {
+          "id": "research",
+          "name": "Research Session",
+          "icon": "\ud83d\udcda",
+          "confidence": 0.5,
+          "totalMatches": 2,
+          "matchingEvents": [
+            {
+              "timestamp": 1769240740756,
+              "text": "Find and analyze all system architecture files, fo",
+              "matches": 1
+            },
+            {
+              "timestamp": 1769240740774,
+              "text": "Map the complete Antigravity ecosystem architectur",
+              "matches": 1
+            }
+          ],
+          "suggestions": [
+            {
+              "type": "command",
+              "value": "python3 ~/researchgravity/status.py",
+              "label": "Check research status",
+              "desc": "View current research session"
+            },
+            {
+              "type": "memory",
+              "value": "research papers",
+              "label": "Recall papers",
+              "desc": "Load research context"
+            },
+            {
+              "type": "model",
+              "value": "opus",
+              "label": "Switch to Opus",
+              "desc": "Deep analysis capability"
+            }
+          ]
+        }
+      ],
+      "distribution": {
+        "debugging": 99,
+        "architecture": 140,
+        "testing": 44,
+        "learning": 28,
+        "refactoring": 96,
+        "research": 14,
+        "deployment": 22,
+        "performance": 7
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        3,
+        19
+      ],
+      "hourDistribution": {
+        "10": 26,
+        "11": 27,
+        "12": 54,
+        "13": 28,
+        "14": 15,
+        "15": 30,
+        "8": 32,
+        "2": 62,
+        "1": 59,
+        "3": 69,
+        "19": 63,
+        "22": 62,
+        "23": 49,
+        "4": 43,
+        "6": 26,
+        "5": 24,
+        "7": 32,
+        "16": 31,
+        "20": 90,
+        "0": 36,
+        "18": 46,
+        "21": 57,
+        "17": 25,
+        "9": 27
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 7,
+      "activityEvents": 1052
+    },
+    "recovery": {
+      "total": 150,
+      "by_category": {
+        "git": {
+          "total": 118,
+          "success": 109,
+          "failures": 9,
+          "auto": 115
+        },
+        "permissions": {
+          "total": 11,
+          "success": 9,
+          "failures": 2,
+          "auto": 2
+        },
+        "quota": {
+          "total": 4,
+          "success": 3,
+          "failures": 1,
+          "auto": 0
+        },
+        "syntax": {
+          "total": 2,
+          "success": 2,
+          "failures": 0,
+          "auto": 0
+        },
+        "concurrency": {
+          "total": 11,
+          "success": 8,
+          "failures": 3,
+          "auto": 11
+        },
+        "crash": {
+          "total": 3,
+          "success": 2,
+          "failures": 1,
+          "auto": 0
+        },
+        "recursion": {
+          "total": 1,
+          "success": 1,
+          "failures": 0,
+          "auto": 1
+        }
+      },
+      "patterns": [
+        {
+          "action": "git:clear_git_locks",
+          "count": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "git:fix_username_case",
+          "count": 12,
+          "success_rate": 0.75
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "count": 11,
+          "success_rate": 0.73
+        },
+        {
+          "action": "permissions:suggest",
+          "count": 8,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "quota:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "crash:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "permissions:chmod_safe_paths",
+          "count": 2,
+          "success_rate": 1.0
+        },
+        {
+          "action": "quota:model_switch",
+          "count": 1,
+          "success_rate": 1.0
+        },
+        {
+          "action": "syntax:syntax_fix",
+          "count": 1,
+          "success_rate": 1.0
+        }
+      ],
+      "recurring_failures": [
+        {
+          "action": "git:fix_username_case",
+          "failures": 3,
+          "unique_errors": 10,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:clear_git_locks",
+          "failures": 5,
+          "unique_errors": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "failures": 3,
+          "unique_errors": 11,
+          "success_rate": 0.73
+        }
+      ],
+      "recommendations": [
+        {
+          "type": "preventive",
+          "category": "git",
+          "message": "Git issues recurring (9 failures). Consider pre-session git health check.",
+          "action": "Add git status check to session start"
+        }
+      ],
+      "auto_fix_rate": 0.86
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-24T09:00:00.683915",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 92.99,
+        "message": "Cache efficiency at 92.99%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.864,
+        "message": "High decision quality (0.864). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (31% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          3,
+          19
+        ],
+        "message": "Peak productivity hours: 20:00, 3:00, 19:00"
+      },
+      {
+        "type": "recovery",
+        "metric": "autoFixRate",
+        "value": 0.86,
+        "message": "Auto-fix rate: 86% of 150 recovery actions"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: git:fix_username_case (3 times, 75% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 5,
+        "message": "Recurring failure: git:clear_git_locks (5 times, 95% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: concurrency:clear_stale_locks (3 times, 73% success)"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 142 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      },
+      {
+        "type": "preventive",
+        "action": "Git issues recurring (9 failures). Consider pre-session git health check.",
+        "impact": "Add git status check to session start"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-24T18:00:02.512441",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 90894,
+      "totalSessions": 641,
+      "cacheEfficiency": 92.95,
+      "dqScoreAvg": 0.864,
+      "dqTrend": "stable"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 100,
+        "architecture": 147,
+        "testing": 48,
+        "learning": 28,
+        "refactoring": 100,
+        "research": 16,
+        "deployment": 22,
+        "performance": 7
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        3,
+        19
+      ],
+      "hourDistribution": {
+        "10": 28,
+        "11": 27,
+        "12": 54,
+        "13": 28,
+        "14": 15,
+        "15": 30,
+        "8": 33,
+        "2": 62,
+        "1": 59,
+        "3": 69,
+        "19": 63,
+        "22": 62,
+        "23": 49,
+        "4": 43,
+        "6": 26,
+        "5": 24,
+        "7": 32,
+        "16": 32,
+        "20": 90,
+        "0": 36,
+        "18": 47,
+        "21": 57,
+        "17": 27,
+        "9": 28
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 7,
+      "activityEvents": 1105
+    },
+    "recovery": {
+      "total": 150,
+      "by_category": {
+        "git": {
+          "total": 118,
+          "success": 109,
+          "failures": 9,
+          "auto": 115
+        },
+        "permissions": {
+          "total": 11,
+          "success": 9,
+          "failures": 2,
+          "auto": 2
+        },
+        "quota": {
+          "total": 4,
+          "success": 3,
+          "failures": 1,
+          "auto": 0
+        },
+        "syntax": {
+          "total": 2,
+          "success": 2,
+          "failures": 0,
+          "auto": 0
+        },
+        "concurrency": {
+          "total": 11,
+          "success": 8,
+          "failures": 3,
+          "auto": 11
+        },
+        "crash": {
+          "total": 3,
+          "success": 2,
+          "failures": 1,
+          "auto": 0
+        },
+        "recursion": {
+          "total": 1,
+          "success": 1,
+          "failures": 0,
+          "auto": 1
+        }
+      },
+      "patterns": [
+        {
+          "action": "git:clear_git_locks",
+          "count": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "git:fix_username_case",
+          "count": 12,
+          "success_rate": 0.75
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "count": 11,
+          "success_rate": 0.73
+        },
+        {
+          "action": "permissions:suggest",
+          "count": 8,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "quota:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "crash:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "permissions:chmod_safe_paths",
+          "count": 2,
+          "success_rate": 1.0
+        },
+        {
+          "action": "quota:model_switch",
+          "count": 1,
+          "success_rate": 1.0
+        },
+        {
+          "action": "syntax:syntax_fix",
+          "count": 1,
+          "success_rate": 1.0
+        }
+      ],
+      "recurring_failures": [
+        {
+          "action": "git:fix_username_case",
+          "failures": 3,
+          "unique_errors": 10,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:clear_git_locks",
+          "failures": 5,
+          "unique_errors": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "failures": 3,
+          "unique_errors": 11,
+          "success_rate": 0.73
+        }
+      ],
+      "recommendations": [
+        {
+          "type": "preventive",
+          "category": "git",
+          "message": "Git issues recurring (9 failures). Consider pre-session git health check.",
+          "action": "Add git status check to session start"
+        }
+      ],
+      "auto_fix_rate": 0.86
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-24T18:00:02.514365",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 92.95,
+        "message": "Cache efficiency at 92.95%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.864,
+        "message": "High decision quality (0.864). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (31% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          3,
+          19
+        ],
+        "message": "Peak productivity hours: 20:00, 3:00, 19:00"
+      },
+      {
+        "type": "recovery",
+        "metric": "autoFixRate",
+        "value": 0.86,
+        "message": "Auto-fix rate: 86% of 150 recovery actions"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: git:fix_username_case (3 times, 75% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 5,
+        "message": "Recurring failure: git:clear_git_locks (5 times, 95% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: concurrency:clear_stale_locks (3 times, 73% success)"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 142 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      },
+      {
+        "type": "preventive",
+        "action": "Git issues recurring (9 failures). Consider pre-session git health check.",
+        "impact": "Add git status check to session start"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-25T09:00:09.614229",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 91233,
+      "totalSessions": 648,
+      "cacheEfficiency": 92.92,
+      "dqScoreAvg": 0.864,
+      "dqTrend": "stable"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 101,
+        "architecture": 162,
+        "testing": 51,
+        "learning": 34,
+        "refactoring": 105,
+        "research": 17,
+        "deployment": 22,
+        "performance": 7
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        3,
+        19
+      ],
+      "hourDistribution": {
+        "10": 28,
+        "11": 27,
+        "12": 54,
+        "13": 28,
+        "14": 15,
+        "15": 30,
+        "8": 33,
+        "2": 62,
+        "1": 59,
+        "3": 69,
+        "19": 63,
+        "22": 62,
+        "23": 49,
+        "4": 48,
+        "6": 26,
+        "5": 24,
+        "7": 33,
+        "16": 32,
+        "20": 90,
+        "0": 37,
+        "18": 47,
+        "21": 58,
+        "17": 27,
+        "9": 28
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 7,
+      "activityEvents": 1180
+    },
+    "recovery": {
+      "total": 150,
+      "by_category": {
+        "git": {
+          "total": 118,
+          "success": 109,
+          "failures": 9,
+          "auto": 115
+        },
+        "permissions": {
+          "total": 11,
+          "success": 9,
+          "failures": 2,
+          "auto": 2
+        },
+        "quota": {
+          "total": 4,
+          "success": 3,
+          "failures": 1,
+          "auto": 0
+        },
+        "syntax": {
+          "total": 2,
+          "success": 2,
+          "failures": 0,
+          "auto": 0
+        },
+        "concurrency": {
+          "total": 11,
+          "success": 8,
+          "failures": 3,
+          "auto": 11
+        },
+        "crash": {
+          "total": 3,
+          "success": 2,
+          "failures": 1,
+          "auto": 0
+        },
+        "recursion": {
+          "total": 1,
+          "success": 1,
+          "failures": 0,
+          "auto": 1
+        }
+      },
+      "patterns": [
+        {
+          "action": "git:clear_git_locks",
+          "count": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "git:fix_username_case",
+          "count": 12,
+          "success_rate": 0.75
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "count": 11,
+          "success_rate": 0.73
+        },
+        {
+          "action": "permissions:suggest",
+          "count": 8,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "quota:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "crash:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "permissions:chmod_safe_paths",
+          "count": 2,
+          "success_rate": 1.0
+        },
+        {
+          "action": "quota:model_switch",
+          "count": 1,
+          "success_rate": 1.0
+        },
+        {
+          "action": "syntax:syntax_fix",
+          "count": 1,
+          "success_rate": 1.0
+        }
+      ],
+      "recurring_failures": [
+        {
+          "action": "git:fix_username_case",
+          "failures": 3,
+          "unique_errors": 10,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:clear_git_locks",
+          "failures": 5,
+          "unique_errors": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "failures": 3,
+          "unique_errors": 11,
+          "success_rate": 0.73
+        }
+      ],
+      "recommendations": [
+        {
+          "type": "preventive",
+          "category": "git",
+          "message": "Git issues recurring (9 failures). Consider pre-session git health check.",
+          "action": "Add git status check to session start"
+        }
+      ],
+      "auto_fix_rate": 0.86
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-25T09:00:09.616737",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 92.92,
+        "message": "Cache efficiency at 92.92%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.864,
+        "message": "High decision quality (0.864). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (32% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          3,
+          19
+        ],
+        "message": "Peak productivity hours: 20:00, 3:00, 19:00"
+      },
+      {
+        "type": "recovery",
+        "metric": "autoFixRate",
+        "value": 0.86,
+        "message": "Auto-fix rate: 86% of 150 recovery actions"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: git:fix_username_case (3 times, 75% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 5,
+        "message": "Recurring failure: git:clear_git_locks (5 times, 95% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: concurrency:clear_stale_locks (3 times, 73% success)"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 141 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      },
+      {
+        "type": "preventive",
+        "action": "Git issues recurring (9 failures). Consider pre-session git health check.",
+        "impact": "Add git status check to session start"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-25T18:00:05.128088",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 91233,
+      "totalSessions": 648,
+      "cacheEfficiency": 92.92,
+      "dqScoreAvg": 0.864,
+      "dqTrend": "stable"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 101,
+        "architecture": 162,
+        "testing": 51,
+        "learning": 34,
+        "refactoring": 105,
+        "research": 17,
+        "deployment": 22,
+        "performance": 7
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        3,
+        19
+      ],
+      "hourDistribution": {
+        "10": 28,
+        "11": 27,
+        "12": 54,
+        "13": 28,
+        "14": 15,
+        "15": 30,
+        "8": 33,
+        "2": 62,
+        "1": 59,
+        "3": 69,
+        "19": 63,
+        "22": 62,
+        "23": 49,
+        "4": 48,
+        "6": 26,
+        "5": 24,
+        "7": 33,
+        "16": 32,
+        "20": 90,
+        "0": 37,
+        "18": 47,
+        "21": 58,
+        "17": 27,
+        "9": 28
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 7,
+      "activityEvents": 1180
+    },
+    "recovery": {
+      "total": 150,
+      "by_category": {
+        "git": {
+          "total": 118,
+          "success": 109,
+          "failures": 9,
+          "auto": 115
+        },
+        "permissions": {
+          "total": 11,
+          "success": 9,
+          "failures": 2,
+          "auto": 2
+        },
+        "quota": {
+          "total": 4,
+          "success": 3,
+          "failures": 1,
+          "auto": 0
+        },
+        "syntax": {
+          "total": 2,
+          "success": 2,
+          "failures": 0,
+          "auto": 0
+        },
+        "concurrency": {
+          "total": 11,
+          "success": 8,
+          "failures": 3,
+          "auto": 11
+        },
+        "crash": {
+          "total": 3,
+          "success": 2,
+          "failures": 1,
+          "auto": 0
+        },
+        "recursion": {
+          "total": 1,
+          "success": 1,
+          "failures": 0,
+          "auto": 1
+        }
+      },
+      "patterns": [
+        {
+          "action": "git:clear_git_locks",
+          "count": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "git:fix_username_case",
+          "count": 12,
+          "success_rate": 0.75
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "count": 11,
+          "success_rate": 0.73
+        },
+        {
+          "action": "permissions:suggest",
+          "count": 8,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "quota:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "crash:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "permissions:chmod_safe_paths",
+          "count": 2,
+          "success_rate": 1.0
+        },
+        {
+          "action": "quota:model_switch",
+          "count": 1,
+          "success_rate": 1.0
+        },
+        {
+          "action": "syntax:syntax_fix",
+          "count": 1,
+          "success_rate": 1.0
+        }
+      ],
+      "recurring_failures": [
+        {
+          "action": "git:fix_username_case",
+          "failures": 3,
+          "unique_errors": 10,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:clear_git_locks",
+          "failures": 5,
+          "unique_errors": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "failures": 3,
+          "unique_errors": 11,
+          "success_rate": 0.73
+        }
+      ],
+      "recommendations": [
+        {
+          "type": "preventive",
+          "category": "git",
+          "message": "Git issues recurring (9 failures). Consider pre-session git health check.",
+          "action": "Add git status check to session start"
+        }
+      ],
+      "auto_fix_rate": 0.86
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-25T18:00:05.130396",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 92.92,
+        "message": "Cache efficiency at 92.92%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.864,
+        "message": "High decision quality (0.864). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (32% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          3,
+          19
+        ],
+        "message": "Peak productivity hours: 20:00, 3:00, 19:00"
+      },
+      {
+        "type": "recovery",
+        "metric": "autoFixRate",
+        "value": 0.86,
+        "message": "Auto-fix rate: 86% of 150 recovery actions"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: git:fix_username_case (3 times, 75% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 5,
+        "message": "Recurring failure: git:clear_git_locks (5 times, 95% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: concurrency:clear_stale_locks (3 times, 73% success)"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 141 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      },
+      {
+        "type": "preventive",
+        "action": "Git issues recurring (9 failures). Consider pre-session git health check.",
+        "impact": "Add git status check to session start"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-26T09:00:05.140031",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 100491,
+      "totalSessions": 671,
+      "cacheEfficiency": 93.15,
+      "dqScoreAvg": 0.864,
+      "dqTrend": "stable"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 116,
+        "architecture": 216,
+        "testing": 87,
+        "learning": 48,
+        "refactoring": 113,
+        "research": 35,
+        "deployment": 23,
+        "performance": 12
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        3,
+        2
+      ],
+      "hourDistribution": {
+        "10": 30,
+        "11": 30,
+        "12": 57,
+        "13": 30,
+        "14": 15,
+        "15": 30,
+        "8": 42,
+        "2": 71,
+        "1": 63,
+        "3": 72,
+        "19": 63,
+        "22": 62,
+        "23": 49,
+        "4": 50,
+        "6": 31,
+        "5": 26,
+        "7": 37,
+        "16": 32,
+        "20": 90,
+        "0": 37,
+        "18": 47,
+        "21": 58,
+        "9": 34,
+        "17": 27
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 7,
+      "activityEvents": 1677
+    },
+    "recovery": {
+      "total": 150,
+      "by_category": {
+        "git": {
+          "total": 118,
+          "success": 109,
+          "failures": 9,
+          "auto": 115
+        },
+        "permissions": {
+          "total": 11,
+          "success": 9,
+          "failures": 2,
+          "auto": 2
+        },
+        "quota": {
+          "total": 4,
+          "success": 3,
+          "failures": 1,
+          "auto": 0
+        },
+        "syntax": {
+          "total": 2,
+          "success": 2,
+          "failures": 0,
+          "auto": 0
+        },
+        "concurrency": {
+          "total": 11,
+          "success": 8,
+          "failures": 3,
+          "auto": 11
+        },
+        "crash": {
+          "total": 3,
+          "success": 2,
+          "failures": 1,
+          "auto": 0
+        },
+        "recursion": {
+          "total": 1,
+          "success": 1,
+          "failures": 0,
+          "auto": 1
+        }
+      },
+      "patterns": [
+        {
+          "action": "git:clear_git_locks",
+          "count": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "git:fix_username_case",
+          "count": 12,
+          "success_rate": 0.75
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "count": 11,
+          "success_rate": 0.73
+        },
+        {
+          "action": "permissions:suggest",
+          "count": 8,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "quota:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "crash:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "permissions:chmod_safe_paths",
+          "count": 2,
+          "success_rate": 1.0
+        },
+        {
+          "action": "quota:model_switch",
+          "count": 1,
+          "success_rate": 1.0
+        },
+        {
+          "action": "syntax:syntax_fix",
+          "count": 1,
+          "success_rate": 1.0
+        }
+      ],
+      "recurring_failures": [
+        {
+          "action": "git:fix_username_case",
+          "failures": 3,
+          "unique_errors": 10,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:clear_git_locks",
+          "failures": 5,
+          "unique_errors": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "failures": 3,
+          "unique_errors": 11,
+          "success_rate": 0.73
+        }
+      ],
+      "recommendations": [
+        {
+          "type": "preventive",
+          "category": "git",
+          "message": "Git issues recurring (9 failures). Consider pre-session git health check.",
+          "action": "Add git status check to session start"
+        }
+      ],
+      "auto_fix_rate": 0.86
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-26T09:00:05.149355",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 93.15,
+        "message": "Cache efficiency at 93.15%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.864,
+        "message": "High decision quality (0.864). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (33% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          3,
+          2
+        ],
+        "message": "Peak productivity hours: 20:00, 3:00, 2:00"
+      },
+      {
+        "type": "recovery",
+        "metric": "autoFixRate",
+        "value": 0.86,
+        "message": "Auto-fix rate: 86% of 150 recovery actions"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: git:fix_username_case (3 times, 75% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 5,
+        "message": "Recurring failure: git:clear_git_locks (5 times, 95% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: concurrency:clear_stale_locks (3 times, 73% success)"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 150 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      },
+      {
+        "type": "preventive",
+        "action": "Git issues recurring (9 failures). Consider pre-session git health check.",
+        "impact": "Add git status check to session start"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-26T18:00:07.039131",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 100618,
+      "totalSessions": 672,
+      "cacheEfficiency": 93.13,
+      "dqScoreAvg": 0.864,
+      "dqTrend": "stable"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 123,
+        "architecture": 228,
+        "testing": 99,
+        "learning": 56,
+        "refactoring": 114,
+        "research": 44,
+        "deployment": 26,
+        "performance": 14
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        3,
+        2
+      ],
+      "hourDistribution": {
+        "10": 30,
+        "11": 31,
+        "12": 57,
+        "13": 30,
+        "14": 15,
+        "15": 32,
+        "8": 42,
+        "2": 71,
+        "1": 63,
+        "3": 72,
+        "19": 63,
+        "22": 64,
+        "23": 49,
+        "4": 50,
+        "6": 31,
+        "5": 26,
+        "7": 37,
+        "16": 32,
+        "20": 90,
+        "0": 37,
+        "18": 48,
+        "21": 58,
+        "9": 34,
+        "17": 28
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 7,
+      "activityEvents": 1830
+    },
+    "recovery": {
+      "total": 150,
+      "by_category": {
+        "git": {
+          "total": 118,
+          "success": 109,
+          "failures": 9,
+          "auto": 115
+        },
+        "permissions": {
+          "total": 11,
+          "success": 9,
+          "failures": 2,
+          "auto": 2
+        },
+        "quota": {
+          "total": 4,
+          "success": 3,
+          "failures": 1,
+          "auto": 0
+        },
+        "syntax": {
+          "total": 2,
+          "success": 2,
+          "failures": 0,
+          "auto": 0
+        },
+        "concurrency": {
+          "total": 11,
+          "success": 8,
+          "failures": 3,
+          "auto": 11
+        },
+        "crash": {
+          "total": 3,
+          "success": 2,
+          "failures": 1,
+          "auto": 0
+        },
+        "recursion": {
+          "total": 1,
+          "success": 1,
+          "failures": 0,
+          "auto": 1
+        }
+      },
+      "patterns": [
+        {
+          "action": "git:clear_git_locks",
+          "count": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "git:fix_username_case",
+          "count": 12,
+          "success_rate": 0.75
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "count": 11,
+          "success_rate": 0.73
+        },
+        {
+          "action": "permissions:suggest",
+          "count": 8,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "quota:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "crash:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "permissions:chmod_safe_paths",
+          "count": 2,
+          "success_rate": 1.0
+        },
+        {
+          "action": "quota:model_switch",
+          "count": 1,
+          "success_rate": 1.0
+        },
+        {
+          "action": "syntax:syntax_fix",
+          "count": 1,
+          "success_rate": 1.0
+        }
+      ],
+      "recurring_failures": [
+        {
+          "action": "git:fix_username_case",
+          "failures": 3,
+          "unique_errors": 10,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:clear_git_locks",
+          "failures": 5,
+          "unique_errors": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "failures": 3,
+          "unique_errors": 11,
+          "success_rate": 0.73
+        }
+      ],
+      "recommendations": [
+        {
+          "type": "preventive",
+          "category": "git",
+          "message": "Git issues recurring (9 failures). Consider pre-session git health check.",
+          "action": "Add git status check to session start"
+        }
+      ],
+      "auto_fix_rate": 0.86
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-26T18:00:07.186608",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 93.13,
+        "message": "Cache efficiency at 93.13%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.864,
+        "message": "High decision quality (0.864). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (32% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          3,
+          2
+        ],
+        "message": "Peak productivity hours: 20:00, 3:00, 2:00"
+      },
+      {
+        "type": "recovery",
+        "metric": "autoFixRate",
+        "value": 0.86,
+        "message": "Auto-fix rate: 86% of 150 recovery actions"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: git:fix_username_case (3 times, 75% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 5,
+        "message": "Recurring failure: git:clear_git_locks (5 times, 95% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: concurrency:clear_stale_locks (3 times, 73% success)"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 150 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      },
+      {
+        "type": "preventive",
+        "action": "Git issues recurring (9 failures). Consider pre-session git health check.",
+        "impact": "Add git status check to session start"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-27T09:00:05.358749",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 103424,
+      "totalSessions": 690,
+      "cacheEfficiency": 93.07,
+      "dqScoreAvg": 0.864,
+      "dqTrend": "stable"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 184,
+        "architecture": 249,
+        "testing": 128,
+        "learning": 82,
+        "refactoring": 115,
+        "research": 53,
+        "deployment": 73,
+        "performance": 16
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        2,
+        3
+      ],
+      "hourDistribution": {
+        "10": 31,
+        "11": 39,
+        "12": 58,
+        "13": 31,
+        "14": 15,
+        "15": 32,
+        "8": 43,
+        "2": 73,
+        "1": 65,
+        "3": 73,
+        "19": 63,
+        "22": 64,
+        "23": 51,
+        "4": 51,
+        "6": 36,
+        "5": 34,
+        "7": 37,
+        "16": 32,
+        "20": 90,
+        "0": 42,
+        "18": 48,
+        "21": 58,
+        "9": 36,
+        "17": 28
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 7,
+      "activityEvents": 2424
+    },
+    "recovery": {
+      "total": 150,
+      "by_category": {
+        "git": {
+          "total": 118,
+          "success": 109,
+          "failures": 9,
+          "auto": 115
+        },
+        "permissions": {
+          "total": 11,
+          "success": 9,
+          "failures": 2,
+          "auto": 2
+        },
+        "quota": {
+          "total": 4,
+          "success": 3,
+          "failures": 1,
+          "auto": 0
+        },
+        "syntax": {
+          "total": 2,
+          "success": 2,
+          "failures": 0,
+          "auto": 0
+        },
+        "concurrency": {
+          "total": 11,
+          "success": 8,
+          "failures": 3,
+          "auto": 11
+        },
+        "crash": {
+          "total": 3,
+          "success": 2,
+          "failures": 1,
+          "auto": 0
+        },
+        "recursion": {
+          "total": 1,
+          "success": 1,
+          "failures": 0,
+          "auto": 1
+        }
+      },
+      "patterns": [
+        {
+          "action": "git:clear_git_locks",
+          "count": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "git:fix_username_case",
+          "count": 12,
+          "success_rate": 0.75
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "count": 11,
+          "success_rate": 0.73
+        },
+        {
+          "action": "permissions:suggest",
+          "count": 8,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "quota:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "crash:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "permissions:chmod_safe_paths",
+          "count": 2,
+          "success_rate": 1.0
+        },
+        {
+          "action": "quota:model_switch",
+          "count": 1,
+          "success_rate": 1.0
+        },
+        {
+          "action": "syntax:syntax_fix",
+          "count": 1,
+          "success_rate": 1.0
+        }
+      ],
+      "recurring_failures": [
+        {
+          "action": "git:fix_username_case",
+          "failures": 3,
+          "unique_errors": 10,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:clear_git_locks",
+          "failures": 5,
+          "unique_errors": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "failures": 3,
+          "unique_errors": 11,
+          "success_rate": 0.73
+        }
+      ],
+      "recommendations": [
+        {
+          "type": "preventive",
+          "category": "git",
+          "message": "Git issues recurring (9 failures). Consider pre-session git health check.",
+          "action": "Add git status check to session start"
+        }
+      ],
+      "auto_fix_rate": 0.86
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-27T09:00:05.367851",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 93.07,
+        "message": "Cache efficiency at 93.07%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.864,
+        "message": "High decision quality (0.864). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (28% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          2,
+          3
+        ],
+        "message": "Peak productivity hours: 20:00, 2:00, 3:00"
+      },
+      {
+        "type": "recovery",
+        "metric": "autoFixRate",
+        "value": 0.86,
+        "message": "Auto-fix rate: 86% of 150 recovery actions"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: git:fix_username_case (3 times, 75% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 5,
+        "message": "Recurring failure: git:clear_git_locks (5 times, 95% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: concurrency:clear_stale_locks (3 times, 73% success)"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 150 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      },
+      {
+        "type": "preventive",
+        "action": "Git issues recurring (9 failures). Consider pre-session git health check.",
+        "impact": "Add git status check to session start"
+      }
+    ],
+    "confidence": 0.95
+  }
+}
+{
+  "telemetry": {
+    "aggregatedAt": "2026-01-27T18:00:05.369719",
+    "windowDays": 7,
+    "summary": {
+      "totalMessages": 103579,
+      "totalSessions": 692,
+      "cacheEfficiency": 93.07,
+      "dqScoreAvg": 0.864,
+      "dqTrend": "stable"
+    },
+    "patterns": {
+      "detected": [],
+      "distribution": {
+        "debugging": 184,
+        "architecture": 249,
+        "testing": 129,
+        "learning": 82,
+        "refactoring": 115,
+        "research": 53,
+        "deployment": 73,
+        "performance": 16
+      },
+      "dominant": "architecture"
+    },
+    "temporal": {
+      "peakHours": [
+        20,
+        2,
+        3
+      ],
+      "hourDistribution": {
+        "10": 31,
+        "11": 39,
+        "12": 58,
+        "13": 31,
+        "14": 15,
+        "15": 32,
+        "8": 43,
+        "2": 73,
+        "1": 65,
+        "3": 73,
+        "19": 65,
+        "22": 64,
+        "23": 51,
+        "4": 51,
+        "6": 36,
+        "5": 34,
+        "7": 37,
+        "16": 32,
+        "20": 91,
+        "0": 42,
+        "18": 52,
+        "21": 58,
+        "9": 36,
+        "17": 28
+      }
+    },
+    "identity": {
+      "expertise": {
+        "domains": [
+          "react",
+          "typescript",
+          "architecture",
+          "debugging",
+          "routing",
+          "co-evolution",
+          "agentic-systems",
+          "python",
+          "testing",
+          "git",
+          "api",
+          "database",
+          "research",
+          "agent"
+        ],
+        "confidence": {
+          "react": 1.0,
+          "typescript": 1.0,
+          "architecture": 1.0,
+          "debugging": 1.0,
+          "routing": 1.0,
+          "co-evolution": 0.85,
+          "agentic-systems": 0.8,
+          "python": 1.0,
+          "testing": 1.0,
+          "git": 1.0,
+          "api": 1.0,
+          "database": 1.0,
+          "research": 1.0,
+          "agent": 1.0
+        },
+        "lastUpdated": "2026-01-19T12:55:31.732Z"
+      },
+      "preferences": {
+        "defaultModel": "sonnet",
+        "autoRoute": true,
+        "proactiveAssist": true,
+        "memoryEvolution": true,
+        "tokenOptimization": true,
+        "costAwareness": "medium",
+        "verbosity": "concise"
+      },
+      "achievements": 1
+    },
+    "rawCounts": {
+      "dqScores": 7,
+      "activityEvents": 2436
+    },
+    "recovery": {
+      "total": 150,
+      "by_category": {
+        "git": {
+          "total": 118,
+          "success": 109,
+          "failures": 9,
+          "auto": 115
+        },
+        "permissions": {
+          "total": 11,
+          "success": 9,
+          "failures": 2,
+          "auto": 2
+        },
+        "quota": {
+          "total": 4,
+          "success": 3,
+          "failures": 1,
+          "auto": 0
+        },
+        "syntax": {
+          "total": 2,
+          "success": 2,
+          "failures": 0,
+          "auto": 0
+        },
+        "concurrency": {
+          "total": 11,
+          "success": 8,
+          "failures": 3,
+          "auto": 11
+        },
+        "crash": {
+          "total": 3,
+          "success": 2,
+          "failures": 1,
+          "auto": 0
+        },
+        "recursion": {
+          "total": 1,
+          "success": 1,
+          "failures": 0,
+          "auto": 1
+        }
+      },
+      "patterns": [
+        {
+          "action": "git:clear_git_locks",
+          "count": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "git:fix_username_case",
+          "count": 12,
+          "success_rate": 0.75
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "count": 11,
+          "success_rate": 0.73
+        },
+        {
+          "action": "permissions:suggest",
+          "count": 8,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "quota:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "crash:suggest",
+          "count": 3,
+          "success_rate": 0.67
+        },
+        {
+          "action": "permissions:chmod_safe_paths",
+          "count": 2,
+          "success_rate": 1.0
+        },
+        {
+          "action": "quota:model_switch",
+          "count": 1,
+          "success_rate": 1.0
+        },
+        {
+          "action": "syntax:syntax_fix",
+          "count": 1,
+          "success_rate": 1.0
+        }
+      ],
+      "recurring_failures": [
+        {
+          "action": "git:fix_username_case",
+          "failures": 3,
+          "unique_errors": 10,
+          "success_rate": 0.75
+        },
+        {
+          "action": "git:clear_git_locks",
+          "failures": 5,
+          "unique_errors": 103,
+          "success_rate": 0.95
+        },
+        {
+          "action": "concurrency:clear_stale_locks",
+          "failures": 3,
+          "unique_errors": 11,
+          "success_rate": 0.73
+        }
+      ],
+      "recommendations": [
+        {
+          "type": "preventive",
+          "category": "git",
+          "message": "Git issues recurring (9 failures). Consider pre-session git health check.",
+          "action": "Add git status check to session start"
+        }
+      ],
+      "auto_fix_rate": 0.86
+    }
+  },
+  "analysis": {
+    "analyzedAt": "2026-01-27T18:00:05.381125",
+    "insights": [
+      {
+        "type": "warning",
+        "metric": "cacheEfficiency",
+        "value": 93.07,
+        "message": "Cache efficiency at 93.07%. Consider longer sessions or context batching."
+      },
+      {
+        "type": "positive",
+        "metric": "dqScore",
+        "value": 0.864,
+        "message": "High decision quality (0.864). Model routing is well-calibrated."
+      },
+      {
+        "type": "pattern",
+        "metric": "sessionType",
+        "value": "architecture",
+        "message": "Dominant pattern: architecture (28% of activity)"
+      },
+      {
+        "type": "temporal",
+        "metric": "peakHours",
+        "value": [
+          20,
+          2,
+          3
+        ],
+        "message": "Peak productivity hours: 20:00, 2:00, 3:00"
+      },
+      {
+        "type": "recovery",
+        "metric": "autoFixRate",
+        "value": 0.86,
+        "message": "Auto-fix rate: 86% of 150 recovery actions"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: git:fix_username_case (3 times, 75% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 5,
+        "message": "Recurring failure: git:clear_git_locks (5 times, 95% success)"
+      },
+      {
+        "type": "warning",
+        "metric": "recurringFailure",
+        "value": 3,
+        "message": "Recurring failure: concurrency:clear_stale_locks (3 times, 73% success)"
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "behavior",
+        "action": "Batch related queries into fewer sessions",
+        "impact": "Could improve cache efficiency by 2-5%"
+      },
+      {
+        "type": "efficiency",
+        "action": "Consider /clear more often - avg session is 150 messages",
+        "impact": "Maintain context quality and cache efficiency"
+      },
+      {
+        "type": "preventive",
+        "action": "Git issues recurring (9 failures). Consider pre-session git health check.",
+        "impact": "Add git status check to session start"
+      }
+    ],
+    "confidence": 0.95
+  }
+}

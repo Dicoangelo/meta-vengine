@@ -1,0 +1,75 @@
+{
+  "total_errors": 373,
+  "by_type": {
+    "memory": 212,
+    "git": 115,
+    "concurrency": 22,
+    "permissions": 10,
+    "quota": 5,
+    "crash": 5,
+    "recursion": 3,
+    "syntax": 1
+  },
+  "recent_errors": [
+    {
+      "type": "git",
+      "message": "fatal: not a git repository (or any of the parent directories): .git",
+      "ts": 1768972794,
+      "severity": "high"
+    },
+    {
+      "type": "concurrency",
+      "message": "Race conditions are the hardest to find, averaging 5.1 years to discovery because they're non-determ",
+      "ts": 1768972794,
+      "severity": "high"
+    },
+    {
+      "type": "git",
+      "message": "fatal: tag 'v1.1.0' already exists",
+      "ts": 1768972794,
+      "severity": "high"
+    },
+    {
+      "type": "quota",
+      "message": "186\u2192                console.warn(`\u26a0\ufe0f RATE_LIMITED: API quota exceeded, waiting ${delay}ms...`);",
+      "ts": 1768972794,
+      "severity": "high"
+    },
+    {
+      "type": "permissions",
+      "message": "\"Permission denied\"",
+      "ts": 1768972794,
+      "severity": "high"
+    },
+    {
+      "type": "concurrency",
+      "message": "\"text\": \"5+ parallel Claude sessions causing race conditions. User closed other sessions.\",",
+      "ts": 1768972794,
+      "severity": "high"
+    },
+    {
+      "type": "concurrency",
+      "message": "\"text\": \"parallel sessions causing data corruption through race conditions\",",
+      "ts": 1768972794,
+      "severity": "high"
+    },
+    {
+      "type": "concurrency",
+      "message": "1. **Race conditions** - Both sessions overwrite each other's data",
+      "ts": 1768972794,
+      "severity": "high"
+    },
+    {
+      "type": "concurrency",
+      "message": "- This causes race conditions when multiple sessions write to the same files",
+      "ts": 1768972794,
+      "severity": "high"
+    },
+    {
+      "type": "concurrency",
+      "message": "- **Race Conditions**: Multiple parallel Claude sessions writing to same files causes data corruptio",
+      "ts": 1768972794,
+      "severity": "high"
+    }
+  ]
+}
