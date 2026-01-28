@@ -426,6 +426,29 @@ class PostSessionAnalyzer:
             entry["blockers"] = summary.get("blockers", [])
             entry["files_modified"] = summary.get("files_modified", [])
 
+        # PRIMARY: Write to SQLite
+        try:
+            import sys
+            sys.path.insert(0, str(Path.home() / '.claude/scripts'))
+            from sqlite_hooks import log_session_outcome
+
+            log_session_outcome(
+                session_id=analysis["session_id"],
+                outcome=analysis["outcome"],
+                quality=analysis["quality"],
+                complexity=analysis["complexity"],
+                intent=entry.get("intent", ""),
+                model=analysis.get("model", "unknown"),
+                messages_count=None,  # Not tracked in this analyzer
+                duration_minutes=None,  # Not tracked in this analyzer
+                cost_usd=None,  # Not tracked in this analyzer
+                success=(analysis["outcome"] == "success"),
+                summary=entry.get("summary_text", "")
+            )
+        except Exception:
+            pass  # Fail silently - don't break session analysis
+
+        # BACKUP: Write to JSONL (will be deprecated after 30 days)
         with open(output_file, 'a') as f:
             f.write(json.dumps(entry) + '\n')
 
