@@ -307,6 +307,74 @@ def log_git_pr(repo: str, branch: str, message: str) -> bool:
     """Convenience function for logging PR creation"""
     return log_git_event('pr', repo=repo, branch=branch, message=message)
 
+# Hook-Compatible Functions (for bash hooks)
+# ===========================================
+
+def log_tool_event(timestamp: int, tool_name: str, success: int,
+                   duration_ms: Optional[int] = None,
+                   error_message: Optional[str] = None,
+                   context: Optional[str] = None) -> bool:
+    """
+    Log a tool event (bash hook compatible)
+
+    Args:
+        timestamp: Unix timestamp
+        tool_name: Tool name (Read, Write, Bash, etc.)
+        success: 1 for success, 0 for failure
+        duration_ms: Duration in milliseconds
+        error_message: Error message if failed
+        context: JSON string with additional context
+
+    Returns:
+        bool: True if successful
+    """
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            INSERT INTO tool_events (timestamp, tool_name, success, duration_ms, error_message, context)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (timestamp, tool_name, success, duration_ms, error_message, context))
+
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f"❌ Failed to log tool event: {e}")
+        return False
+
+def log_activity_event_simple(timestamp: int, event_type: str,
+                               data: Optional[str] = None,
+                               session_id: Optional[str] = None) -> bool:
+    """
+    Log an activity event (bash hook compatible)
+
+    Args:
+        timestamp: Unix timestamp
+        event_type: Event type (tool_use, query, etc.)
+        data: JSON string with event data
+        session_id: Session identifier
+
+    Returns:
+        bool: True if successful
+    """
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            INSERT INTO activity_events (timestamp, event_type, data, session_id)
+            VALUES (?, ?, ?, ?)
+        """, (timestamp, event_type, data, session_id))
+
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f"❌ Failed to log activity event: {e}")
+        return False
+
 # Test/Demo
 # =========
 

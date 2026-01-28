@@ -40,6 +40,37 @@ if [[ "$EXIT_CODE" != "0" ]] || echo "$TOOL_OUTPUT" | grep -qi "error\|failed\|e
 fi
 
 # Log detailed tool usage
+
+# PRIMARY: Write to SQLite (source of truth)
+python3 << 'PYEOF'
+import sys
+sys.path.insert(0, '$HOME/.claude/scripts')
+try:
+    from sqlite_hooks import log_tool_event
+
+    # Build context JSON
+    import json
+    context = {
+        "file_path": "$file_path",
+        "command": "${command:-}",
+        "session": "${SESSION_ID:0:8}",
+        "model": "$MODEL"
+    }
+
+    log_tool_event(
+        timestamp=$ts,
+        tool_name="$TOOL_NAME",
+        success=$([ "$success" == "true" ] && echo 1 || echo 0),
+        duration_ms=None,
+        error_message=$([ "$success" == "false" ] && echo "\"Exit code $EXIT_CODE\"" || echo "None"),
+        context=json.dumps(context)
+    )
+except Exception as e:
+    # Fail silently to not block tool execution
+    pass
+PYEOF
+
+# BACKUP: Write to JSONL (will be deprecated after 30 days)
 entry=$(cat <<EOF
 {"ts":$ts,"tool":"$TOOL_NAME","session":"${SESSION_ID:0:8}","model":"$MODEL","source":"hook","file_path":"$file_path","command":"${command:-}","success":$success,"exit_code":$EXIT_CODE}
 EOF
@@ -75,6 +106,35 @@ fi
 # 4. ACTIVITY-EVENTS.JSONL - Enhanced with details
 # ═══════════════════════════════════════════════════════════════
 
+# PRIMARY: Write to SQLite (source of truth)
+python3 << 'PYEOF'
+import sys
+sys.path.insert(0, '$HOME/.claude/scripts')
+try:
+    from sqlite_hooks import log_activity_event_simple
+    import json
+
+    # Build activity data JSON
+    data = {
+        "tool": "$TOOL_NAME",
+        "file_path": "$file_path",
+        "command": "${command:-}",
+        "success": "$success",
+        "pwd": "$PWD"
+    }
+
+    log_activity_event_simple(
+        timestamp=$ts,
+        event_type="tool_use",
+        data=json.dumps(data),
+        session_id="${SESSION_ID:0:8}"
+    )
+except Exception as e:
+    # Fail silently to not block tool execution
+    pass
+PYEOF
+
+# BACKUP: Write to JSONL (will be deprecated after 30 days)
 activity_entry=$(cat <<EOF
 {"ts":$ts,"type":"tool_use","tool":"$TOOL_NAME","file_path":"$file_path","command":"${command:-}","success":$success,"pwd":"$PWD"}
 EOF
