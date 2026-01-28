@@ -1012,13 +1012,12 @@ echo "  📊 Loading daily activity stats..."
 DAILY_ACTIVITY_TMP="/tmp/daily-activity-$$.json"
 python3 << 'DAILYEOF' > "$DAILY_ACTIVITY_TMP"
 import json
-import sqlite3
 from pathlib import Path
 from datetime import datetime, timedelta
 from collections import defaultdict
 
 home = Path.home()
-db_path = home / ".claude/data/claude.db"
+events_file = home / ".claude/data/activity-events.jsonl"
 
 result = {
     "allTime": {"total": 0, "writes": 0, "edits": 0, "bash": 0, "reads": 0},
@@ -1026,51 +1025,88 @@ result = {
     "byTool": {}
 }
 
-conn = sqlite3.connect(str(db_path))
-conn.row_factory = sqlite3.Row
+if not events_file.exists():
+    print(json.dumps(result))
+    exit()
 
-# All-time stats
-cursor = conn.execute("SELECT COUNT(*) as total, SUM(CASE WHEN tool_name = 'Write' THEN 1 ELSE 0 END) as writes, SUM(CASE WHEN tool_name = 'Edit' THEN 1 ELSE 0 END) as edits, SUM(CASE WHEN tool_name = 'Bash' THEN 1 ELSE 0 END) as bash, SUM(CASE WHEN tool_name = 'Read' THEN 1 ELSE 0 END) as reads FROM tool_events")
-row = cursor.fetchone()
-result["allTime"] = {
-    "total": row["total"],
-    "writes": row["writes"] or 0,
-    "edits": row["edits"] or 0,
-    "bash": row["bash"] or 0,
-    "reads": row["reads"] or 0
-}
+# Load all events
+events = []
+try:
+    with open(events_file) as f:
+        for line in f:
+            if line.strip():
+                try:
+                    events.append(json.loads(line))
+                except:
+                    pass
+except:
+    pass
 
-# By tool
-cursor = conn.execute("SELECT tool_name, COUNT(*) as count FROM tool_events GROUP BY tool_name ORDER BY count DESC")
-result["byTool"] = {row["tool_name"]: row["count"] for row in cursor.fetchall()}
+# Count all-time by tool
+tool_counts = defaultdict(int)
+daily_counts = defaultdict(lambda: {"total": 0, "writes": 0, "edits": 0, "bash": 0})
 
-# Daily stats (last 14 days)
 now = datetime.now()
-two_weeks_ago = int((now - timedelta(days=14)).timestamp())
-cursor = conn.execute("SELECT date(timestamp, 'unixepoch') as day, COUNT(*) as total, SUM(CASE WHEN tool_name = 'Write' THEN 1 ELSE 0 END) as writes, SUM(CASE WHEN tool_name = 'Edit' THEN 1 ELSE 0 END) as edits, SUM(CASE WHEN tool_name = 'Bash' THEN 1 ELSE 0 END) as bash, SUM(CASE WHEN tool_name = 'Read' THEN 1 ELSE 0 END) as reads FROM tool_events WHERE timestamp > ? GROUP BY day ORDER BY day", (two_weeks_ago,))
+all_time_start = (now - timedelta(days=365)).timestamp()  # Up to 1 year of data
 
-daily_data = {row["day"]: {
-    "date": row["day"],
-    "total": row["total"],
-    "writes": row["writes"] or 0,
-    "edits": row["edits"] or 0,
-    "bash": row["bash"] or 0,
-    "reads": row["reads"] or 0
-} for row in cursor.fetchall()}
+for e in events:
+    # Get timestamp (normalize ms to seconds)
+    ts = e.get("ts") or e.get("timestamp", 0)
+    try:
+        ts = float(ts)
+        if ts > 1e12:
+            ts = ts / 1000  # Convert milliseconds to seconds
+    except:
+        continue  # Skip invalid timestamps
 
-result["daily"] = [
-    daily_data.get((now - timedelta(days=i)).strftime("%Y-%m-%d"), {
-        "date": (now - timedelta(days=i)).strftime("%Y-%m-%d"),
-        "total": 0,
-        "writes": 0,
-        "edits": 0,
-        "bash": 0,
-        "reads": 0
+    tool = str(e.get("tool", "")).lower()
+    event_type = e.get("type", "")
+
+    # Only count tool_use events
+    if event_type != "tool_use" and not tool:
+        continue
+
+    # All-time counts
+    result["allTime"]["total"] += 1
+    if tool == "write":
+        result["allTime"]["writes"] += 1
+    elif tool == "edit":
+        result["allTime"]["edits"] += 1
+    elif tool == "bash":
+        result["allTime"]["bash"] += 1
+    elif tool == "read":
+        result["allTime"]["reads"] += 1
+
+    tool_counts[tool] += 1
+
+    # Daily counts (all time)
+    if ts > all_time_start and ts > 0:
+        try:
+            day = datetime.fromtimestamp(ts).strftime("%Y-%m-%d")
+            daily_counts[day]["total"] += 1
+            if tool == "write":
+                daily_counts[day]["writes"] += 1
+            elif tool == "edit":
+                daily_counts[day]["edits"] += 1
+            elif tool == "bash":
+                daily_counts[day]["bash"] += 1
+        except:
+            pass
+
+# Build daily array (all days with data, sorted)
+result["daily"] = []
+for day in sorted(daily_counts.keys()):
+    d = daily_counts[day]
+    result["daily"].append({
+        "date": day,
+        "total": d["total"],
+        "writes": d["writes"],
+        "edits": d["edits"],
+        "bash": d["bash"]
     })
-    for i in range(13, -1, -1)
-]
 
-conn.close()
+result["byTool"] = dict(tool_counts)
+
 print(json.dumps(result))
 DAILYEOF
 
@@ -1078,13 +1114,13 @@ echo "  🔧 Loading tool usage stats..."
 TOOL_USAGE_TMP="/tmp/tool-usage-$$.json"
 python3 << 'TOOLEOF' > "$TOOL_USAGE_TMP"
 import json
-import sqlite3
 from pathlib import Path
 from datetime import datetime, timedelta
 from collections import Counter, defaultdict
 
 home = Path.home()
-db_path = home / ".claude/data/claude.db"
+tool_file = home / ".claude/data/tool-usage.jsonl"
+success_file = home / ".claude/data/tool-success.jsonl"
 
 result = {
     "total": 0,
@@ -1094,49 +1130,74 @@ result = {
     "topTools": []
 }
 
-# Connect to SQLite
-conn = sqlite3.connect(str(db_path))
-conn.row_factory = sqlite3.Row
+# Load tool usage
+tools = []
+if tool_file.exists():
+    try:
+        with open(tool_file) as f:
+            for line in f:
+                if line.strip():
+                    try:
+                        tools.append(json.loads(line))
+                    except:
+                        pass
+    except:
+        pass
 
-# Get total tool calls
-cursor = conn.execute("SELECT COUNT(*) as count FROM tool_events")
-result["total"] = cursor.fetchone()["count"]
+result["total"] = len(tools)
 
-# Count by tool (top 20)
-cursor = conn.execute("SELECT tool_name, COUNT(*) as count FROM tool_events GROUP BY tool_name ORDER BY count DESC LIMIT 20")
-result["byTool"] = {row["tool_name"]: row["count"] for row in cursor.fetchall()}
+# Count by tool
+tool_counts = Counter(t.get("tool", "unknown") for t in tools)
+result["byTool"] = dict(tool_counts.most_common(20))
+result["topTools"] = [{"tool": t, "count": c} for t, c in tool_counts.most_common(10)]
 
-# Top tools (top 10 for display)
-cursor = conn.execute("SELECT tool_name, COUNT(*) as count FROM tool_events GROUP BY tool_name ORDER BY count DESC LIMIT 10")
-result["topTools"] = [{"tool": row["tool_name"], "count": row["count"]} for row in cursor.fetchall()]
+# Load success rates (format: {date, tool, success: count, failure: count, total: count})
+if success_file.exists():
+    success_data = defaultdict(lambda: {"success": 0, "failure": 0, "total": 0})
+    failure_patterns = []
+    try:
+        with open(success_file) as f:
+            for line in f:
+                if line.strip():
+                    try:
+                        entry = json.loads(line)
+                        tool = entry.get("tool", "unknown")
+                        # Aggregate format: success/failure are counts
+                        success_data[tool]["success"] += entry.get("success", 0)
+                        success_data[tool]["failure"] += entry.get("failure", 0)
+                        success_data[tool]["total"] += entry.get("total", 0)
+                        # Track failure patterns
+                        if entry.get("failure", 0) > 0:
+                            failure_patterns.append({
+                                "date": entry.get("date", "unknown"),
+                                "tool": tool,
+                                "failures": entry.get("failure", 0)
+                            })
+                    except:
+                        pass
+    except:
+        pass
 
-# Success rates by tool
-cursor = conn.execute("SELECT tool_name, COUNT(*) as total, SUM(CASE WHEN success = 1 THEN 1 ELSE 0 END) as success_count, SUM(CASE WHEN success = 0 THEN 1 ELSE 0 END) as failure_count FROM tool_events GROUP BY tool_name")
-success_data = {}
-for row in cursor.fetchall():
-    tool = row["tool_name"]
-    total = row["total"]
-    success_count = row["success_count"]
-    success_rate = round(success_count / total * 100, 1) if total > 0 else 100
-    result["successRates"][tool] = success_rate
-
-# Total failures
-cursor = conn.execute("SELECT COUNT(*) as count FROM tool_events WHERE success = 0")
-result["totalFailures"] = cursor.fetchone()["count"]
+    result["successRates"] = {
+        tool: round(data["success"] / data["total"] * 100, 1) if data["total"] > 0 else 100
+        for tool, data in success_data.items()
+    }
+    result["failurePatterns"] = sorted(failure_patterns, key=lambda x: -x.get("failures", 0))[:20]
+    result["totalFailures"] = sum(d["failure"] for d in success_data.values())
 
 # Daily usage (last 7 days)
 now = datetime.now()
-week_ago = int((now - timedelta(days=7)).timestamp())
-cursor = conn.execute("SELECT date(timestamp, 'unixepoch') as day, COUNT(*) as count FROM tool_events WHERE timestamp > ? GROUP BY day ORDER BY day", (week_ago,))
-daily_data = {row["day"]: row["count"] for row in cursor.fetchall()}
+week_ago = (now - timedelta(days=7)).timestamp()
+daily = defaultdict(int)
+for t in tools:
+    ts = t.get("ts", 0)
+    if ts > week_ago:
+        day = datetime.fromtimestamp(ts).strftime("%Y-%m-%d")
+        daily[day] += 1
 
-result["daily"] = [
-    {"date": (now - timedelta(days=i)).strftime("%Y-%m-%d"),
-     "count": daily_data.get((now - timedelta(days=i)).strftime("%Y-%m-%d"), 0)}
-    for i in range(6, -1, -1)
-]
+result["daily"] = [{"date": d, "count": daily.get(d, 0)}
+                   for d in [(now - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(6, -1, -1)]]
 
-conn.close()
 print(json.dumps(result))
 TOOLEOF
 
