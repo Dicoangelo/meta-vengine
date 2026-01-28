@@ -30,17 +30,22 @@ EOF
 mkdir -p "$(dirname "$DATA_FILE")"
 echo "$JSON_ENTRY" >> "$DATA_FILE"
 
-# Also write to SQLite via dual-write library
+# Also write to SQLite using sqlite_hooks
 python3 << PYEOF
 import sys
-sys.path.insert(0, '$HOME/.claude/hooks')
-from dual_write_lib import log_git_activity
-
-log_git_activity(
-    repo="$REPO_NAME",
-    commit_hash="${COMMIT_HASH:0:8}",
-    message="$(echo "$COMMIT_MSG" | sed 's/"/\\"/g' | head -c 200)"
-)
+sys.path.insert(0, '$HOME/.claude/scripts')
+try:
+    from sqlite_hooks import log_git_commit
+    log_git_commit(
+        repo="$REPO_NAME",
+        branch="$BRANCH",
+        commit_hash="${COMMIT_HASH:0:8}",
+        message="$(echo "$COMMIT_MSG" | sed 's/"/\\"/g' | head -c 200)",
+        files_changed=$FILES_CHANGED
+    )
+except Exception as e:
+    # Fail silently to not block commits
+    pass
 PYEOF
 
 # Log

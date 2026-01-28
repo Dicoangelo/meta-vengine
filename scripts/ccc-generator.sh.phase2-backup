@@ -937,13 +937,12 @@ echo "  📝 Loading git activity..."
 GIT_ACTIVITY_TMP="/tmp/git-activity-$$.json"
 python3 << 'GITEOF' > "$GIT_ACTIVITY_TMP"
 import json
-import sqlite3
 from pathlib import Path
 from datetime import datetime, timedelta
 from collections import Counter, defaultdict
 
 home = Path.home()
-db_path = home / ".claude/data/claude.db"
+git_file = home / ".claude/data/git-activity.jsonl"
 
 result = {
     "commits": [],
@@ -953,46 +952,59 @@ result = {
     "topAuthors": []
 }
 
-conn = sqlite3.connect(str(db_path))
-conn.row_factory = sqlite3.Row
+if not git_file.exists():
+    print(json.dumps(result))
+    exit()
 
-# Get all git events
-cursor = conn.execute("SELECT * FROM git_events ORDER BY timestamp DESC LIMIT 100")
-commits = [dict(row) for row in cursor.fetchall()]
+commits = []
+try:
+    with open(git_file) as f:
+        for line in f:
+            if line.strip():
+                try:
+                    commits.append(json.loads(line))
+                except:
+                    pass
+except:
+    pass
 
-# Calculate stats
+if not commits:
+    print(json.dumps(result))
+    exit()
+
 now = datetime.now()
-today_start = int(datetime(now.year, now.month, now.day).timestamp())
-week_start = int((now - timedelta(days=7)).timestamp())
+today = now.strftime("%Y-%m-%d")
+week_ago = (now - timedelta(days=7)).timestamp()
 
+# Stats
 result["stats"]["total"] = len(commits)
+result["stats"]["today"] = sum(1 for c in commits if c.get("date", "").startswith(today))
+result["stats"]["week"] = sum(1 for c in commits if c.get("ts", 0) > week_ago)
+result["stats"]["insertions"] = sum(c.get("insertions", 0) for c in commits)
+result["stats"]["deletions"] = sum(c.get("deletions", 0) for c in commits)
 
-for commit in commits:
-    ts = commit.get("timestamp", 0)
+# By repo
+repo_counts = Counter(c.get("repo", "unknown") for c in commits)
+result["byRepo"] = dict(repo_counts.most_common(10))
 
-    if ts >= today_start:
-        result["stats"]["today"] += 1
-    if ts >= week_start:
-        result["stats"]["week"] += 1
+# By day (last 7 days)
+daily = defaultdict(int)
+for c in commits:
+    ts = c.get("ts", 0)
+    if ts > week_ago:
+        day = datetime.fromtimestamp(ts).strftime("%Y-%m-%d")
+        daily[day] += 1
 
-    result["stats"]["insertions"] += commit.get("additions", 0) or 0
-    result["stats"]["deletions"] += commit.get("deletions", 0) or 0
+result["byDay"] = [{"date": d, "commits": daily.get(d, 0)}
+                   for d in [(now - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(6, -1, -1)]]
 
-    repo = commit.get("repo", "unknown")
-    result["byRepo"][repo] = result["byRepo"].get(repo, 0) + 1
-
-result["commits"] = commits[:20]
-
-# Daily commits (last 30 days)
-thirty_days_ago = int((now - timedelta(days=30)).timestamp())
-cursor = conn.execute("SELECT date(timestamp, 'unixepoch') as day, COUNT(*) as count FROM git_events WHERE timestamp > ? GROUP BY day ORDER BY day DESC LIMIT 30", (thirty_days_ago,))
-result["byDay"] = [{"date": row["day"], "count": row["count"]} for row in cursor.fetchall()]
+# Recent commits (last 10)
+result["commits"] = sorted(commits, key=lambda x: x.get("ts", 0), reverse=True)[:10]
 
 # Top authors
-cursor = conn.execute("SELECT author, COUNT(*) as count FROM git_events WHERE author IS NOT NULL GROUP BY author ORDER BY count DESC LIMIT 5")
-result["topAuthors"] = [{"author": row["author"], "commits": row["count"]} for row in cursor.fetchall()]
+author_counts = Counter(c.get("author", "unknown") for c in commits)
+result["topAuthors"] = [{"author": a, "commits": n} for a, n in author_counts.most_common(5)]
 
-conn.close()
 print(json.dumps(result))
 GITEOF
 
