@@ -149,5 +149,61 @@ for ((i=1; i<=$#; i++)); do
   args+=("$arg")
 done
 
-# Invoke with selected model
-exec "$CLAUDE_BIN" --model "$model" -p "$query" "${args[@]}"
+# ═══════════════════════════════════════════════════════════════════════════
+# AUTO-ESCALATION: Retry with Sonnet if Haiku fails
+# ═══════════════════════════════════════════════════════════════════════════
+
+ESCALATION_LOG="$HOME/.claude/data/escalations.jsonl"
+
+# For Haiku, capture output to detect failure patterns
+if [[ "$model" == "haiku" ]]; then
+  # Create temp file for output
+  tmp_output=$(mktemp)
+
+  # Run Haiku and capture exit code + output
+  "$CLAUDE_BIN" --model "$model" -p "$query" "${args[@]}" 2>&1 | tee "$tmp_output"
+  exit_code=${PIPESTATUS[0]}
+
+  # Check for failure patterns that warrant escalation
+  should_escalate=false
+  escalation_reason=""
+
+  # Pattern 1: Non-zero exit code
+  if [[ $exit_code -ne 0 ]]; then
+    should_escalate=true
+    escalation_reason="exit_code_$exit_code"
+  fi
+
+  # Pattern 2: Capability limitation phrases in output
+  if grep -qi "I cannot\|I can't\|beyond my\|I'm not able\|I don't have the capability\|too complex\|unable to" "$tmp_output" 2>/dev/null; then
+    should_escalate=true
+    escalation_reason="capability_limitation"
+  fi
+
+  # Pattern 3: Very short output (< 50 chars) for non-trivial query
+  output_len=$(wc -c < "$tmp_output" 2>/dev/null || echo "0")
+  if [[ $output_len -lt 50 ]] && [[ ${#query} -gt 20 ]]; then
+    should_escalate=true
+    escalation_reason="truncated_response"
+  fi
+
+  # Clean up temp file
+  rm -f "$tmp_output"
+
+  # Escalate to Sonnet if needed
+  if [[ "$should_escalate" == "true" ]]; then
+    echo "" >&2
+    echo "[ESCALATING: $escalation_reason] Retrying with sonnet..." >&2
+
+    # Log escalation
+    echo "{\"ts\":$(date +%s),\"from\":\"haiku\",\"to\":\"sonnet\",\"reason\":\"$escalation_reason\",\"query_len\":${#query}}" >> "$ESCALATION_LOG" 2>/dev/null
+
+    # Retry with Sonnet
+    exec "$CLAUDE_BIN" --model "sonnet" -p "$query" "${args[@]}"
+  fi
+
+  exit $exit_code
+else
+  # Non-Haiku models: direct exec
+  exec "$CLAUDE_BIN" --model "$model" -p "$query" "${args[@]}"
+fi
