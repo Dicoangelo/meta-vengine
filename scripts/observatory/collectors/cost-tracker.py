@@ -11,8 +11,10 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 import glob
 
-# Import centralized pricing
+# Import centralized pricing and timestamp normalization
 sys.path.insert(0, str(Path.home() / ".claude/config"))
+sys.path.insert(0, str(Path.home() / ".claude/scripts"))
+from lib.timestamps import safe_fromtimestamp
 from pricing import PRICING as _PRICING, SUBSCRIPTION
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -175,7 +177,7 @@ def load_costs(days: int = 30) -> List[Dict]:
     with open(DATA_FILE) as f:
         entries = [json.loads(line) for line in f if line.strip()]
 
-    return [e for e in entries if datetime.fromtimestamp(e['ts']) > cutoff]
+    return [e for e in entries if safe_fromtimestamp(e['ts']) and safe_fromtimestamp(e['ts']) > cutoff]
 
 def generate_report(days: int = 30, format: str = "text"):
     """Generate cost report"""
@@ -193,7 +195,7 @@ def generate_report(days: int = 30, format: str = "text"):
     # Daily breakdown
     daily_costs = {}
     for c in costs:
-        date = datetime.fromtimestamp(c['ts']).strftime('%Y-%m-%d')
+        date = safe_fromtimestamp(c['ts']).strftime('%Y-%m-%d') if safe_fromtimestamp(c['ts']) else 'unknown'
         daily_costs[date] = daily_costs.get(date, 0) + c.get('cost_usd', 0)
 
     # Model breakdown

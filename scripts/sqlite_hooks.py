@@ -76,7 +76,8 @@ def log_self_heal(error_pattern: str, fix_applied: Optional[str] = None,
                   success: bool = True, execution_time_ms: Optional[int] = None,
                   error_message: Optional[str] = None,
                   context: Optional[Dict[str, Any]] = None,
-                  severity: str = 'medium') -> bool:
+                  severity: str = 'medium',
+                  category: str = 'unknown') -> bool:
     """
     Log a self-healing event to SQLite
 
@@ -101,10 +102,10 @@ def log_self_heal(error_pattern: str, fix_applied: Optional[str] = None,
         cursor.execute("""
             INSERT INTO self_heal_events
             (timestamp, error_pattern, fix_applied, success,
-             execution_time_ms, error_message, context, severity)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+             execution_time_ms, error_message, context, severity, category)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (int(time.time()), error_pattern, fix_applied, 1 if success else 0,
-              execution_time_ms, error_message, context_json, severity))
+              execution_time_ms, error_message, context_json, severity, category))
 
         conn.commit()
         conn.close()

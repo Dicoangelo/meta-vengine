@@ -44,20 +44,20 @@ def extract_queries_from_transcript(transcript_path):
                         msg = entry.get('message', {})
                         content = msg.get('content', '')
                         if isinstance(content, str) and len(content) > 5:
-                            # Extract timestamp
+                            # Extract timestamp (use seconds, not milliseconds)
                             ts = entry.get('timestamp', '')
                             if isinstance(ts, str):
                                 try:
                                     dt = datetime.fromisoformat(ts.replace('Z', '+00:00'))
-                                    ts_ms = int(dt.timestamp() * 1000)
+                                    ts_sec = int(dt.timestamp())
                                 except:
-                                    ts_ms = int(time.time() * 1000)
+                                    ts_sec = int(time.time())
                             else:
-                                ts_ms = int(time.time() * 1000)
+                                ts_sec = int(time.time())
 
                             queries.append({
-                                'timestamp': ts_ms,
-                                'datetime': datetime.fromtimestamp(ts_ms/1000).isoformat() + 'Z',
+                                'timestamp': ts_sec,
+                                'datetime': datetime.fromtimestamp(ts_sec).isoformat() + 'Z',
                                 'type': 'query',
                                 'query': content[:500],  # Truncate long queries
                                 'source': 'transcript'

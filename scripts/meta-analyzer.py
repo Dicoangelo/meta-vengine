@@ -33,6 +33,10 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 import hashlib
 
+# Import timestamp normalization
+sys.path.insert(0, str(Path.home() / ".claude/scripts"))
+from lib.timestamps import normalize_ts
+
 # ═══════════════════════════════════════════════════════════════════════════
 # CONFIGURATION
 # ═══════════════════════════════════════════════════════════════════════════
@@ -302,7 +306,7 @@ def analyze_recovery_patterns(outcomes: List[Dict[str, Any]]) -> Dict[str, Any]:
 def aggregate_telemetry(days: int = 7) -> Dict[str, Any]:
     """Aggregate all telemetry data sources into unified view."""
     cutoff = datetime.now() - timedelta(days=days)
-    cutoff_ts = cutoff.timestamp() * 1000  # JS timestamps
+    cutoff_ts = cutoff.timestamp()  # Use seconds (normalized)
 
     stats = load_stats_cache()
     dq_scores = load_dq_scores()
@@ -310,9 +314,9 @@ def aggregate_telemetry(days: int = 7) -> Dict[str, Any]:
     patterns = load_detected_patterns()
     identity = load_identity()
 
-    # Filter by time window
-    recent_dq = [s for s in dq_scores if s.get('ts', 0) > cutoff_ts]
-    recent_activity = [a for a in activity if a.get('timestamp', 0) > cutoff_ts]
+    # Filter by time window (normalize timestamps for comparison)
+    recent_dq = [s for s in dq_scores if (normalize_ts(s.get('ts', 0)) or 0) > cutoff_ts]
+    recent_activity = [a for a in activity if (normalize_ts(a.get('timestamp', 0)) or 0) > cutoff_ts]
 
     # Compute derived metrics
     total_messages = stats.get('totalMessages', 0)
@@ -987,7 +991,7 @@ def evaluate_effectiveness(mod_id: str, sessions: int = 10) -> Dict[str, Any]:
     if not applied_at:
         return {"success": False, "error": "Modification not applied"}
 
-    applied_ts = datetime.fromisoformat(applied_at).timestamp() * 1000
+    applied_ts = datetime.fromisoformat(applied_at).timestamp()  # Use seconds
 
     # Split scores into before/after
     before = [s for s in dq_scores if s.get('ts', 0) < applied_ts]

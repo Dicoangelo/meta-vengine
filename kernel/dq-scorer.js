@@ -409,7 +409,7 @@ function route(query) {
 
   // Log the decision with enhanced metadata
   const decision = {
-    ts: Date.now(),
+    ts: Math.floor(Date.now() / 1000),  // Unix seconds (not ms)
     query_hash: crypto.createHash('md5').update(query).digest('hex'),
     query: query.slice(0, 200), // Truncate for storage
     query_preview: query.slice(0, 50),
