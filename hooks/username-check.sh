@@ -9,7 +9,7 @@ fixed=0
 for repo in "${REPOS[@]}"; do
     if [ -d "$repo/.git" ]; then
         remote_url=$(git -C "$repo" remote get-url origin 2>/dev/null)
-        if echo "$remote_url" | grep -qi "github.com/dicoangelo" | grep -v "$CORRECT_USERNAME"; then
+        if echo "$remote_url" | grep -qi "github.com/dicoangelo" && ! echo "$remote_url" | grep -q "$CORRECT_USERNAME"; then
             # Fix it silently
             fixed_url=$(echo "$remote_url" | sed "s/github.com\/[dD]icoangelo/github.com\/$CORRECT_USERNAME/gi")
             git -C "$repo" remote set-url origin "$fixed_url" 2>/dev/null
