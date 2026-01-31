@@ -831,6 +831,19 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from collections import Counter, defaultdict
 
+# Inline timestamp normalization (ms to seconds)
+MS_THRESHOLD = 4102444800  # Year 2100 in seconds
+def safe_fromtimestamp(ts):
+    if ts is None: return None
+    if isinstance(ts, str):
+        try:
+            return datetime.fromisoformat(ts.replace('Z', '+00:00'))
+        except: return None
+    ts = float(ts)
+    if ts > MS_THRESHOLD: ts = ts / 1000
+    try: return datetime.fromtimestamp(int(ts))
+    except: return None
+
 home = Path.home()
 outcomes_file = home / ".claude" / "data" / "recovery-outcomes.jsonl"
 
@@ -889,8 +902,8 @@ timeline = defaultdict(lambda: {"autoFix": 0, "suggested": 0})
 for o in outcomes:
     ts = o.get("ts", 0)
     if ts:
-        date = datetime.fromtimestamp(ts)
-        if (now - date).days <= 7:
+        date = safe_fromtimestamp(ts)
+        if date and (now - date).days <= 7:
             day_str = date.strftime("%m/%d")
             if o.get("auto", False):
                 timeline[day_str]["autoFix"] += 1

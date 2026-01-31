@@ -9,10 +9,15 @@ Analyzes activity-events.jsonl to detect:
 """
 
 import json
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional
 from collections import defaultdict
+
+# Import timestamp normalization
+sys.path.insert(0, str(Path.home() / ".claude/scripts"))
+from lib.timestamps import normalize_ts
 
 
 class WindowTracker:
@@ -38,12 +43,12 @@ class WindowTracker:
 
         windows = []
         current_window = None
-        gap_threshold_ms = 2 * 60 * 60 * 1000  # 2 hours
+        gap_threshold_s = 2 * 60 * 60  # 2 hours in seconds
 
         for i, event in enumerate(events):
-            ts = event.get("timestamp", 0)
-            if isinstance(ts, str):
-                ts = int(datetime.fromisoformat(ts.replace("Z", "+00:00")).timestamp() * 1000)
+            ts = normalize_ts(event.get("timestamp", 0))
+            if ts is None:
+                continue
 
             if current_window is None:
                 current_window = {
@@ -56,9 +61,9 @@ class WindowTracker:
             else:
                 gap = ts - current_window["end"]
 
-                if gap > gap_threshold_ms:
+                if gap > gap_threshold_s:
                     # Window boundary detected
-                    current_window["duration_ms"] = current_window["end"] - current_window["start"]
+                    current_window["duration_s"] = current_window["end"] - current_window["start"]
                     windows.append(current_window)
 
                     current_window = {
@@ -80,7 +85,7 @@ class WindowTracker:
 
         # Close final window
         if current_window:
-            current_window["duration_ms"] = current_window["end"] - current_window["start"]
+            current_window["duration_s"] = current_window["end"] - current_window["start"]
             windows.append(current_window)
 
         return windows
@@ -102,7 +107,7 @@ class WindowTracker:
             start_ts = window["start"]
             start_dt = datetime.fromtimestamp(start_ts / 1000)
             hour_counts[start_dt.hour] += 1
-            durations.append(window.get("duration_ms", 0))
+            durations.append(window.get("duration_s", 0))
 
         # Calculate reliability scores
         total_windows = len(windows)
@@ -288,7 +293,7 @@ if __name__ == "__main__":
             print(f"Detected {len(windows)} windows")
             for w in windows[-5:]:
                 start = datetime.fromtimestamp(w["start"] / 1000)
-                duration = w.get("duration_ms", 0) / 60000
+                duration = w.get("duration_s", 0) / 60  # seconds to minutes
                 print(f"  {start.isoformat()}: {duration:.0f}m, {w['event_count']} events")
 
         elif cmd == "analyze":

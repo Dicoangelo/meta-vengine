@@ -7,9 +7,14 @@ Provides DQ-scored analysis of capacity outlook.
 """
 
 import json
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Tuple
+
+# Import timestamp normalization
+sys.path.insert(0, str(Path.home() / ".claude/scripts"))
+from lib.timestamps import safe_fromtimestamp
 
 
 class CapacityForecastAgent:
@@ -102,10 +107,9 @@ class CapacityForecastAgent:
 
         for event in activity:
             ts_val = event.get("timestamp", "")
-            if isinstance(ts_val, (int, float)):
-                ts = datetime.fromtimestamp(ts_val)
-            else:
-                ts = datetime.fromisoformat(str(ts_val).replace("Z", "+00:00"))
+            ts = safe_fromtimestamp(ts_val)
+            if ts is None:
+                continue
             hour_key = ts.strftime("%Y-%m-%d-%H")
 
             tokens = event.get("tokens", {})
@@ -246,12 +250,8 @@ class CapacityForecastAgent:
                     event = json.loads(line)
                     ts_val = event.get("timestamp", "")
                     if ts_val:
-                        # Handle both int (unix timestamp) and string (ISO format)
-                        if isinstance(ts_val, (int, float)):
-                            ts = datetime.fromtimestamp(ts_val)
-                        else:
-                            ts = datetime.fromisoformat(str(ts_val).replace("Z", "+00:00"))
-                        if ts >= cutoff:
+                        ts = safe_fromtimestamp(ts_val)
+                        if ts and ts >= cutoff:
                             events.append(event)
                 except (json.JSONDecodeError, ValueError, OSError):
                     continue

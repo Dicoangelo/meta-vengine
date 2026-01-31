@@ -187,24 +187,25 @@ def backfill_self_heal_events(conn: sqlite3.Connection, stats: Phase2Stats):
                 execution_time_ms = event.get('duration', event.get('execution_time_ms'))
                 error_message = event.get('error', event.get('error_message'))
                 severity = event.get('severity', 'medium')
+                category = event.get('category', 'unknown')
 
                 # Store remaining data as context JSON
                 context = {k: v for k, v in event.items()
                           if k not in ('timestamp', 'ts', 'pattern', 'error_pattern',
                                       'fix', 'fix_applied', 'success', 'fixed',
                                       'duration', 'execution_time_ms', 'error',
-                                      'error_message', 'severity')}
+                                      'error_message', 'severity', 'category')}
                 context_json = json.dumps(context) if context else None
 
                 batch.append((timestamp, error_pattern, fix_applied, success,
-                             execution_time_ms, error_message, context_json, severity))
+                             execution_time_ms, error_message, context_json, severity, category))
 
                 if len(batch) >= 500:
                     cursor.executemany("""
                         INSERT INTO self_heal_events
                         (timestamp, error_pattern, fix_applied, success,
-                         execution_time_ms, error_message, context, severity)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                         execution_time_ms, error_message, context, severity, category)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """, batch)
                     stats.stats['self_heal_events']['inserted'] += len(batch)
                     batch = []
@@ -216,8 +217,8 @@ def backfill_self_heal_events(conn: sqlite3.Connection, stats: Phase2Stats):
             cursor.executemany("""
                 INSERT INTO self_heal_events
                 (timestamp, error_pattern, fix_applied, success,
-                 execution_time_ms, error_message, context, severity)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                 execution_time_ms, error_message, context, severity, category)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, batch)
             stats.stats['self_heal_events']['inserted'] += len(batch)
 

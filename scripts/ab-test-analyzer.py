@@ -20,6 +20,10 @@ from datetime import datetime, timedelta
 from collections import defaultdict
 from typing import Dict, List, Optional
 
+# Import timestamp normalization
+sys.path.insert(0, str(Path.home() / ".claude/scripts"))
+from lib.timestamps import normalize_ts
+
 COEVO_DQ_FILE = Path.home() / ".claude" / "kernel" / "dq-scores.jsonl"
 FEEDBACK_FILE = Path.home() / ".claude" / "data" / "ai-routing.log"
 
@@ -41,14 +45,16 @@ def load_routing_decisions(days: int = 30) -> List[Dict]:
         return []
 
     cutoff = datetime.now() - timedelta(days=days)
-    cutoff_ts = int(cutoff.timestamp() * 1000)
+    cutoff_ts = int(cutoff.timestamp())  # Use seconds
 
     decisions = []
     with open(COEVO_DQ_FILE) as f:
         for line in f:
             try:
                 record = json.loads(line)
-                if record.get("ts", 0) >= cutoff_ts:
+                # Normalize timestamp for comparison
+                record_ts = normalize_ts(record.get("ts", 0)) or 0
+                if record_ts >= cutoff_ts:
                     # Only include A/B test records
                     if record.get("ab_test_mode") or record.get("ab_variant"):
                         decisions.append(record)
