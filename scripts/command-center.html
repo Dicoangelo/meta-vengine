@@ -1456,6 +1456,200 @@
     .tier-moderate { background: rgba(255, 204, 0, 0.15); border-color: var(--accent-yellow); }
     .tier-low { background: rgba(255, 123, 84, 0.15); border-color: var(--accent-orange); }
     .tier-critical { background: rgba(255, 77, 106, 0.15); border-color: var(--accent-red); }
+
+    /* 10X POWER DASHBOARD */
+    .power-dashboard {
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(177, 78, 255, 0.05));
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .power-dashboard::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-green));
+    }
+
+    .power-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .power-header h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .power-modes {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .power-mode-btn {
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .power-mode-btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .power-mode-btn.active {
+      background: rgba(0, 217, 255, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .power-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 1200px) {
+      .power-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .power-grid { grid-template-columns: 1fr; }
+    }
+
+    .power-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .power-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .power-card-header h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .power-icon {
+      font-size: 1rem;
+    }
+
+    .cognitive-mode {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .mode-indicator {
+      font-size: 1.2rem;
+    }
+
+    .mode-indicator.morning { color: #ffcc00; }
+    .mode-indicator.peak { color: #00ff88; }
+    .mode-indicator.dip { color: #ff7b54; }
+    .mode-indicator.evening { color: #00d9ff; }
+    .mode-indicator.deep_night { color: #b14eff; }
+
+    .cognitive-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .session-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .session-progress {
+      height: 100%;
+      background: var(--gradient-primary);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .session-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .memory-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .memory-stat span:first-child {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .memory-stat small {
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+    }
+
+    .agent-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .agent-indicator {
+      font-size: 0.9rem;
+    }
+
+    .agent-indicator.running { color: var(--accent-green); }
+    .agent-indicator.stopped { color: var(--text-muted); }
+
+    .power-recommendations {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 204, 0, 0.08);
+      border: 1px solid rgba(255, 204, 0, 0.2);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
   </style>
 </head>
 <body>
@@ -1507,6 +1701,178 @@
           <div class="proactive-content">
             <p id="proactiveContext" style="color:var(--text-secondary);margin-bottom:1rem;"></p>
             <div id="proactiveSuggestions" class="suggestions-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10X POWER DASHBOARD -->
+      <div class="power-dashboard" id="powerDashboard">
+        <div class="power-header">
+          <h2>10x Power Dashboard</h2>
+          <div class="power-modes">
+            <button class="power-mode-btn active" data-mode="quick">Quick</button>
+            <button class="power-mode-btn" data-mode="full">Full</button>
+            <button class="power-mode-btn" data-mode="boost">Boost</button>
+          </div>
+        </div>
+        <div class="power-grid">
+          <!-- Cognitive State -->
+          <div class="power-card cognitive-card">
+            <div class="power-card-header">
+              <span class="power-icon">🧠</span>
+              <h4>Cognitive State</h4>
+            </div>
+            <div class="power-card-body" id="cognitiveState">
+              <div class="cognitive-mode">
+                <span class="mode-indicator" id="cogModeIndicator">●</span>
+                <span id="cogModeLabel">Loading...</span>
+              </div>
+              <div class="cognitive-details">
+                <span class="energy-label">Energy: <strong id="cogEnergy">--</strong></span>
+                <span class="best-for">Best for: <strong id="cogBestFor">--</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Session Status -->
+          <div class="power-card session-card">
+            <div class="power-card-header">
+              <span class="power-icon">📊</span>
+              <h4>Session Status</h4>
+            </div>
+            <div class="power-card-body" id="sessionStatus">
+              <div class="session-bar">
+                <div class="session-progress" id="sessionProgress" style="width:0%"></div>
+              </div>
+              <div class="session-details">
+                <span>Position: <strong id="sessionPosition">--%</strong></span>
+                <span>Budget: <strong id="sessionBudget">--</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Supermemory Quick -->
+          <div class="power-card memory-card">
+            <div class="power-card-header">
+              <span class="power-icon">🧬</span>
+              <h4>Supermemory</h4>
+            </div>
+            <div class="power-card-body" id="memoryQuick">
+              <div class="memory-stat">
+                <span id="memoryDue">0</span>
+                <small>items due</small>
+              </div>
+              <div class="memory-stat">
+                <span id="memoryTotal">0</span>
+                <small>total memories</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Autonomous Agents -->
+          <div class="power-card agents-card">
+            <div class="power-card-header">
+              <span class="power-icon">🤖</span>
+              <h4>Autonomous Agents</h4>
+            </div>
+            <div class="power-card-body" id="agentsStatus">
+              <div class="agent-row">
+                <span class="agent-indicator" id="ralphIndicator">○</span>
+                <span>Ralph TUI: <strong id="ralphStatus">Not running</strong></span>
+              </div>
+              <div class="agent-row">
+                <span class="agent-indicator" id="bgIndicator">○</span>
+                <span>Background: <strong id="bgAgents">0 active</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="power-recommendations" id="powerRecommendations">
+          <span class="power-icon">💡</span>
+          <span id="recommendationText">Loading recommendations...</span>
+        </div>
+
+        <!-- Full Mode Panels (hidden by default) -->
+        <div class="power-extended" id="powerExtended" style="display:none;">
+          <div class="power-grid" style="margin-top:1rem;">
+            <!-- Error Prevention -->
+            <div class="power-card">
+              <div class="power-card-header">
+                <span class="power-icon">🛡️</span>
+                <h4>Error Prevention</h4>
+              </div>
+              <div class="power-card-body" id="errorPrevention">
+                <div class="agent-row">
+                  <span>Auto-fix rate:</span>
+                  <strong id="autoFixRate">--</strong>
+                </div>
+                <div class="agent-row">
+                  <span>Recent fixes:</span>
+                  <strong id="recentFixes">--</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Observatory -->
+            <div class="power-card">
+              <div class="power-card-header">
+                <span class="power-icon">🔭</span>
+                <h4>Observatory</h4>
+              </div>
+              <div class="power-card-body" id="observatoryQuick">
+                <div class="agent-row">
+                  <span>Sessions (7d):</span>
+                  <strong id="obsSessions">--</strong>
+                </div>
+                <div class="agent-row">
+                  <span>Success rate:</span>
+                  <strong id="obsSuccess">--</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boost Mode Panels (hidden by default) -->
+        <div class="power-boost" id="powerBoost" style="display:none;">
+          <div class="power-grid" style="margin-top:1rem;">
+            <!-- Context Packs -->
+            <div class="power-card">
+              <div class="power-card-header">
+                <span class="power-icon">📦</span>
+                <h4>Context Packs</h4>
+              </div>
+              <div class="power-card-body" id="contextPacks">
+                <div class="agent-row">
+                  <span>Active packs:</span>
+                  <strong id="activePacks">--</strong>
+                </div>
+                <div class="agent-row">
+                  <span>Tokens saved:</span>
+                  <strong id="tokensSaved">--</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Model Routing -->
+            <div class="power-card">
+              <div class="power-card-header">
+                <span class="power-icon">🎯</span>
+                <h4>Model Routing</h4>
+              </div>
+              <div class="power-card-body" id="modelRouting">
+                <div class="agent-row">
+                  <span>Recommended:</span>
+                  <strong id="recommendedModel">--</strong>
+                </div>
+                <div class="agent-row">
+                  <span>DQ Score:</span>
+                  <strong id="dqScore">--</strong>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -3910,8 +4276,179 @@
         }
       }
 
+      // Render 10x Power Dashboard
+      renderPowerDashboard();
+
       // Render Observatory Tabs
       renderObservatoryTabs();
+    }
+
+    // 10x Power Dashboard Rendering
+    function renderPowerDashboard() {
+      // Cognitive State - read from actual COGNITIVE_DATA structure
+      const cognitive = COGNITIVE_DATA || {};
+      const currentState = cognitive.current_state || {};
+      const mode = currentState.mode || cognitive.mode || 'unknown';
+      const energyLevel = currentState.energy_level || 0.5;
+      const recommendedTasks = currentState.recommended_tasks || [];
+      const hour = new Date().getHours();
+
+      // Use actual data if available, fallback to time-based calculation
+      let displayMode = mode !== 'unknown' ? mode : null;
+      let energy = energyLevel > 0.7 ? 'High' : energyLevel > 0.4 ? 'Medium' : 'Low';
+      let bestFor = recommendedTasks.length > 0 ? recommendedTasks.slice(0, 2).join(', ') : 'General tasks';
+
+      // Fallback to time-based if no cognitive data
+      if (!displayMode) {
+        if (hour >= 5 && hour < 9) {
+          displayMode = 'morning';
+          energy = 'High';
+          bestFor = 'Planning, reviews';
+        } else if (hour >= 9 && hour < 12) {
+          displayMode = 'peak';
+          energy = 'Maximum';
+          bestFor = 'Complex coding';
+        } else if (hour >= 12 && hour < 14) {
+          displayMode = 'dip';
+          energy = 'Low';
+          bestFor = 'Reviews, docs';
+        } else if (hour >= 14 && hour < 18) {
+          displayMode = 'peak';
+          energy = 'High';
+          bestFor = 'Implementation';
+        } else if (hour >= 18 && hour < 22) {
+          displayMode = 'evening';
+          energy = 'Medium';
+          bestFor = 'Creative work';
+        } else {
+          displayMode = 'deep_night';
+          energy = 'Variable';
+          bestFor = 'Deep focus';
+        }
+      }
+
+      const modeIndicator = document.getElementById('cogModeIndicator');
+      const modeLabel = document.getElementById('cogModeLabel');
+      const energyEl = document.getElementById('cogEnergy');
+      const bestForEl = document.getElementById('cogBestFor');
+
+      if (modeIndicator) {
+        modeIndicator.className = 'mode-indicator ' + displayMode;
+        modeIndicator.textContent = '●';
+      }
+      if (modeLabel) modeLabel.textContent = displayMode.replace('_', ' ');
+      if (energyEl) energyEl.textContent = energy;
+      if (bestForEl) bestForEl.textContent = bestFor;
+
+      // Session Status
+      const session = SESSION_WINDOW_DATA || {};
+      const position = session.window?.positionPercent || session.window?.position || 0;
+      const budget = session.budget?.utilizationPercent || session.budget?.utilization || 0;
+
+      const progressEl = document.getElementById('sessionProgress');
+      const positionEl = document.getElementById('sessionPosition');
+      const budgetEl = document.getElementById('sessionBudget');
+
+      if (progressEl) progressEl.style.width = position + '%';
+      if (positionEl) positionEl.textContent = position + '%';
+      if (budgetEl) budgetEl.textContent = budget + '% used';
+
+      // Supermemory Quick Stats (field names from ccc-generator.sh)
+      const supermemory = SUPERMEMORY_DATA || {};
+      const dueReviews = supermemory.review?.due_count || supermemory.dueReviews || 0;
+      const totalMemories = supermemory.totals?.memory_items || supermemory.totalMemories || 0;
+
+      const dueEl = document.getElementById('memoryDue');
+      const totalEl = document.getElementById('memoryTotal');
+
+      if (dueEl) dueEl.textContent = dueReviews;
+      if (totalEl) totalEl.textContent = totalMemories;
+
+      // Autonomous Agents (check from sessions data)
+      const sessions = SESSIONS_DATA || {};
+      const activeSessions = sessions.sessions || [];
+      const bgAgents = activeSessions.length;
+      const ralphRunning = activeSessions.some(s => s.cwd?.includes('ralph') || s.model === 'ralph');
+
+      const ralphIndicator = document.getElementById('ralphIndicator');
+      const ralphStatus = document.getElementById('ralphStatus');
+      const bgIndicator = document.getElementById('bgIndicator');
+      const bgAgentsEl = document.getElementById('bgAgents');
+
+      if (ralphIndicator) {
+        ralphIndicator.className = 'agent-indicator ' + (ralphRunning ? 'running' : 'stopped');
+        ralphIndicator.textContent = ralphRunning ? '●' : '○';
+      }
+      if (ralphStatus) ralphStatus.textContent = ralphRunning ? 'Running' : 'Not running';
+      if (bgIndicator) {
+        bgIndicator.className = 'agent-indicator ' + (bgAgents > 0 ? 'running' : 'stopped');
+        bgIndicator.textContent = bgAgents > 0 ? '●' : '○';
+      }
+      if (bgAgentsEl) bgAgentsEl.textContent = bgAgents + ' active';
+
+      // Recommendations
+      const recEl = document.getElementById('recommendationText');
+      if (recEl) {
+        if (hour >= 9 && hour < 12) {
+          recEl.textContent = 'Peak hours - tackle complex architecture';
+        } else if (hour >= 20 || hour < 2) {
+          recEl.textContent = 'Your peak: 20:00, 02:00 - deep work time';
+        } else if (hour >= 12 && hour < 14) {
+          recEl.textContent = 'Energy dip - good for reviews and documentation';
+        } else {
+          recEl.textContent = 'Consider batching small tasks';
+        }
+      }
+
+      // Power mode buttons - show/hide extended panels
+      document.querySelectorAll('.power-mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.power-mode-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const mode = btn.dataset.mode;
+          const extendedEl = document.getElementById('powerExtended');
+          const boostEl = document.getElementById('powerBoost');
+
+          if (mode === 'quick') {
+            extendedEl.style.display = 'none';
+            boostEl.style.display = 'none';
+          } else if (mode === 'full') {
+            extendedEl.style.display = 'block';
+            boostEl.style.display = 'none';
+          } else if (mode === 'boost') {
+            extendedEl.style.display = 'block';
+            boostEl.style.display = 'block';
+          }
+        });
+      });
+
+      // Populate Full mode panels (Error Prevention, Observatory)
+      const recovery = RECOVERY_DATA || {};
+      const autoFixRate = document.getElementById('autoFixRate');
+      const recentFixes = document.getElementById('recentFixes');
+      if (autoFixRate) autoFixRate.textContent = (recovery.stats?.autoFixRate || 0) + '%';
+      if (recentFixes) recentFixes.textContent = (recovery.outcomes?.length || 0) + ' recent';
+
+      const observatory = OBSERVATORY_DATA || {};
+      const obsSessions = document.getElementById('obsSessions');
+      const obsSuccess = document.getElementById('obsSuccess');
+      if (obsSessions) obsSessions.textContent = observatory.metrics?.sessions?.total || '--';
+      if (obsSuccess) obsSuccess.textContent = (observatory.metrics?.sessions?.success_rate || '--') + '%';
+
+      // Populate Boost mode panels (Context Packs, Model Routing)
+      const packs = PACK_DATA || {};
+      const activePacks = document.getElementById('activePacks');
+      const tokensSaved = document.getElementById('tokensSaved');
+      if (activePacks) activePacks.textContent = packs.global?.total_sessions || 0;
+      if (tokensSaved) tokensSaved.textContent = '$' + (packs.global?.value_generated || 0).toFixed(0);
+
+      const routing = ROUTING_DATA || {};
+      // cognitive already declared above
+      const recommendedModel = document.getElementById('recommendedModel');
+      const dqScore = document.getElementById('dqScore');
+      if (recommendedModel) recommendedModel.textContent = (COGNITIVE_DATA?.routing?.recommended_model) || routing.recommendedModel || 'sonnet';
+      if (dqScore) dqScore.textContent = (COEVO_DATA?.dqScore || routing.dataQuality || 0).toFixed(3);
     }
 
     // Observatory Tabs Rendering

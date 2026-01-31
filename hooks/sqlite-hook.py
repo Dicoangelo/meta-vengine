@@ -20,6 +20,8 @@ from pathlib import Path
 
 # Data paths
 DB_PATH = Path.home() / ".agent-core" / "storage" / "antigravity.db"
+CLAUDE_DB_PATH = Path.home() / ".claude" / "data" / "claude.db"  # For CCC dashboard
+SUPERMEMORY_DB_PATH = Path.home() / ".claude" / "memory" / "supermemory.db"  # For 10x dashboard
 DATA_DIR = Path.home() / ".claude" / "data"
 TOOL_USAGE_JSONL = DATA_DIR / "tool-usage.jsonl"
 SESSION_EVENTS_JSONL = DATA_DIR / "session-events.jsonl"
@@ -72,7 +74,7 @@ def log_tool_event(tool: str, file_path: str = None, metadata: dict = None):
             "model": os.environ.get("CLAUDE_MODEL", "sonnet")
         })
 
-        # 1. Write to SQLite with full metadata
+        # 1. Write to antigravity.db (agent-core) with full metadata
         conn = get_db()
         cursor = conn.cursor()
         meta_json = json.dumps(metadata)
@@ -84,6 +86,37 @@ def log_tool_event(tool: str, file_path: str = None, metadata: dict = None):
 
         conn.commit()
         conn.close()
+
+        # 1b. Write to claude.db (CCC dashboard) with its expected schema
+        try:
+            claude_conn = sqlite3.connect(str(CLAUDE_DB_PATH), timeout=5.0)
+            claude_conn.execute("PRAGMA journal_mode=WAL")
+            claude_cursor = claude_conn.cursor()
+            claude_cursor.execute("""
+                INSERT INTO tool_events (timestamp, tool_name, success, duration_ms, error_message, context)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (ts, tool, 1 if success else 0, 0, None if success else "Error detected", session_pwd))
+            claude_conn.commit()
+            claude_conn.close()
+        except Exception:
+            pass  # Don't fail if claude.db write fails
+
+        # 1c. Write to supermemory.db (for 10x dashboard)
+        try:
+            sm_conn = sqlite3.connect(str(SUPERMEMORY_DB_PATH), timeout=5.0)
+            sm_conn.execute("PRAGMA journal_mode=WAL")
+            sm_conn.execute("PRAGMA busy_timeout=5000")
+            sm_cursor = sm_conn.cursor()
+            timestamp_str = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(ts))
+            project = detect_project(session_pwd)
+            sm_cursor.execute("""
+                INSERT INTO tool_usage (timestamp, tool_name, success, project)
+                VALUES (?, ?, ?, ?)
+            """, (timestamp_str, tool, 1 if success else 0, project))
+            sm_conn.commit()
+            sm_conn.close()
+        except Exception:
+            pass  # Don't fail if supermemory.db write fails
 
         # 2. Write to tool-usage.jsonl with details
         tool_usage_entry = {
@@ -192,6 +225,44 @@ def log_session_event(event_type: str):
         }
         with open(ACTIVITY_EVENTS_JSONL, "a") as f:
             f.write(json.dumps(activity_entry) + "\n")
+
+        # 4. Write to supermemory.db (for 10x dashboard)
+        try:
+            sm_conn = sqlite3.connect(str(SUPERMEMORY_DB_PATH), timeout=5.0)
+            sm_conn.execute("PRAGMA journal_mode=WAL")
+            sm_conn.execute("PRAGMA busy_timeout=5000")
+            sm_cursor = sm_conn.cursor()
+            timestamp_str = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(ts))
+            hour = int(time.strftime("%H"))
+            model = os.environ.get("CLAUDE_MODEL", "sonnet")
+
+            # Determine cognitive mode based on hour
+            if 5 <= hour < 9:
+                cog_mode = "morning"
+            elif 9 <= hour < 12 or 14 <= hour < 18:
+                cog_mode = "peak"
+            elif 12 <= hour < 14:
+                cog_mode = "dip"
+            elif 18 <= hour < 22:
+                cog_mode = "evening"
+            else:
+                cog_mode = "deep_night"
+
+            if event_type == "start":
+                sm_cursor.execute("""
+                    INSERT INTO sessions (timestamp, project, cognitive_mode, hour, model)
+                    VALUES (?, ?, ?, ?, ?)
+                """, (timestamp_str, project_id, cog_mode, hour, model))
+            else:  # end
+                sm_cursor.execute("""
+                    INSERT INTO session_ends (timestamp, project)
+                    VALUES (?, ?)
+                """, (timestamp_str, project_id))
+
+            sm_conn.commit()
+            sm_conn.close()
+        except Exception:
+            pass  # Don't fail if supermemory.db write fails
 
     except Exception as e:
         sys.stderr.write(f"session hook error: {e}\n")
