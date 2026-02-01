@@ -13,6 +13,14 @@ MEMORY_DIR="$HOME/.claude/memory"
 mkdir -p "$KERNEL_DIR" "$DATA_DIR" "$MEMORY_DIR"
 
 # ══════════════════════════════════════════════════════════════
+# 0. SESSION TERMINATION MONITOR
+# ══════════════════════════════════════════════════════════════
+
+if [ -f "$SCRIPTS_DIR/session-monitor.sh" ]; then
+    source "$SCRIPTS_DIR/session-monitor.sh"
+fi
+
+# ══════════════════════════════════════════════════════════════
 # 1. INITIALIZE SESSION ENGINE
 # ══════════════════════════════════════════════════════════════
 
