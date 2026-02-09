@@ -205,7 +205,7 @@
       "Bash(git -C ~/agent-core push)",
       "Bash(git -C ~/The-Decosystem push)",
       "Bash(git -C ~/The-Decosystem commit -m \"Rebrand to The D-Ecosystem\")",
-      "WebFetch(domain:metaventions-ai-architected-intelligence-1061986917838.us-west1.run.app)",
+      "WebFetch(domain:metaventionsai.com)",
       "Bash(git -C ~/Metaventions-AI-Landing add:*)",
       "Bash(git -C ~/Metaventions-AI-Landing status)",
       "Bash(git -C ~/Metaventions-AI-Landing commit -m \"$\\(cat <<''EOF''\nAdd Genesis Sequence - The D-Ecosystem Origin Story\n\n7-act immersive 3D experience visualizing the transformation\nfrom chaos to invention:\n\n- Act I: Void Particles - scattered words emerge from darkness\n- Act II: Gravity Field - orbital attraction, words find each other\n- Act III: Synthesis Forge - collision creates artifacts\n- Act IV: Assembly Dock - components lock together\n- Act V: Crystallization - modules converge into structure\n- Act VI: Invention Reveal - the \"D\" structure materializes\n- Act VII: Tagline reveal\n\nTechnical:\n- Three.js + React Three Fiber for 3D\n- Post-processing: Bloom, chromatic aberration, vignette\n- Web Audio API for generative sound design\n- Lazy loaded, skippable, localStorage for seen state\n- URL param ?genesis=true to force replay\n\n\"Let the invention be hidden in your vision.\"\nEOF\n\\)\")",
