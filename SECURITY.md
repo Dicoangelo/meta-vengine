@@ -4,7 +4,7 @@
 
 If you discover a security vulnerability in Meta-Vengine, please report it responsibly.
 
-**Contact:** [dicoangel@metaventionsai.com](mailto:dicoangel@metaventionsai.com)
+**Contact:** [dicoangelo@metaventionsai.com](mailto:dicoangelo@metaventionsai.com)
 
 ### What to Include
 
