@@ -1,274 +1,140 @@
-<!-- VERSION: 2.4.0 -->
-<!-- LAST_MODIFIED: 2026-01-23T23:00:00Z -->
-<!-- CHECKSUM: sha256:capability-invention-update -->
+# CLAUDE.md
 
-# Session Protocols
+This file provides guidance to Claude Code when working with the meta-vengine codebase.
 
-## On Session Start
+## Overview
 
-Display this once at the beginning:
+Meta-vengine is a bidirectional co-evolution system — a self-improving intelligent routing engine that routes queries to optimal AI providers via multi-dimensional DQ scoring, learns from every session, and evolves its own configuration.
+
+**Version:** 1.2.0
+**Stack:** Python 3.8+, Node.js 18+, Bash/zsh
+**Database:** SQLite3 (primary), JSONL (append-only logs)
+**AI Providers:** Claude (Opus/Sonnet/Haiku), OpenAI GPT-4, Google Gemini 2.0, Ollama (local)
+
+## Architecture
+
 ```
-Cost-aware mode active.
-Model: [current model] | /save to log | /clear resets context
-
-━━━ Session Window ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Position: ████████░░ [position]% | [time] remaining
-Capacity: [tier] | Opus: [n] | Sonnet: [n] | Haiku: [n]
-Budget:   [used]% utilized | Reserve: [n] Opus tasks
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Queue: [n] tasks | Next: [task] @ [schedule]
-Prediction: Optimal next window [time] | Pattern: [type]
+APPLICATION    → Claude Code CLI, Claude Desktop, ChatGPT
+INTERACTION    → Query Router (DQ Score / HSRGS) → Model Selection
+DATA           → Real-time telemetry (sessions, DQ scores, patterns, tools)
+ANALYSIS       → Meta-Analyzer, Pattern Detector, DQ Scorer, Cognitive OS, Recovery Engine
+MODIFICATION   → Auto-generated CLAUDE.md patterns, prefetch rules, DQ weights
+EVOLUTION      → Next session starts better — bidirectional co-evolution flywheel
 ```
 
-To get current session status, run: `session-status` or check hook output above.
+## Directory Structure
 
-## Cost Efficiency
+```
+meta-vengine/
+├── kernel/              # Core: DQ scorer, pattern detector, cognitive OS, HSRGS
+├── coordinator/         # Multi-agent orchestration (4 strategies)
+│   └── strategies/      # parallel_research, parallel_implement, review_build, full
+├── config/              # Pricing (JS/Python/JSON/Shell), system config, datastore
+├── scripts/             # 100+ utilities: routing, observatory, recovery, prefetch
+├── docs/                # Architecture docs, co-evolution docs, migration plans
+├── daemon/              # Background daemons (LaunchAgents)
+├── hooks/               # Git & bash hooks
+├── skills/              # Extensible skill system
+├── plugins/             # Plugin system
+├── memory/              # Long-term memory (supermemory.db)
+├── data/                # Analytics (session-outcomes, routing-metrics, tool-usage)
+├── init.sh              # Master init script (sourced from .zshrc)
+└── settings.json        # Main system settings
+```
 
-Track approximate message count. At ~50 messages, suggest `/clear` if context allows. At ~100+, recommend fresh session.
+## Key Components
 
-If on Opus doing routine tasks, suggest Sonnet (`cc`). Reserve Opus for complex architecture only.
+| Component | File | Purpose |
+|-----------|------|---------|
+| DQ Scorer | `kernel/dq-scorer.js` | Decision Quality: validity (40%) + specificity (30%) + correctness (30%) |
+| Pattern Detector | `kernel/pattern-detector.js` | 8 session types: debugging, research, architecture, refactoring, testing, docs, exploration, creative |
+| Cognitive OS | `kernel/cognitive-os.py` | Energy-aware routing (morning/peak/dip/evening/deep_night), flow state tracking |
+| HSRGS | `kernel/hsrgs.py` | Homeomorphic Self-Routing Godel System — emergent routing via latent space |
+| Identity Manager | `kernel/identity-manager.js` | Expertise tracking per domain |
+| Recovery Engine | `scripts/recovery-engine.py` | Self-healing (94% coverage, 70% auto-fix, 8 patterns) |
+| Meta-Analyzer | `scripts/meta-analyzer.py` | Co-evolution analysis and improvement proposals |
+| Coordinator | `coordinator/orchestrator.py` | Multi-agent orchestration (research/implement/review/full) |
+| Context Budget | `kernel/context-budget.js` | Token budget management |
+| Activity Tracker | `kernel/activity-tracker.js` | Real-time session telemetry |
 
-After major task completions, offer a checkpoint summary:
-- What was done
-- Files changed
-- Next steps
-
-If user sends 3+ small sequential requests, offer to batch them.
-
-## Session End Protocol
-
-When user says "done", "quit", "ending", or similar:
-1. Remind them: "Run `/save` to save this session before quitting."
-
-## User Context
-
-- **GitHub: `Dicoangelo`** (ALWAYS use this exact capitalization - never `dicoangelo` or `DICOANGELO`)
-- Projects: OS-App, Agentic Kernel, Antigravity ecosystem
-- Aliases: `cq` (haiku), `cc` (sonnet), `co` (opus), `cstats`
-- Skills: `/cost`, `/save`, `/history`
-
-## Critical Rules (Auto-Enforced)
-
-1. **GitHub Username**: Always `Dicoangelo` - git URL rewriting handles typos automatically
-2. **One Session at a Time**: Parallel Claude sessions cause race conditions
-3. **Error Tracking**: Errors auto-log to `~/.claude/ERRORS.md`
-
-## Anthropic Products
-
-- **Claude Code**: CLI agent for coding tasks (this tool)
-- **Cowork**: Agent for non-coding tasks (research preview, Claude Max, macOS app)
-  - Built-in VM isolation, browser automation, claude.ai data connectors
-  - Access: Sidebar in Claude desktop app → [claude.com/download](https://claude.com/download)
-
-## Autonomous Routing System
-
-**Status:** ✅ Active | **Version:** 1.0.0 | **Docs:** `~/.claude/ROUTING_SYSTEM_README.md`
-
-### How It Works
-
-The CLI automatically routes queries to the optimal model (Haiku, Sonnet, or Opus) using DQ scoring:
-- **Haiku (C: 0.0-0.3):** Simple queries, quick answers, cheap
-- **Sonnet (C: 0.3-0.7):** Code generation, analysis, moderate complexity
-- **Opus (C: 0.7-1.0):** Architecture, complex reasoning, research
-
-**DQ Score = Validity (40%) + Specificity (30%) + Correctness (30%)**
-
-### Quick Commands
+## Commands
 
 ```bash
-claude -p "query"              # Auto-routes (let it decide)
-routing-dash                   # Performance dashboard
-routing-report 7               # Weekly metrics
-ai-feedback-enable             # Learn from failures
+# Routing
+uni-ai "query"                    # Auto-routed via DQ/HSRGS
+routing-dash                      # Performance dashboard
 
-# Manual override when needed
-claude --model opus -p "force opus for complex task"
+# Co-evolution
+coevo-analyze                     # Analyze patterns
+coevo-propose                     # Generate improvement proposals
+coevo-apply <mod_id>              # Apply modifications (--dry-run available)
+coevo-dashboard                   # Effectiveness over time
+
+# Multi-agent coordination
+coord research "task"             # 3 parallel explore agents
+coord implement "task"            # Parallel builders with file locks
+coord review "task"               # Build + review concurrent
+coord full "task"                 # Research → Build → Review pipeline
+coord team "task"                 # Opus 4.6 agent team
+coord status                      # Check status
+
+# Cognitive OS
+cos state                         # Current cognitive mode and energy
+cos flow                          # Flow state (0-1)
+cos fate                          # Session outcome prediction
+cos route "task"                  # Model routing recommendation
+
+# Observatory
+obs N                             # N-day unified report
+productivity-report N             # Productivity metrics
+tool-stats N                      # Tool success rates
+
+# Memory
+sm stats                          # Memory statistics
+sm context                        # Generate session context
+sm errors "text"                  # Find past error solutions
+
+# Recovery
+python3 scripts/recovery-engine.py status    # Recovery stats
+python3 scripts/recovery-engine.py test git  # Test git recovery
+
+# Dashboard
+ccc                               # Open Command Center (12-tab HTML dashboard)
 ```
 
-### Key Features
-
-- **Auto-routing:** Transparent decisions shown as `[DQ:0.75 C:0.45] → sonnet`
-- **Self-improving:** Learns from feedback, A/B tests optimizations
-- **Research-driven:** Weekly arXiv sync updates baselines
-- **Auto-update:** Applies validated improvements after 30-day stability
-
-### Performance Targets
-
-| Metric | Target | Status |
-|--------|--------|--------|
-| Routing Accuracy | ≥75% | 🔄 Collecting |
-| Cost Reduction | ≥20% vs random | 🔄 Collecting |
-| Latency (p95) | <50ms | ✅ ~42ms |
-
-Run `routing-test-suite.py all` to check current performance.
-
-### Documentation
-
-- **Quick Ref:** `~/.claude/ROUTING_QUICK_REFERENCE.md`
-- **Full Guide:** `~/.claude/ROUTING_SYSTEM_README.md`
-- **Research:** `~/researchgravity/ROUTING_RESEARCH_WORKFLOW.md`
-
-## Multi-Agent Coordinator
-
-**Status:** ✅ Active | **Version:** 1.0.0 | **Docs:** `~/.claude/coordinator/README.md`
-
-### Quick Commands
+## Testing
 
 ```bash
-# Coordination strategies
-coord research "task"     # 3 parallel explore agents
-coord implement "task"    # Parallel builders with file locks
-coord review "task"       # Build + review concurrent
-coord full "task"         # Research → Build → Review pipeline
-
-# Status
-coord-summary             # Formatted dashboard
-coord status              # JSON output
-coord-cleanup             # Clean stale agents
+pytest scripts/observatory/qa-test-suite.py     # Observatory tests
+python3 scripts/test-dashboard-sqlite.py         # Dashboard data tests
+python3 scripts/ab-test-analyzer.py --detailed   # A/B test analysis (HSRGS vs keyword DQ)
 ```
 
-### Strategies
+## Key Data Files
 
-| Strategy | Agents | Use Case |
-|----------|--------|----------|
-| `research` | 3 explore (parallel) | Understanding, investigation |
-| `implement` | N builders (parallel/locked) | Multi-file changes |
-| `review` | builder + reviewer | Quality-assured implementation |
-| `full` | research → build → review | Complete feature development |
+| File | Format | Purpose |
+|------|--------|---------|
+| `kernel/dq-scores.jsonl` | JSONL | DQ routing decision history |
+| `kernel/baselines.json` | JSON | Model performance baselines |
+| `data/session-outcomes.jsonl` | JSONL | ACE session quality analysis |
+| `data/routing-metrics.jsonl` | JSONL | Routing effectiveness history |
+| `data/tool-usage.jsonl` | JSONL | Tool success rates |
+| `memory/supermemory.db` | SQLite | Long-term memory with spaced repetition |
+| `settings.json` | JSON | Main system config |
+| `config/pricing.json` | JSON | Model pricing and capabilities |
 
-### Dashboard
+## Design Principles
 
-```bash
-ccc                       # Open Command Center (auto-refreshes)
-```
+1. **Bidirectional co-evolution** — system reads its own patterns and modifies its own instructions
+2. **Sovereignty by design** — all data local, bounded recursion, human approval for changes
+3. **No external frameworks** — vanilla JS + stdlib Python (zero dependency risk)
+4. **Append-only telemetry** — JSONL logs never overwritten, only appended
+5. **Safe-path validation** — recovery engine only touches `~/.claude/`, `~/.agent-core/`
 
-Dashboard auto-refreshes every 60s via LaunchAgent daemon.
+## Current Metrics
 
-## Cognitive OS
-
-**Status:** ✅ Active | **Docs:** `~/.claude/kernel/cognitive-os/`
-
-Energy-aware task routing based on time-of-day patterns.
-
-```bash
-cos state              # Current mode (morning/peak/dip/evening/deep_night)
-cos flow               # Flow state detection
-cos fate               # Session outcome prediction
-cos route "task"       # Cognitive model routing
-cos weekly             # Weekly energy map
-```
-
-**Your Peak Hours:** 20:00, 12:00, 02:00
-
-## Supermemory
-
-**Status:** ✅ Active | **DB:** `~/.claude/memory/supermemory.db`
-
-Long-term memory with spaced repetition and error pattern tracking.
-
-```bash
-sm stats               # Memory statistics
-sm context             # Generate session context
-sm errors "text"       # Find past error solutions
-sm review              # Spaced repetition review
-sm project <name>      # Project-specific memory
-```
-
-## Observatory
-
-**Status:** ✅ Active | **Docs:** `~/.claude/scripts/observatory/`
-
-Unified analytics engine.
-
-```bash
-obs N                  # N-day unified report
-tool-stats N           # Tool success rates
-productivity-report N  # Productivity metrics
-session-analyze-recent # Recent session analysis
-```
-
-## Recovery System
-
-**Status:** ✅ Active | **Patterns:** 700+
-
-Auto-fix for common errors (git, locks, permissions). Logs to `~/.claude/ERRORS.md`.
-
-## New Capabilities (2026-01-23)
-
-### Expertise-Aware Routing
-
-Routes based on your tracked expertise. High expertise domains use cheaper models (you need less help), low expertise domains use more capable models.
-
-```bash
-exp-detect "query"     # Detect domain and expertise level
-exp-route "query" 0.5  # Route with complexity
-exp-stats              # Routing statistics
-exp-export             # Export expertise state
-```
-
-### Pattern Orchestrator
-
-Auto-suggests coordinator strategies based on detected session patterns.
-
-```bash
-orchestrate-suggest    # Suggest strategy for current pattern
-orchestrate-spawn      # Get spawn command
-orchestrate-stats      # Pattern statistics
-```
-
-| Pattern | Strategy |
-|---------|----------|
-| debugging | coord review-build |
-| research | coord research |
-| architecture | coord full |
-| refactoring | coord implement |
-
-### Predictive Error Prevention
-
-Predicts likely errors based on patterns and takes preemptive action at session start.
-
-```bash
-predict-run            # Run predictions and prevent
-predict-dry            # Dry run (show what would happen)
-predict-stats          # Prevention statistics
-```
-
-### Learning Hub
-
-Unified aggregation of all learning systems. Weekly sync identifies cross-domain correlations.
-
-```bash
-hub-sync               # Run weekly sync
-hub-status             # Current hub status
-hub-insights           # Cross-domain insights
-hub-suggestions        # Improvement suggestions
-```
-
-### Flow Shield
-
-Protects deep work by deferring non-critical alerts when flow score > 0.75. Use `/flow-shield` skill.
-
-## Cost Targets
-
-| Metric | Target | Alert |
-|--------|--------|-------|
-| Daily | $200 | >$300 |
-| Cache | >85% | <75% |
-| DQ Score | >0.60 | <0.50 |
-
-## Learned Patterns
-
-<!-- AUTO-GENERATED BY META-ANALYZER - DO NOT EDIT MANUALLY -->
-<!-- Last Updated: 2026-01-28T03:04:48.489259 -->
-
-### Usage Patterns Observed
-- Peak productivity hours: 20:00, 3:00, 2:00
-- Dominant session type: architecture (28%)
-- Average session length: 150 messages
-
-### Optimized Behaviors
-- Use pattern-aware prefetch for faster context loading
-- Cache efficiency: 93.07% - maintain by reusing context
-- Batch threshold: 3 sequential requests -> suggest batching
-
-<!-- END AUTO-GENERATED -->
+- DQ Score average: 0.889 (158 samples)
+- Cache efficiency: 99.88%
+- Recovery coverage: 94% (655/700 errors)
+- Auto-fix rate: 70% (no human intervention)
+- Session types tracked: 8
