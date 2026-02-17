@@ -138,3 +138,40 @@ python3 scripts/ab-test-analyzer.py --detailed   # A/B test analysis (HSRGS vs k
 - Recovery coverage: 94% (655/700 errors)
 - Auto-fix rate: 70% (no human intervention)
 - Session types tracked: 8
+
+## DQ Benchmark: arXiv:2511.15755 Replication (2026-02-17)
+
+100-query controlled benchmark replicating the multi-agent DQ scoring paper. **8/8 benchmarks passed.**
+Full results: `docs/DQ_BENCHMARK_RESULTS.md`
+
+### Key Results
+
+| Metric | Single-Model | SUPERMAX Consensus | Improvement |
+|--------|---|---|---|
+| Avg DQ | 0.824 | 0.926 | +12.4% |
+| Actionable | 100% | 100% | — |
+| Variance | 0.005527 | 0.000255 | -95.4% |
+| Correctness | 0.600 | 0.808 | +1.35x |
+
+### SUPERMAX Council (3 agents)
+
+| Agent | Perspective | Avg DQ |
+|-------|-------------|--------|
+| Principal Engineer | Technical correctness, waste penalties | 0.872 |
+| Security Architect | Risk, safety margins, compliance | 0.919 |
+| Product Strategist | User value, speed, cost | 0.928 |
+
+### Operational Routing Strategy
+
+- **Trivial/Simple (< 0.30 complexity):** Single-model DQ — already excellent
+- **Moderate (0.30 - 0.60):** Single-model DQ — use consensus only if variance matters
+- **Complex/Expert (> 0.60):** SUPERMAX consensus — 15-18% DQ lift justifies 3x eval cost
+
+### Benchmark Commands
+
+```bash
+node scripts/benchmark-100.js generate    # Single-model baseline (100 queries)
+node scripts/supermax-eval-agent.js engineer|security|product  # SUPERMAX perspective eval
+node scripts/supermax-consensus.js        # Compute 3-agent consensus
+node scripts/benchmark-100.js compare     # Paper comparison scorecard
+```
