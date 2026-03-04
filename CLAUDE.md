@@ -51,7 +51,8 @@ meta-vengine/
 | Cognitive OS | `kernel/cognitive-os.py` | Energy-aware routing (morning/peak/dip/evening/deep_night), flow state tracking |
 | HSRGS | `kernel/hsrgs.py` | Homeomorphic Self-Routing Godel System — emergent routing via latent space |
 | Identity Manager | `kernel/identity-manager.js` | Expertise tracking per domain |
-| Recovery Engine | `scripts/recovery-engine.py` | Self-healing (94% coverage, 70% auto-fix, 8 patterns) |
+| Recovery Engine | `kernel/recovery-engine.py` | Self-healing (94% coverage, 70% auto-fix, 9 patterns incl. model drift) |
+| Model Sweep | `scripts/model-sweep.py` | Ecosystem-wide model ID health check and auto-heal |
 | Meta-Analyzer | `scripts/meta-analyzer.py` | Co-evolution analysis and improvement proposals |
 | Coordinator | `coordinator/orchestrator.py` | Multi-agent orchestration (research/implement/review/full) |
 | Context Budget | `kernel/context-budget.js` | Token budget management |
@@ -130,6 +131,7 @@ python3 scripts/ab-test-analyzer.py --detailed   # A/B test analysis (HSRGS vs k
 3. **No external frameworks** — vanilla JS + stdlib Python (zero dependency risk)
 4. **Append-only telemetry** — JSONL logs never overwritten, only appended
 5. **Safe-path validation** — recovery engine only touches `~/.claude/`, `~/.agent-core/`
+6. **Model ID sovereignty** — NEVER hardcode model IDs. `config/pricing.json` is the canonical registry. When a model breaks or a new one releases: update registry → run `model-sweep --fix`. All agents, teams, frameworks must reference the registry, not inline strings.
 
 ## Current Metrics
 

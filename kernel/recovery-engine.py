@@ -47,6 +47,7 @@ SAFE_ACTIONS = {
     "quota": ["clear_cache"],
     "crash": ["clear_corrupt_state"],
     "recursion": ["kill_runaway_process"],
+    "model_drift": ["sweep_and_fix"],
 }
 
 # Actions requiring human judgment
@@ -55,6 +56,7 @@ SUGGEST_ONLY = {
     "quota": ["model_switch"],
     "crash": ["restore_backup"],
     "syntax": ["all"],
+    "model_drift": ["unknown_model_ids"],
 }
 
 

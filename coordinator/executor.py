@@ -69,8 +69,8 @@ class AgentExecutor:
     # Model mapping
     MODEL_MAP = {
         "haiku": "claude-3-5-haiku-latest",
-        "sonnet": "claude-sonnet-4-20250514",
-        "opus": "claude-opus-4-5-20251101"
+        "sonnet": "claude-sonnet-4-6",
+        "opus": "claude-opus-4-6"
     }
 
     # Default timeouts by model

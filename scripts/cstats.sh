@@ -16,9 +16,9 @@ first_date=$(jq -r '.firstSessionDate' "$STATS_FILE" | cut -d'T' -f1)
 longest_session=$(jq -r '.longestSession.messageCount' "$STATS_FILE")
 
 # Token stats
-output_tokens=$(jq -r '.modelUsage["claude-opus-4-5-20251101"].outputTokens // 0' "$STATS_FILE")
-input_tokens=$(jq -r '.modelUsage["claude-opus-4-5-20251101"].inputTokens // 0' "$STATS_FILE")
-cache_read=$(jq -r '.modelUsage["claude-opus-4-5-20251101"].cacheReadInputTokens // 0' "$STATS_FILE")
+output_tokens=$(jq -r '.modelUsage["claude-opus-4-6"].outputTokens // 0' "$STATS_FILE")
+input_tokens=$(jq -r '.modelUsage["claude-opus-4-6"].inputTokens // 0' "$STATS_FILE")
+cache_read=$(jq -r '.modelUsage["claude-opus-4-6"].cacheReadInputTokens // 0' "$STATS_FILE")
 
 # Format numbers with jq (more portable)
 format_num() {

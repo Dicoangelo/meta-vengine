@@ -101,6 +101,29 @@ alias routing-help='cat ~/.claude/ROUTING_QUICK_REFERENCE.md'
 alias ab-test='python3 ~/.claude/scripts/ab-test-analyzer.py'
 alias ab-test-detailed='python3 ~/.claude/scripts/ab-test-analyzer.py --detailed'
 
+# Model Sweep — ecosystem model ID health check
+# Deploy sites after batched minicommits
+deploy-site() {
+  local project="${1:-dicoangelo.metaventions}"
+  local project_dir="$HOME/projects/portfolio/$project"
+  if [[ ! -d "$project_dir/.vercel" ]]; then
+    echo "No .vercel config in $project_dir"
+    return 1
+  fi
+  local commits=$(git -C "$project_dir" log --oneline origin/main..HEAD 2>/dev/null | wc -l | tr -d ' ')
+  echo "═══ DEPLOY: $project ═══"
+  echo "  $commits unpushed commit(s)"
+  git -C "$project_dir" log --oneline origin/main..HEAD 2>/dev/null
+  echo ""
+  git -C "$project_dir" push origin main && \
+  (cd "$project_dir" && npx vercel --prod)
+}
+
+alias model-sweep='python3 ~/.claude/scripts/model-sweep.py'
+alias model-fix='python3 ~/.claude/scripts/model-sweep.py --fix'
+alias model-registry='python3 ~/.claude/scripts/model-sweep.py --registry'
+alias model-live='python3 ~/.claude/scripts/model-sweep.py --live'
+
 # ══════════════════════════════════════════════════════════════
 # CO-EVOLUTION SYSTEM (Bidirectional Learning)
 # ══════════════════════════════════════════════════════════════
