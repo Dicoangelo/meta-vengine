@@ -3,10 +3,10 @@
   "sessionId": "a6016ae8-aada-4112-a812-af386cafd02b",
   "status": "running",
   "startedAt": "2026-03-14T22:54:58.019Z",
-  "updatedAt": "2026-03-14T23:16:30.379Z",
-  "currentIteration": 4,
+  "updatedAt": "2026-03-14T23:21:27.076Z",
+  "currentIteration": 5,
   "maxIterations": 50,
-  "tasksCompleted": 4,
+  "tasksCompleted": 5,
   "isPaused": false,
   "agentPlugin": "claude",
   "trackerState": {
@@ -59,8 +59,8 @@
       {
         "id": "meta-vengine-omv.8",
         "title": "US-008: SUPERMAX v2 — Free-MAD Trajectory Scoring",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "meta-vengine-omv.7",
@@ -128,6 +128,16 @@
       "durationMs": 258602,
       "startedAt": "2026-03-14T23:05:35.914Z",
       "endedAt": "2026-03-14T23:09:54.516Z"
+    },
+    {
+      "iteration": 5,
+      "status": "completed",
+      "taskId": "meta-vengine-omv.8",
+      "taskTitle": "US-008: SUPERMAX v2 — Free-MAD Trajectory Scoring",
+      "taskCompleted": true,
+      "durationMs": 393207,
+      "startedAt": "2026-03-14T23:09:56.764Z",
+      "endedAt": "2026-03-14T23:16:29.971Z"
     }
   ],
   "skippedTaskIds": [],

@@ -32,6 +32,12 @@
     "maxStabilityWeight": 1.0,
     "trajectoryLogFile": "data/supermax-trajectories.jsonl"
   },
+  "escalation": {
+    "escalationLogFile": "data/supermax-escalations.jsonl",
+    "difficultyFeedbackFile": "data/disagreement-difficulty-feedback.jsonl",
+    "maxDifficultyBoost": 0.20,
+    "difficultyBoostRate": 0.30
+  },
   "updated": "2026-03-14",
-  "updatedBy": "US-008"
+  "updatedBy": "US-009"
 }
