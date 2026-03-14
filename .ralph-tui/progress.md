@@ -28,6 +28,24 @@ When weights must sum to 1.0 AND respect min/max bounds, normalize-then-clamp in
 ### Coordinator Module Pattern — sys.path for sibling imports
 Coordinator Python modules use `sys.path.insert(0, str(Path(__file__).parent.parent))` to import sibling modules. Tests use the same pattern to import from `coordinator/supermax.py`.
 
+### Exponential Decay for Stability Scoring
+`stability = exp(-decay_rate * max_delta)` maps a 0→∞ delta to a 0→1 stability score. Decay rate controls sensitivity (5.0 default: delta=0.1 → stability≈0.61, delta=0.3 → stability≈0.22). Good for any "confidence from change magnitude" pattern.
+
+---
+
+## 2026-03-14 - meta-vengine-omv.8
+- **What was implemented:** SUPERMAX v2 — Free-MAD Trajectory Scoring (US-008). Full implementation from scratch.
+- **Files changed:**
+  - `coordinator/synthesizer.py` (new — ~340 lines, FreeMadSynthesizer, trajectory scoring, sycophancy detection, anonymization, JSONL logging)
+  - `coordinator/supermax.py` (updated — added SupermaxV2 orchestrator class integrating PredictiveSpawner + FreeMadSynthesizer)
+  - `coordinator/tests/test_free_mad.py` (new — 51 pytest tests, 12 test classes)
+  - `config/supermax-v2.json` (updated — added freeMad config section)
+- **Learnings:**
+  - Coordinator tests use pytest (not vanilla assert pattern). The kernel JS tests use vanilla assert, but Python coordinator tests use `pytest.fixture` + `class Test*` pattern.
+  - `sys.exit()` in test files causes pytest `INTERNALERROR`. Tests must use pytest-native assertions.
+  - Free-MAD anti-sycophancy: agent labels stripped, replaced with opaque `Evaluator A/B/C`. The CONSENSAGENT paper (ACL 2025) showed that named agents defer to "authority" names.
+  - Sycophancy detection needs both conditions: (1) all agents moved AND (2) Round 2 converged tighter than Round 1 spread. Missing either causes false positives.
+  - `SupermaxV2` orchestrator uses lazy import (`from coordinator.synthesizer import ...` inside methods) to avoid circular dependencies.
 ---
 
 ## 2026-03-14 - meta-vengine-omv.7
