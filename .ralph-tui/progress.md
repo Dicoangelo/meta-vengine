@@ -25,6 +25,23 @@ Python kernel scripts use hyphenated filenames (e.g., `behavioral-outcome.py`). 
 ### Iterative Bound-Normalize Pattern
 When weights must sum to 1.0 AND respect min/max bounds, normalize-then-clamp in a loop (up to 20 iterations). Single-pass normalize→clamp→normalize can violate bounds on the final step.
 
+### Coordinator Module Pattern — sys.path for sibling imports
+Coordinator Python modules use `sys.path.insert(0, str(Path(__file__).parent.parent))` to import sibling modules. Tests use the same pattern to import from `coordinator/supermax.py`.
+
+---
+
+## 2026-03-14 - meta-vengine-omv.7
+- **What was implemented:** SUPERMAX v2 — Adaptive Agent Count (US-007). Full implementation from scratch.
+- **Files changed:**
+  - `coordinator/supermax.py` (new — ~250 lines, PredictiveSpawner, difficulty classification, agent selection, cost logging)
+  - `coordinator/tests/test_adaptive_agent.py` (new — 39 tests, 7 test classes)
+  - `coordinator/tests/__init__.py` (new — empty, package marker)
+  - `config/supermax-v2.json` (new — learnable thresholds, agent priority, constraints)
+- **Learnings:**
+  - No existing `supermax.py` in coordinator — built fresh. The SUPERMAX council was previously only in benchmark scripts (non-existent in filesystem, referenced in docs only).
+  - `benchmark-100.js` doesn't exist in the repo — it was a one-time artifact. DQ regression is verified by running the 4 kernel JS test files (153 tests total).
+  - The coordinator already has executor, registry, conflict, distribution modules — supermax.py follows the same pattern (dataclasses, CLI entry point, JSON config).
+  - Python 3.14 deprecates `datetime.utcnow()` — use `datetime.now(tz=datetime.timezone.utc)` instead.
 ---
 
 ## 2026-03-14 - meta-vengine-omv.6
