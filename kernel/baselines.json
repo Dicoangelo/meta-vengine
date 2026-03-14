@@ -77,10 +77,10 @@
   },
 
   "dq_weights": {
-    "validity": 0.35,
-    "specificity": 0.25,
-    "correctness": 0.40,
-    "notes": "Boosted correctness (0.30→0.40) to learn faster from failures. Original: 40/30/30 from ACE Framework"
+    "validity": 0.3912,
+    "specificity": 0.2853,
+    "correctness": 0.3235,
+    "notes": "Calibrated 2026-03-14 via behavioral ECE (calibration-001). Pre: 0.35/0.25/0.40, ECE=0.2192. Validity down, specificity up, correctness down based on 88 matched DQ-outcome pairs."
   },
 
   "dq_thresholds": {
