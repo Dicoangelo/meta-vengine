@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "description": "SUPERMAX v2 adaptive agent configuration. Learnable thresholds — future Optimas Local Reward Function.",
+  "agentCountThresholds": {
+    "trivial": { "max": 0.25, "agentCount": 1 },
+    "simple": { "max": 0.45, "agentCount": 2 },
+    "moderate": { "max": 0.65, "agentCount": 3 },
+    "complex": { "max": 0.85, "agentCount": 4 },
+    "expert": { "max": 1.00, "agentCount": 5 }
+  },
+  "agentPriority": [
+    { "name": "PrincipalEngineer", "perspective": "Technical correctness, waste penalties", "model": "sonnet" },
+    { "name": "SecurityArchitect", "perspective": "Risk, safety margins, compliance", "model": "sonnet" },
+    { "name": "ProductStrategist", "perspective": "User value, speed, cost", "model": "sonnet" },
+    { "name": "Contrarian", "perspective": "Adversarial challenge, assumption stress-testing", "model": "sonnet" },
+    { "name": "Arbiter", "perspective": "Final adjudication, cross-perspective synthesis", "model": "opus" }
+  ],
+  "constraints": {
+    "minAgents": 1,
+    "maxAgents": 5,
+    "defaultAgentCount": 3
+  },
+  "costTracking": {
+    "logFile": "data/supermax-costs.jsonl",
+    "enabled": true
+  },
+  "updated": "2026-03-14",
+  "updatedBy": "US-007"
+}
