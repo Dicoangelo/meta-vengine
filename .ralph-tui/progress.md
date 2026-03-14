@@ -22,6 +22,23 @@ Python kernel scripts use hyphenated filenames (e.g., `behavioral-outcome.py`). 
 ### Tool Events ↔ Sessions Correlation
 `tool_events` has no `session_id` column. Correlate with sessions using timestamp range matching: convert session ISO `started_at`/`ended_at` to unix timestamps, then query `tool_events WHERE timestamp >= start AND timestamp <= end`.
 
+### Iterative Bound-Normalize Pattern
+When weights must sum to 1.0 AND respect min/max bounds, normalize-then-clamp in a loop (up to 20 iterations). Single-pass normalize→clamp→normalize can violate bounds on the final step.
+
+---
+
+## 2026-03-14 - meta-vengine-omv.6
+- **What was implemented:** DQ Calibration — ECE Computation and Weight Adjustment (US-006). Full implementation from scratch.
+- **Files changed:**
+  - `kernel/dq-calibrator.py` (new — ~340 lines, ECE computation, dimension analysis, weight adjustment, proposal pipeline)
+  - `kernel/tests/test_dq_calibrator.py` (new — 73 tests, 12 test sections)
+  - `proposals/` directory created for calibration proposals
+- **Learnings:**
+  - DQ scores in `dq-scores.jsonl` use epoch seconds for `ts`, behavioral outcomes use ISO `started_at`. Matching requires converting ISO to epoch and using a 1-hour proximity window.
+  - Weight bound enforcement after normalization is tricky — a single normalize→clamp pass can push renormalized values outside bounds. Solved with iterative converging loop.
+  - The Godel engine `propose_mutation` interface in HSRGS expects mutation dicts with `type`, `param`, `old_value`, `new_value`. Calibrator writes proposals as JSON files instead (Godel engine integration point for coevo-apply).
+  - Cognitive DQ weights file (`cognitive-dq-weights.json`) includes `dq_weights` nested under energy/mode context — must extract the weights sub-object.
+  - ECE with perfectly calibrated scores gives exactly 0.0; overconfident (pred=0.9, actual=0.5) gives 0.4 — validates the formula.
 ---
 
 ## 2026-03-14 - meta-vengine-omv.5
