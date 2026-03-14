@@ -31,6 +31,27 @@ Coordinator Python modules use `sys.path.insert(0, str(Path(__file__).parent.par
 ### Exponential Decay for Stability Scoring
 `stability = exp(-decay_rate * max_delta)` maps a 0→∞ delta to a 0→1 stability score. Decay rate controls sensitivity (5.0 default: delta=0.1 → stability≈0.61, delta=0.3 → stability≈0.22). Good for any "confidence from change magnitude" pattern.
 
+### Arbiter Pattern — Stability-Based Verdict
+When an arbiter must resolve disagreement, use the most stable agent's score for divergent dimensions and trajectory-weighted consensus for non-divergent dimensions. Stability = held position under peer pressure. This avoids both averaging (dilutes signal) and majority vote (ignores quality).
+
+### Floating-Point Threshold Tests
+When testing boundary conditions like `spread > 0.15`, don't construct test values that produce exactly the threshold via subtraction (e.g., `0.85 - 0.70 = 0.15000000000000002`). Use values with clear margin.
+
+---
+
+## 2026-03-14 - meta-vengine-omv.9
+- **What was implemented:** SUPERMAX v2 — Disagreement Escalation (US-009). Full implementation.
+- **Files changed:**
+  - `coordinator/synthesizer.py` (updated — added `DisagreementEscalator`, `EscalationResult`, arbiter evaluation, difficulty feedback, JSONL logging ~250 lines)
+  - `coordinator/supermax.py` (updated — `SupermaxV2.synthesize()` now runs escalation pipeline, overrides consensus with arbiter verdict when triggered)
+  - `coordinator/tests/test_disagreement_escalation.py` (new — 30 pytest tests, 8 test classes)
+  - `config/supermax-v2.json` (updated — added escalation config section)
+- **Learnings:**
+  - `SynthesisResult` needed an `escalation` field (typed `Any` to avoid forward-ref complexity with `EscalationResult`).
+  - Arbiter strategy: for divergent dimensions, trust the most stable agent (highest `stability_score`). For non-divergent dimensions, use existing trajectory-weighted consensus.
+  - Difficulty feedback maps disagreement spread to IRT difficulty boost via `min(0.20, spread * 0.3)` — capped to prevent runaway difficulty inflation.
+  - Two JSONL log files: `supermax-escalations.jsonl` (full arbiter events) and `disagreement-difficulty-feedback.jsonl` (IRT consumption).
+  - `SupermaxV2.synthesize()` gained a `query_hash` parameter for escalation logging — backwards-compatible (defaults to `""`).
 ---
 
 ## 2026-03-14 - meta-vengine-omv.8

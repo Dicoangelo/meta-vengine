@@ -224,8 +224,8 @@ class PredictiveSpawner:
 
 class SupermaxV2:
     """
-    Full SUPERMAX v2 orchestrator combining adaptive spawning (US-007)
-    with Free-MAD trajectory scoring (US-008).
+    Full SUPERMAX v2 orchestrator combining adaptive spawning (US-007),
+    Free-MAD trajectory scoring (US-008), and disagreement escalation (US-009).
 
     Usage:
         v2 = SupermaxV2()
@@ -233,14 +233,15 @@ class SupermaxV2:
         # ... agents evaluate Round 1 ...
         peer_context = v2.prepare_peer_context(round1_evals)
         # ... agents evaluate Round 2 with peer context ...
-        result = v2.synthesize(round1_evals, round2_evals)
+        result = v2.synthesize(round1_evals, round2_evals, query_hash="abc123")
         v2.log(query_hash, plan, result)
     """
 
     def __init__(self, config_path: Path = None):
-        from coordinator.synthesizer import FreeMadSynthesizer
+        from coordinator.synthesizer import FreeMadSynthesizer, DisagreementEscalator
         self.spawner = PredictiveSpawner(config_path)
         self.synthesizer = FreeMadSynthesizer(config_path)
+        self.escalator = DisagreementEscalator(config_path)
 
     def plan_agents(self, graph_complexity: float = None) -> SpawnPlan:
         """Plan agent spawning based on graph complexity."""
@@ -250,9 +251,33 @@ class SupermaxV2:
         """Anonymize Round 1 evaluations for peer sharing."""
         return self.synthesizer.prepare_peer_context(round1_evals)
 
-    def synthesize(self, round1_evals, round2_evals):
-        """Run Free-MAD trajectory synthesis."""
-        return self.synthesizer.synthesize(round1_evals, round2_evals)
+    def synthesize(self, round1_evals, round2_evals, query_hash: str = ""):
+        """
+        Run Free-MAD trajectory synthesis with disagreement escalation.
+
+        If agent trajectories diverge by > threshold on any DQ dimension,
+        escalates to arbiter for final adjudication. Arbiter's verdict
+        overrides the trajectory-weighted consensus.
+
+        Returns:
+            SynthesisResult — with escalation data if applicable
+        """
+        result = self.synthesizer.synthesize(round1_evals, round2_evals)
+
+        # Check for disagreement escalation
+        escalation = self.escalator.escalate(
+            result.trajectories, query_hash=query_hash
+        )
+
+        if escalation is not None:
+            # Override consensus with arbiter's verdict
+            result.consensus_validity = escalation.arbiter_verdict["validity"]
+            result.consensus_specificity = escalation.arbiter_verdict["specificity"]
+            result.consensus_correctness = escalation.arbiter_verdict["correctness"]
+            result.consensus_dq = escalation.arbiter_verdict["composite_dq"]
+            result.escalation = escalation
+
+        return result
 
     def log(self, query_hash: str, plan: SpawnPlan, result=None, cost_estimate: float = 0.0):
         """Log both cost and trajectory data."""

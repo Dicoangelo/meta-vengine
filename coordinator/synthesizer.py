@@ -89,6 +89,7 @@ class SynthesisResult:
     contrarian_triggered: bool
     disagreement_dimensions: List[str]  # which dimensions diverged > threshold
     method: str = "free_mad_trajectory"
+    escalation: Any = None  # EscalationResult if disagreement escalation triggered
 
 
 def load_free_mad_config(config_path: Path = None) -> dict:
@@ -416,6 +417,341 @@ class FreeMadSynthesizer:
             contrarian_triggered=contrarian_triggered,
             disagreement_dimensions=disagreement_dims,
         )
+
+
+@dataclass
+class EscalationResult:
+    """Result of disagreement escalation to an arbiter agent."""
+    escalated: bool
+    divergent_dimensions: List[str]
+    arbiter_reasoning: str
+    arbiter_verdict: Dict[str, float]  # final DQ scores
+    prevailing_perspective: str  # which agent's view prevailed
+    agent_reasonings: List[Dict[str, Any]]  # full reasoning from all agents
+    difficulty_feedback: Optional[Dict[str, Any]] = None  # IRT feedback data
+
+
+class DisagreementEscalator:
+    """
+    Escalates high-disagreement cases to an arbiter agent instead of
+    averaging away the signal.
+
+    When agent trajectory scores diverge by > threshold on any DQ dimension,
+    the arbiter receives full reasoning from all agents + the specific
+    dimensions of disagreement and makes a final call.
+
+    Disagreement patterns are fed back to the difficulty estimator as
+    training data (high disagreement -> increase IRT difficulty).
+    """
+
+    def __init__(self, config_path: Path = None):
+        self.config = load_free_mad_config(config_path)
+        self._escalation_threshold = self.config.get(
+            "disagreementEscalationThreshold", 0.15
+        )
+        self._difficulty_feedback_dir = _ROOT / "data"
+        self._escalation_log_dir = _ROOT / "data"
+
+    def should_escalate(self, trajectories: List[AgentTrajectory]) -> Tuple[bool, List[str]]:
+        """
+        Determine if escalation is needed based on trajectory divergence.
+
+        Args:
+            trajectories: Agent trajectories with Round 2 scores
+
+        Returns:
+            (should_escalate, divergent_dimensions) tuple
+        """
+        divergent = find_disagreement_dimensions(
+            trajectories, self._escalation_threshold
+        )
+        return len(divergent) > 0, divergent
+
+    def build_arbiter_context(
+        self,
+        trajectories: List[AgentTrajectory],
+        divergent_dimensions: List[str],
+    ) -> Dict[str, Any]:
+        """
+        Build full context for the arbiter agent including all agent reasoning
+        and the specific dimensions of disagreement.
+
+        Args:
+            trajectories: All agent trajectories
+            divergent_dimensions: Which DQ dimensions diverged
+
+        Returns:
+            Context dict for arbiter consumption
+        """
+        agent_contexts = []
+        for t in trajectories:
+            agent_contexts.append({
+                "agent_name": t.agent_name,
+                "round1_scores": t.round1.dimensions(),
+                "round1_composite": t.round1.composite_dq,
+                "round1_reasoning": t.round1.reasoning,
+                "round2_scores": t.round2.dimensions(),
+                "round2_composite": t.round2.composite_dq,
+                "round2_reasoning": t.round2.reasoning,
+                "stability_score": t.stability_score,
+                "trajectory_weight": t.trajectory_weight,
+                "deltas": {
+                    "validity": t.delta_validity,
+                    "specificity": t.delta_specificity,
+                    "correctness": t.delta_correctness,
+                },
+            })
+
+        # Build dimension-specific divergence details
+        dimension_details = {}
+        for dim in divergent_dimensions:
+            r2_scores = {t.agent_name: getattr(t.round2, dim) for t in trajectories}
+            r1_scores = {t.agent_name: getattr(t.round1, dim) for t in trajectories}
+            scores_list = list(r2_scores.values())
+            dimension_details[dim] = {
+                "round2_scores": r2_scores,
+                "round1_scores": r1_scores,
+                "spread": max(scores_list) - min(scores_list),
+                "highest_agent": max(r2_scores, key=r2_scores.get),
+                "lowest_agent": min(r2_scores, key=r2_scores.get),
+            }
+
+        return {
+            "agents": agent_contexts,
+            "divergent_dimensions": divergent_dimensions,
+            "dimension_details": dimension_details,
+            "escalation_threshold": self._escalation_threshold,
+        }
+
+    def arbiter_evaluate(
+        self,
+        arbiter_context: Dict[str, Any],
+    ) -> EscalationResult:
+        """
+        Arbiter makes final call with explicit reasoning for which
+        perspective prevails and why.
+
+        In production, this would invoke an LLM (Opus) as the arbiter.
+        This implementation provides the deterministic evaluation logic
+        that the arbiter agent uses.
+
+        Strategy: For each divergent dimension, the arbiter selects the
+        score from the most stable agent (highest trajectory stability).
+        For non-divergent dimensions, use the trajectory-weighted consensus.
+
+        Args:
+            arbiter_context: Full context from build_arbiter_context()
+
+        Returns:
+            EscalationResult with verdict and reasoning
+        """
+        agents = arbiter_context["agents"]
+        divergent_dims = arbiter_context["divergent_dimensions"]
+        dim_details = arbiter_context["dimension_details"]
+
+        # Find the most stable agent overall
+        most_stable = max(agents, key=lambda a: a["stability_score"])
+
+        # Build verdict: for divergent dimensions, trust the most stable agent
+        # For non-divergent dimensions, use weighted consensus
+        verdict = {}
+        reasoning_parts = []
+
+        for dim in ["validity", "specificity", "correctness"]:
+            if dim in divergent_dims:
+                # Use most stable agent's score for divergent dimensions
+                detail = dim_details[dim]
+                stable_score = most_stable["round2_scores"][dim]
+                verdict[dim] = stable_score
+                reasoning_parts.append(
+                    f"{dim}: diverged (spread={detail['spread']:.3f}, "
+                    f"highest={detail['highest_agent']}, lowest={detail['lowest_agent']}). "
+                    f"Arbiter selects {most_stable['agent_name']}'s score ({stable_score:.3f}) "
+                    f"— most stable agent (stability={most_stable['stability_score']:.3f})."
+                )
+            else:
+                # Weighted consensus for non-divergent dimensions
+                total_weight = sum(a["trajectory_weight"] for a in agents)
+                if total_weight > 0:
+                    weighted = sum(
+                        a["round2_scores"][dim] * a["trajectory_weight"]
+                        for a in agents
+                    ) / total_weight
+                else:
+                    weighted = sum(a["round2_scores"][dim] for a in agents) / len(agents)
+                verdict[dim] = weighted
+                reasoning_parts.append(
+                    f"{dim}: consensus (no divergence), weighted={weighted:.3f}."
+                )
+
+        verdict["composite_dq"] = (
+            verdict["validity"] * 0.4 +
+            verdict["specificity"] * 0.3 +
+            verdict["correctness"] * 0.3
+        )
+
+        arbiter_reasoning = (
+            f"Escalation triggered on dimensions: {', '.join(divergent_dims)}. "
+            + " ".join(reasoning_parts)
+            + f" Final composite DQ: {verdict['composite_dq']:.4f}. "
+            f"Prevailing perspective: {most_stable['agent_name']} "
+            f"(stability={most_stable['stability_score']:.3f}, held position under challenge)."
+        )
+
+        return EscalationResult(
+            escalated=True,
+            divergent_dimensions=divergent_dims,
+            arbiter_reasoning=arbiter_reasoning,
+            arbiter_verdict=verdict,
+            prevailing_perspective=most_stable["agent_name"],
+            agent_reasonings=[
+                {"agent": a["agent_name"], "reasoning": a["round2_reasoning"]}
+                for a in agents
+            ],
+        )
+
+    def generate_difficulty_feedback(
+        self,
+        divergent_dimensions: List[str],
+        trajectories: List[AgentTrajectory],
+        query_hash: str = "",
+    ) -> Dict[str, Any]:
+        """
+        Generate IRT difficulty feedback from disagreement patterns.
+
+        High disagreement indicates the query is harder than the current
+        difficulty estimate suggests. Feed this back to the IRT predictor.
+
+        Args:
+            divergent_dimensions: Which dimensions diverged
+            trajectories: Agent trajectories
+            query_hash: Hash of the original query
+
+        Returns:
+            Difficulty feedback dict for IRT consumption
+        """
+        # Compute disagreement intensity: average spread across divergent dims
+        spreads = []
+        for dim in divergent_dimensions:
+            r2_scores = [getattr(t.round2, dim) for t in trajectories]
+            spreads.append(max(r2_scores) - min(r2_scores))
+
+        avg_spread = sum(spreads) / len(spreads) if spreads else 0.0
+
+        # Map spread to difficulty boost: more disagreement = harder query
+        # Spread of 0.15 (threshold) -> boost 0.05
+        # Spread of 0.50 -> boost 0.15
+        # Capped at 0.20 to prevent runaway difficulty inflation
+        difficulty_boost = min(0.20, avg_spread * 0.3)
+
+        feedback = {
+            "ts": datetime.now(tz=timezone.utc).isoformat(),
+            "query_hash": query_hash,
+            "source": "disagreement_escalation",
+            "divergent_dimensions": divergent_dimensions,
+            "avg_spread": round(avg_spread, 4),
+            "difficulty_boost": round(difficulty_boost, 4),
+            "agent_count": len(trajectories),
+        }
+
+        return feedback
+
+    def log_escalation(
+        self,
+        query_hash: str,
+        result: EscalationResult,
+        difficulty_feedback: Dict[str, Any],
+        log_dir: Path = None,
+    ):
+        """
+        Log escalation event to data/supermax-escalations.jsonl.
+
+        Args:
+            query_hash: Hash of the original query
+            result: EscalationResult from arbiter
+            difficulty_feedback: IRT feedback data
+            log_dir: Override for data directory
+        """
+        out_dir = log_dir or self._escalation_log_dir
+        out_dir.mkdir(parents=True, exist_ok=True)
+        log_path = out_dir / "supermax-escalations.jsonl"
+
+        entry = {
+            "ts": datetime.now(tz=timezone.utc).isoformat(),
+            "query_hash": query_hash,
+            "escalated": result.escalated,
+            "divergent_dimensions": result.divergent_dimensions,
+            "prevailing_perspective": result.prevailing_perspective,
+            "arbiter_verdict": {
+                k: round(v, 4) for k, v in result.arbiter_verdict.items()
+            },
+            "arbiter_reasoning": result.arbiter_reasoning,
+            "difficulty_feedback": difficulty_feedback,
+        }
+
+        with open(log_path, "a") as f:
+            f.write(json.dumps(entry) + "\n")
+
+    def log_difficulty_feedback(
+        self,
+        feedback: Dict[str, Any],
+        log_dir: Path = None,
+    ):
+        """
+        Log difficulty feedback for IRT consumption to
+        data/disagreement-difficulty-feedback.jsonl.
+
+        The IRT predictor reads this file to adjust difficulty estimates
+        for similar future queries.
+
+        Args:
+            feedback: Difficulty feedback dict
+            log_dir: Override for data directory
+        """
+        out_dir = log_dir or self._difficulty_feedback_dir
+        out_dir.mkdir(parents=True, exist_ok=True)
+        log_path = out_dir / "disagreement-difficulty-feedback.jsonl"
+
+        with open(log_path, "a") as f:
+            f.write(json.dumps(feedback) + "\n")
+
+    def escalate(
+        self,
+        trajectories: List[AgentTrajectory],
+        query_hash: str = "",
+        log_dir: Path = None,
+    ) -> Optional[EscalationResult]:
+        """
+        Full escalation pipeline: check → build context → arbiter evaluate →
+        generate feedback → log.
+
+        Args:
+            trajectories: Agent trajectories from Free-MAD scoring
+            query_hash: Hash of the original query
+            log_dir: Override for data directory (for testing)
+
+        Returns:
+            EscalationResult if escalated, None if no escalation needed
+        """
+        should, divergent_dims = self.should_escalate(trajectories)
+        if not should:
+            return None
+
+        context = self.build_arbiter_context(trajectories, divergent_dims)
+        result = self.arbiter_evaluate(context)
+
+        # Generate and attach difficulty feedback
+        feedback = self.generate_difficulty_feedback(
+            divergent_dims, trajectories, query_hash
+        )
+        result.difficulty_feedback = feedback
+
+        # Log escalation and difficulty feedback
+        effective_log_dir = log_dir or self._escalation_log_dir
+        self.log_escalation(query_hash, result, feedback, effective_log_dir)
+        self.log_difficulty_feedback(feedback, effective_log_dir)
+
+        return result
 
 
 def log_trajectory(
