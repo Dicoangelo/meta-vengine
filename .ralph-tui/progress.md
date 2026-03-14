@@ -39,6 +39,20 @@ When testing boundary conditions like `spread > 0.15`, don't construct test valu
 
 ---
 
+## 2026-03-14 - meta-vengine-omv.12
+- **What was implemented:** A/B Test Framework — Graph Signal vs Keyword Complexity (US-012). Dual-signal computation, dedicated JSONL logging, analysis script with ECE/rollback, 40 pytest tests.
+- **Files changed:**
+  - `kernel/dq-scorer.js` (updated — added A/B test state management, dedicated JSONL logging, rollback-aware signal selection, both DQ scores computed per query, 4 new exported functions)
+  - `scripts/ab-test-graph-signal.py` (new — ~300 lines, full analysis: per-group DQ/cost/variance, ECE computation, auto-rollback, CLI with --check/--rollback/--resume/--json/--days)
+  - `scripts/tests/__init__.py` (new — package marker)
+  - `scripts/tests/test_ab_graph_signal.py` (new — 40 pytest tests, 10 test classes)
+- **Learnings:**
+  - Floating-point boundary tests: `0.90 - 0.85 = 0.050000000000000044` in IEEE 754. Use values with clear margin (e.g., diff=0.04 for "within tolerance") rather than exact thresholds. Mirrors the `Floating-Point Threshold Tests` pattern already documented.
+  - The `analyze_group` function reads DQ via `f"{group_name}_dq"` key pattern — both signals must be present in every log entry for cross-group comparison, even when only one signal is active for routing.
+  - A/B test state is separate from dq-scores.jsonl: `data/ab-test-state.json` (rollback flag) + `data/ab-test-graph-signal.jsonl` (per-decision log). The `ab_test` field in dq-scores.jsonl is preserved for backward compatibility.
+  - Python test imports for scripts in `scripts/` directory use `importlib.util.spec_from_file_location` since the scripts directory has hyphenated filenames. The `scripts/tests/` directory needed `__init__.py` for pytest discovery.
+---
+
 ## 2026-03-14 - meta-vengine-omv.11
 - **What was implemented:** Ecosystem Dashboard — SUPERMAX v2 + Graph Signal Tabs (US-011). Added two new API endpoints and two new dashboard panels with SSE streaming.
 - **Files changed:**
