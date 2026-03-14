@@ -470,6 +470,64 @@ function computeSubgraphDensityFromLinks(retrievedNodes, graphLinks) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
+// A/B TEST FRAMEWORK (US-012: Graph Signal vs Keyword Complexity)
+// ═══════════════════════════════════════════════════════════════════════════
+
+const AB_TEST_LOG_PATH = path.join(__dirname, '..', 'data', 'ab-test-graph-signal.jsonl');
+const AB_TEST_STATE_PATH = path.join(__dirname, '..', 'data', 'ab-test-state.json');
+
+/**
+ * Load A/B test state (rollback status, decision count).
+ * @returns {{active: boolean, rollback: boolean, reason: string|null, decisionCount: number}}
+ */
+function loadABTestState() {
+  try {
+    if (fs.existsSync(AB_TEST_STATE_PATH)) {
+      return JSON.parse(fs.readFileSync(AB_TEST_STATE_PATH, 'utf8'));
+    }
+  } catch (e) { /* fall through */ }
+  return { active: true, rollback: false, reason: null, decisionCount: 0 };
+}
+
+/**
+ * Save A/B test state.
+ */
+function saveABTestState(state) {
+  try {
+    fs.writeFileSync(AB_TEST_STATE_PATH, JSON.stringify(state, null, 2));
+  } catch (e) {
+    console.error('Failed to save A/B test state:', e.message);
+  }
+}
+
+/**
+ * Log an A/B test decision to the dedicated JSONL file.
+ * Records both complexity signals, the routing decision, and which signal was used.
+ *
+ * @param {Object} entry - A/B test log entry
+ */
+function logABTestDecision(entry) {
+  try {
+    const dir = path.dirname(AB_TEST_LOG_PATH);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.appendFileSync(AB_TEST_LOG_PATH, JSON.stringify(entry) + '\n');
+  } catch (e) {
+    // Non-fatal: don't break routing if logging fails
+  }
+}
+
+/**
+ * Determine A/B test group for a session.
+ * Odd session IDs → graph signal, even → keyword. Deterministic and reproducible.
+ *
+ * @param {number} sessionId - Session identifier (unix seconds)
+ * @returns {'graph'|'keyword'}
+ */
+function getABTestGroup(sessionId) {
+  return (sessionId % 2 === 1) ? 'graph' : 'keyword';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // MULTI-FEATURE GRAPH SIGNAL (US-004: Signal Composition)
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -712,15 +770,28 @@ function route(query) {
     irtDifficulty: irtDifficulty
   });
 
-  // A/B test: determine which complexity signal to use for routing
-  // Odd session timestamps use graph signal, even use keyword (deterministic)
+  // US-012: A/B test — determine which complexity signal to use for routing
+  // Odd session IDs use graph signal, even use keyword (deterministic, reproducible)
   const sessionId = Math.floor(Date.now() / 1000);
-  const useGraphSignal = graphSignal && graphSignal.featureCount >= 2 && (sessionId % 2 === 1);
+  const abState = loadABTestState();
+  const abGroup = getABTestGroup(sessionId);
+  const graphAvailable = graphSignal && graphSignal.featureCount >= 2;
+  // Use graph signal only if: A/B test active, not rolled back, graph available, and in graph group
+  const useGraphSignal = abState.active && !abState.rollback && graphAvailable && abGroup === 'graph';
   const routingComplexity = useGraphSignal ? graphSignal.graphComplexity : irtAdjustedComplexity;
 
-  // Try each model and pick best DQ
+  // Compute DQ candidates for BOTH signals (for A/B comparison logging)
+  const keywordCandidates = ['haiku', 'sonnet', 'opus'].map(model => {
+    const dq = calculateDQ(query, irtAdjustedComplexity, model, history);
+    return { model, dq };
+  });
+  const graphCandidates = graphAvailable ? ['haiku', 'sonnet', 'opus'].map(model => {
+    const dq = calculateDQ(query, graphSignal.graphComplexity, model, history);
+    return { model, dq };
+  }) : null;
+
+  // Try each model and pick best DQ using the active signal
   const candidates = ['haiku', 'sonnet', 'opus'].map(model => {
-    // Use the selected complexity signal for DQ calculation
     const dq = calculateDQ(query, routingComplexity, model, history);
     return { model, dq, complexity: complexity.score, adjustedComplexity: routingComplexity };
   });
@@ -827,6 +898,39 @@ function route(query) {
   };
 
   saveDecision(decision);
+
+  // US-012: Log to dedicated A/B test JSONL with both signals for comparison
+  const bestKeyword = [...keywordCandidates].sort((a, b) => {
+    if (Math.abs(a.dq.score - b.dq.score) > 0.05) return b.dq.score - a.dq.score;
+    const co = { haiku: 0, sonnet: 1, opus: 2 };
+    return co[a.model] - co[b.model];
+  })[0];
+  const bestGraph = graphCandidates ? [...graphCandidates].sort((a, b) => {
+    if (Math.abs(a.dq.score - b.dq.score) > 0.05) return b.dq.score - a.dq.score;
+    const co = { haiku: 0, sonnet: 1, opus: 2 };
+    return co[a.model] - co[b.model];
+  })[0] : null;
+
+  logABTestDecision({
+    ts: decision.ts,
+    session_id: sessionId,
+    query_hash: decision.query_hash,
+    ab_group: abGroup,
+    signal_used: useGraphSignal ? 'graph' : 'keyword',
+    keyword_complexity: irtAdjustedComplexity,
+    graph_complexity: graphSignal ? graphSignal.graphComplexity : null,
+    keyword_model: bestKeyword.model,
+    keyword_dq: bestKeyword.dq.score,
+    keyword_dq_components: bestKeyword.dq.components,
+    graph_model: bestGraph ? bestGraph.model : null,
+    graph_dq: bestGraph ? bestGraph.dq.score : null,
+    graph_dq_components: bestGraph ? bestGraph.dq.components : null,
+    actual_model: best.model,
+    actual_dq: best.dq.score,
+    cost_estimate: decision.cost_estimate,
+    graph_feature_count: graphSignal ? graphSignal.featureCount : 0,
+    rollback_active: abState.rollback
+  });
 
   return {
     model: best.model,
@@ -957,4 +1061,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures, computeSubgraphDensity, computeSubgraphDensityFromLinks, loadIRTBridge, computeIRTModifier, computeGraphSignal, loadGraphSignalWeights };
+module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures, computeSubgraphDensity, computeSubgraphDensityFromLinks, loadIRTBridge, computeIRTModifier, computeGraphSignal, loadGraphSignalWeights, loadABTestState, saveABTestState, logABTestDecision, getABTestGroup };
