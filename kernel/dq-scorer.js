@@ -470,6 +470,109 @@ function computeSubgraphDensityFromLinks(retrievedNodes, graphLinks) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
+// MULTI-FEATURE GRAPH SIGNAL (US-004: Signal Composition)
+// ═══════════════════════════════════════════════════════════════════════════
+
+const GRAPH_SIGNAL_WEIGHTS_PATH = path.join(__dirname, '..', 'config', 'graph-signal-weights.json');
+
+/**
+ * Load graph signal weights from config file (the ONLY authority).
+ * Designed as a future Optimas Local Reward Function (learnable).
+ *
+ * @returns {{entropy: number, gini: number, subgraphDensity: number, irtDifficulty: number}}
+ */
+function loadGraphSignalWeights() {
+  try {
+    if (fs.existsSync(GRAPH_SIGNAL_WEIGHTS_PATH)) {
+      const config = JSON.parse(fs.readFileSync(GRAPH_SIGNAL_WEIGHTS_PATH, 'utf8'));
+      if (config.weights) return config.weights;
+    }
+  } catch (e) {
+    // Fall through to defaults
+  }
+  // Emergency fallback only — should never be used in production
+  return { entropy: 0.30, gini: 0.25, subgraphDensity: 0.25, irtDifficulty: 0.20 };
+}
+
+/**
+ * Compose entropy, Gini, subgraph density, and IRT difficulty into a single
+ * graphComplexity score (0.0-1.0). Replaces keyword-based complexity for routing.
+ *
+ * Higher graphComplexity means the query is harder (sparse knowledge, concentrated
+ * retrieval scores, high IRT difficulty) and should route to more capable models.
+ *
+ * Feature normalization:
+ * - entropy: inverted (high entropy = well-distributed knowledge = EASIER)
+ *   normalized to [0,1] via 1 - entropy/maxEntropy
+ * - gini: inverted (high Gini = diverse distribution = EASIER)
+ *   normalized to [0,1] via 1 - gini
+ * - subgraphDensity: inverted (dense subgraph = well-connected knowledge = EASIER)
+ *   normalized to [0,1] via 1 - density
+ * - irtDifficulty: direct (high difficulty = HARDER), already [0,1]
+ *
+ * @param {Object} params
+ * @param {Object|null} params.distributional - Output of computeDistributionalFeatures()
+ * @param {Object|null} params.subgraph - Output of computeSubgraphDensity()
+ * @param {number|null} params.irtDifficulty - IRT difficulty from HSRGS bridge (0.0-1.0)
+ * @returns {{graphComplexity: number, features: Object, weights: Object, featureCount: number} | null}
+ *          Returns null if no features are available
+ */
+function computeGraphSignal({ distributional, subgraph, irtDifficulty }) {
+  const weights = loadGraphSignalWeights();
+  const features = {};
+  let totalWeight = 0;
+  let weightedSum = 0;
+
+  // Entropy: invert so high entropy (easy) → low complexity
+  if (distributional && typeof distributional.entropy === 'number') {
+    // Max entropy for n items = ln(n). Use sampleSize for normalization.
+    const maxEntropy = Math.log(distributional.sampleSize);
+    const normalizedEntropy = maxEntropy > 0 ? distributional.entropy / maxEntropy : 0;
+    const complexityFromEntropy = 1 - normalizedEntropy; // invert: low entropy = high complexity
+    features.entropy = parseFloat(complexityFromEntropy.toFixed(6));
+    weightedSum += features.entropy * weights.entropy;
+    totalWeight += weights.entropy;
+  }
+
+  // Gini: invert so high Gini (diverse) → low complexity
+  if (distributional && typeof distributional.gini === 'number') {
+    const complexityFromGini = 1 - distributional.gini; // invert: low diversity = high complexity
+    features.gini = parseFloat(complexityFromGini.toFixed(6));
+    weightedSum += features.gini * weights.gini;
+    totalWeight += weights.gini;
+  }
+
+  // Subgraph density: invert so dense graph → low complexity
+  if (subgraph && typeof subgraph.density === 'number') {
+    const complexityFromDensity = 1 - subgraph.density; // invert: sparse = high complexity
+    features.subgraphDensity = parseFloat(complexityFromDensity.toFixed(6));
+    weightedSum += features.subgraphDensity * weights.subgraphDensity;
+    totalWeight += weights.subgraphDensity;
+  }
+
+  // IRT difficulty: direct mapping (already 0-1, high = hard)
+  if (typeof irtDifficulty === 'number' && !isNaN(irtDifficulty)) {
+    const clampedIRT = Math.max(0, Math.min(1, irtDifficulty));
+    features.irtDifficulty = parseFloat(clampedIRT.toFixed(6));
+    weightedSum += features.irtDifficulty * weights.irtDifficulty;
+    totalWeight += weights.irtDifficulty;
+  }
+
+  const featureCount = Object.keys(features).length;
+  if (featureCount === 0) return null;
+
+  // Normalize by actual weight used (handles partial feature availability)
+  const graphComplexity = totalWeight > 0 ? weightedSum / totalWeight : 0;
+
+  return {
+    graphComplexity: parseFloat(Math.max(0, Math.min(1, graphComplexity)).toFixed(6)),
+    features,
+    weights,
+    featureCount
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // DQ SCORING FUNCTIONS
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -600,11 +703,26 @@ function route(query) {
   const IRT_MOD = computeIRTModifier(irtDifficulty);
   const irtAdjustedComplexity = Math.max(0, Math.min(1, adjustedComplexity + IRT_MOD));
 
+  // US-004: Compute multi-feature graph signal
+  // Attempt to gather distributional features and subgraph density
+  // These may be null if no retrieval scores / nodes are available for this query
+  const graphSignal = computeGraphSignal({
+    distributional: null, // Populated by caller or retrieval pipeline when available
+    subgraph: null,       // Populated by caller or retrieval pipeline when available
+    irtDifficulty: irtDifficulty
+  });
+
+  // A/B test: determine which complexity signal to use for routing
+  // Odd session timestamps use graph signal, even use keyword (deterministic)
+  const sessionId = Math.floor(Date.now() / 1000);
+  const useGraphSignal = graphSignal && graphSignal.featureCount >= 2 && (sessionId % 2 === 1);
+  const routingComplexity = useGraphSignal ? graphSignal.graphComplexity : irtAdjustedComplexity;
+
   // Try each model and pick best DQ
   const candidates = ['haiku', 'sonnet', 'opus'].map(model => {
-    // Use IRT-adjusted complexity for DQ calculation
-    const dq = calculateDQ(query, irtAdjustedComplexity, model, history);
-    return { model, dq, complexity: complexity.score, adjustedComplexity: irtAdjustedComplexity };
+    // Use the selected complexity signal for DQ calculation
+    const dq = calculateDQ(query, routingComplexity, model, history);
+    return { model, dq, complexity: complexity.score, adjustedComplexity: routingComplexity };
   });
 
   // Sort by DQ score (highest first), then by cost (lowest first for ties)
@@ -686,6 +804,13 @@ function route(query) {
       modifier: IRT_MOD,
       source: 'hsrgs-bridge'
     } : null,
+    graphSignal: graphSignal || null,
+    ab_test: {
+      keyword_complexity: irtAdjustedComplexity,
+      graph_complexity: graphSignal ? graphSignal.graphComplexity : null,
+      signal_used: useGraphSignal ? 'graph' : 'keyword',
+      session_id: sessionId
+    },
     model: best.model,
     dqScore: best.dq.score,
     dqComponents: best.dq.components,
@@ -832,4 +957,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures, computeSubgraphDensity, computeSubgraphDensityFromLinks, loadIRTBridge, computeIRTModifier };
+module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures, computeSubgraphDensity, computeSubgraphDensityFromLinks, loadIRTBridge, computeIRTModifier, computeGraphSignal, loadGraphSignalWeights };
