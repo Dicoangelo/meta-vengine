@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """
-SUPERMAX v2 — Adaptive Agent Count with Difficulty-Aware Spawning.
+SUPERMAX v2 — Adaptive Agent Count with Difficulty-Aware Spawning + Free-MAD Trajectory Scoring.
 
 US-007: Dynamically selects agent count (1-5) based on graphComplexity
 from the multi-feature graph signal (US-004). Simple queries use 1 agent,
 complex queries get full council evaluation.
+
+US-008: Free-MAD trajectory scoring replaces weighted averaging. Agent
+stability (not agreement speed) determines consensus quality. Sycophancy
+detection via unanimous convergence flagging.
 
 Agent priority order:
   1. Principal Engineer (technical correctness, waste penalties)
@@ -216,6 +220,53 @@ class PredictiveSpawner:
             agents=agents,
             thresholds_used={t["tier"]: t for t in self._thresholds},
         )
+
+
+class SupermaxV2:
+    """
+    Full SUPERMAX v2 orchestrator combining adaptive spawning (US-007)
+    with Free-MAD trajectory scoring (US-008).
+
+    Usage:
+        v2 = SupermaxV2()
+        plan = v2.plan_agents(graph_complexity=0.7)
+        # ... agents evaluate Round 1 ...
+        peer_context = v2.prepare_peer_context(round1_evals)
+        # ... agents evaluate Round 2 with peer context ...
+        result = v2.synthesize(round1_evals, round2_evals)
+        v2.log(query_hash, plan, result)
+    """
+
+    def __init__(self, config_path: Path = None):
+        from coordinator.synthesizer import FreeMadSynthesizer
+        self.spawner = PredictiveSpawner(config_path)
+        self.synthesizer = FreeMadSynthesizer(config_path)
+
+    def plan_agents(self, graph_complexity: float = None) -> SpawnPlan:
+        """Plan agent spawning based on graph complexity."""
+        return self.spawner.plan_with_default(graph_complexity)
+
+    def prepare_peer_context(self, round1_evals):
+        """Anonymize Round 1 evaluations for peer sharing."""
+        return self.synthesizer.prepare_peer_context(round1_evals)
+
+    def synthesize(self, round1_evals, round2_evals):
+        """Run Free-MAD trajectory synthesis."""
+        return self.synthesizer.synthesize(round1_evals, round2_evals)
+
+    def log(self, query_hash: str, plan: SpawnPlan, result=None, cost_estimate: float = 0.0):
+        """Log both cost and trajectory data."""
+        from coordinator.synthesizer import log_trajectory
+        log_supermax_cost(
+            query_hash=query_hash,
+            agent_count=plan.agent_count,
+            difficulty_tier=plan.difficulty_tier,
+            graph_complexity=plan.graph_complexity,
+            agents_used=[a.name for a in plan.agents],
+            cost_estimate=cost_estimate,
+        )
+        if result is not None:
+            log_trajectory(query_hash, result)
 
 
 def log_supermax_cost(
