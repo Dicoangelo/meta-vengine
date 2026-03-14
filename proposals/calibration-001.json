@@ -1,0 +1,50 @@
+{
+  "id": "calibration-001",
+  "type": "dq_weight_calibration",
+  "status": "applied",
+  "created_at": "2026-03-14T23:50:42.537768+00:00",
+  "source": "dq-calibrator",
+  "mutation_target": "dq_weights",
+  "mutation_pipeline": "godel_engine",
+  "current_weights": {
+    "validity": 0.45,
+    "specificity": 0.25,
+    "correctness": 0.3
+  },
+  "recommended_weights": {
+    "validity": 0.3912,
+    "specificity": 0.2853,
+    "correctness": 0.3235
+  },
+  "deltas": {
+    "validity": -0.0588,
+    "specificity": 0.0353,
+    "correctness": 0.0235
+  },
+  "max_delta": 0.0588,
+  "auto_apply_safe": false,
+  "ece_report": {
+    "validity": {
+      "ece": 0.267943,
+      "sample_count": 88,
+      "sufficient": true
+    },
+    "specificity": {
+      "ece": 0.293784,
+      "sample_count": 88,
+      "sufficient": true
+    },
+    "correctness": {
+      "ece": 0.236023,
+      "sample_count": 88,
+      "sufficient": true
+    },
+    "overall": {
+      "ece": 0.219239,
+      "sample_count": 88,
+      "sufficient": true
+    }
+  },
+  "approval_required": true,
+  "apply_command": "coevo-apply calibration-001"
+}
