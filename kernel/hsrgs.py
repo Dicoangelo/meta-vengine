@@ -49,6 +49,7 @@ EMBEDDINGS_FILE = HSRGS_DIR / "model_embeddings.npz"
 IRT_PARAMS_FILE = HSRGS_DIR / "irt_params.json"
 EVOLUTION_ARCHIVE = HSRGS_DIR / "evolution_archive.jsonl"
 ROUTING_LOG = HSRGS_DIR / "routing_log.jsonl"
+IRT_BRIDGE_FILE = HSRGS_DIR / "irt-bridge.json"
 
 # Coevo integration - shared data pipeline
 COEVO_DQ_FILE = Path.home() / ".claude" / "kernel" / "dq-scores.jsonl"
@@ -803,8 +804,29 @@ class HSRGSRouter:
         with open(ROUTING_LOG, "a") as f:
             f.write(json.dumps(log_entry) + "\n")
 
+        # Write IRT bridge file for cross-runtime consumption (Node.js DQ scorer)
+        self._write_irt_bridge(query, decision)
+
         # Also log to coevo data pipeline for cross-system learning
         self._log_to_coevo(query, decision)
+
+    def _write_irt_bridge(self, query: str, decision: RoutingDecision):
+        """Write IRT difficulty data to bridge file for Node.js DQ scorer consumption."""
+        try:
+            bridge_data = {
+                "query_hash": decision.query_hash,
+                "difficulty": float(decision.latent.difficulty),
+                "discrimination": float(decision.latent.discrimination),
+                "domain_signature": decision.latent.domain_signature,
+                "irt_predictions": {m: float(p) for m, p in decision.irt_predictions.items()},
+                "selected_model": decision.selected_model,
+                "timestamp": decision.timestamp
+            }
+            HSRGS_DIR.mkdir(parents=True, exist_ok=True)
+            with open(IRT_BRIDGE_FILE, "w") as f:
+                json.dump(bridge_data, f, indent=2)
+        except Exception:
+            pass  # Silent fail — don't break routing
 
     def _log_to_coevo(self, query: str, decision: RoutingDecision):
         """Log to shared coevo data pipeline for meta-analyzer integration"""
