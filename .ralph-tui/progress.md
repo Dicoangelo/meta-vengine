@@ -39,6 +39,19 @@ When testing boundary conditions like `spread > 0.15`, don't construct test valu
 
 ---
 
+## 2026-03-14 - meta-vengine-omv.11
+- **What was implemented:** Ecosystem Dashboard — SUPERMAX v2 + Graph Signal Tabs (US-011). Added two new API endpoints and two new dashboard panels with SSE streaming.
+- **Files changed:**
+  - `~/.claude/scripts/ccc-api-server.py` (updated — added `/api/supermax` + `/api/graph-signal` endpoints, SSE polling methods `_poll_supermax` + `_poll_graph_signal`, META_VENGINE_DIR constant)
+  - `~/.claude/dashboard/ecosystem.html` (updated — added 2 intelligence panels with charts, heatmap, bar distributions, SSE listeners, periodic refresh)
+- **Learnings:**
+  - The CCC API server uses a `DataStreamer` class for SSE with `_poll_*` methods for lightweight pulses and full REST endpoints for detailed data. New SSE events ride on the existing 30-second ecosystem counter.
+  - SUPERMAX JSONL files (`supermax-costs.jsonl`, `supermax-trajectories.jsonl`) may not exist yet — they're only created when SUPERMAX v2 actually processes queries. All reads handle missing files gracefully.
+  - Graph confidence distribution uses `COALESCE(confidence, 0.5)` because SQLite `ALTER TABLE ADD COLUMN` only sets default for new rows — existing rows remain NULL.
+  - Dashboard uses Chart.js already loaded via CDN. Doughnut chart for agent count distribution, bar chart for confidence distribution. Both charts use `destroy()` before re-creating to prevent memory leaks.
+  - HTML validation with Python's `html.parser` catches structural issues early — faster than browser testing.
+---
+
 ## 2026-03-14 - meta-vengine-omv.10
 - **What was implemented:** Graph Confidence Loop — Write Direction (US-010). Full implementation from scratch.
 - **Files changed:**
