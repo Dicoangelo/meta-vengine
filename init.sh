@@ -477,3 +477,17 @@ EOF
 }
 
 alias chiefhelp='chief-help'
+
+# ══════════════════════════════════════════════════════════════
+# SLEEP PREVENTION FOR LONG-RUNNING TASKS
+# ══════════════════════════════════════════════════════════════
+
+# Auto-wrap ralph-tui with caffeinate (prevents Mac sleep, self-terminates on exit)
+ralph-tui() {
+    caffeinate -d command ralph-tui "$@"
+}
+
+# Generic wrapper: `awake <any-command>` keeps Mac alive for the duration
+awake() {
+    caffeinate -d "$@"
+}

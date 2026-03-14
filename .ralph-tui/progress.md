@@ -16,6 +16,25 @@ When composing signals: features where HIGH = EASY (entropy, gini, density) get 
 ### Weight Normalization — Partial Feature Handling
 When not all features are available, divide weighted sum by actual weight used (not total weight). This lets the system degrade gracefully from 4 features to 1.
 
+### Python Test Pattern — importlib for Hyphenated Filenames
+Python kernel scripts use hyphenated filenames (e.g., `behavioral-outcome.py`). Tests must use `importlib.import_module("behavioral-outcome")` since hyphens aren't valid in Python import statements.
+
+### Tool Events ↔ Sessions Correlation
+`tool_events` has no `session_id` column. Correlate with sessions using timestamp range matching: convert session ISO `started_at`/`ended_at` to unix timestamps, then query `tool_events WHERE timestamp >= start AND timestamp <= end`.
+
+---
+
+## 2026-03-14 - meta-vengine-omv.5
+- **What was implemented:** Behavioral Outcome Signal — Composite Score Extractor (US-005). Full implementation from scratch.
+- **Files changed:**
+  - `kernel/behavioral-outcome.py` (new — ~230 lines, 5 component scorers + pipeline)
+  - `kernel/tests/test_behavioral_outcome.py` (new — 30 tests, 7 test classes)
+- **Learnings:**
+  - `claude.db` sessions use ISO timestamps but `tool_events` uses unix timestamps — need conversion for correlation.
+  - `activity_events.session_id` is inconsistent (paths, timestamps, project names) — not reliable for session-to-event mapping. Use timestamp range correlation instead.
+  - Session outcomes in prod: success (2448), abandoned (1875), partial (479), completed (15), quick (7). The split between "success" and "completed" matters for scoring.
+  - `command_events` stores aggregated commands (e.g., `bash` with `count=972`), not individual invocations. Model override detection looks for command strings containing model names.
+  - Smoke test against real claude.db (5 sessions) confirmed correct output format and scoring ranges.
 ---
 
 ## 2026-03-14 - meta-vengine-omv.4
