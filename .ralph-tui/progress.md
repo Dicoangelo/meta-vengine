@@ -14,6 +14,7 @@ after each iteration and it's included in prompts for context.
 - **Append-only principle**: New features are additive — no modification to existing function signatures or behavior. New functions exported alongside existing ones.
 - **SQLite from Node.js**: Use `execSync('sqlite3 ...')` for zero-dependency SQLite access. UNION queries are much faster than OR for indexed lookups on different columns. Add `busy_timeout=5000` for WAL-mode DBs.
 - **Supermemory indexes**: `memory_links` has auto-index on `(from_id, to_id, link_type)` + custom `idx_memory_links_to_id` on `to_id`. Use UNION of two indexed queries instead of OR for sub-50ms on 12M rows.
+- **Cross-runtime bridge pattern**: Python writes JSON to `~/.claude/kernel/hsrgs/irt-bridge.json`, Node.js reads it. Include `timestamp` for staleness check (60s max age) and `query_hash` for identity matching. No IPC/RPC needed.
 
 ---
 
@@ -44,5 +45,22 @@ after each iteration and it's included in prompts for context.
   - supermemory.db uses WAL mode — need `busy_timeout` for DDL operations like CREATE INDEX
   - `memory_links` link_types: same_project (11.3M), same_date (808K), same_source (3.7K) — heavily project-correlated
   - Edge deduplication needed: links are directional but density should treat them as undirected (sort + join key)
+---
+
+## 2026-03-14 - meta-vengine-omv.3
+- Implemented IRT difficulty cross-runtime bridge: Python HSRGS writes `irt-bridge.json`, Node.js DQ scorer reads it
+- Added `_write_irt_bridge()` method to `HSRGSRouter` in `kernel/hsrgs.py` — writes after each routing decision
+- Added `loadIRTBridge(queryHash?)` in `kernel/dq-scorer.js` — reads bridge with 60s staleness check and optional query hash matching
+- Added `computeIRTModifier(irtDifficulty)` — high difficulty (>0.7) → +0.15 bias toward Opus, low (<0.3) → -0.15 bias toward Haiku, mid-range → 0.0
+- Integrated `IRT_MOD` into `route()` function: applied after cognitive modifier, before DQ calculation
+- IRT data logged in decision records (`irt: {difficulty, modifier, source}`)
+- Graceful degradation: if bridge file missing, stale, or invalid → modifier defaults to 0.0
+- Created `kernel/tests/test-irt-integration.js` — 35/35 tests pass (modifier math, bridge loading, integration routing)
+- Files changed: `kernel/hsrgs.py`, `kernel/dq-scorer.js`, `kernel/tests/test-irt-integration.js` (new)
+- **Learnings:**
+  - Cross-runtime bridge via shared JSON file is simple and effective — no IPC/RPC needed
+  - Staleness check (60s) prevents stale IRT data from affecting routing when HSRGS hasn't run recently
+  - Query hash matching ensures the bridge data corresponds to the current query, not a previous one
+  - `process.chdir()` doesn't affect `require()` resolution — must use absolute paths in test requires
 ---
 

@@ -267,6 +267,71 @@ function computeDistributionalFeatures(scores) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
+// IRT DIFFICULTY BRIDGE (US-003: Multi-Feature Graph Signal — IRT Integration)
+// ═══════════════════════════════════════════════════════════════════════════
+
+const IRT_BRIDGE_PATH = path.join(process.env.HOME, '.claude/kernel/hsrgs/irt-bridge.json');
+
+/**
+ * Load IRT difficulty data from the HSRGS bridge file (Python → Node.js).
+ * Returns the bridge data if fresh (< 60 seconds old), null otherwise.
+ *
+ * @param {string} [queryHash] - Optional query hash to match against bridge data
+ * @returns {{difficulty: number, discrimination: number, domain_signature: string,
+ *            irt_predictions: Object, selected_model: string, timestamp: number} | null}
+ */
+function loadIRTBridge(queryHash) {
+  try {
+    if (!fs.existsSync(IRT_BRIDGE_PATH)) return null;
+
+    const data = JSON.parse(fs.readFileSync(IRT_BRIDGE_PATH, 'utf8'));
+
+    // Staleness check: bridge data must be < 60 seconds old
+    const ageMs = Date.now() - data.timestamp;
+    if (ageMs > 60000) return null;
+
+    // If queryHash provided, verify it matches
+    if (queryHash && data.query_hash !== queryHash) return null;
+
+    // Validate required fields
+    if (typeof data.difficulty !== 'number') return null;
+
+    return data;
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Compute IRT difficulty modifier for routing.
+ * High IRT difficulty (> 0.7) biases toward Opus (positive modifier).
+ * Low IRT difficulty (< 0.3) biases toward Haiku (negative modifier).
+ * Mid-range: no effect.
+ *
+ * @param {number} irtDifficulty - IRT difficulty from HSRGS (0.0-1.0)
+ * @returns {number} Modifier to apply to complexity score (-0.15 to +0.15)
+ */
+function computeIRTModifier(irtDifficulty) {
+  if (typeof irtDifficulty !== 'number' || isNaN(irtDifficulty)) return 0.0;
+
+  // Clamp to valid range
+  const d = Math.max(0.0, Math.min(1.0, irtDifficulty));
+
+  if (d > 0.7) {
+    // High difficulty: bias toward more capable model (Opus)
+    // Scale: 0.7 → 0.0, 1.0 → +0.15
+    return parseFloat(((d - 0.7) / 0.3 * 0.15).toFixed(4));
+  } else if (d < 0.3) {
+    // Low difficulty: bias toward cheaper model (Haiku)
+    // Scale: 0.3 → 0.0, 0.0 → -0.15
+    return parseFloat(((d - 0.3) / 0.3 * 0.15).toFixed(4));
+  }
+
+  // Mid-range: no modification
+  return 0.0;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // SUBGRAPH DENSITY (US-002: Multi-Feature Graph Signal)
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -528,11 +593,18 @@ function route(query) {
   // Apply cognitive modifier to complexity for threshold comparisons
   const adjustedComplexity = applyCognitiveModifier(complexity.score);
 
+  // Apply IRT difficulty modifier (US-003: cross-runtime bridge from HSRGS)
+  const queryHash = crypto.createHash('md5').update(query).digest('hex');
+  const irtBridge = loadIRTBridge(queryHash);
+  const irtDifficulty = irtBridge ? irtBridge.difficulty : null;
+  const IRT_MOD = computeIRTModifier(irtDifficulty);
+  const irtAdjustedComplexity = Math.max(0, Math.min(1, adjustedComplexity + IRT_MOD));
+
   // Try each model and pick best DQ
   const candidates = ['haiku', 'sonnet', 'opus'].map(model => {
-    // Use adjusted complexity for DQ calculation
-    const dq = calculateDQ(query, adjustedComplexity, model, history);
-    return { model, dq, complexity: complexity.score, adjustedComplexity };
+    // Use IRT-adjusted complexity for DQ calculation
+    const dq = calculateDQ(query, irtAdjustedComplexity, model, history);
+    return { model, dq, complexity: complexity.score, adjustedComplexity: irtAdjustedComplexity };
   });
 
   // Sort by DQ score (highest first), then by cost (lowest first for ties)
@@ -607,8 +679,13 @@ function route(query) {
     query: query.slice(0, 200), // Truncate for storage
     query_preview: query.slice(0, 50),
     complexity: complexity.score,
-    adjusted_complexity: adjustedComplexity,
+    adjusted_complexity: irtAdjustedComplexity,
     complexity_reasoning: complexity.reasoning,
+    irt: irtBridge ? {
+      difficulty: irtDifficulty,
+      modifier: IRT_MOD,
+      source: 'hsrgs-bridge'
+    } : null,
     model: best.model,
     dqScore: best.dq.score,
     dqComponents: best.dq.components,
@@ -755,4 +832,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures, computeSubgraphDensity, computeSubgraphDensityFromLinks };
+module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures, computeSubgraphDensity, computeSubgraphDensityFromLinks, loadIRTBridge, computeIRTModifier };
