@@ -39,6 +39,20 @@ When testing boundary conditions like `spread > 0.15`, don't construct test valu
 
 ---
 
+## 2026-03-14 - meta-vengine-omv.10
+- **What was implemented:** Graph Confidence Loop — Write Direction (US-010). Full implementation from scratch.
+- **Files changed:**
+  - `kernel/graph-confidence-daemon.py` (new — ~350 lines, background daemon, confidence migration, batch-limited depth-limited link updates, snapshots, sparse subgraph flagging)
+  - `kernel/tests/test_graph_confidence.py` (new — 45 pytest tests, 12 test classes)
+- **Learnings:**
+  - `memory_links` table had no `from_id` index — only `to_id` was indexed. Added `idx_memory_links_from_id` in the migration for efficient bidirectional subgraph traversal.
+  - `memory_links` has no `confidence` column by default — migration uses `ALTER TABLE ADD COLUMN` with `DEFAULT 0.5`. Must be idempotent (check `PRAGMA table_info` first).
+  - `COALESCE(confidence, 0.5)` needed in queries since existing rows have NULL until `ALTER TABLE` sets the default for new rows only (existing rows stay NULL in SQLite).
+  - Daemon state persistence uses a simple JSON file (`graph-confidence-state.json`) tracking `last_processed_line` — enables incremental processing without re-reading the entire behavioral outcomes JSONL.
+  - Snapshot pattern: take snapshot BEFORE updates, not after. Stores `pre_confidence` values so rollback is possible.
+  - The `find_links_for_nodes` function uses BFS with depth limit and batch limit simultaneously — the batch limit is a hard cap across all depths, not per-depth.
+---
+
 ## 2026-03-14 - meta-vengine-omv.9
 - **What was implemented:** SUPERMAX v2 — Disagreement Escalation (US-009). Full implementation.
 - **Files changed:**
