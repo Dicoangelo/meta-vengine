@@ -212,6 +212,60 @@ function applyCognitiveModifier(complexity) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
+// DISTRIBUTIONAL FEATURES (US-001: Multi-Feature Graph Signal)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Compute distributional features from supermemory retrieval score distributions.
+ * Used by the multi-feature graph signal (US-004) to replace single skewness metric.
+ *
+ * @param {number[]} scores - Raw retrieval scores from supermemory
+ * @returns {{entropy: number, gini: number, skewness: number, sampleSize: number} | null}
+ *          Returns null when scores.length < 5 (minimum sample threshold per Security Architect)
+ */
+function computeDistributionalFeatures(scores) {
+  if (!Array.isArray(scores) || scores.length < 5) {
+    return null;
+  }
+
+  const n = scores.length;
+
+  // Normalize scores to a probability distribution (sum to 1)
+  const sum = scores.reduce((a, b) => a + b, 0);
+  if (sum === 0) {
+    return { entropy: 0, gini: 1 / n, skewness: 0, sampleSize: n };
+  }
+  const probs = scores.map(s => s / sum);
+
+  // Shannon entropy: -Σ(p * log(p)), skip p=0 terms
+  const entropy = -probs.reduce((acc, p) => {
+    if (p > 0) acc += p * Math.log(p);
+    return acc;
+  }, 0);
+
+  // Gini impurity: 1 - Σ(p_i²)
+  const gini = 1 - probs.reduce((acc, p) => acc + p * p, 0);
+
+  // Skewness (Fisher-Pearson, sample-adjusted)
+  const mean = scores.reduce((a, b) => a + b, 0) / n;
+  const variance = scores.reduce((acc, s) => acc + (s - mean) ** 2, 0) / n;
+  const stdDev = Math.sqrt(variance);
+  let skewness = 0;
+  if (stdDev > 0 && n >= 3) {
+    const m3 = scores.reduce((acc, s) => acc + ((s - mean) / stdDev) ** 3, 0) / n;
+    // Apply sample adjustment factor
+    skewness = (Math.sqrt(n * (n - 1)) / (n - 2)) * m3;
+  }
+
+  return {
+    entropy: parseFloat(entropy.toFixed(6)),
+    gini: parseFloat(gini.toFixed(6)),
+    skewness: parseFloat(skewness.toFixed(6)),
+    sampleSize: n
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // DQ SCORING FUNCTIONS
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -562,4 +616,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { route, calculateDQ, recordFeedback, getStats };
+module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures };
