@@ -11,6 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { execSync } = require('child_process');
 const { estimateComplexity } = require('./complexity-analyzer');
 const { PRICING } = require(path.join(process.env.HOME, '.claude/config/pricing.js'));
 
@@ -262,6 +263,144 @@ function computeDistributionalFeatures(scores) {
     gini: parseFloat(gini.toFixed(6)),
     skewness: parseFloat(skewness.toFixed(6)),
     sampleSize: n
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SUBGRAPH DENSITY (US-002: Multi-Feature Graph Signal)
+// ═══════════════════════════════════════════════════════════════════════════
+
+const SUPERMEMORY_DB_PATH = path.join(process.env.HOME, '.claude/memory/supermemory.db');
+
+/**
+ * Query supermemory.db via sqlite3 CLI (zero-dependency, no native modules).
+ * Uses UNION for indexed lookups on both from_id and to_id.
+ *
+ * @param {string} sql - SQL query to execute
+ * @returns {string} Raw output from sqlite3
+ */
+function querySuperMemory(sql) {
+  try {
+    return execSync(
+      `sqlite3 "${SUPERMEMORY_DB_PATH}" "${sql.replace(/"/g, '\\"')}"`,
+      { encoding: 'utf8', timeout: 5000 }
+    ).trim();
+  } catch (e) {
+    return '';
+  }
+}
+
+/**
+ * Compute subgraph density for a set of retrieved knowledge nodes.
+ * Sparse subgraphs (density < 0.1) cause ~30% of KG-RAG errors (GraphRouter ICLR 2025).
+ *
+ * @param {string[]} retrievedNodes - Array of node IDs from supermemory retrieval
+ * @param {string} [queryTopic] - Optional topic string for coverage rate estimation via FTS
+ * @returns {{density: number, nodeCount: number, edgeCount: number, coverageRate: number} | null}
+ *          Returns null when retrievedNodes.length < 2 (need at least 2 nodes for density)
+ */
+function computeSubgraphDensity(retrievedNodes, queryTopic) {
+  if (!Array.isArray(retrievedNodes) || retrievedNodes.length < 2) {
+    return null;
+  }
+
+  // Deduplicate nodes
+  const nodes = [...new Set(retrievedNodes)];
+  const nodeCount = nodes.length;
+
+  if (nodeCount < 2) {
+    return null;
+  }
+
+  // Maximum possible edges in an undirected graph: n*(n-1)/2
+  const maxEdges = (nodeCount * (nodeCount - 1)) / 2;
+
+  // Query actual edges among retrieved nodes using indexed UNION approach
+  // Build IN clause for the node set
+  const inClause = nodes.map(n => `'${n.replace(/'/g, "''")}'`).join(',');
+
+  // Count edges where BOTH endpoints are in the retrieved set
+  // UNION approach uses indexes on both from_id and to_id efficiently
+  const edgeSql = `SELECT COUNT(*) FROM (
+    SELECT DISTINCT from_id, to_id FROM (
+      SELECT from_id, to_id FROM memory_links WHERE from_id IN (${inClause}) AND to_id IN (${inClause})
+      UNION
+      SELECT from_id, to_id FROM memory_links WHERE to_id IN (${inClause}) AND from_id IN (${inClause})
+    )
+  )`;
+
+  const edgeResult = querySuperMemory(edgeSql);
+  const edgeCount = parseInt(edgeResult, 10) || 0;
+
+  // Density = actual edges / possible edges
+  const density = maxEdges > 0 ? edgeCount / maxEdges : 0;
+
+  // Coverage rate: retrieved nodes / estimated relevant nodes
+  // Use FTS match count from memory_items as the estimate of relevant nodes
+  let coverageRate = 1.0; // Default: assume full coverage if no topic
+  if (queryTopic && queryTopic.trim()) {
+    const safeTopic = queryTopic.replace(/"/g, '').replace(/'/g, "''").replace(/[^\w\s-]/g, '');
+    if (safeTopic.trim()) {
+      const ftsSql = `SELECT COUNT(*) FROM memory_fts WHERE memory_fts MATCH '${safeTopic}'`;
+      const ftsResult = querySuperMemory(ftsSql);
+      const relevantCount = parseInt(ftsResult, 10) || 0;
+      if (relevantCount > 0) {
+        coverageRate = Math.min(1.0, nodeCount / relevantCount);
+      }
+    }
+  }
+
+  return {
+    density: parseFloat(density.toFixed(6)),
+    nodeCount,
+    edgeCount,
+    coverageRate: parseFloat(coverageRate.toFixed(6))
+  };
+}
+
+/**
+ * Compute subgraph density from pre-fetched graph links (no DB access needed).
+ * Used for testing and when links are already loaded.
+ *
+ * @param {string[]} retrievedNodes - Array of node IDs
+ * @param {{from_id: string, to_id: string}[]} graphLinks - Pre-fetched edge list
+ * @returns {{density: number, nodeCount: number, edgeCount: number, coverageRate: number} | null}
+ */
+function computeSubgraphDensityFromLinks(retrievedNodes, graphLinks) {
+  if (!Array.isArray(retrievedNodes) || retrievedNodes.length < 2) {
+    return null;
+  }
+  if (!Array.isArray(graphLinks)) {
+    return null;
+  }
+
+  const nodeSet = new Set(retrievedNodes);
+  const nodeCount = nodeSet.size;
+
+  if (nodeCount < 2) {
+    return null;
+  }
+
+  const maxEdges = (nodeCount * (nodeCount - 1)) / 2;
+
+  // Count unique edges where both endpoints are in the node set
+  const edgeSet = new Set();
+  for (const link of graphLinks) {
+    if (nodeSet.has(link.from_id) && nodeSet.has(link.to_id) && link.from_id !== link.to_id) {
+      // Normalize edge direction for undirected counting
+      const edgeKey = [link.from_id, link.to_id].sort().join('::');
+      edgeSet.add(edgeKey);
+    }
+  }
+
+  const edgeCount = edgeSet.size;
+  const density = maxEdges > 0 ? edgeCount / maxEdges : 0;
+
+  return {
+    density: parseFloat(density.toFixed(6)),
+    nodeCount,
+    edgeCount,
+    coverageRate: 1.0 // No topic available for in-memory computation
   };
 }
 
@@ -616,4 +755,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures };
+module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures, computeSubgraphDensity, computeSubgraphDensityFromLinks };

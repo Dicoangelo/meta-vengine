@@ -12,6 +12,8 @@ after each iteration and it's included in prompts for context.
 - **DQ Scorer pattern**: Functions added to `kernel/dq-scorer.js` and exported via `module.exports`. Uses `parseFloat(value.toFixed(N))` for numeric precision. Existing code loads from `~/.claude/kernel/` paths via `process.env.HOME`.
 - **Test pattern**: No test framework — plain Node.js scripts with manual assert helpers, `process.exit(1)` on failure. Tests live in `kernel/tests/`.
 - **Append-only principle**: New features are additive — no modification to existing function signatures or behavior. New functions exported alongside existing ones.
+- **SQLite from Node.js**: Use `execSync('sqlite3 ...')` for zero-dependency SQLite access. UNION queries are much faster than OR for indexed lookups on different columns. Add `busy_timeout=5000` for WAL-mode DBs.
+- **Supermemory indexes**: `memory_links` has auto-index on `(from_id, to_id, link_type)` + custom `idx_memory_links_to_id` on `to_id`. Use UNION of two indexed queries instead of OR for sub-50ms on 12M rows.
 
 ---
 
@@ -25,5 +27,22 @@ after each iteration and it's included in prompts for context.
   - `benchmark-100.js` doesn't exist yet in the repo or `~/.claude/scripts/` — skip that quality gate
   - DQ scorer uses `require('./complexity-analyzer')` and `require('~/.claude/config/pricing.js')` — tests need to run from repo root or kernel dir where these resolve
   - No test framework installed — vanilla Node.js assert pattern is the project convention
+---
+
+## 2026-03-14 - meta-vengine-omv.2
+- Implemented `computeSubgraphDensity(retrievedNodes, queryTopic)` in `kernel/dq-scorer.js`
+- Implemented `computeSubgraphDensityFromLinks(retrievedNodes, graphLinks)` for in-memory/testing use
+- Returns `{density, nodeCount, edgeCount, coverageRate}` or `null` when < 2 unique nodes
+- Density = actual edges / possible edges (undirected), coverage via FTS5 topic match
+- Added `idx_memory_links_to_id` index to supermemory.db for fast reverse lookups
+- Uses `execSync('sqlite3 ...')` for zero-dependency SQLite access from Node.js
+- Created `kernel/tests/test-subgraph-density.js` — 42/42 tests pass (incl. live DB integration)
+- Live DB performance: 11ms on 12.15M links (well under 100ms requirement)
+- Files changed: `kernel/dq-scorer.js`, `kernel/tests/test-subgraph-density.js` (new)
+- **Learnings:**
+  - OR queries on different indexed columns are slow in SQLite — use UNION of two indexed queries instead (500ms → 47ms)
+  - supermemory.db uses WAL mode — need `busy_timeout` for DDL operations like CREATE INDEX
+  - `memory_links` link_types: same_project (11.3M), same_date (808K), same_source (3.7K) — heavily project-correlated
+  - Edge deduplication needed: links are directional but density should treat them as undirected (sort + join key)
 ---
 
