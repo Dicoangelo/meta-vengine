@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "description": "Multi-feature graph signal weights for composite routing signal. Future Optimas Local Reward Function (learnable weights).",
+  "weights": {
+    "entropy": 0.30,
+    "gini": 0.25,
+    "subgraphDensity": 0.25,
+    "irtDifficulty": 0.20
+  },
+  "constraints": {
+    "minWeight": 0.05,
+    "maxWeight": 0.60,
+    "sumMustEqual": 1.0
+  },
+  "updated": "2026-03-14",
+  "updatedBy": "initial"
+}
