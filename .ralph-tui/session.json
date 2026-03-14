@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "sessionId": "cf965acf-eb06-49c2-b94c-898b213ab028",
+  "status": "running",
+  "startedAt": "2026-03-14T21:36:43.078Z",
+  "updatedAt": "2026-03-14T21:39:04.174Z",
+  "currentIteration": 0,
+  "maxIterations": 50,
+  "tasksCompleted": 0,
+  "isPaused": false,
+  "agentPlugin": "claude",
+  "trackerState": {
+    "plugin": "beads",
+    "epicId": "meta-vengine-omv",
+    "totalTasks": 12,
+    "tasks": [
+      {
+        "id": "meta-vengine-omv.5",
+        "title": "US-005: Behavioral Outcome Signal — Composite Score Extractor",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.4",
+        "title": "US-004: Multi-Feature Signal Composition",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.3",
+        "title": "US-003: Multi-Feature Graph Signal — IRT Difficulty Integration",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.2",
+        "title": "US-002: Multi-Feature Graph Signal — Subgraph Density Feature",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.1",
+        "title": "US-001: Multi-Feature Graph Signal — Entropy + Gini Calculator",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.10",
+        "title": "US-010: Graph Confidence Loop — Write Direction",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.9",
+        "title": "US-009: SUPERMAX v2 — Disagreement Escalation",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.8",
+        "title": "US-008: SUPERMAX v2 — Free-MAD Trajectory Scoring",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.7",
+        "title": "US-007: SUPERMAX v2 — Adaptive Agent Count",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.6",
+        "title": "US-006: DQ Calibration — ECE Computation and Weight Adjustment",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.12",
+        "title": "US-012: A/B Test Framework — Graph Signal vs Keyword Complexity",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "meta-vengine-omv.11",
+        "title": "US-011: Ecosystem Dashboard — SUPERMAX v2 + Graph Signal Tabs",
+        "status": "open",
+        "completedInSession": false
+      }
+    ]
+  },
+  "iterations": [],
+  "skippedTaskIds": [],
+  "cwd": "/Users/dicoangelo/projects/core/meta-vengine",
+  "activeTaskIds": [],
+  "subagentPanelVisible": false
+}
