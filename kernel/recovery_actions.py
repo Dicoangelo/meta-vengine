@@ -2,10 +2,12 @@
 """Recovery action implementations - all the actual fixes."""
 
 import os
+import json
 import subprocess
 import signal
 import time
 from pathlib import Path
+from datetime import datetime, timedelta
 
 SAFE_PATHS = [
     Path.home() / ".claude",
@@ -271,5 +273,152 @@ class RecoveryActions:
                         pass
 
             return {"success": True, "action": "kill_runaway_process", "killed": killed}
+        except Exception as e:
+            return {"success": False, "reason": str(e)}
+
+    # ═══════════════════════════════════════════════════════════
+    # STALE DAEMON PID RECOVERY
+    # ═══════════════════════════════════════════════════════════
+
+    def clean_stale_pids(self, error_text: str = None) -> dict:
+        """Detect and clean up stale PID files in daemon directories."""
+        try:
+            pid_dirs = [
+                Path.home() / ".claude" / "daemon",
+                Path.home() / ".agent-core" / "daemon",
+            ]
+
+            cleaned = 0
+            for pid_dir in pid_dirs:
+                if not pid_dir.exists():
+                    continue
+                for pid_file in pid_dir.glob("*.pid"):
+                    try:
+                        pid_text = pid_file.read_text().strip()
+                        if not pid_text:
+                            # Empty PID file — remove it
+                            pid_file.unlink()
+                            cleaned += 1
+                            continue
+                        pid = int(pid_text)
+                        # Check if process is actually running
+                        try:
+                            os.kill(pid, 0)  # Signal 0 = existence check
+                        except ProcessLookupError:
+                            # Process not running — stale PID file
+                            pid_file.unlink()
+                            cleaned += 1
+                        except PermissionError:
+                            # Process exists but we can't signal it — leave it
+                            pass
+                    except (ValueError, OSError):
+                        # Invalid PID content — remove
+                        pid_file.unlink()
+                        cleaned += 1
+
+            if cleaned > 0:
+                return {"success": True, "action": "clean_stale_pids", "cleaned": cleaned}
+            return {"success": True, "action": "clean_stale_pids", "note": "No stale PID files found"}
+        except Exception as e:
+            return {"success": False, "reason": str(e)}
+
+    # ═══════════════════════════════════════════════════════════
+    # CORRUPT JSONL RECOVERY
+    # ═══════════════════════════════════════════════════════════
+
+    def skip_malformed_lines(self, error_text: str = None) -> dict:
+        """Detect and report malformed lines in JSONL files. Does not delete —
+        writes a clean version alongside the original (.cleaned suffix)."""
+        try:
+            jsonl_dirs = [
+                Path.home() / ".claude" / "data",
+                Path.home() / ".claude" / "kernel",
+            ]
+
+            files_checked = 0
+            files_with_errors = 0
+            total_bad_lines = 0
+
+            for jsonl_dir in jsonl_dirs:
+                if not jsonl_dir.exists():
+                    continue
+                for jsonl_file in jsonl_dir.glob("*.jsonl"):
+                    files_checked += 1
+                    bad_lines = 0
+                    good_lines = []
+                    try:
+                        with open(jsonl_file, "r") as f:
+                            for line_num, line in enumerate(f, 1):
+                                stripped = line.strip()
+                                if not stripped:
+                                    continue
+                                try:
+                                    json.loads(stripped)
+                                    good_lines.append(line)
+                                except json.JSONDecodeError:
+                                    bad_lines += 1
+                    except (IOError, UnicodeDecodeError):
+                        continue
+
+                    if bad_lines > 0:
+                        files_with_errors += 1
+                        total_bad_lines += bad_lines
+                        # Write cleaned version alongside original (append-only principle:
+                        # never modify the original, create a .cleaned version)
+                        cleaned_path = jsonl_file.with_suffix(".jsonl.cleaned")
+                        with open(cleaned_path, "w") as f:
+                            f.writelines(good_lines)
+
+            result = {
+                "success": True,
+                "action": "skip_malformed_lines",
+                "files_checked": files_checked,
+                "files_with_errors": files_with_errors,
+                "bad_lines_found": total_bad_lines,
+            }
+            if files_with_errors == 0:
+                result["note"] = "No malformed JSONL entries found"
+            else:
+                result["note"] = f"Created .cleaned versions for {files_with_errors} files ({total_bad_lines} bad lines skipped)"
+            return result
+        except Exception as e:
+            return {"success": False, "reason": str(e)}
+
+    # ═══════════════════════════════════════════════════════════
+    # ORPHANED LOCK FILE RECOVERY
+    # ═══════════════════════════════════════════════════════════
+
+    def remove_orphaned_locks(self, error_text: str = None) -> dict:
+        """Detect and remove lock files older than 30 minutes."""
+        try:
+            lock_search_paths = [
+                Path.home() / ".claude",
+                Path.home() / ".agent-core",
+                Path.home() / ".antigravity",
+            ]
+
+            max_age_seconds = 1800  # 30 minutes
+            now = time.time()
+            removed = 0
+
+            for search_path in lock_search_paths:
+                if not search_path.exists():
+                    continue
+                # Find all .lock files recursively (but not inside .git directories)
+                for lock_file in search_path.rglob("*.lock"):
+                    # Skip .git internals — those are handled by clear_git_locks
+                    if ".git" in lock_file.parts:
+                        continue
+                    try:
+                        age = now - lock_file.stat().st_mtime
+                        if age > max_age_seconds:
+                            lock_file.unlink()
+                            removed += 1
+                    except (OSError, FileNotFoundError):
+                        pass
+
+            if removed > 0:
+                return {"success": True, "action": "remove_orphaned_locks", "removed": removed}
+            return {"success": True, "action": "remove_orphaned_locks", "note": "No orphaned lock files found"}
         except Exception as e:
             return {"success": False, "reason": str(e)}
