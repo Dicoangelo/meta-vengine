@@ -1,14 +1,15 @@
 {
-  "id": "a6016ae8-aada-4112-a812-af386cafd02b",
-  "status": "running",
-  "startedAt": "2026-03-14T22:54:57.148Z",
-  "updatedAt": "2026-03-14T23:31:47.928Z",
+  "id": "16291417-f9fd-41cc-81d1-2195e605c26b",
+  "status": "completed",
+  "startedAt": "2026-03-14T23:43:34.115Z",
+  "updatedAt": "2026-03-14T23:43:35.232Z",
   "agentPlugin": "claude",
   "trackerPlugin": "beads",
   "epicId": "meta-vengine-omv",
-  "currentIteration": 8,
+  "currentIteration": 0,
   "maxIterations": 50,
   "totalTasks": 0,
-  "tasksCompleted": 8,
-  "cwd": "/Users/dicoangelo/projects/core/meta-vengine"
+  "tasksCompleted": 0,
+  "cwd": "/Users/dicoangelo/projects/core/meta-vengine",
+  "endedAt": "2026-03-14T23:43:35.232Z"
 }
