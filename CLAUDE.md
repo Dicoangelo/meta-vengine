@@ -1,179 +1,51 @@
-# CLAUDE.md
+# meta-vengine
 
-This file provides guidance to Claude Code when working with the meta-vengine codebase.
+Self-improving routing engine. Routes queries to optimal AI providers via DQ scoring, learns from sessions, evolves its own configuration.
 
-## Overview
-
-Meta-vengine is a bidirectional co-evolution system — a self-improving intelligent routing engine that routes queries to optimal AI providers via multi-dimensional DQ scoring, learns from every session, and evolves its own configuration.
-
-**Version:** 1.2.0
-**Stack:** Python 3.8+, Node.js 18+, Bash/zsh
-**Database:** SQLite3 (primary), JSONL (append-only logs)
-**AI Providers:** Claude (Opus/Sonnet/Haiku), OpenAI GPT-4, Google Gemini 2.0, Ollama (local)
+**Stack:** Python 3.8+ / Node.js 18+ / Bash · SQLite3 + JSONL · Zero external frameworks
 
 ## Architecture
 
 ```
-APPLICATION    → Claude Code CLI, Claude Desktop, ChatGPT
-INTERACTION    → Query Router (DQ Score / HSRGS) → Model Selection
-DATA           → Real-time telemetry (sessions, DQ scores, patterns, tools)
-ANALYSIS       → Meta-Analyzer, Pattern Detector, DQ Scorer, Cognitive OS, Recovery Engine
-MODIFICATION   → Auto-generated CLAUDE.md patterns, prefetch rules, DQ weights
-EVOLUTION      → Next session starts better — bidirectional co-evolution flywheel
+Query → DQ Scorer + HSRGS → Model Selection → Telemetry → Co-evolution Loop
 ```
 
-## Directory Structure
+**Kernel:** `kernel/dq-scorer.js` (DQ scoring), `kernel/pattern-detector.js` (8 session types), `kernel/cognitive-os.py` (energy-aware routing), `kernel/hsrgs.py` (emergent routing), `kernel/bandit-engine.js` (Thompson Sampling weight learning), `kernel/param-registry.js` (19 learnable params), `kernel/weight-safety.py` (drift clamping + rollback), `kernel/lrf-clustering.py` (contextual LRF)
 
-```
-meta-vengine/
-├── kernel/              # Core: DQ scorer, pattern detector, cognitive OS, HSRGS
-├── coordinator/         # Multi-agent orchestration (4 strategies)
-│   └── strategies/      # parallel_research, parallel_implement, review_build, full
-├── config/              # Pricing (JS/Python/JSON/Shell), system config, datastore
-├── scripts/             # 100+ utilities: routing, observatory, recovery, prefetch
-├── docs/                # Architecture docs, co-evolution docs, migration plans
-├── daemon/              # Background daemons (LaunchAgents)
-├── hooks/               # Git & bash hooks
-├── skills/              # Extensible skill system
-├── plugins/             # Plugin system
-├── memory/              # Long-term memory (supermemory.db)
-├── data/                # Analytics (session-outcomes, routing-metrics, tool-usage)
-├── init.sh              # Master init script (sourced from .zshrc)
-└── settings.json        # Main system settings
-```
-
-## Key Components
-
-| Component | File | Purpose |
-|-----------|------|---------|
-| DQ Scorer | `kernel/dq-scorer.js` | Decision Quality: validity (40%) + specificity (30%) + correctness (30%) |
-| Pattern Detector | `kernel/pattern-detector.js` | 8 session types: debugging, research, architecture, refactoring, testing, docs, exploration, creative |
-| Cognitive OS | `kernel/cognitive-os.py` | Energy-aware routing (morning/peak/dip/evening/deep_night), flow state tracking |
-| HSRGS | `kernel/hsrgs.py` | Homeomorphic Self-Routing Godel System — emergent routing via latent space |
-| Identity Manager | `kernel/identity-manager.js` | Expertise tracking per domain |
-| Recovery Engine | `kernel/recovery-engine.py` | Self-healing (94% coverage, 70% auto-fix, 9 patterns incl. model drift) |
-| Model Sweep | `scripts/model-sweep.py` | Ecosystem-wide model ID health check and auto-heal |
-| Meta-Analyzer | `scripts/meta-analyzer.py` | Co-evolution analysis and improvement proposals |
-| Coordinator | `coordinator/orchestrator.py` | Multi-agent orchestration (research/implement/review/full) |
-| Context Budget | `kernel/context-budget.js` | Token budget management |
-| Activity Tracker | `kernel/activity-tracker.js` | Real-time session telemetry |
+**Coordination:** `coordinator/orchestrator.py` — parallel_research, parallel_implement, review_build, full strategies
 
 ## Commands
 
 ```bash
-# Routing
-uni-ai "query"                    # Auto-routed via DQ/HSRGS
-routing-dash                      # Performance dashboard
-
-# Co-evolution
-coevo-analyze                     # Analyze patterns
-coevo-propose                     # Generate improvement proposals
-coevo-apply <mod_id>              # Apply modifications (--dry-run available)
-coevo-dashboard                   # Effectiveness over time
-
-# Multi-agent coordination
-coord research "task"             # 3 parallel explore agents
-coord implement "task"            # Parallel builders with file locks
-coord review "task"               # Build + review concurrent
-coord full "task"                 # Research → Build → Review pipeline
-coord team "task"                 # Opus 4.6 agent team
-coord status                      # Check status
-
-# Cognitive OS
-cos state                         # Current cognitive mode and energy
-cos flow                          # Flow state (0-1)
-cos fate                          # Session outcome prediction
-cos route "task"                  # Model routing recommendation
-
-# Observatory
-obs N                             # N-day unified report
-productivity-report N             # Productivity metrics
-tool-stats N                      # Tool success rates
-
-# Memory
-sm stats                          # Memory statistics
-sm context                        # Generate session context
-sm errors "text"                  # Find past error solutions
-
-# Recovery
-python3 scripts/recovery-engine.py status    # Recovery stats
-python3 scripts/recovery-engine.py test git  # Test git recovery
-
-# Dashboard
-ccc                               # Open Command Center (12-tab HTML dashboard)
+uni-ai "query"           # Auto-routed query
+routing-dash             # Performance dashboard
+coevo-analyze            # Co-evolution analysis
+coord research|implement|review|full|team "task"
+cos state|flow|fate|route "task"
+obs N                    # N-day report
+ccc                      # Command Center dashboard
 ```
 
 ## Testing
 
 ```bash
-pytest scripts/observatory/qa-test-suite.py     # Observatory tests
-python3 scripts/test-dashboard-sqlite.py         # Dashboard data tests
-python3 scripts/ab-test-analyzer.py --detailed   # A/B test analysis (HSRGS vs keyword DQ)
+pytest kernel/tests/test_learning_loop.py        # Learning loop (bandit + safety + LRF)
+pytest scripts/observatory/qa-test-suite.py       # Observatory
+python3 scripts/ab-test-analyzer.py --detailed    # A/B test analysis
 ```
-
-## Key Data Files
-
-| File | Format | Purpose |
-|------|--------|---------|
-| `kernel/dq-scores.jsonl` | JSONL | DQ routing decision history |
-| `kernel/baselines.json` | JSON | Model performance baselines |
-| `data/session-outcomes.jsonl` | JSONL | ACE session quality analysis |
-| `data/routing-metrics.jsonl` | JSONL | Routing effectiveness history |
-| `data/tool-usage.jsonl` | JSONL | Tool success rates |
-| `memory/supermemory.db` | SQLite | Long-term memory with spaced repetition |
-| `settings.json` | JSON | Main system config |
-| `config/pricing.json` | JSON | Model pricing and capabilities |
 
 ## Design Principles
 
-1. **Bidirectional co-evolution** — system reads its own patterns and modifies its own instructions
-2. **Sovereignty by design** — all data local, bounded recursion, human approval for changes
-3. **No external frameworks** — vanilla JS + stdlib Python (zero dependency risk)
-4. **Append-only telemetry** — JSONL logs never overwritten, only appended
-5. **Safe-path validation** — recovery engine only touches `~/.claude/`, `~/.agent-core/`
-6. **Model ID sovereignty** — NEVER hardcode model IDs. `config/pricing.json` is the canonical registry. When a model breaks or a new one releases: update registry → run `model-sweep --fix`. All agents, teams, frameworks must reference the registry, not inline strings.
+1. Bidirectional co-evolution — reads own patterns, modifies own config
+2. Sovereignty by design — all data local, human approval for changes
+3. Zero dependencies — vanilla JS + stdlib Python
+4. Append-only telemetry — JSONL never overwritten
+5. Model ID sovereignty — `config/pricing.json` is canonical, never inline model strings
 
-## Current Metrics
+## Learnable Weight System (Sprint 2)
 
-- DQ Score average: 0.889 (158 samples)
-- Cache efficiency: 99.88%
-- Recovery coverage: 94% (655/700 errors)
-- Auto-fix rate: 70% (no human intervention)
-- Session types tracked: 8
+19 params in `config/learnable-params.json` across 5 groups. Thompson Sampling bandit perturbs weights, outcome reward function (DQ accuracy 40% + cost efficiency 30% + behavioral 30%) updates beliefs. Safety: max 5% drift/epoch, 8% reward drop triggers rollback. Feature-flagged via `banditEnabled`.
 
-## DQ Benchmark: arXiv:2511.15755 Replication (2026-02-17)
+## DQ Benchmark
 
-100-query controlled benchmark replicating the multi-agent DQ scoring paper. **8/8 benchmarks passed.**
-Full results: `docs/DQ_BENCHMARK_RESULTS.md`
-
-### Key Results
-
-| Metric | Single-Model | SUPERMAX Consensus | Improvement |
-|--------|---|---|---|
-| Avg DQ | 0.824 | 0.926 | +12.4% |
-| Actionable | 100% | 100% | — |
-| Variance | 0.005527 | 0.000255 | -95.4% |
-| Correctness | 0.600 | 0.808 | +1.35x |
-
-### SUPERMAX Council (3 agents)
-
-| Agent | Perspective | Avg DQ |
-|-------|-------------|--------|
-| Principal Engineer | Technical correctness, waste penalties | 0.872 |
-| Security Architect | Risk, safety margins, compliance | 0.919 |
-| Product Strategist | User value, speed, cost | 0.928 |
-
-### Operational Routing Strategy
-
-- **Trivial/Simple (< 0.30 complexity):** Single-model DQ — already excellent
-- **Moderate (0.30 - 0.60):** Single-model DQ — use consensus only if variance matters
-- **Complex/Expert (> 0.60):** SUPERMAX consensus — 15-18% DQ lift justifies 3x eval cost
-
-### Benchmark Commands
-
-```bash
-node scripts/benchmark-100.js generate    # Single-model baseline (100 queries)
-node scripts/supermax-eval-agent.js engineer|security|product  # SUPERMAX perspective eval
-node scripts/supermax-consensus.js        # Compute 3-agent consensus
-node scripts/benchmark-100.js compare     # Paper comparison scorecard
-```
+100-query benchmark (arXiv:2511.15755). 8/8 passed. SUPERMAX consensus: +12.4% DQ, -95.4% variance vs single-model. Details: `docs/DQ_BENCHMARK_RESULTS.md`
