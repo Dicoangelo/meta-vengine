@@ -14,6 +14,8 @@ const crypto = require('crypto');
 const { execSync } = require('child_process');
 const { estimateComplexity } = require('./complexity-analyzer');
 const { PRICING } = require(path.join(process.env.HOME, '.claude/config/pricing.js'));
+const { ThompsonBandit, computeReward } = require('./bandit-engine');
+const { getRegistry } = require('./param-registry');
 
 // ═══════════════════════════════════════════════════════════════════════════
 // BASELINES LOADING
@@ -720,14 +722,15 @@ function assessCorrectness(query, model, history) {
 /**
  * Calculate composite DQ score
  */
-function calculateDQ(query, complexity, model, history = []) {
+function calculateDQ(query, complexity, model, history = [], weights = null) {
   const validity = assessValidity(complexity, model);
   const specificity = assessSpecificity(query, complexity, model);
   const correctness = assessCorrectness(query, model, history);
 
-  const score = (validity * DQ_WEIGHTS.validity) +
-                (specificity * DQ_WEIGHTS.specificity) +
-                (correctness * DQ_WEIGHTS.correctness);
+  const w = weights || DQ_WEIGHTS;
+  const score = (validity * w.validity) +
+                (specificity * w.specificity) +
+                (correctness * w.correctness);
 
   return {
     score: parseFloat(score.toFixed(3)),
@@ -780,19 +783,39 @@ function route(query) {
   const useGraphSignal = abState.active && !abState.rollback && graphAvailable && abGroup === 'graph';
   const routingComplexity = useGraphSignal ? graphSignal.graphComplexity : irtAdjustedComplexity;
 
+  // US-104: Bandit integration — sample perturbed DQ weights if enabled
+  let banditSample = null;
+  let banditDQWeights = null;
+  try {
+    const registry = getRegistry();
+    if (registry.isBanditEnabled()) {
+      const bandit = new ThompsonBandit();
+      banditSample = bandit.sample();
+      banditDQWeights = {
+        validity: banditSample.weights.dq_validity_weight || DQ_WEIGHTS.validity,
+        specificity: banditSample.weights.dq_specificity_weight || DQ_WEIGHTS.specificity,
+        correctness: banditSample.weights.dq_correctness_weight || DQ_WEIGHTS.correctness
+      };
+    }
+  } catch (_) {
+    // Bandit unavailable — fall through to static weights
+  }
+
+  const activeWeights = banditDQWeights || null;
+
   // Compute DQ candidates for BOTH signals (for A/B comparison logging)
   const keywordCandidates = ['haiku', 'sonnet', 'opus'].map(model => {
-    const dq = calculateDQ(query, irtAdjustedComplexity, model, history);
+    const dq = calculateDQ(query, irtAdjustedComplexity, model, history, activeWeights);
     return { model, dq };
   });
   const graphCandidates = graphAvailable ? ['haiku', 'sonnet', 'opus'].map(model => {
-    const dq = calculateDQ(query, graphSignal.graphComplexity, model, history);
+    const dq = calculateDQ(query, graphSignal.graphComplexity, model, history, activeWeights);
     return { model, dq };
   }) : null;
 
   // Try each model and pick best DQ using the active signal
   const candidates = ['haiku', 'sonnet', 'opus'].map(model => {
-    const dq = calculateDQ(query, routingComplexity, model, history);
+    const dq = calculateDQ(query, routingComplexity, model, history, activeWeights);
     return { model, dq, complexity: complexity.score, adjustedComplexity: routingComplexity };
   });
 
@@ -894,7 +917,13 @@ function route(query) {
       modifier: COMPLEXITY_MODIFIER,
       weights_applied: true
     } : null,
-    expertise: expertiseOverride
+    expertise: expertiseOverride,
+    bandit: banditSample ? {
+      sampleId: banditSample.sampleId,
+      exploring: banditSample.exploring,
+      perturbedWeights: banditDQWeights,
+      weightConfigVersion: 'bandit-sampled'
+    } : null
   };
 
   saveDecision(decision);
@@ -940,8 +969,38 @@ function route(query) {
     cost_estimate: decision.cost_estimate,
     baseline_version: decision.baseline_version,
     cognitive: decision.cognitive,
-    expertise: decision.expertise
+    expertise: decision.expertise,
+    bandit: decision.bandit
   };
+}
+
+/**
+ * US-104: Complete bandit feedback loop after behavioral outcome is known.
+ * Called asynchronously once session outcome data is available.
+ *
+ * @param {object} routingDecision - The original routing decision (from route())
+ * @param {object} behavioralOutcome - { compositeScore, actualCost? }
+ */
+function completeBanditUpdate(routingDecision, behavioralOutcome) {
+  if (!routingDecision.bandit) return;
+
+  try {
+    const registry = getRegistry();
+    if (!registry.isBanditEnabled()) return;
+
+    const bandit = new ThompsonBandit();
+    const reward = computeReward(
+      { dqScore: routingDecision.dq.score, modelUsed: routingDecision.model, queryTier: 'moderate' },
+      behavioralOutcome
+    );
+    bandit.update(
+      routingDecision.bandit.sampleId,
+      routingDecision.bandit.perturbedWeights,
+      reward
+    );
+  } catch (_) {
+    // Bandit update failure is non-fatal
+  }
 }
 
 /**
@@ -1061,4 +1120,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { route, calculateDQ, recordFeedback, getStats, computeDistributionalFeatures, computeSubgraphDensity, computeSubgraphDensityFromLinks, loadIRTBridge, computeIRTModifier, computeGraphSignal, loadGraphSignalWeights, loadABTestState, saveABTestState, logABTestDecision, getABTestGroup };
+module.exports = { route, calculateDQ, recordFeedback, getStats, completeBanditUpdate, computeDistributionalFeatures, computeSubgraphDensity, computeSubgraphDensityFromLinks, loadIRTBridge, computeIRTModifier, computeGraphSignal, loadGraphSignalWeights, loadABTestState, saveABTestState, logABTestDecision, getABTestGroup };
