@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).parent.parent
 DEFAULT_REGISTRY_PATH = BASE_DIR / "config" / "learnable-params.json"
 DEFAULT_HISTORY_PATH = BASE_DIR / "data" / "bandit-history.jsonl"
 DEFAULT_REPORT_DIR = BASE_DIR / "data" / "bo-reports"
+DEFAULT_BO_STATE_PATH = BASE_DIR / "data" / "bo-state.json"
 
 
 class BayesianWeightOptimizer:
@@ -37,10 +38,12 @@ class BayesianWeightOptimizer:
         self,
         registry_path: str | Path | None = None,
         history_path: str | Path | None = None,
+        bo_state_path: str | Path | None = None,
     ):
         self.registry = ParamRegistry(registry_path or DEFAULT_REGISTRY_PATH)
         self.history_path = Path(history_path or DEFAULT_HISTORY_PATH)
         self.report_dir = DEFAULT_REPORT_DIR
+        self.bo_state_path = Path(bo_state_path or DEFAULT_BO_STATE_PATH)
 
         # Observed data after fit()
         self.X: list[list[float]] = []  # config vectors
@@ -139,6 +142,24 @@ class BayesianWeightOptimizer:
 
         return results
 
+    def _set_bo_evaluation_active(self, active: bool) -> None:
+        """
+        Set the BO evaluation state in data/bo-state.json.
+
+        When active=True, the bandit engine will skip perturbation and use
+        current weights as-is, allowing clean evaluation of BO candidates.
+        """
+        self.bo_state_path.parent.mkdir(parents=True, exist_ok=True)
+        state = {}
+        if self.bo_state_path.exists():
+            try:
+                state = json.loads(self.bo_state_path.read_text())
+            except (json.JSONDecodeError, OSError):
+                state = {}
+        state["boEvaluationActive"] = active
+        state["lastUpdated"] = datetime.utcnow().isoformat() + "Z"
+        self.bo_state_path.write_text(json.dumps(state, indent=2) + "\n")
+
     def validate(
         self,
         candidates: list[dict[str, float]],
@@ -147,6 +168,9 @@ class BayesianWeightOptimizer:
         """
         Validate candidates against baseline. A candidate is promoted only
         if its predicted reward beats the baseline mean by >= 3%.
+
+        Sets boEvaluationActive=true before evaluation so the bandit engine
+        freezes perturbation, then clears it after evaluation completes.
 
         Returns a dict with 'promoted' (the winning config or None),
         'baseline_mean', 'best_predicted', and 'improvement'.
@@ -160,41 +184,48 @@ class BayesianWeightOptimizer:
                 "reason": "no baseline data",
             }
 
-        baseline_mean = sum(baseline_rewards) / len(baseline_rewards)
-        threshold = baseline_mean * (1 + self.PROMOTION_THRESHOLD)
+        # Freeze bandit perturbation during BO evaluation
+        self._set_bo_evaluation_active(True)
 
-        best_candidate = None
-        best_predicted = -math.inf
+        try:
+            baseline_mean = sum(baseline_rewards) / len(baseline_rewards)
+            threshold = baseline_mean * (1 + self.PROMOTION_THRESHOLD)
 
-        for candidate in candidates:
-            vec = self._config_to_vector(candidate)
-            mu, _ = self._predict(vec)
-            if mu > best_predicted:
-                best_predicted = mu
-                best_candidate = candidate
+            best_candidate = None
+            best_predicted = -math.inf
 
-        improvement = (
-            (best_predicted - baseline_mean) / baseline_mean
-            if baseline_mean > 0
-            else 0.0
-        )
+            for candidate in candidates:
+                vec = self._config_to_vector(candidate)
+                mu, _ = self._predict(vec)
+                if mu > best_predicted:
+                    best_predicted = mu
+                    best_candidate = candidate
 
-        if best_predicted >= threshold:
+            improvement = (
+                (best_predicted - baseline_mean) / baseline_mean
+                if baseline_mean > 0
+                else 0.0
+            )
+
+            if best_predicted >= threshold:
+                return {
+                    "promoted": best_candidate,
+                    "baseline_mean": baseline_mean,
+                    "best_predicted": best_predicted,
+                    "improvement": improvement,
+                    "reason": "candidate beats baseline by >= 3%",
+                }
+
             return {
-                "promoted": best_candidate,
+                "promoted": None,
                 "baseline_mean": baseline_mean,
                 "best_predicted": best_predicted,
                 "improvement": improvement,
-                "reason": "candidate beats baseline by >= 3%",
+                "reason": f"best candidate improvement {improvement:.4f} < {self.PROMOTION_THRESHOLD}",
             }
-
-        return {
-            "promoted": None,
-            "baseline_mean": baseline_mean,
-            "best_predicted": best_predicted,
-            "improvement": improvement,
-            "reason": f"best candidate improvement {improvement:.4f} < {self.PROMOTION_THRESHOLD}",
-        }
+        finally:
+            # Always unfreeze bandit perturbation after evaluation
+            self._set_bo_evaluation_active(False)
 
     def generate_report(self, month: str | None = None) -> Path:
         """

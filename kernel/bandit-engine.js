@@ -14,7 +14,28 @@ const { getRegistry } = require('./param-registry');
 
 const STATE_PATH = path.join(__dirname, '..', 'data', 'bandit-state.json');
 const HISTORY_PATH = path.join(__dirname, '..', 'data', 'bandit-history.jsonl');
+const BO_STATE_PATH = path.join(__dirname, '..', 'data', 'bo-state.json');
+const LRF_CLUSTERS_PATH = path.join(__dirname, '..', 'data', 'lrf-clusters.json');
+const SESSION_MULTIPLIERS_PATH = path.join(__dirname, '..', 'config', 'session-reward-multipliers.json');
 const EXPLORATION_RATE = 0.15;
+
+// US-208: Cached session-type reward multipliers (loaded once)
+let _sessionMultipliersCache = null;
+
+/**
+ * US-208: Load session-type reward multipliers from config.
+ * Cached after first load for performance.
+ * @returns {object} The parsed multipliers config
+ */
+function _getSessionMultipliers() {
+  if (_sessionMultipliersCache) return _sessionMultipliersCache;
+  try {
+    _sessionMultipliersCache = JSON.parse(fs.readFileSync(SESSION_MULTIPLIERS_PATH, 'utf8'));
+  } catch (_) {
+    _sessionMultipliersCache = { multipliers: { refactoring: { dq: 1.0, cost: 1.0, behavioral: 1.0 } }, default: 'refactoring' };
+  }
+  return _sessionMultipliersCache;
+}
 
 /**
  * Sample from Beta(alpha, beta) using Joehnk's method.
@@ -56,6 +77,80 @@ function randn() {
   const u1 = Math.random();
   const u2 = Math.random();
   return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+}
+
+/**
+ * US-207: Per-Cluster Exploration Annealing
+ *
+ * Replaces fixed 15% exploration with a schedule that decays by total decisions,
+ * with per-cluster overrides so sparse clusters explore more.
+ *
+ * @param {number} sampleCounter - Total decisions made so far
+ * @param {string|null} [clusterId] - Cluster index (string or number) for per-cluster override
+ * @param {number} [globalFloor] - explorationFloorGlobal from param registry (default 0.05)
+ * @returns {number} Exploration rate in [globalFloor, 0.50]
+ */
+function getExplorationRate(sampleCounter, clusterId, globalFloor) {
+  if (globalFloor == null) {
+    try {
+      const reg = getRegistry();
+      const p = reg.getParam('explorationFloorGlobal');
+      globalFloor = p.value;
+    } catch (_) {
+      globalFloor = 0.05;
+    }
+  }
+
+  // Base schedule by total sampleCounter
+  let baseRate;
+  if (sampleCounter <= 100) {
+    baseRate = 0.50;
+  } else if (sampleCounter <= 500) {
+    // Linear decay from 50% → 10% over decisions 100–500
+    const t = (sampleCounter - 100) / 400;
+    baseRate = 0.50 - t * 0.40;
+  } else if (sampleCounter <= 2000) {
+    // Linear decay from 10% → globalFloor over decisions 500–2000
+    const t = (sampleCounter - 500) / 1500;
+    baseRate = 0.10 - t * (0.10 - globalFloor);
+  } else {
+    baseRate = globalFloor;
+  }
+
+  // Per-cluster override: sparse clusters get a higher floor
+  if (clusterId != null) {
+    let clusterDecisionCount = null;
+    try {
+      if (fs.existsSync(LRF_CLUSTERS_PATH)) {
+        const data = JSON.parse(fs.readFileSync(LRF_CLUSTERS_PATH, 'utf8'));
+        const clusters = data.clusters || [];
+        const idx = typeof clusterId === 'string' ? parseInt(clusterId, 10) : clusterId;
+        if (clusters[idx] && clusters[idx].decisionCount != null) {
+          clusterDecisionCount = clusters[idx].decisionCount;
+        } else if (data.cluster_sizes && data.cluster_sizes[idx] != null) {
+          // Fallback: use cluster_sizes if decisionCount not yet populated
+          clusterDecisionCount = data.cluster_sizes[idx];
+        }
+      }
+    } catch (_) {
+      // No cluster data — skip override
+    }
+
+    if (clusterDecisionCount != null) {
+      let clusterFloor;
+      if (clusterDecisionCount < 50) {
+        clusterFloor = Math.max(0.15, globalFloor);
+      } else if (clusterDecisionCount <= 200) {
+        clusterFloor = Math.max(0.08, globalFloor);
+      } else {
+        clusterFloor = globalFloor;
+      }
+      // Take the max of base rate and cluster floor
+      baseRate = Math.max(baseRate, clusterFloor);
+    }
+  }
+
+  return baseRate;
 }
 
 class ThompsonBandit {
@@ -112,13 +207,48 @@ class ThompsonBandit {
   }
 
   /**
-   * Sample perturbed weights for a single routing decision.
-   * Returns { sampleId, weights: { paramId: perturbedValue, ... }, exploring }
+   * Check if Bayesian Optimization evaluation is active (freeze perturbation).
+   * @returns {boolean}
    */
-  sample() {
-    const exploring = Math.random() < this.explorationRate;
+  _isBoFrozen() {
+    try {
+      if (fs.existsSync(BO_STATE_PATH)) {
+        const data = JSON.parse(fs.readFileSync(BO_STATE_PATH, 'utf8'));
+        return data.boEvaluationActive === true;
+      }
+    } catch (_) {
+      // Corrupt or missing — not frozen
+    }
+    return false;
+  }
+
+  /**
+   * Sample perturbed weights for a single routing decision.
+   * Returns { sampleId, weights, exploring, boFrozen, explorationRate, clusterId }
+   *
+   * If BO evaluation is active (data/bo-state.json boEvaluationActive=true),
+   * returns current registry weights without perturbation.
+   *
+   * @param {string|number|null} [clusterId] - Cluster index for per-cluster annealing
+   */
+  sample(clusterId) {
+    const boFrozen = this._isBoFrozen();
     const params = this.registry.getAllParams();
     const weights = {};
+
+    if (boFrozen) {
+      // BO evaluation active — use current weights as-is, no perturbation
+      for (const p of params) {
+        weights[p.id] = p.value;
+      }
+      this.sampleCounter++;
+      const sampleId = `sample-${this.sampleCounter}-${Date.now()}`;
+      return { sampleId, weights, exploring: false, boFrozen: true, explorationRate: 0, clusterId: clusterId != null ? clusterId : null };
+    }
+
+    // US-207: Per-cluster exploration annealing
+    const currentExplorationRate = getExplorationRate(this.sampleCounter, clusterId != null ? clusterId : null);
+    const exploring = Math.random() < currentExplorationRate;
 
     for (const p of params) {
       const belief = this.beliefs[p.id];
@@ -138,6 +268,11 @@ class ThompsonBandit {
 
       // Clamp to bounds
       value = Math.max(p.min, Math.min(p.max, value));
+      // Integer constraint: round after perturbation
+      if (p.integerOnly) {
+        value = Math.round(value);
+        value = Math.max(p.min, Math.min(p.max, value));
+      }
       weights[p.id] = value;
     }
 
@@ -147,7 +282,7 @@ class ThompsonBandit {
     this.sampleCounter++;
     const sampleId = `sample-${this.sampleCounter}-${Date.now()}`;
 
-    return { sampleId, weights, exploring };
+    return { sampleId, weights, exploring, boFrozen: false, explorationRate: currentExplorationRate, clusterId: clusterId != null ? clusterId : null };
   }
 
   _enforceConstraints(weights) {
@@ -196,8 +331,11 @@ class ThompsonBandit {
    * @param {string} sampleId - ID from sample() call
    * @param {object} perturbedWeights - The weights that were used
    * @param {number} reward - Reward in [0, 1]
+   * @param {object} [rewardWeights] - The reward composition weights used { dq, cost, behavioral }
+   * @param {number} [explorationRate] - The exploration rate used for this decision
+   * @param {string|number} [clusterId] - The cluster this decision belonged to
    */
-  update(sampleId, perturbedWeights, reward) {
+  update(sampleId, perturbedWeights, reward, rewardWeights, explorationRate, clusterId) {
     if (typeof reward !== 'number' || reward < 0 || reward > 1) {
       throw new Error(`Bandit update: reward must be in [0, 1], got ${reward}`);
     }
@@ -231,17 +369,26 @@ class ThompsonBandit {
     // Persist state
     this._saveState();
 
-    // Append to history
-    this._logHistory(sampleId, perturbedWeights, reward);
+    // Append to history (includes reward composition weights, exploration rate, cluster when available)
+    this._logHistory(sampleId, perturbedWeights, reward, rewardWeights, explorationRate, clusterId);
   }
 
-  _logHistory(sampleId, perturbedWeights, reward) {
+  _logHistory(sampleId, perturbedWeights, reward, rewardWeights, explorationRate, clusterId) {
     const entry = {
       sampleId,
       reward,
       perturbedWeights,
       timestamp: new Date().toISOString()
     };
+    if (rewardWeights) {
+      entry.rewardWeights = rewardWeights;
+    }
+    if (explorationRate != null) {
+      entry.explorationRate = explorationRate;
+    }
+    if (clusterId != null) {
+      entry.clusterId = clusterId;
+    }
     const dir = path.dirname(this.historyPath);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
@@ -265,22 +412,44 @@ class ThompsonBandit {
 }
 
 /**
- * US-103: Compute reward from routing decision + behavioral outcome.
+ * US-103 / US-205 / US-208: Compute reward from routing decision + behavioral outcome.
  *
- * Reward = DQ score accuracy (0.40) + cost efficiency (0.30) + behavioral outcome (0.30)
+ * Reward weights are loaded from the param registry (reward_composition group)
+ * instead of being hardcoded, enabling meta-learning of the reward function itself.
  *
- * @param {object} routingDecision - { dqScore: number, modelUsed: string, queryTier: string }
- * @param {object} behavioralOutcome - { compositeScore: number, actualCost?: number }
+ * US-208: If sessionType is provided (via routingDecision.sessionType or
+ * behavioralOutcome.sessionType), session-type-specific multipliers are applied
+ * element-wise to the reward components before computing the composite reward.
+ * The result is normalized back to [0,1].
+ *
+ * @param {object} routingDecision - { dqScore, modelUsed, queryTier, sessionType? }
+ * @param {object} behavioralOutcome - { compositeScore, actualCost?, toolSuccessRate?, completionRate?, sessionType? }
  * @param {object} [pricing] - Pricing data from config/pricing.json (auto-loaded if omitted)
- * @returns {number} Reward in [0, 1]
+ * @param {object} [registry] - ParamRegistry instance (auto-loaded if omitted)
+ * @returns {{ reward: number, rewardWeights: object, sessionType?: string, sessionMultipliers?: object }}
  */
-function computeReward(routingDecision, behavioralOutcome, pricing) {
-  const DQ_WEIGHT = 0.40;
-  const COST_WEIGHT = 0.30;
-  const BEHAVIORAL_WEIGHT = 0.30;
+function computeReward(routingDecision, behavioralOutcome, pricing, registry) {
+  // Load reward weights from registry (learnable) with hardcoded fallbacks
+  let DQ_WEIGHT = 0.40;
+  let COST_WEIGHT = 0.30;
+  let BEHAVIORAL_WEIGHT = 0.30;
+
+  try {
+    const reg = registry || getRegistry();
+    const rewardGroup = reg.getGroup('reward_composition');
+    if (rewardGroup && rewardGroup.length === 3) {
+      for (const p of rewardGroup) {
+        if (p.id === 'rewardWeightDQ') DQ_WEIGHT = p.value;
+        else if (p.id === 'rewardWeightCost') COST_WEIGHT = p.value;
+        else if (p.id === 'rewardWeightBehavioral') BEHAVIORAL_WEIGHT = p.value;
+      }
+    }
+  } catch (_) {
+    // Fall back to defaults if registry unavailable
+  }
 
   // Component 1: DQ score accuracy (already in [0, 1])
-  const dqComponent = Math.max(0, Math.min(1, routingDecision.dqScore || 0));
+  let dqComponent = Math.max(0, Math.min(1, routingDecision.dqScore || 0));
 
   // Component 2: Cost efficiency = 1 - (actual / max_possible)
   let costComponent = 0.5; // Default if no cost data
@@ -292,13 +461,55 @@ function computeReward(routingDecision, behavioralOutcome, pricing) {
   }
 
   // Component 3: Behavioral outcome (already in [0, 1])
-  const behavioralComponent = Math.max(0, Math.min(1, behavioralOutcome.compositeScore || 0));
+  let behavioralComponent = Math.max(0, Math.min(1, behavioralOutcome.compositeScore || 0));
 
-  const reward = (DQ_WEIGHT * dqComponent) +
-                 (COST_WEIGHT * costComponent) +
-                 (BEHAVIORAL_WEIGHT * behavioralComponent);
+  // US-208: Session-type reward multipliers
+  const sessionType = routingDecision.sessionType || behavioralOutcome.sessionType || null;
+  let appliedMultipliers = null;
 
-  return Math.max(0, Math.min(1, reward));
+  if (sessionType) {
+    const config = _getSessionMultipliers();
+    const mults = config.multipliers || {};
+    const defaultType = config.default || 'refactoring';
+    const multiplier = mults[sessionType] || mults[defaultType] || { dq: 1.0, cost: 1.0, behavioral: 1.0 };
+
+    // Apply element-wise multipliers
+    dqComponent *= (multiplier.dq || 1.0);
+    costComponent *= (multiplier.cost || 1.0);
+    behavioralComponent *= (multiplier.behavioral || 1.0);
+
+    // Apply tool_success_boost if available in multiplier and toolSuccessRate in outcome
+    if (multiplier.tool_success_boost && behavioralOutcome.toolSuccessRate != null) {
+      behavioralComponent *= multiplier.tool_success_boost;
+    }
+
+    // Apply completion_boost if available in multiplier and completionRate in outcome
+    if (multiplier.completion_boost && behavioralOutcome.completionRate != null) {
+      behavioralComponent *= multiplier.completion_boost;
+    }
+
+    appliedMultipliers = { ...multiplier };
+  }
+
+  const rawReward = (DQ_WEIGHT * dqComponent) +
+                    (COST_WEIGHT * costComponent) +
+                    (BEHAVIORAL_WEIGHT * behavioralComponent);
+
+  // Normalize back to [0, 1]
+  const clampedReward = Math.max(0, Math.min(1, rawReward));
+
+  const result = {
+    reward: clampedReward,
+    rewardWeights: { dq: DQ_WEIGHT, cost: COST_WEIGHT, behavioral: BEHAVIORAL_WEIGHT }
+  };
+
+  // US-208: Include session type info in result when present
+  if (sessionType) {
+    result.sessionType = sessionType;
+    result.sessionMultipliers = appliedMultipliers;
+  }
+
+  return result;
 }
 
 /**
@@ -326,4 +537,4 @@ function _getMaxCostForTier(queryTier, pricing) {
   return maxOutput || 25.0;
 }
 
-module.exports = { ThompsonBandit, sampleBeta, sampleGamma, computeReward };
+module.exports = { ThompsonBandit, sampleBeta, sampleGamma, computeReward, getExplorationRate };
