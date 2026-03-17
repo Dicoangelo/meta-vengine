@@ -65,6 +65,14 @@ class ParamRegistry:
                 f'Value {p["value"]} out of bounds [{p["min"]}, {p["max"]}] for "{p["id"]}"'
             )
 
+        # Integer constraint validation
+        if p.get("integerOnly") and not isinstance(p["value"], int):
+            # Allow float values that are whole numbers (e.g. 5.0)
+            if not (isinstance(p["value"], float) and p["value"] == int(p["value"])):
+                raise ParamRegistryError(
+                    f'Value {p["value"]} must be integer for "{p["id"]}"'
+                )
+
         if not (0 < p["learnRate"] <= 1):
             raise ParamRegistryError(f'learnRate must be in (0, 1] for "{p["id"]}"')
 

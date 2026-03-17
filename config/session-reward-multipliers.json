@@ -1,0 +1,15 @@
+{
+  "description": "Session-type reward multipliers. Applied element-wise before normalization.",
+  "version": "1.0.0",
+  "multipliers": {
+    "debugging":    {"dq": 0.8, "cost": 1.0, "behavioral": 1.2, "tool_success_boost": 1.5},
+    "research":     {"dq": 1.2, "cost": 0.8, "behavioral": 1.0, "completion_boost": 1.3},
+    "architecture": {"dq": 1.3, "cost": 0.7, "behavioral": 1.0},
+    "refactoring":  {"dq": 1.0, "cost": 1.0, "behavioral": 1.0},
+    "testing":      {"dq": 0.9, "cost": 1.0, "behavioral": 1.1, "tool_success_boost": 1.3},
+    "docs":         {"dq": 1.0, "cost": 1.2, "behavioral": 0.8},
+    "exploration":  {"dq": 1.1, "cost": 0.9, "behavioral": 1.0},
+    "creative":     {"dq": 1.0, "cost": 0.8, "behavioral": 1.2}
+  },
+  "default": "refactoring"
+}

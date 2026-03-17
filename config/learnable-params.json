@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "description": "Unified parameter registry for Optimas LRF auto-optimization. Single source of truth for all 19 learnable parameters.",
+  "description": "Unified parameter registry for Optimas LRF auto-optimization. Single source of truth for all 24 learnable parameters.",
   "banditEnabled": false,
   "parameters": [
     {
@@ -192,6 +192,57 @@
       "max": 0.40,
       "learnRate": 0.02,
       "group": "behavioral"
+    },
+    {
+      "id": "rewardWeightDQ",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[19].value",
+      "value": 0.40,
+      "min": 0.20,
+      "max": 0.60,
+      "learnRate": 0.02,
+      "group": "reward_composition"
+    },
+    {
+      "id": "rewardWeightCost",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[20].value",
+      "value": 0.30,
+      "min": 0.10,
+      "max": 0.50,
+      "learnRate": 0.02,
+      "group": "reward_composition"
+    },
+    {
+      "id": "rewardWeightBehavioral",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[21].value",
+      "value": 0.30,
+      "min": 0.10,
+      "max": 0.50,
+      "learnRate": 0.02,
+      "group": "reward_composition"
+    },
+    {
+      "id": "kClusters",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[22].value",
+      "value": 5,
+      "min": 3,
+      "max": 10,
+      "learnRate": 0.01,
+      "group": "lrf_topology",
+      "integerOnly": true
+    },
+    {
+      "id": "explorationFloorGlobal",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[23].value",
+      "value": 0.05,
+      "min": 0.01,
+      "max": 0.15,
+      "learnRate": 0.01,
+      "group": "exploration_schedule"
     }
   ],
   "groups": {
@@ -223,8 +274,21 @@
         "value": "1.0 - sum(registered weights)",
         "reason": "no_followup (0.10) derived from remainder — not independently learnable"
       }
+    },
+    "reward_composition": {
+      "constraint": "sumMustEqual",
+      "target": 1.0,
+      "description": "Reward function composition: DQ accuracy + cost efficiency + behavioral outcome"
+    },
+    "lrf_topology": {
+      "constraint": "independent",
+      "description": "LRF Topology: cluster count and structure parameters for contextual routing"
+    },
+    "exploration_schedule": {
+      "constraint": "independent",
+      "description": "Per-cluster exploration annealing: global floor for explore/exploit tradeoff"
     }
   },
-  "updated": "2026-03-14",
-  "updatedBy": "US-101"
+  "updated": "2026-03-17",
+  "updatedBy": "US-207"
 }

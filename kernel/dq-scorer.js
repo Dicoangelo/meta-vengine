@@ -989,14 +989,15 @@ function completeBanditUpdate(routingDecision, behavioralOutcome) {
     if (!registry.isBanditEnabled()) return;
 
     const bandit = new ThompsonBandit();
-    const reward = computeReward(
+    const rewardResult = computeReward(
       { dqScore: routingDecision.dq.score, modelUsed: routingDecision.model, queryTier: 'moderate' },
       behavioralOutcome
     );
     bandit.update(
       routingDecision.bandit.sampleId,
       routingDecision.bandit.perturbedWeights,
-      reward
+      rewardResult.reward,
+      rewardResult.rewardWeights
     );
   } catch (_) {
     // Bandit update failure is non-fatal

@@ -206,38 +206,41 @@ test('initial beliefs are uniform Beta(1,1)', () => {
 // --- computeReward tests ---
 
 test('perfect routing gives reward ~1.0', () => {
-  const reward = computeReward(
+  const result = computeReward(
     { dqScore: 1.0, modelUsed: 'haiku', queryTier: 'trivial' },
     { compositeScore: 1.0, actualCost: 0.0 }
   );
-  assert(reward >= 0.95, `Expected ~1.0, got ${reward}`);
+  assert(result.reward >= 0.95, `Expected ~1.0, got ${result.reward}`);
+  assert(result.rewardWeights, 'Expected rewardWeights in result');
+  assert(Math.abs(result.rewardWeights.dq + result.rewardWeights.cost + result.rewardWeights.behavioral - 1.0) < 0.01,
+    'Reward weights must sum to 1.0');
 });
 
 test('worst routing gives reward ~0.0', () => {
-  const reward = computeReward(
+  const result = computeReward(
     { dqScore: 0.0, modelUsed: 'opus', queryTier: 'trivial' },
     { compositeScore: 0.0, actualCost: 25.0 },
     { providers: { anthropic: { models: { opus: { output: 25.0 } } } } }
   );
-  assert(reward <= 0.05, `Expected ~0.0, got ${reward}`);
+  assert(result.reward <= 0.05, `Expected ~0.0, got ${result.reward}`);
 });
 
 test('reward always in [0, 1]', () => {
   for (let i = 0; i < 50; i++) {
-    const reward = computeReward(
+    const result = computeReward(
       { dqScore: Math.random(), queryTier: 'moderate' },
       { compositeScore: Math.random(), actualCost: Math.random() * 30 }
     );
-    assert(reward >= 0 && reward <= 1, `Reward out of range: ${reward}`);
+    assert(result.reward >= 0 && result.reward <= 1, `Reward out of range: ${result.reward}`);
   }
 });
 
 test('reward without cost data uses default', () => {
-  const reward = computeReward(
+  const result = computeReward(
     { dqScore: 0.8, queryTier: 'simple' },
     { compositeScore: 0.7 }
   );
-  assert(typeof reward === 'number' && reward > 0);
+  assert(typeof result.reward === 'number' && result.reward > 0);
 });
 
 // Cleanup

@@ -67,6 +67,10 @@ class ParamRegistry {
     if (p.value < p.min || p.value > p.max) {
       throw new Error(`ParamRegistry: value ${p.value} out of bounds [${p.min}, ${p.max}] for "${p.id}"`);
     }
+    // Integer constraint validation
+    if (p.integerOnly && !Number.isInteger(p.value)) {
+      throw new Error(`ParamRegistry: value ${p.value} must be integer for "${p.id}"`);
+    }
     if (p.learnRate <= 0 || p.learnRate > 1) {
       throw new Error(`ParamRegistry: learnRate must be in (0, 1] for "${p.id}"`);
     }

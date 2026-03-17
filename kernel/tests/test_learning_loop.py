@@ -119,12 +119,14 @@ class TestBanditLearningLoop:
             // Reward is higher when dq_validity_weight is higher (simulated optimal)
             const validityW = sample.weights.dq_validity_weight || 0.4;
             const dqScore = 0.5 + validityW * 0.5;  // Higher validity weight → better DQ
-            const reward = computeReward(
+            const rewardResult = computeReward(
                 {{ dqScore, modelUsed: 'sonnet', queryTier: 'moderate' }},
-                {{ compositeScore: 0.6 + validityW * 0.3, actualCost: 3.0 }}
+                {{ compositeScore: 0.6 + validityW * 0.3, actualCost: 3.0 }},
+                undefined,
+                registry
             );
 
-            bandit.update(sample.sampleId, sample.weights, reward);
+            bandit.update(sample.sampleId, sample.weights, rewardResult.reward, rewardResult.rewardWeights);
         }}
 
         const belief = bandit.getBelief('dq_validity_weight');
@@ -290,11 +292,13 @@ class TestEndToEndIntegration:
         const allWeights = [];
         for (let i = 0; i < 50; i++) {{
             const s = bandit.sample();
-            const reward = computeReward(
+            const rewardResult = computeReward(
                 {{ dqScore: 0.85, modelUsed: 'sonnet', queryTier: 'moderate' }},
-                {{ compositeScore: 0.7, actualCost: 3.0 }}
+                {{ compositeScore: 0.7, actualCost: 3.0 }},
+                undefined,
+                registry
             );
-            bandit.update(s.sampleId, s.weights, reward);
+            bandit.update(s.sampleId, s.weights, rewardResult.reward, rewardResult.rewardWeights);
             allWeights.push(s.weights);
         }}
 
