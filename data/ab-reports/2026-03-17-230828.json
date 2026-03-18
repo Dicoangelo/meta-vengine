@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-03-17T23:08:28.965612Z",
+  "baseline_config": {
+    "rewardWeightDQ": 0.0,
+    "rewardWeightCost": 0.0,
+    "rewardWeightBehavioral": 1.0
+  },
+  "candidate_config": {
+    "rewardWeightDQ": 1.0,
+    "rewardWeightCost": 0.0,
+    "rewardWeightBehavioral": 0.0
+  },
+  "n_per_group": 100,
+  "baseline_mean": 0.65007,
+  "baseline_std": 0.129742,
+  "candidate_mean": 0.77,
+  "candidate_std": 0.250454,
+  "t_statistic": -4.2519,
+  "degrees_of_freedom": 148.6,
+  "p_value": 3.7e-05,
+  "cohens_d": 0.6013,
+  "power": 0.9882,
+  "verdict": "candidate_wins",
+  "early_stopped": false,
+  "confidence_interval_95": [
+    0.064306,
+    0.175554
+  ]
+}
