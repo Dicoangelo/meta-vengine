@@ -51,3 +51,4 @@ mcp-servers/
 # - claude-md-history/
 */__pycache__/
 *.pyc
+.claude/
