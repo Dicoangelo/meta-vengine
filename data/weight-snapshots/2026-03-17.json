@@ -1,0 +1,37 @@
+{
+  "date": "2026-03-17",
+  "timestamp": "2026-03-17T20:43:25.713369",
+  "weights": {
+    "graph_entropy_weight": 0.3,
+    "graph_gini_weight": 0.25,
+    "graph_subgraph_density_weight": 0.25,
+    "graph_irt_difficulty_weight": 0.2,
+    "dq_validity_weight": 0.3912,
+    "dq_specificity_weight": 0.2853,
+    "dq_correctness_weight": 0.3235,
+    "agent_trivial_threshold": 0.25,
+    "agent_simple_threshold": 0.45,
+    "agent_moderate_threshold": 0.65,
+    "agent_complex_threshold": 0.85,
+    "agent_expert_threshold": 1.0,
+    "freemad_stability_decay_rate": 5.0,
+    "freemad_sycophancy_threshold": 0.05,
+    "freemad_disagreement_threshold": 0.15,
+    "behavioral_completion_weight": 0.3,
+    "behavioral_tool_success_weight": 0.25,
+    "behavioral_efficiency_weight": 0.2,
+    "behavioral_no_override_weight": 0.15,
+    "rewardWeightDQ": 0.4,
+    "rewardWeightCost": 0.3,
+    "rewardWeightBehavioral": 0.3,
+    "kClusters": 5,
+    "explorationFloorGlobal": 0.05
+  },
+  "bandit_state": {
+    "sampleCounter": 0,
+    "bootstrapped": true,
+    "bootstrapEntries": 4842
+  },
+  "avg_reward": null,
+  "promoted": false
+}

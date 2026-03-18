@@ -1,0 +1,104 @@
+{
+  "beliefs": {
+    "graph_entropy_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "graph_gini_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "graph_subgraph_density_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "graph_irt_difficulty_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "dq_validity_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "dq_specificity_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "dq_correctness_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_trivial_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_simple_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_moderate_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_complex_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_expert_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "freemad_stability_decay_rate": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "freemad_sycophancy_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "freemad_disagreement_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "behavioral_completion_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "behavioral_tool_success_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "behavioral_efficiency_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "behavioral_no_override_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "rewardWeightDQ": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "rewardWeightCost": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "rewardWeightBehavioral": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "kClusters": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "explorationFloorGlobal": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    }
+  },
+  "sampleCounter": 0,
+  "lastUpdated": "2026-03-17T20:43:25.212591",
+  "bootstrapped": true,
+  "bootstrapEntries": 4842
+}

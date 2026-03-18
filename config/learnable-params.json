@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
   "description": "Unified parameter registry for Optimas LRF auto-optimization. Single source of truth for all 24 learnable parameters.",
-  "banditEnabled": false,
+  "banditEnabled": true,
   "parameters": [
     {
       "id": "graph_entropy_weight",
       "configFile": "config/graph-signal-weights.json",
       "jsonPath": "weights.entropy",
-      "value": 0.30,
+      "value": 0.3,
       "min": 0.05,
-      "max": 0.60,
+      "max": 0.6,
       "learnRate": 0.02,
       "group": "graph_signal"
     },
@@ -19,7 +19,7 @@
       "jsonPath": "weights.gini",
       "value": 0.25,
       "min": 0.05,
-      "max": 0.60,
+      "max": 0.6,
       "learnRate": 0.02,
       "group": "graph_signal"
     },
@@ -29,7 +29,7 @@
       "jsonPath": "weights.subgraphDensity",
       "value": 0.25,
       "min": 0.05,
-      "max": 0.60,
+      "max": 0.6,
       "learnRate": 0.02,
       "group": "graph_signal"
     },
@@ -37,9 +37,9 @@
       "id": "graph_irt_difficulty_weight",
       "configFile": "config/graph-signal-weights.json",
       "jsonPath": "weights.irtDifficulty",
-      "value": 0.20,
+      "value": 0.2,
       "min": 0.05,
-      "max": 0.60,
+      "max": 0.6,
       "learnRate": 0.02,
       "group": "graph_signal"
     },
@@ -48,8 +48,8 @@
       "configFile": "kernel/baselines.json",
       "jsonPath": "dq_weights.validity",
       "value": 0.3912,
-      "min": 0.10,
-      "max": 0.60,
+      "min": 0.1,
+      "max": 0.6,
       "learnRate": 0.01,
       "group": "dq_weights"
     },
@@ -58,8 +58,8 @@
       "configFile": "kernel/baselines.json",
       "jsonPath": "dq_weights.specificity",
       "value": 0.2853,
-      "min": 0.10,
-      "max": 0.60,
+      "min": 0.1,
+      "max": 0.6,
       "learnRate": 0.01,
       "group": "dq_weights"
     },
@@ -68,8 +68,8 @@
       "configFile": "kernel/baselines.json",
       "jsonPath": "dq_weights.correctness",
       "value": 0.3235,
-      "min": 0.10,
-      "max": 0.60,
+      "min": 0.1,
+      "max": 0.6,
       "learnRate": 0.01,
       "group": "dq_weights"
     },
@@ -78,8 +78,8 @@
       "configFile": "config/supermax-v2.json",
       "jsonPath": "agentCountThresholds.trivial.max",
       "value": 0.25,
-      "min": 0.10,
-      "max": 0.40,
+      "min": 0.1,
+      "max": 0.4,
       "learnRate": 0.02,
       "group": "agent_thresholds"
     },
@@ -88,8 +88,8 @@
       "configFile": "config/supermax-v2.json",
       "jsonPath": "agentCountThresholds.simple.max",
       "value": 0.45,
-      "min": 0.30,
-      "max": 0.60,
+      "min": 0.3,
+      "max": 0.6,
       "learnRate": 0.02,
       "group": "agent_thresholds"
     },
@@ -98,8 +98,8 @@
       "configFile": "config/supermax-v2.json",
       "jsonPath": "agentCountThresholds.moderate.max",
       "value": 0.65,
-      "min": 0.50,
-      "max": 0.80,
+      "min": 0.5,
+      "max": 0.8,
       "learnRate": 0.02,
       "group": "agent_thresholds"
     },
@@ -108,7 +108,7 @@
       "configFile": "config/supermax-v2.json",
       "jsonPath": "agentCountThresholds.complex.max",
       "value": 0.85,
-      "min": 0.70,
+      "min": 0.7,
       "max": 0.95,
       "learnRate": 0.02,
       "group": "agent_thresholds"
@@ -117,9 +117,9 @@
       "id": "agent_expert_threshold",
       "configFile": "config/supermax-v2.json",
       "jsonPath": "agentCountThresholds.expert.max",
-      "value": 1.00,
-      "min": 0.90,
-      "max": 1.00,
+      "value": 1.0,
+      "min": 0.9,
+      "max": 1.0,
       "learnRate": 0.01,
       "group": "agent_thresholds"
     },
@@ -139,7 +139,7 @@
       "jsonPath": "freeMad.sycophancyConvergenceThreshold",
       "value": 0.05,
       "min": 0.01,
-      "max": 0.20,
+      "max": 0.2,
       "learnRate": 0.01,
       "group": "free_mad"
     },
@@ -149,7 +149,7 @@
       "jsonPath": "freeMad.disagreementEscalationThreshold",
       "value": 0.15,
       "min": 0.05,
-      "max": 0.40,
+      "max": 0.4,
       "learnRate": 0.02,
       "group": "free_mad"
     },
@@ -157,9 +157,9 @@
       "id": "behavioral_completion_weight",
       "configFile": "kernel/behavioral-outcome.py",
       "jsonPath": "WEIGHTS.completion",
-      "value": 0.30,
-      "min": 0.10,
-      "max": 0.50,
+      "value": 0.3,
+      "min": 0.1,
+      "max": 0.5,
       "learnRate": 0.02,
       "group": "behavioral"
     },
@@ -169,7 +169,7 @@
       "jsonPath": "WEIGHTS.tool_success",
       "value": 0.25,
       "min": 0.05,
-      "max": 0.50,
+      "max": 0.5,
       "learnRate": 0.02,
       "group": "behavioral"
     },
@@ -177,9 +177,9 @@
       "id": "behavioral_efficiency_weight",
       "configFile": "kernel/behavioral-outcome.py",
       "jsonPath": "WEIGHTS.efficiency",
-      "value": 0.20,
+      "value": 0.2,
       "min": 0.05,
-      "max": 0.40,
+      "max": 0.4,
       "learnRate": 0.02,
       "group": "behavioral"
     },
@@ -189,7 +189,7 @@
       "jsonPath": "WEIGHTS.no_override",
       "value": 0.15,
       "min": 0.05,
-      "max": 0.40,
+      "max": 0.4,
       "learnRate": 0.02,
       "group": "behavioral"
     },
@@ -197,9 +197,9 @@
       "id": "rewardWeightDQ",
       "configFile": "config/learnable-params.json",
       "jsonPath": "parameters[19].value",
-      "value": 0.40,
-      "min": 0.20,
-      "max": 0.60,
+      "value": 0.4,
+      "min": 0.2,
+      "max": 0.6,
       "learnRate": 0.02,
       "group": "reward_composition"
     },
@@ -207,9 +207,9 @@
       "id": "rewardWeightCost",
       "configFile": "config/learnable-params.json",
       "jsonPath": "parameters[20].value",
-      "value": 0.30,
-      "min": 0.10,
-      "max": 0.50,
+      "value": 0.3,
+      "min": 0.1,
+      "max": 0.5,
       "learnRate": 0.02,
       "group": "reward_composition"
     },
@@ -217,9 +217,9 @@
       "id": "rewardWeightBehavioral",
       "configFile": "config/learnable-params.json",
       "jsonPath": "parameters[21].value",
-      "value": 0.30,
-      "min": 0.10,
-      "max": 0.50,
+      "value": 0.3,
+      "min": 0.1,
+      "max": 0.5,
       "learnRate": 0.02,
       "group": "reward_composition"
     },
@@ -267,12 +267,12 @@
     },
     "behavioral": {
       "constraint": "sumMustEqual",
-      "target": 0.90,
+      "target": 0.9,
       "description": "Behavioral outcome composite score weights (4 of 5 components)",
       "implicitRemainder": {
         "id": "no_followup",
         "value": "1.0 - sum(registered weights)",
-        "reason": "no_followup (0.10) derived from remainder — not independently learnable"
+        "reason": "no_followup (0.10) derived from remainder \u2014 not independently learnable"
       }
     },
     "reward_composition": {
