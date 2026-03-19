@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>meta-vengine observatory</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title">
+      <span id="header-status" class="status-dot yellow"></span>
+      meta-vengine observatory
+    </div>
+  </header>
+
+  <!-- Tab Bar -->
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="weights">Weights</button>
+    <button class="tab-btn" data-tab="clusters">Clusters</button>
+    <button class="tab-btn" data-tab="timeline">Timeline</button>
+  </nav>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- Overview -->
+    <div id="panel-overview" class="tab-panel active">
+      <div id="overview-content">
+        <div class="loading">Loading...</div>
+      </div>
+    </div>
+
+    <!-- Weights -->
+    <div id="panel-weights" class="tab-panel">
+      <div id="weights-sparkline-section"></div>
+      <div id="weights-chart-grid"></div>
+    </div>
+
+    <!-- Clusters -->
+    <div id="panel-clusters" class="tab-panel">
+      <div id="clusters-content">
+        <div class="loading">Loading clusters...</div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div id="panel-timeline" class="tab-panel">
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span id="last-refresh">Last refresh: --</span>
+    <span id="countdown">Next refresh: 60s</span>
+  </footer>
+
+  <script src="charts.js"></script>
+  <script src="clusters.js"></script>
+  <script src="timeline.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

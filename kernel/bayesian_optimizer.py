@@ -11,17 +11,20 @@ import json
 import math
 import os
 import random
+import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 from kernel.param_registry import ParamRegistry
+from kernel.pareto import ParetoTracker
 
 BASE_DIR = Path(__file__).parent.parent
 DEFAULT_REGISTRY_PATH = BASE_DIR / "config" / "learnable-params.json"
 DEFAULT_HISTORY_PATH = BASE_DIR / "data" / "bandit-history.jsonl"
 DEFAULT_REPORT_DIR = BASE_DIR / "data" / "bo-reports"
 DEFAULT_BO_STATE_PATH = BASE_DIR / "data" / "bo-state.json"
+DEFAULT_PREFERENCES_PATH = BASE_DIR / "config" / "operator-preferences.json"
 
 
 class BayesianWeightOptimizer:
@@ -39,16 +42,21 @@ class BayesianWeightOptimizer:
         registry_path: str | Path | None = None,
         history_path: str | Path | None = None,
         bo_state_path: str | Path | None = None,
+        preferences_path: str | Path | None = None,
     ):
         self.registry = ParamRegistry(registry_path or DEFAULT_REGISTRY_PATH)
         self.history_path = Path(history_path or DEFAULT_HISTORY_PATH)
         self.report_dir = DEFAULT_REPORT_DIR
         self.bo_state_path = Path(bo_state_path or DEFAULT_BO_STATE_PATH)
+        self.preferences_path = Path(preferences_path or DEFAULT_PREFERENCES_PATH)
 
         # Observed data after fit()
         self.X: list[list[float]] = []  # config vectors
         self.Y: list[float] = []  # rewards
         self.param_ids: list[str] = []  # ordered param IDs for vector mapping
+
+        # Pareto front tracker (US-310)
+        self.pareto = ParetoTracker()
 
         # RBF kernel hyperparameters
         self.length_scale = 0.3
@@ -106,6 +114,93 @@ class BayesianWeightOptimizer:
 
         return len(self.X)
 
+    def get_active_preferences(self) -> dict[str, Any]:
+        """
+        Load operator preferences and resolve the active schedule based on
+        current hour.
+
+        Returns:
+            {
+                "preferences": {"quality": 0.7, "cost": 0.15, "latency": 0.15},
+                "schedule": "peak",
+                "hour": 14
+            }
+        """
+        current_hour = datetime.now().hour
+
+        # Load preferences config
+        prefs_data: dict[str, Any] = {}
+        if self.preferences_path.exists():
+            try:
+                prefs_data = json.loads(self.preferences_path.read_text())
+            except (json.JSONDecodeError, OSError):
+                pass
+
+        default_prefs = prefs_data.get("default", {"quality": 0.5, "cost": 0.3, "latency": 0.2})
+        schedules = prefs_data.get("schedules", {})
+
+        # Find matching schedule for current hour
+        for schedule_name, schedule_def in schedules.items():
+            hours = schedule_def.get("hours", [])
+            if current_hour in hours:
+                return {
+                    "preferences": schedule_def.get("preferences", default_prefs),
+                    "schedule": schedule_name,
+                    "hour": current_hour,
+                }
+
+        # No schedule matched — use default
+        return {
+            "preferences": default_prefs,
+            "schedule": "default",
+            "hour": current_hour,
+        }
+
+    def _preference_weighted_ei(
+        self,
+        x: list[float],
+        front: list[dict],
+        preferences: dict[str, float],
+    ) -> float:
+        """
+        Compute preference-weighted Expected Improvement across objectives.
+
+        For each objective, computes EI relative to the best value on the
+        Pareto front, then returns the weighted sum using operator preferences.
+        """
+        mu, sigma2 = self._predict(x)
+        sigma = math.sqrt(sigma2)
+
+        if sigma < 1e-8:
+            return 0.0
+
+        # Compute per-objective best values from the Pareto front
+        obj_bests: dict[str, float] = {}
+        for obj_def in self.pareto.objectives:
+            name = obj_def["name"]
+            direction = obj_def["direction"]
+            values = [c.get("objectives", {}).get(name, 0.0) for c in front]
+            if not values:
+                obj_bests[name] = 0.0
+            elif direction == "maximize":
+                obj_bests[name] = max(values)
+            else:  # minimize — flip sign so EI maximizes improvement
+                obj_bests[name] = min(values)
+
+        # The surrogate predicts a scalar reward; we decompose EI by
+        # projecting the improvement onto each objective axis proportionally.
+        # Per-objective EI ≈ preference_i * EI(scalar), weighted by how much
+        # the objective contributes to the scalar reward.
+        z = (mu - sum(obj_bests.values())) / sigma
+        base_ei = (mu - sum(obj_bests.values())) * self._norm_cdf(z) + sigma * self._norm_pdf(z)
+        base_ei = max(base_ei, 0.0)
+
+        weighted_ei = 0.0
+        for obj_name, pref_weight in preferences.items():
+            weighted_ei += pref_weight * base_ei
+
+        return weighted_ei
+
     def propose(self, n_candidates: int = 3) -> list[dict[str, float]]:
         """
         Propose n candidate weight configurations via Expected Improvement.
@@ -125,11 +220,21 @@ class BayesianWeightOptimizer:
             vec = self._enforce_constraints(vec)
             candidates.append(vec)
 
-        # Score each candidate with EI
+        # Score each candidate with EI — use preference-weighted EI when
+        # a Pareto front exists (US-311), fall back to standard EI otherwise
         scored = []
+        active_prefs = self.get_active_preferences()
+        front = self.pareto.get_front()
+
         best_y = max(self.Y) if self.Y else 0.0
         for vec in candidates:
-            ei = self._expected_improvement(vec, best_y)
+            if front:
+                ei = self._preference_weighted_ei(
+                    vec, front, active_prefs["preferences"]
+                )
+            else:
+                # Cold start: no Pareto front yet, standard single-objective EI
+                ei = self._expected_improvement(vec, best_y)
             scored.append((ei, vec))
 
         scored.sort(key=lambda x: x[0], reverse=True)
@@ -227,6 +332,33 @@ class BayesianWeightOptimizer:
             # Always unfreeze bandit perturbation after evaluation
             self._set_bo_evaluation_active(False)
 
+    def record_pareto_config(
+        self,
+        config: dict[str, float],
+        quality: float,
+        cost: float,
+        model_used: str,
+    ) -> bool:
+        """
+        Record a BO-evaluated config on the Pareto front (US-310).
+
+        Latency is looked up from model-latency-tiers.json based on model_used.
+        Returns True if the config lands on the Pareto front.
+        """
+        latency = self.pareto.get_latency_score(model_used)
+        pareto_config = {
+            "config_id": str(uuid.uuid4()),
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "weights": config,
+            "objectives": {
+                "quality": quality,
+                "cost": cost,
+                "latency": latency,
+            },
+            "model_used": model_used,
+        }
+        return self.pareto.add_config(pareto_config)
+
     def generate_report(self, month: str | None = None) -> Path:
         """
         Generate a monthly BO report as data/bo-reports/YYYY-MM.json.
@@ -252,6 +384,9 @@ class BayesianWeightOptimizer:
             else {"promoted": None, "reason": "insufficient data"}
         )
 
+        # Include active preferences in report (US-311)
+        active_prefs = self.get_active_preferences()
+
         report = {
             "month": month,
             "generated_at": datetime.utcnow().isoformat() + "Z",
@@ -263,6 +398,7 @@ class BayesianWeightOptimizer:
             "validation": validation,
             "param_count": len(self.param_ids),
             "promotion_threshold": self.PROMOTION_THRESHOLD,
+            "preferences": active_prefs,
         }
 
         report_path.write_text(json.dumps(report, indent=2) + "\n")

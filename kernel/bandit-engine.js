@@ -17,13 +17,20 @@ const HISTORY_PATH = path.join(__dirname, '..', 'data', 'bandit-history.jsonl');
 const BO_STATE_PATH = path.join(__dirname, '..', 'data', 'bo-state.json');
 const LRF_CLUSTERS_PATH = path.join(__dirname, '..', 'data', 'lrf-clusters.json');
 const SESSION_MULTIPLIERS_PATH = path.join(__dirname, '..', 'config', 'session-reward-multipliers.json');
+const SESSION_TYPE_STATS_PATH = path.join(__dirname, '..', 'data', 'session-type-stats.jsonl');
 const EXPLORATION_RATE = 0.15;
+const VOLUME_GATE_THRESHOLD = 100;
+const VOLUME_GATE_REFRESH_INTERVAL = 50;
 
-// US-208: Cached session-type reward multipliers (loaded once)
+// US-208: Cached session-type reward multipliers (loaded once, config file fallback)
 let _sessionMultipliersCache = null;
 
+// US-307: Cached session-type volume counts (refreshed every VOLUME_GATE_REFRESH_INTERVAL decisions)
+let _volumeGateCache = null;
+let _volumeGateDecisionCounter = 0;
+
 /**
- * US-208: Load session-type reward multipliers from config.
+ * US-208: Load session-type reward multipliers from config file (fallback only).
  * Cached after first load for performance.
  * @returns {object} The parsed multipliers config
  */
@@ -35,6 +42,104 @@ function _getSessionMultipliers() {
     _sessionMultipliersCache = { multipliers: { refactoring: { dq: 1.0, cost: 1.0, behavioral: 1.0 } }, default: 'refactoring' };
   }
   return _sessionMultipliersCache;
+}
+
+/**
+ * US-307: Load session-type volume counts from data/session-type-stats.jsonl.
+ * Returns { sessionType: latestCumulativeCount, ... }.
+ * Uses module-level cache, refreshed every VOLUME_GATE_REFRESH_INTERVAL decisions.
+ */
+function _getVolumeGateCounts(forceRefresh) {
+  if (_volumeGateCache && !forceRefresh && (_volumeGateDecisionCounter % VOLUME_GATE_REFRESH_INTERVAL !== 0)) {
+    return _volumeGateCache;
+  }
+  const counts = {};
+  try {
+    if (fs.existsSync(SESSION_TYPE_STATS_PATH)) {
+      const content = fs.readFileSync(SESSION_TYPE_STATS_PATH, 'utf8');
+      const lines = content.split('\n');
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+        try {
+          const entry = JSON.parse(trimmed);
+          if (entry.session_type && entry.cumulative_count != null) {
+            counts[entry.session_type] = entry.cumulative_count;
+          }
+        } catch (_) {
+          // skip malformed lines
+        }
+      }
+    }
+  } catch (_) {
+    // file missing or unreadable — all types gated
+  }
+  _volumeGateCache = counts;
+  return counts;
+}
+
+/**
+ * US-307: Record a routing decision for a session type (append to session-type-stats.jsonl).
+ */
+function _recordSessionDecision(sessionType) {
+  if (!sessionType) return;
+  const counts = _getVolumeGateCounts(false);
+  const newCount = (counts[sessionType] || 0) + 1;
+  const entry = {
+    timestamp: new Date().toISOString(),
+    session_type: sessionType,
+    cumulative_count: newCount
+  };
+  try {
+    const dir = path.dirname(SESSION_TYPE_STATS_PATH);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.appendFileSync(SESSION_TYPE_STATS_PATH, JSON.stringify(entry) + '\n');
+    // Update cache immediately
+    if (_volumeGateCache) {
+      _volumeGateCache[sessionType] = newCount;
+    }
+  } catch (_) {
+    // Non-fatal — don't break routing on stats write failure
+  }
+}
+
+/**
+ * US-307: Check if a session type is volume-gated (insufficient data).
+ */
+function _isSessionGated(sessionType) {
+  if (!sessionType) return false;
+  const counts = _getVolumeGateCounts(false);
+  return (counts[sessionType] || 0) < VOLUME_GATE_THRESHOLD;
+}
+
+/**
+ * US-306: Read session-type multipliers from param registry.
+ * Constructs param IDs: session_{type}_dq, session_{type}_cost, session_{type}_behavioral
+ * Falls back to {dq: 1.0, cost: 1.0, behavioral: 1.0} if params not found.
+ *
+ * @param {string} sessionType - e.g. "debugging", "research", "architecture"
+ * @param {object} registry - ParamRegistry instance
+ * @returns {{ dq: number, cost: number, behavioral: number }}
+ */
+function _getRegistryMultipliers(sessionType, registry) {
+  const fallback = { dq: 1.0, cost: 1.0, behavioral: 1.0 };
+  if (!sessionType || !registry) return fallback;
+
+  const dqId = `session_${sessionType}_dq`;
+  const costId = `session_${sessionType}_cost`;
+  const behavioralId = `session_${sessionType}_behavioral`;
+
+  try {
+    const dqParam = registry.getParam(dqId);
+    const costParam = registry.getParam(costId);
+    const behavioralParam = registry.getParam(behavioralId);
+    return { dq: dqParam.value, cost: costParam.value, behavioral: behavioralParam.value };
+  } catch (_) {
+    // Params not found in registry for this session type
+    return fallback;
+  }
 }
 
 /**
@@ -224,17 +329,36 @@ class ThompsonBandit {
 
   /**
    * Sample perturbed weights for a single routing decision.
-   * Returns { sampleId, weights, exploring, boFrozen, explorationRate, clusterId }
+   * Returns { sampleId, weights, exploring, boFrozen, explorationRate, clusterId, volumeGated }
    *
    * If BO evaluation is active (data/bo-state.json boEvaluationActive=true),
    * returns current registry weights without perturbation.
    *
+   * US-307: Session-type params (session_{type}_dq/cost/behavioral) are only
+   * perturbed when the session type has >= VOLUME_GATE_THRESHOLD decisions.
+   * Gated params use registry defaults instead.
+   *
    * @param {string|number|null} [clusterId] - Cluster index for per-cluster annealing
+   * @param {string|null} [sessionType] - Session type for volume gate check
    */
-  sample(clusterId) {
+  sample(clusterId, sessionType) {
     const boFrozen = this._isBoFrozen();
     const params = this.registry.getAllParams();
     const weights = {};
+
+    // US-307: Refresh volume gate cache periodically and check gating
+    _volumeGateDecisionCounter++;
+    _getVolumeGateCounts(_volumeGateDecisionCounter % VOLUME_GATE_REFRESH_INTERVAL === 0);
+
+    // US-307: Determine which session types are gated
+    const gatedSessionTypes = new Set();
+    const sessionTypes = ['debugging', 'research', 'architecture', 'refactoring', 'testing', 'docs', 'exploration', 'creative'];
+    for (const st of sessionTypes) {
+      if (_isSessionGated(st)) {
+        gatedSessionTypes.add(st);
+      }
+    }
+    const anyGated = gatedSessionTypes.size > 0;
 
     if (boFrozen) {
       // BO evaluation active — use current weights as-is, no perturbation
@@ -242,8 +366,10 @@ class ThompsonBandit {
         weights[p.id] = p.value;
       }
       this.sampleCounter++;
+      // US-307: Record session decision for volume tracking
+      if (sessionType) _recordSessionDecision(sessionType);
       const sampleId = `sample-${this.sampleCounter}-${Date.now()}`;
-      return { sampleId, weights, exploring: false, boFrozen: true, explorationRate: 0, clusterId: clusterId != null ? clusterId : null };
+      return { sampleId, weights, exploring: false, boFrozen: true, explorationRate: 0, clusterId: clusterId != null ? clusterId : null, volumeGated: anyGated };
     }
 
     // US-207: Per-cluster exploration annealing
@@ -251,6 +377,19 @@ class ThompsonBandit {
     const exploring = Math.random() < currentExplorationRate;
 
     for (const p of params) {
+      // US-307: Skip perturbation for gated session-type params
+      if (p.id.startsWith('session_')) {
+        // Extract session type from param id: session_{type}_{component}
+        const parts = p.id.split('_');
+        // parts: ['session', type, component] — type may have underscores so use all but first and last
+        const paramSessionType = parts.slice(1, -1).join('_');
+        if (gatedSessionTypes.has(paramSessionType)) {
+          // Gated: use registry default, no perturbation
+          weights[p.id] = p.value;
+          continue;
+        }
+      }
+
       const belief = this.beliefs[p.id];
       let direction;
 
@@ -280,9 +419,13 @@ class ThompsonBandit {
     this._enforceConstraints(weights);
 
     this.sampleCounter++;
+
+    // US-307: Record session decision for volume tracking
+    if (sessionType) _recordSessionDecision(sessionType);
+
     const sampleId = `sample-${this.sampleCounter}-${Date.now()}`;
 
-    return { sampleId, weights, exploring, boFrozen: false, explorationRate: currentExplorationRate, clusterId: clusterId != null ? clusterId : null };
+    return { sampleId, weights, exploring, boFrozen: false, explorationRate: currentExplorationRate, clusterId: clusterId != null ? clusterId : null, volumeGated: anyGated };
   }
 
   _enforceConstraints(weights) {
@@ -334,8 +477,10 @@ class ThompsonBandit {
    * @param {object} [rewardWeights] - The reward composition weights used { dq, cost, behavioral }
    * @param {number} [explorationRate] - The exploration rate used for this decision
    * @param {string|number} [clusterId] - The cluster this decision belonged to
+   * @param {string} [sessionMultipliersSource] - US-306: "registry" or "config_fallback"
+   * @param {boolean} [volumeGated] - US-307: Whether session multiplier learning was gated
    */
-  update(sampleId, perturbedWeights, reward, rewardWeights, explorationRate, clusterId) {
+  update(sampleId, perturbedWeights, reward, rewardWeights, explorationRate, clusterId, sessionMultipliersSource, volumeGated) {
     if (typeof reward !== 'number' || reward < 0 || reward > 1) {
       throw new Error(`Bandit update: reward must be in [0, 1], got ${reward}`);
     }
@@ -369,11 +514,11 @@ class ThompsonBandit {
     // Persist state
     this._saveState();
 
-    // Append to history (includes reward composition weights, exploration rate, cluster when available)
-    this._logHistory(sampleId, perturbedWeights, reward, rewardWeights, explorationRate, clusterId);
+    // Append to history (includes reward composition weights, exploration rate, cluster, multiplier source, volume gate)
+    this._logHistory(sampleId, perturbedWeights, reward, rewardWeights, explorationRate, clusterId, sessionMultipliersSource, volumeGated);
   }
 
-  _logHistory(sampleId, perturbedWeights, reward, rewardWeights, explorationRate, clusterId) {
+  _logHistory(sampleId, perturbedWeights, reward, rewardWeights, explorationRate, clusterId, sessionMultipliersSource, volumeGated) {
     const entry = {
       sampleId,
       reward,
@@ -388,6 +533,12 @@ class ThompsonBandit {
     }
     if (clusterId != null) {
       entry.clusterId = clusterId;
+    }
+    if (sessionMultipliersSource) {
+      entry.sessionMultipliersSource = sessionMultipliersSource;
+    }
+    if (volumeGated != null) {
+      entry.volumeGated = volumeGated;
     }
     const dir = path.dirname(this.historyPath);
     if (!fs.existsSync(dir)) {
@@ -426,7 +577,7 @@ class ThompsonBandit {
  * @param {object} behavioralOutcome - { compositeScore, actualCost?, toolSuccessRate?, completionRate?, sessionType? }
  * @param {object} [pricing] - Pricing data from config/pricing.json (auto-loaded if omitted)
  * @param {object} [registry] - ParamRegistry instance (auto-loaded if omitted)
- * @returns {{ reward: number, rewardWeights: object, sessionType?: string, sessionMultipliers?: object }}
+ * @returns {{ reward: number, rewardWeights: object, sessionType?: string, sessionMultipliers?: object, sessionMultipliersSource?: string }}
  */
 function computeReward(routingDecision, behavioralOutcome, pricing, registry) {
   // Load reward weights from registry (learnable) with hardcoded fallbacks
@@ -463,32 +614,62 @@ function computeReward(routingDecision, behavioralOutcome, pricing, registry) {
   // Component 3: Behavioral outcome (already in [0, 1])
   let behavioralComponent = Math.max(0, Math.min(1, behavioralOutcome.compositeScore || 0));
 
-  // US-208: Session-type reward multipliers
+  // US-208 / US-306: Session-type reward multipliers
+  // Prefer registry (learnable via bandit), fall back to config file
   const sessionType = routingDecision.sessionType || behavioralOutcome.sessionType || null;
   let appliedMultipliers = null;
+  let sessionMultipliersSource = null;
 
   if (sessionType) {
-    const config = _getSessionMultipliers();
-    const mults = config.multipliers || {};
-    const defaultType = config.default || 'refactoring';
-    const multiplier = mults[sessionType] || mults[defaultType] || { dq: 1.0, cost: 1.0, behavioral: 1.0 };
+    const reg = registry || getRegistry();
+    let multiplier;
 
-    // Apply element-wise multipliers
+    // US-306: Try registry first (learnable multipliers)
+    const registryMults = _getRegistryMultipliers(sessionType, reg);
+    const isRegistryDefault = (registryMults.dq === 1.0 && registryMults.cost === 1.0 && registryMults.behavioral === 1.0);
+
+    // Check if registry actually has session_* params for this type
+    let hasRegistryParams = false;
+    try {
+      reg.getParam(`session_${sessionType}_dq`);
+      hasRegistryParams = true;
+    } catch (_) {}
+
+    if (hasRegistryParams) {
+      multiplier = { ...registryMults };
+      sessionMultipliersSource = 'registry';
+    } else {
+      // Fallback to config file
+      const config = _getSessionMultipliers();
+      const mults = config.multipliers || {};
+      const defaultType = config.default || 'refactoring';
+      multiplier = mults[sessionType] || mults[defaultType] || { dq: 1.0, cost: 1.0, behavioral: 1.0 };
+      multiplier = { ...multiplier };
+      sessionMultipliersSource = 'config_fallback';
+    }
+
+    // Apply element-wise multipliers (dq/cost/behavioral from registry or config)
     dqComponent *= (multiplier.dq || 1.0);
     costComponent *= (multiplier.cost || 1.0);
     behavioralComponent *= (multiplier.behavioral || 1.0);
 
-    // Apply tool_success_boost if available in multiplier and toolSuccessRate in outcome
-    if (multiplier.tool_success_boost && behavioralOutcome.toolSuccessRate != null) {
-      behavioralComponent *= multiplier.tool_success_boost;
+    // Boosts are NOT in registry — always read from config file
+    const config = _getSessionMultipliers();
+    const configMults = (config.multipliers || {})[sessionType] || {};
+
+    // Apply tool_success_boost if available in config and toolSuccessRate in outcome
+    if (configMults.tool_success_boost && behavioralOutcome.toolSuccessRate != null) {
+      behavioralComponent *= configMults.tool_success_boost;
+      multiplier.tool_success_boost = configMults.tool_success_boost;
     }
 
-    // Apply completion_boost if available in multiplier and completionRate in outcome
-    if (multiplier.completion_boost && behavioralOutcome.completionRate != null) {
-      behavioralComponent *= multiplier.completion_boost;
+    // Apply completion_boost if available in config and completionRate in outcome
+    if (configMults.completion_boost && behavioralOutcome.completionRate != null) {
+      behavioralComponent *= configMults.completion_boost;
+      multiplier.completion_boost = configMults.completion_boost;
     }
 
-    appliedMultipliers = { ...multiplier };
+    appliedMultipliers = multiplier;
   }
 
   const rawReward = (DQ_WEIGHT * dqComponent) +
@@ -503,10 +684,11 @@ function computeReward(routingDecision, behavioralOutcome, pricing, registry) {
     rewardWeights: { dq: DQ_WEIGHT, cost: COST_WEIGHT, behavioral: BEHAVIORAL_WEIGHT }
   };
 
-  // US-208: Include session type info in result when present
+  // US-208 / US-306: Include session type info and source in result when present
   if (sessionType) {
     result.sessionType = sessionType;
     result.sessionMultipliers = appliedMultipliers;
+    result.sessionMultipliersSource = sessionMultipliersSource;
   }
 
   return result;
