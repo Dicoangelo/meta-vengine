@@ -1,0 +1,17 @@
+{
+  "description": "Latency proxy by model tier. Higher = faster. Normalized 0-1.",
+  "tiers": {
+    "claude-opus-4-6": 0.3,
+    "claude-sonnet-4-6": 0.6,
+    "claude-haiku-4-5": 1.0,
+    "gpt-4o": 0.5,
+    "gpt-4o-mini": 0.8,
+    "o1": 0.3,
+    "o3-mini": 0.7,
+    "gemini-2.0-flash": 0.9,
+    "gemini-1.5-pro": 0.5,
+    "grok-3": 0.4,
+    "grok-3-mini": 0.7
+  },
+  "default": 0.5
+}

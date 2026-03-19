@@ -35,6 +35,9 @@ try:
 except ImportError:
     _CENTRALIZED_PRICING = {"opus": {"input": 5}, "sonnet": {"input": 3}, "haiku": {"input": 0.8}}
 
+# Active Inference Router (US-309) — lazy import behind feature flag
+_active_inference_router = None
+
 # Lazy load heavy dependencies
 _encoder = None
 _model_embeddings = None
@@ -675,7 +678,41 @@ class HSRGSRouter:
         self.godel = GodelEngine()
         self.available_models = available_models or list(MODEL_PROFILES.keys())
         self.recent_outcomes: List[Dict] = []
+        self._active_inference = None  # Lazy-loaded if flag enabled
         self._load_config()
+
+    def _get_active_inference_router(self):
+        """Lazy-load ActiveInferenceRouter if activeInferenceEnabled flag is set."""
+        global _active_inference_router
+        if self._active_inference is not None:
+            return self._active_inference
+
+        # Check feature flag in learnable-params.json
+        try:
+            params_path = Path(__file__).resolve().parent.parent / "config" / "learnable-params.json"
+            with open(params_path) as f:
+                params = json.load(f)
+            if not params.get("activeInferenceEnabled", False):
+                return None
+        except Exception:
+            return None
+
+        # Import and instantiate
+        try:
+            from importlib.util import spec_from_file_location, module_from_spec
+            ai_path = Path(__file__).resolve().parent / "active-inference.py"
+            spec = spec_from_file_location("active_inference", str(ai_path))
+            mod = module_from_spec(spec)
+            spec.loader.exec_module(mod)
+
+            base = Path(__file__).resolve().parent.parent
+            beliefs_path = base / "data" / "active-inference-beliefs.json"
+            pricing_path = base / "config" / "pricing.json"
+            self._active_inference = mod.ActiveInferenceRouter(str(beliefs_path), str(pricing_path))
+            _active_inference_router = self._active_inference
+            return self._active_inference
+        except Exception:
+            return None
 
     def _load_config(self):
         """Load configuration"""
@@ -719,6 +756,54 @@ class HSRGSRouter:
         irt_predictions = {}
         for model in self.available_models:
             irt_predictions[model] = self.irt.predict(model, latent)
+
+        # -- Active Inference path (US-309) --
+        ai_router = self._get_active_inference_router()
+        if ai_router is not None:
+            try:
+                ai_result = ai_router.select_model(
+                    latent.difficulty,
+                    available_models=None  # Use all models in beliefs
+                )
+                ai_selected = ai_result["model"]
+
+                # Build pressures for logging (still compute them for provenance)
+                pressures = {}
+                for model in self.available_models:
+                    pressures[model] = self.selector.compute_pressure(
+                        model, latent, irt_predictions[model], budget, deadline
+                    )
+
+                reasoning = (
+                    f"active-inference; G={ai_result['free_energy']:.3f} "
+                    f"epistemic={ai_result['epistemic']:.3f} "
+                    f"pragmatic={ai_result['pragmatic']:.3f}"
+                )
+
+                # Map AI model ID back to HSRGS alias if needed
+                # AI router uses full model IDs from pricing.json
+                selected = ai_selected
+                # Confidence from free energy gap (lower G = more confident)
+                confidence = min(1.0, max(0.1, -ai_result["free_energy"] / 3.0))
+
+                decision = RoutingDecision(
+                    query_hash=hashlib.md5(query.encode()).hexdigest(),
+                    selected_model=selected,
+                    latent=latent,
+                    pressures={m: asdict(p) for m, p in pressures.items()},
+                    irt_predictions=irt_predictions,
+                    confidence=round(confidence, 2),
+                    reasoning=reasoning,
+                    timestamp=int(time.time() * 1000),
+                    version=self.godel.current_version
+                )
+
+                self._log_decision(query, decision)
+                return decision
+            except Exception:
+                pass  # Fall through to pressure-field if active inference fails
+
+        # -- Pressure-field path (default) --
 
         # 3. Compute pressure field for each model
         pressures = {}
@@ -896,6 +981,18 @@ class HSRGSRouter:
 
         # Update IRT parameters
         # (Would need to reconstruct latent - simplified here)
+
+        # Update Active Inference beliefs (US-309)
+        ai_router = self._get_active_inference_router()
+        if ai_router is not None:
+            try:
+                difficulty = decision.get("difficulty", 0.5)
+                # Compute outcome quality: success + cost efficiency blend
+                outcome_quality = (0.8 if success else 0.2) - min(cost / 10.0, 0.3)
+                outcome_quality = max(0.0, min(1.0, outcome_quality))
+                ai_router.update_beliefs(decision["model"], difficulty, outcome_quality)
+            except Exception:
+                pass  # Silent fail
 
         # Record for Gödel engine
         self.recent_outcomes.append({

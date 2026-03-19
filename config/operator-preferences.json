@@ -1,0 +1,14 @@
+{
+  "description": "Operator optimization preferences. Bias BO toward preferred objectives.",
+  "default": {"quality": 0.5, "cost": 0.3, "latency": 0.2},
+  "schedules": {
+    "peak": {
+      "hours": [9, 10, 11, 12, 14, 15, 16, 17],
+      "preferences": {"quality": 0.7, "cost": 0.15, "latency": 0.15}
+    },
+    "off_peak": {
+      "hours": [0, 1, 2, 3, 4, 5, 6, 7, 8, 13, 18, 19, 20, 21, 22, 23],
+      "preferences": {"quality": 0.3, "cost": 0.5, "latency": 0.2}
+    }
+  }
+}

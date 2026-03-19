@@ -1,4 +1,5 @@
 {
+  "_note": "Multiplier values are now learnable params in learnable-params.json. This file kept as documentation/fallback only.",
   "description": "Session-type reward multipliers. Applied element-wise before normalization.",
   "version": "1.0.0",
   "multipliers": {

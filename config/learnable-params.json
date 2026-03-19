@@ -1,7 +1,8 @@
 {
   "version": "1.0.0",
-  "description": "Unified parameter registry for Optimas LRF auto-optimization. Single source of truth for all 24 learnable parameters.",
+  "description": "Unified parameter registry for Optimas LRF auto-optimization. Single source of truth for all 48 learnable parameters.",
   "banditEnabled": true,
+  "activeInferenceEnabled": false,
   "parameters": [
     {
       "id": "graph_entropy_weight",
@@ -243,6 +244,246 @@
       "max": 0.15,
       "learnRate": 0.01,
       "group": "exploration_schedule"
+    },
+    {
+      "id": "session_debugging_dq",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[24].value",
+      "value": 0.8,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_debugging_cost",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[25].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_debugging_behavioral",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[26].value",
+      "value": 1.2,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_research_dq",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[27].value",
+      "value": 1.2,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_research_cost",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[28].value",
+      "value": 0.8,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_research_behavioral",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[29].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_architecture_dq",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[30].value",
+      "value": 1.3,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_architecture_cost",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[31].value",
+      "value": 0.7,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_architecture_behavioral",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[32].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_refactoring_dq",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[33].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_refactoring_cost",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[34].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_refactoring_behavioral",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[35].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_testing_dq",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[36].value",
+      "value": 0.9,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_testing_cost",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[37].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_testing_behavioral",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[38].value",
+      "value": 1.1,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_docs_dq",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[39].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_docs_cost",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[40].value",
+      "value": 1.2,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_docs_behavioral",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[41].value",
+      "value": 0.8,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_exploration_dq",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[42].value",
+      "value": 1.1,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_exploration_cost",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[43].value",
+      "value": 0.9,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_exploration_behavioral",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[44].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_creative_dq",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[45].value",
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_creative_cost",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[46].value",
+      "value": 0.8,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
+    },
+    {
+      "id": "session_creative_behavioral",
+      "configFile": "config/learnable-params.json",
+      "jsonPath": "parameters[47].value",
+      "value": 1.2,
+      "min": 0.5,
+      "max": 2.0,
+      "learnRate": 0.01,
+      "group": "session_multipliers"
     }
   ],
   "groups": {
@@ -287,8 +528,12 @@
     "exploration_schedule": {
       "constraint": "independent",
       "description": "Per-cluster exploration annealing: global floor for explore/exploit tradeoff"
+    },
+    "session_multipliers": {
+      "constraint": "independent",
+      "description": "Session-type reward multipliers: per-type scaling for DQ, cost, and behavioral reward components"
     }
   },
-  "updated": "2026-03-17",
-  "updatedBy": "US-207"
+  "updated": "2026-03-18",
+  "updatedBy": "US-305"
 }
