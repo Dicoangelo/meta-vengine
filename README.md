@@ -1,601 +1,299 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=0:0d1117,50:1a1a2e,100:16213e&text=META-VENGINE&fontSize=70&fontColor=00d9ff&animation=fadeIn&fontAlignY=35&desc=The%20Invention%20Engine%20%E2%80%A2%20Bidirectional%20Co-Evolution%20%E2%80%A2%20The%20System%20That%20Improves%20Itself&descSize=14&descAlignY=55&descAlign=50" width="100%" alt="META-VENGINE"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7aa2f7,100:bb9af7&height=200&section=header&text=meta-vengine&fontSize=50&fontColor=c0caf5&animation=fadeIn&fontAlignY=38&desc=Self-Improving%20AI%20Routing%20Engine&descAlignY=55&descSize=18" width="100%" alt="meta-vengine header"/>
 
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=22&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&multiline=false&repeat=true&width=700&height=40&lines=The+Flywheel+Is+Spinning+%E2%9A%99%EF%B8%8F;Multi-Provider+Intelligent+Routing;The+Loop+Closes+%E2%80%94+Each+Session+Better+Than+The+Last" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=20&duration=3500&pause=1200&color=7aa2f7&center=true&vCenter=true&multiline=false&repeat=true&width=680&height=36&lines=48+learnable+parameters+%C2%B7+Thompson+Sampling+bandit;Active+inference+%C2%B7+Free+energy+minimization;The+loop+is+live+%E2%80%94+every+session+makes+it+smarter" alt="Typing SVG" />
 
-<br/>
-
-[![Metaventions AI](https://img.shields.io/badge/Metaventions_AI-Architected_Intelligence-00d9ff?style=for-the-badge&labelColor=0d1117)](https://metaventionsai.com)
-[![D-Ecosystem](https://img.shields.io/badge/D--Ecosystem-Sovereign_by_Design-00d9ff?style=for-the-badge&labelColor=0d1117)](https://github.com/Dicoangelo/The-Decosystem)
-[![Status](https://img.shields.io/badge/Status-Live-00d9ff?style=for-the-badge&labelColor=0d1117)]()
-
-<br/>
-
-[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat-square&logo=python&logoColor=white)]()
-[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=node.js&logoColor=white)]()
-[![Ollama](https://img.shields.io/badge/Ollama-Local-000000?style=flat-square&logo=ollama)]()
-[![Gemini](https://img.shields.io/badge/Gemini-2.0-4285F4?style=flat-square&logo=google)]()
-[![Anthropic](https://img.shields.io/badge/Claude-Opus_4.5-CC785C?style=flat-square)]()
-[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=flat-square&logo=openai)]()
-[![Research](https://img.shields.io/badge/Papers-40+-9945ff?style=flat-square)]()
-
-<br/>
-
-*A bidirectional co-evolution system with multi-provider intelligent routing (Ollama • Gemini • Claude • OpenAI) that analyzes usage patterns and self-modifies.*
-
-**The invention hidden in your vision.**
-
-</div>
-
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%"/>
-
-<br/>
-
-## The Unlock
-
-<div align="center">
-
-```
-┌────────────────────────────────────────────────────────────────────────────────┐
-│                                                                                │
-│   BEFORE                              ◆                              AFTER     │
-│   ══════                                                             ═════     │
-│                                                                                │
-│   Human → AI → Output                              Human ↔ AI                  │
-│       ↓                                                ↕                       │
-│   (context lost)                                   (evolving)                  │
-│                                                        ↕                       │
-│   Next session:                                    ←───┘                       │
-│   starts from zero                                 Feedback closes             │
-│                                                                                │
-│   ══════════════════════════════════════════════════════════════════════════   │
-│                                                                                │
-│   "Most AI systems are unidirectional. The loop is open."                      │
-│   "What if the AI could read its own patterns? Modify its own instructions?"   │
-│   "Let the human-AI pair co-evolve?"                                          │
-│                                                                                │
-└────────────────────────────────────────────────────────────────────────────────┘
-```
-
-</div>
-
-<br/>
-
-<img src="https://user-images.githubusercontent.com/74038190/212284115-f47cd8ff-2ffb-4b04-b5bf-4d1c14c0247f.gif" width="100%"/>
-
-<br/>
-
-## System Architecture
-
-<div align="center">
-
-```mermaid
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#00d9ff', 'primaryTextColor': '#fff', 'primaryBorderColor': '#00d9ff', 'lineColor': '#00d9ff', 'secondaryColor': '#1a1a2e', 'tertiaryColor': '#0d1117', 'clusterBkg': '#0d1117', 'clusterBorder': '#00d9ff'}}}%%
-flowchart TB
-    subgraph METAVENGINE["⚙️ META-VENGINE ⚙️"]
-        direction TB
-
-        subgraph INTERACTION["🔄 INTERACTION LAYER"]
-            QUERY["Query → uni-ai Router → Best Model"]
-        end
-
-        subgraph DATA["💾 DATA LAYER"]
-            direction LR
-            STATS["stats-cache\n━━━━━━━━━━\n27K messages\n104 sessions"]
-            DQ["dq-scores\n━━━━━━━━━━\nDecision Quality\nHistory"]
-            PATTERNS["patterns\n━━━━━━━━━━\n8 Session Types\nDetection"]
-            IDENTITY["identity\n━━━━━━━━━━\nExpertise\nEvolution"]
-        end
-
-        subgraph ANALYSIS["🧠 ANALYSIS LAYER"]
-            META["Meta-Analyzer\n━━━━━━━━━━\nAggregate • Analyze\nPropose • Apply"]
-        end
-
-        subgraph MODIFICATION["⚡ MODIFICATION LAYER"]
-            direction LR
-            CLAUDE_MD["CLAUDE.md\n━━━━━━━━━━\nLearned Patterns\nAuto-Generated"]
-            PREFETCH["Prefetcher\n━━━━━━━━━━\nPattern-Aware\nContext Loading"]
-        end
-
-        subgraph EVOLUTION["🔮 EVOLUTION LAYER"]
-            NEXT["Next Session\nStarts Better"]
-        end
-    end
-
-    HUMAN(("👤 HUMAN\nOPERATOR"))
-
-    HUMAN <==>|"Interact"| QUERY
-    QUERY -->|"Telemetry"| STATS
-    QUERY -->|"Telemetry"| DQ
-    QUERY -->|"Telemetry"| PATTERNS
-    STATS --> META
-    DQ --> META
-    PATTERNS --> META
-    IDENTITY --> META
-    META -->|"Modifications"| CLAUDE_MD
-    META -->|"Modifications"| PREFETCH
-    CLAUDE_MD --> NEXT
-    PREFETCH --> NEXT
-    NEXT -.->|"Feedback Loop"| QUERY
-
-    style METAVENGINE fill:#0d1117,stroke:#00d9ff,stroke-width:3px
-    style INTERACTION fill:#1a1a2e,stroke:#00d9ff,stroke-width:2px
-    style DATA fill:#1a1a2e,stroke:#9945ff,stroke-width:2px
-    style ANALYSIS fill:#1a1a2e,stroke:#ffd700,stroke-width:2px
-    style MODIFICATION fill:#1a1a2e,stroke:#00ff88,stroke-width:2px
-    style EVOLUTION fill:#16213e,stroke:#00d9ff,stroke-width:2px
-    style HUMAN fill:#00d9ff,stroke:#fff,stroke-width:2px,color:#0d1117
-```
-
-<sub>🔄 <i>The Closed Loop — Telemetry flows up, modifications flow down, the flywheel spins</i></sub>
-
-</div>
-
-<br/>
-
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%"/>
-
-<br/>
-
-## Core Components
-
-<div align="center">
-<table>
-<tr>
-<td width="50%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/216122041-518ac897-8d92-4c6b-9b3f-ca01dcaf38ee.png" width="80"/>
-<h3>🧠 Meta-Analyzer</h3>
-<b>The Self-Awareness Engine</b>
 <br/><br/>
-<p>Aggregates telemetry from 6 data sources. Analyzes patterns. Generates modification proposals. Applies with human approval. Evaluates effectiveness.</p>
-<br/>
 
-`Python` `Telemetry` `Analysis`
-
-<br/>
-<img src="https://img.shields.io/badge/Lines-400+-00d9ff?style=for-the-badge&labelColor=0d1117"/>
-</td>
-<td width="50%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/216122065-2f028bae-25d6-4a3c-bc9f-175394ed5011.png" width="80"/>
-<h3>🔍 Pattern Detector</h3>
-<b>Session Type Recognition</b>
-<br/><br/>
-<p>Identifies 8 session patterns (debugging, research, architecture...). Predicts context needs. Feeds patterns to co-evolution loop.</p>
-<br/>
-
-`JavaScript` `Detection` `Prediction`
-
-<br/>
-<img src="https://img.shields.io/badge/Patterns-8-00d9ff?style=for-the-badge&labelColor=0d1117"/>
-</td>
-</tr>
-<tr>
-<td width="50%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/216120974-24a76b31-7f39-41f1-a38f-b3c1377cc612.png" width="80"/>
-<h3>📡 Prefetcher</h3>
-<b>Proactive Context Loading</b>
-<br/><br/>
-<p>Pattern-aware context injection. Temporal prediction based on usage habits. Loads research papers, learnings, and tools before you ask.</p>
-<br/>
-
-`Python` `Context` `Prediction`
-
-<br/>
-<img src="https://img.shields.io/badge/Proactive-Yes-00d9ff?style=for-the-badge&labelColor=0d1117"/>
-</td>
-<td width="50%" align="center">
-<img src="https://user-images.githubusercontent.com/74038190/216122028-c05b52fb-983e-4ee8-8811-6f30cd9ea5d5.png" width="80"/>
-<h3>📊 DQ Scorer</h3>
-<b>Decision Quality Routing</b>
-<br/><br/>
-<p>Routes queries to optimal models (Haiku/Sonnet/Opus). Scores decisions on validity (40%) + specificity (30%) + correctness (30%).</p>
-<br/>
-
-`JavaScript` `Routing` `Scoring`
-
-<br/>
-<img src="https://img.shields.io/badge/DQ_Avg-0.889-00d9ff?style=for-the-badge&labelColor=0d1117"/>
-</td>
-</tr>
-</table>
-</div>
-
-<br/>
-
-### Component Registry
-
-| Layer | Component | Description | Status |
-|:-----:|:----------|:------------|:------:|
-| 🧠 | `meta-analyzer.py` | Telemetry aggregation + modification proposals | `Active` |
-| 🔍 | `pattern-detector.js` | 8 session patterns + co-evolution integration | `Active` |
-| 📡 | `prefetch.py` | Pattern-aware + proactive context loading | `Active` |
-| 📊 | `dq-scorer.js` | Decision quality scoring + model routing | `Active` |
-| 🪪 | `identity-manager.js` | Expertise tracking + evolution | `Active` |
-| 📝 | `CLAUDE.md` | Auto-generated learned patterns section | `Evolving` |
-| ⚡ | `hsrgs.py` | Homeomorphic Self-Routing Gödel System | `A/B Testing` |
-| 📈 | `ab-test-analyzer.py` | HSRGS vs Keyword DQ comparison | `Active` |
-| 🔭 | `Observatory` | Complete metrics & analytics system | `Active` |
-| 📊 | `Command Center` | 12-tab unified dashboard | `Active` |
-| 🩹 | `recovery-engine.py` | **NEW** Auto-recovery for errors (94% coverage, 70% auto-fix) | `Active` |
-| 🔧 | `recovery_actions.py` | **NEW** 8 recovery actions (git, perms, locks, cache) | `Active` |
-| 🧪 | `error-tracker.js` | Error pattern detection + solution lookup | `Active` |
-| 🛡️ | `error-capture.sh` | Hook-based error detection + recovery trigger | `Active` |
-| 🧬 | `cognitive-os.py` | **NEW** Personal Cognitive OS (flow, focus, energy) | `Active` |
-| 📋 | `supermemory.py` | Unified memory system with FTS + embeddings | `Active` |
-
-<br/>
-
-<img src="https://user-images.githubusercontent.com/74038190/212284115-f47cd8ff-2ffb-4b04-b5bf-4d1c14c0247f.gif" width="100%"/>
-
-<br/>
-
-## v1.2.0 - Self-Healing Infrastructure 🩹
-
-<div align="center">
-
-[![Version](https://img.shields.io/badge/Version-1.2.0-00d9ff?style=for-the-badge&labelColor=0d1117)](./CHANGELOG.md)
-[![Self-Healing](https://img.shields.io/badge/Self--Healing-Active-00ff88?style=for-the-badge&labelColor=0d1117)](./docs/RECOVERY_ENGINE_ARCHITECTURE.md)
-[![Recovery Rate](https://img.shields.io/badge/Auto--Fix-70%25-00ff88?style=for-the-badge&labelColor=0d1117)](./docs/RECOVERY_ENGINE_ARCHITECTURE.md)
-[![Cognitive OS](https://img.shields.io/badge/Cognitive_OS-Active-9945ff?style=for-the-badge&labelColor=0d1117)]()
+[![Python](https://img.shields.io/badge/Python-3.8+-7aa2f7?style=flat-square&logo=python&logoColor=c0caf5&labelColor=1a1b26)](https://python.org)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-9ece6a?style=flat-square&logo=nodedotjs&logoColor=c0caf5&labelColor=1a1b26)](https://nodejs.org)
+[![License](https://img.shields.io/badge/License-MIT-bb9af7?style=flat-square&labelColor=1a1b26)](LICENSE)
+[![Params](https://img.shields.io/badge/Learnable_Params-48-f7768e?style=flat-square&labelColor=1a1b26)](#learnable-weight-system)
+[![Sprints](https://img.shields.io/badge/Sprints_Shipped-4%2F4-e0af68?style=flat-square&labelColor=1a1b26)](#sprint-timeline)
+[![arXiv](https://img.shields.io/badge/arXiv-2511.15755-73daca?style=flat-square&labelColor=1a1b26)](https://arxiv.org/abs/2511.15755)
 
 </div>
-
-### Self-Healing System
-
-**The system now heals itself.** Auto-Recovery Engine detects errors and applies safe fixes automatically — or provides smart suggestions for complex cases.
-
-<table>
-<tr>
-<td width="50%">
-
-**Auto-Recovery Engine**
-- 🩹 94% error coverage (655/700 historical errors)
-- ⚡ 70% auto-fixed without human intervention
-- ✅ 90% success rate on attempted fixes
-- 🔒 Safe-path validation (only ~/.claude, ~/.agent-core)
-
-</td>
-<td width="50%">
-
-**Cognitive OS**
-- 🧠 Flow state detection and protection
-- ⚡ Energy pattern optimization
-- 🎯 Focus session tracking
-- 📊 12-tab Command Center with Cognitive tab
-
-</td>
-</tr>
-</table>
-
-**Read More:** [Recovery Engine Architecture](./docs/RECOVERY_ENGINE_ARCHITECTURE.md)
 
 ---
 
-## v1.1.1 - 100% Real Data Achievement 🎉
+**meta-vengine** is a self-improving AI routing engine that selects the optimal model for every query using Decision Quality (DQ) scoring, active inference, and a Thompson Sampling bandit that continuously tunes 48 learnable parameters across 9 groups. It learns from every session, tracks a Pareto front across quality/cost/latency, and evolves its own configuration through three autonomous daemons -- no external frameworks, no cloud dependencies, fully sovereign.
 
-<div align="center">
+---
 
-[![Data Authenticity](https://img.shields.io/badge/Data_Authenticity-100%25_Real-00d9ff?style=for-the-badge&labelColor=0d1117)](./OBSERVATORY_README.md)
-[![Observatory](https://img.shields.io/badge/Observatory-Active-00d9ff?style=for-the-badge&labelColor=0d1117)](./OBSERVATORY_README.md)
-[![Command Center](https://img.shields.io/badge/Command_Center-12_Tabs-00d9ff?style=for-the-badge&labelColor=0d1117)](./docs/COMMAND_CENTER_ARCHITECTURE.md)
+## Architecture
 
-</div>
+```mermaid
+flowchart LR
+    Q["Query"] --> DQ["DQ Scorer"]
+    Q --> H["HSRGS"]
+    DQ --> AI["Active Inference<br/><i>Free Energy Minimization</i>"]
+    H --> AI
+    AI --> MS["Model Selection"]
+    MS --> T["Telemetry<br/><i>JSONL append-only</i>"]
+    T --> B["Bandit Engine<br/><i>Thompson Sampling</i>"]
+    B --> P["Pareto Front<br/><i>Quality + Cost + Latency</i>"]
+    P --> CE["Co-evolution Loop"]
+    CE -->|"weight updates"| DQ
 
-### Major Milestone
-
-**Eliminated all simulated/placeholder data from Command Center** — The dashboard now displays exclusively real or calculated metrics.
-
-<table>
-<tr>
-<td width="50%">
-
-**Before (v1.1.0)**
-- ❌ 3% simulated data (hardcoded trends)
-- ❌ Hardcoded DQ score (0.839)
-- ⚠️ 2% missing data (4 Observatory files)
-- ⚠️ Observatory tracking broken (regex bug)
-
-</td>
-<td width="50%">
-
-**After (v1.1.1)**
-- ✅ 0% simulated data
-- ✅ Real DQ score (0.889 from 158 decisions)
-- ✅ 0% missing data (all files created/backfilled)
-- ✅ Observatory fully operational
-
-</td>
-</tr>
-</table>
-
-### New Features
-
-<div align="center">
-
-| Feature | Description | Status |
-|---------|-------------|--------|
-| **Session Outcomes** | Quality tracking & outcome distribution (Tab 10) | ✅ Active |
-| **Productivity** | Read/write ratios, LOC velocity (Tab 11) | ✅ Active |
-| **Tool Analytics** | Success rates, git activity (Tab 12) | ✅ Active |
-| **Dynamic Trends** | Real +163.6%, +173.0%, +87.7% from data | ✅ Active |
-| **Git Backfilling** | 216 commits across 3 repositories | ✅ Complete |
-| **Observatory Tracking** | Auto-capture via bash hooks | ✅ Fixed |
-
-</div>
-
-### Performance Metrics
-
-<div align="center">
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   📊 Cost Tracking:      285 sessions, $6,040.55 total         │
-│   📝 Productivity:       9,821 LOC, 441.4 LOC/day velocity     │
-│   🔧 Git Activity:       216 commits backfilled                │
-│   🎯 DQ Score:           0.889 avg (158 routing decisions)     │
-│   📈 Cache Efficiency:   99.88% (maintained)                   │
-│   💰 ROI:                68x subscription value                │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+    style Q fill:#1a1b26,stroke:#7aa2f7,color:#c0caf5
+    style DQ fill:#1a1b26,stroke:#bb9af7,color:#c0caf5
+    style H fill:#1a1b26,stroke:#bb9af7,color:#c0caf5
+    style AI fill:#1a1b26,stroke:#f7768e,color:#c0caf5
+    style MS fill:#1a1b26,stroke:#9ece6a,color:#c0caf5
+    style T fill:#1a1b26,stroke:#e0af68,color:#c0caf5
+    style B fill:#1a1b26,stroke:#7dcfff,color:#c0caf5
+    style P fill:#1a1b26,stroke:#73daca,color:#c0caf5
+    style CE fill:#1a1b26,stroke:#ff9e64,color:#c0caf5
 ```
 
-</div>
+## Sprint Timeline
 
-### Data Authenticity Breakdown
+| Sprint | Codename | Stories | Key Deliverables |
+|:------:|:---------|:-------:|:-----------------|
+| **1** | Graph Signal + SUPERMAX v2 | 12/12 | Multi-feature graph signal (entropy, Gini, subgraph density, IRT), DQ calibration via ECE, behavioral outcome scoring, SUPERMAX v2 with Free-MAD trajectory scoring and disagreement escalation, A/B test framework |
+| **2** | **Optimas** | 12/12 | Thompson Sampling bandit engine, 19-param registry, weight safety (drift clamping + rollback), contextual LRF clustering, Bayesian optimization, session-type reward shaping |
+| **3** | **Prometheus** | 12/12 | Learning loop activation (`banditEnabled=true`), 3 autonomous daemons (daily snapshot, weekly LRF, monthly BO), learnable reward function, learnable cluster count, per-cluster exploration annealing, co-evolution self-documentation |
+| **4** | **Athena** | 12/12 | Observatory dashboard (localhost:8420), active inference for model selection, Pareto front tracking, operator preference vectors, time-of-day scheduling, learnable session multipliers with volume gates, weight evolution charts |
 
-<div align="center">
+> **48 user stories shipped. 48 learnable parameters. Zero regressions.**
 
-| Category | Percentage | Details |
-|:---------|:----------:|:--------|
-| 🟢 **Real Data** | **97%** | Session stats, costs, git activity, productivity |
-| 🔵 **Calculated** | **3%** | Averages, ratios, projections (from real sources) |
-| ⚫ **Simulated** | **0%** | None — all placeholders eliminated |
-| 🔴 **Missing** | **0%** | All Observatory files created/backfilled |
+## Key Features
 
-</div>
-
-**Read More:** [CHANGELOG.md](./CHANGELOG.md) • [Observatory README](./OBSERVATORY_README.md) • [Command Center Architecture](./docs/COMMAND_CENTER_ARCHITECTURE.md)
+<details>
+<summary><b>DQ Scoring</b> -- Multi-dimensional query quality assessment</summary>
 
 <br/>
 
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%"/>
+The DQ Scorer evaluates every incoming query across three calibrated dimensions -- validity, specificity, and correctness -- to produce a composite Decision Quality score. Weights are themselves learnable via the bandit engine. Calibrated through Expected Calibration Error (ECE) analysis against behavioral outcomes.
+
+- `kernel/dq-scorer.js` -- Core scoring engine
+- `kernel/dq-calibrator.py` -- ECE computation and weight adjustment
+- `kernel/behavioral-outcome.py` -- Composite behavioral signal extractor
+
+</details>
+
+<details>
+<summary><b>Active Inference</b> -- Free energy minimization for model selection</summary>
 
 <br/>
+
+Replaces static routing with an active inference loop that minimizes free energy (prediction error + complexity cost) to select models. The system maintains generative models of expected outcomes per provider and updates beliefs after each session.
+
+- `kernel/active-inference.py` -- Free energy minimization engine
+
+</details>
+
+<details>
+<summary><b>Thompson Sampling Bandit</b> -- Autonomous weight optimization</summary>
+
+<br/>
+
+A multi-armed bandit with Thompson Sampling explores weight perturbations, measures outcomes via a composite reward function (DQ accuracy 40% + cost efficiency 30% + behavioral signal 30%), and updates Beta-distributed beliefs. Safety: max 5% drift per epoch, 8% reward drop triggers automatic rollback.
+
+- `kernel/bandit-engine.js` -- Thompson Sampling core
+- `kernel/param-registry.js` / `kernel/param_registry.py` -- 48-param unified registry
+- `kernel/weight-safety.py` -- Drift clamping and rollback logic
+
+</details>
+
+<details>
+<summary><b>Pareto Front</b> -- Multi-objective optimization</summary>
+
+<br/>
+
+Tracks the Pareto frontier across quality, cost, and latency. Operator preference vectors bias Bayesian Optimization exploration along the frontier. Time-of-day scheduling shifts preferences automatically (peak hours favor quality, off-peak favors cost).
+
+- `kernel/pareto.py` -- Pareto front tracking and dominance checks
+- `kernel/bayesian_optimizer.py` -- Monthly BO cycle with preference-aware acquisition
+
+</details>
+
+<details>
+<summary><b>LRF Clustering</b> -- Contextual routing regions</summary>
+
+<br/>
+
+Learnable Routing Function clusters partition the query space into contextual regions, each with independent exploration rates and weight overrides. Cluster count is itself learnable, validated by silhouette score. Sparse clusters explore more; mature clusters exploit.
+
+- `kernel/lrf-clustering.py` -- Contextual LRF with learnable k
+- `kernel/lrf-update-daemon.py` -- Weekly cluster re-estimation
+
+</details>
+
+<details>
+<summary><b>Observatory Dashboard</b> -- Real-time visibility into the learning loop</summary>
+
+<br/>
+
+Served on `localhost:8420`. Weight evolution charts, LRF cluster visualization, A/B experiment tracking, Pareto front plots, and daemon health monitoring. Pure HTML/JS -- no build step.
+
+- `kernel/dashboard/` -- Dashboard server and static assets
+- `scripts/observatory/` -- Metric collectors and analytics agents
+
+</details>
+
+<details>
+<summary><b>HSRGS</b> -- Homeomorphic Self-Routing Godel System</summary>
+
+<br/>
+
+Emergent routing via topological pressure fields. Models the provider landscape as a dynamic manifold where query embeddings flow toward optimal attractors. Feeds into the active inference layer as a prior.
+
+- `kernel/hsrgs.py` -- Pressure-field model selection
+
+</details>
+
+<details>
+<summary><b>Autonomous Daemons</b> -- Three self-scheduling optimization loops</summary>
+
+<br/>
+
+| Daemon | Schedule | Function |
+|--------|----------|----------|
+| Weight Snapshot | Daily | Captures parameter state, computes drift metrics |
+| LRF Update | Weekly | Re-clusters query space, adjusts exploration rates |
+| Bayesian Optimization | Monthly | Full BO cycle over Pareto front with preference vectors |
+
+- `kernel/weight-snapshot-daemon.py`
+- `kernel/lrf-update-daemon.py`
+- `kernel/bo-monthly-daemon.py`
+
+</details>
+
+## Project Structure
+
+```
+meta-vengine/
+├── kernel/                    # Core engine
+│   ├── dq-scorer.js           # DQ scoring engine
+│   ├── bandit-engine.js       # Thompson Sampling bandit
+│   ├── param-registry.js      # Learnable parameter registry (JS)
+│   ├── param_registry.py      # Learnable parameter registry (Python)
+│   ├── active-inference.py    # Free energy minimization
+│   ├── pareto.py              # Multi-objective Pareto front
+│   ├── hsrgs.py               # Emergent routing
+│   ├── lrf-clustering.py      # Contextual LRF clustering
+│   ├── weight-safety.py       # Drift clamping + rollback
+│   ├── bayesian_optimizer.py  # Monthly BO cycle
+│   ├── cognitive-os.py        # Energy-aware routing
+│   ├── pattern-detector.js    # 8 session-type classifier
+│   ├── dashboard/             # Observatory web UI
+│   └── tests/                 # Kernel test suites
+├── config/
+│   ├── learnable-params.json  # 48 params, single source of truth
+│   ├── pricing.json           # Canonical model ID registry
+│   └── supermax-v2.json       # SUPERMAX consensus config
+├── coordinator/               # Multi-agent orchestration
+│   ├── orchestrator.py        # Strategy dispatcher
+│   └── strategies/            # parallel_research, implement, review, full
+├── daemons/                   # Autonomous optimization loops
+├── scripts/
+│   ├── observatory/           # Metrics, collectors, analytics
+│   └── session-optimizer/     # Session cost optimization
+├── proposals/                 # Sprint PRDs
+├── data/
+│   ├── weight-snapshots/      # Historical weight states
+│   └── ab-reports/            # A/B test results
+└── docs/                      # Architecture docs, benchmark results
+```
+
+## Learnable Weight System
+
+48 parameters across 9 groups, all defined in `config/learnable-params.json`:
+
+| Group | Params | What It Controls |
+|:------|:------:|:-----------------|
+| Graph Signal | 4 | Entropy, Gini, subgraph density, IRT difficulty weights |
+| DQ Weights | 3 | Validity, specificity, correctness balance |
+| Agent Thresholds | 5 | Complexity tier boundaries for agent routing |
+| Free-MAD | 3 | Stability decay, sycophancy and disagreement thresholds |
+| Behavioral | 4 | Completion, tool success, efficiency, override weights |
+| Reward Composition | 3 | DQ vs cost vs behavioral reward mix |
+| LRF Topology | 1 | Cluster count (learnable k) |
+| Exploration Schedule | 1 | Global exploration floor |
+| Session Multipliers | 24 | Per-session-type reward shaping (8 types x 3 dimensions) |
 
 ## Quick Start
 
 ```bash
-# Activate the engine
-source ~/.claude/init.sh
+# Clone
+git clone https://github.com/Dicoangelo/meta-vengine.git
+cd meta-vengine
 
-# See what the system learned
-coevo-analyze
+# Run preflight checks
+python3 kernel/preflight.py
 
-# Generate improvement proposals
-coevo-propose
+# Run the test suite
+pytest kernel/tests/
 
-# Preview before applying
-coevo-apply <mod_id> --dry-run
+# Start the observatory dashboard
+python3 kernel/dashboard/server.py
+# Open http://localhost:8420
 
-# Apply modification
-coevo-apply <mod_id>
+# Route a query
+source init.sh
+uni-ai "your query here"
 
-# View effectiveness over time
-coevo-dashboard
-
-# Proactive context loading
-prefetch --proactive
-prefetch --pattern debugging
-prefetch --suggest
-
-# HSRGS (Homeomorphic Self-Routing Gödel System)
-uni-ai "your query"              # Auto-routed via HSRGS
-ab-test                          # Compare HSRGS vs keyword DQ
-ab-test-detailed                 # With query breakdown
-
-# Observatory & Command Center
-ccc                              # Open Command Center (12-tab dashboard)
-obs                              # Unified Observatory report
-cost-report 7                    # Weekly cost analysis
-productivity-report 7            # Productivity metrics
-session-rate 5 "Great session!"  # Rate current session
-routing-dash                     # Routing performance dashboard
-
-# Auto-Recovery Engine
-recovery-engine.py status        # View recovery statistics
-recovery-engine.py test git      # Test git recovery
-recovery-engine.py test lock     # Test lock recovery
-recovery-engine.py recover --error "error text"  # Manual recovery trigger
+# View the routing dashboard
+routing-dash
 ```
 
-<br/>
+## Testing
 
-## The Flywheel
+```bash
+# Full kernel test suite
+pytest kernel/tests/
+
+# Individual test modules
+pytest kernel/tests/test_learning_loop.py        # Bandit + safety + LRF integration
+pytest kernel/test_bayesian_optimizer.py          # Bayesian optimization
+pytest kernel/test_lrf_clustering.py              # LRF clustering
+pytest kernel/test_weight_safety.py               # Drift clamping + rollback
+pytest kernel/test_param_registry.py              # Parameter registry
+
+# JavaScript tests
+node kernel/bandit-engine.test.js                 # Bandit engine
+node kernel/dq-scorer.test.js                     # DQ scorer
+node kernel/param-registry.test.js                # Param registry
+
+# Observatory QA
+pytest scripts/observatory/qa-test-suite.py
+
+# A/B test analysis
+python3 scripts/ab-test-analyzer.py --detailed
+```
+
+## Design Principles
+
+1. **Bidirectional co-evolution** -- The system reads its own patterns and modifies its own configuration. Every BO cycle writes updated weight state back into project documentation.
+
+2. **Sovereignty by design** -- All data stays local. SQLite + JSONL. No cloud telemetry. Human approval gates for configuration changes above safety thresholds.
+
+3. **Zero dependencies** -- Vanilla JavaScript + Python standard library. No npm packages, no pip requirements. If the standard library can do it, the standard library does it.
+
+4. **Append-only telemetry** -- JSONL logs are never overwritten, only appended. Every weight snapshot, every routing decision, every daemon outcome is preserved for retrospective analysis.
+
+5. **Model ID sovereignty** -- `config/pricing.json` is the canonical model ID registry. No inline model strings anywhere in the codebase. When a model 404s, one file gets updated and every consumer inherits the fix.
+
+## Paper
+
+This engine implements and extends the DQ Scoring framework from:
+
+> **Decision Quality Scoring for AI Model Routing**
+> arXiv:2511.15755
+>
+> 100-query benchmark. 8/8 evaluation criteria passed.
+> SUPERMAX consensus: **+12.4% DQ improvement**, **-95.4% variance** vs single-model baseline.
+
+Full benchmark results: [`docs/DQ_BENCHMARK_RESULTS.md`](docs/DQ_BENCHMARK_RESULTS.md)
+
+---
 
 <div align="center">
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                                                                             │
-│   1. WORK                                                                   │
-│      Use uni-ai as normal. Routes to best provider. Telemetry accumulates. │
-│                                        ↓                                    │
-│   2. ANALYZE                                                                │
-│      Run `coevo-analyze`. See patterns emerge.                             │
-│                                        ↓                                    │
-│   3. PROPOSE                                                                │
-│      Run `coevo-propose`. Get improvement suggestions.                     │
-│                                        ↓                                    │
-│   4. APPLY                                                                  │
-│      Apply high-confidence modifications (--dry-run first).                │
-│                                        ↓                                    │
-│   5. EVALUATE                                                               │
-│      Check `coevo-dashboard` for effectiveness.                            │
-│                                        ↓                                    │
-│   6. REPEAT                                                                 │
-│      The loop never fully closes. Keep evolving.                           │
-│                                        │                                    │
-│                                        └─────────────────────────▶ 1.      │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+[![GitHub](https://img.shields.io/badge/GitHub-Dicoangelo-7aa2f7?style=flat-square&logo=github&logoColor=c0caf5&labelColor=1a1b26)](https://github.com/Dicoangelo)
 
 </div>
 
-<br/>
-
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%"/>
-
-<br/>
-
-## Research Foundation
-
-<div align="center">
-
-*40+ papers synthesized across 7 domains (2025-2026)*
-
-</div>
-
-| Domain | Key Papers | Application |
-|:-------|:-----------|:------------|
-| **Self-Improvement** | LADDER `2503.00735` | Recursive refinement for modifications |
-| **Human-AI Co-Evolution** | OmniScientist `2511.16931` | Co-evolving ecosystem model |
-| **Meta-Cognition** | MAR `2512.20845` | Multi-agent reflexion for analysis |
-| **Prompt Optimization** | Promptomatix `2507.14241` | CLAUDE.md auto-optimization |
-| **Self-Evaluation** | IntroLM `2601.03511` | Introspection prompts |
-| **Memory Systems** | Memoria `2512.12686` | Retain, recall, reflect |
-| **Cache Efficiency** | IC-Cache `2501.12689` | Token economics optimization |
-
-<br/>
-
-<div align="center">
-
-*No existing system combines all of these. The synthesis is the invention.*
-
-</div>
-
-<br/>
-
-<img src="https://user-images.githubusercontent.com/74038190/212284115-f47cd8ff-2ffb-4b04-b5bf-4d1c14c0247f.gif" width="100%"/>
-
-<br/>
-
-## Sovereignty by Design
-
-<div align="center">
-
-```
-┌────────────────────────────────────────────────────────────────────────────────┐
-│                                                                                │
-│   LOCAL                       BOUNDED                        AUDITED           │
-│   ═════                       ═══════                        ═══════           │
-│                                                                                │
-│   All data in ~/.claude       Recursion capped at 2          Every mod logged  │
-│   No external APIs            Human approval required        Git history for   │
-│   Your patterns stay yours    Self-mod limited to            full rollback     │
-│                               instruction files                                │
-│                                                                                │
-│   ══════════════════════════════════════════════════════════════════════════   │
-│                                                                                │
-│   "The system improves itself — but only within bounds you control."           │
-│                                                                                │
-└────────────────────────────────────────────────────────────────────────────────┘
-```
-
-</div>
-
-<br/>
-
-## Documentation
-
-| Document | Purpose |
-|:---------|:--------|
-| [📖 Vision & Story](./docs/coevolution/README.md) | The unlock, the architecture, the hidden layers |
-| [🏗️ Architecture](./docs/coevolution/ARCHITECTURE.md) | Technical topology, data flow, integration points |
-| [🩹 Recovery Engine](./docs/RECOVERY_ENGINE_ARCHITECTURE.md) | Self-healing infrastructure, decision trees, security model |
-| [📊 Data Flow](./docs/SYSTEM_ARCHITECTURE_DATA_FLOW.md) | Data authenticity, collection, processing, presentation |
-| [🎛️ Command Center](./docs/COMMAND_CENTER_ARCHITECTURE.md) | 12-tab unified dashboard architecture |
-| [📚 Research Lineage](./docs/coevolution/RESEARCH.md) | 40+ paper citations across 7 domains |
-| [🚀 Quickstart](./docs/coevolution/QUICKSTART.md) | Get the loop running in 60 seconds |
-| [📋 API Reference](./docs/coevolution/API.md) | Complete command documentation |
-| [🧬 Ontology](./docs/coevolution/schemas/ONTOLOGY.ttl) | RDF semantic structure |
-
-<br/>
-
-## Metrics
-
-<div align="center">
-
-| Metric | Value | Meaning |
-|:-------|:-----:|:--------|
-| **Sessions** | 120 | Total sessions tracked |
-| **Messages** | 33,085 | Total messages processed |
-| **Cache Efficiency** | 99.88% | Context reuse rate |
-| **DQ Average** | 0.889 | Decision quality score (158 samples) |
-| **Patterns** | 8 | Session types detected |
-| **Cost Tracked** | $6,040.55 | Total API costs (285 sessions) |
-| **LOC Velocity** | 441.4/day | Productivity rate |
-| **Git Activity** | 216 commits | Across 3 repositories |
-| **Data Authenticity** | 100% | Real or calculated from real sources |
-
-</div>
-
-<br/>
-
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%"/>
-
-<br/>
-
-## Part of the D-Ecosystem
-
-<div align="center">
-
-| Project | Description |
-|:--------|:------------|
-| [🎙️ OS-App](https://github.com/Dicoangelo/OS-App) | Sovereign AI Operating System |
-| [🔬 ResearchGravity](https://github.com/Dicoangelo/ResearchGravity) | Multi-Tier Research Framework |
-| [🔄 Agent Core](https://github.com/Dicoangelo/agent-core) | Unified Research Orchestration |
-| [💼 CareerCoachAntigravity](https://github.com/Dicoangelo/CareerCoachAntigravity) | Sovereign Career Intelligence |
-| [⚙️ **Meta-Vengine**](https://github.com/Dicoangelo/meta-vengine) | **The Invention Engine** |
-
-</div>
-
-<br/>
-
-<img src="https://user-images.githubusercontent.com/74038190/212284115-f47cd8ff-2ffb-4b04-b5bf-4d1c14c0247f.gif" width="100%"/>
-
-<br/>
-
-<div align="center">
-
-```
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                                                                              ║
-║                           M E T A - V E N G I N E                            ║
-║                                                                              ║
-║                    ⚙️  ──────────────────────────  ⚙️                         ║
-║                                                                              ║
-║                          The Invention Engine                                ║
-║                                                                              ║
-║                    The gears turn. The flywheel spins.                       ║
-║                    The system learns how to learn.                           ║
-║                                                                              ║
-║                              Metaventions AI                                 ║
-║                               D-Ecosystem                                    ║
-║                                                                              ║
-║                   "Let the invention be hidden in your vision"               ║
-║                                                                              ║
-║                                              — Dico Angelo, 2026            ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-```
-
-<br/>
-
-[![Made with Sovereignty](https://img.shields.io/badge/Made_with-Sovereignty-00d9ff?style=for-the-badge&labelColor=0d1117)]()
-
-</div>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&height=120&color=0:0d1117,50:1a1a2e,100:16213e&section=footer" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7aa2f7,100:bb9af7&height=120&section=footer" width="100%" alt="meta-vengine footer"/>

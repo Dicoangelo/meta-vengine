@@ -2,7 +2,7 @@
 
 import json
 import tempfile
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
@@ -61,7 +61,7 @@ def _synthetic_history(n=20, base_reward=0.80):
     """Generate synthetic (config, reward) pairs."""
     import random
     random.seed(42)
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     entries = []
     for i in range(n):
         w1 = random.uniform(0.2, 0.8)
@@ -99,7 +99,7 @@ class TestFit:
         assert n == 0
 
     def test_fit_respects_lookback(self):
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         entries = [
             {"timestamp": (now - timedelta(days=5)).isoformat(),
              "config": {"w1": 0.6, "w2": 0.4, "ind1": 5.0}, "reward": 0.85},
@@ -242,7 +242,7 @@ class TestReportGeneration:
         opt.report_dir = tmp_path / "bo-reports"
 
         report_path = opt.generate_report()
-        expected_month = datetime.utcnow().strftime("%Y-%m")
+        expected_month = datetime.now(timezone.utc).strftime("%Y-%m")
         data = json.loads(report_path.read_text())
         assert data["month"] == expected_month
 
