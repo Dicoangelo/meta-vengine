@@ -453,4 +453,5 @@ print(f"\n{'='*60}")
 print(f"DQ Calibrator Tests: {passed} passed, {failed} failed")
 print(f"{'='*60}")
 
-sys.exit(1 if failed > 0 else 0)
+if __name__ == "__main__":
+    sys.exit(1 if failed > 0 else 0)

@@ -10,7 +10,7 @@ import json
 import sys
 import os
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any
 import hashlib
 
@@ -157,7 +157,7 @@ class VectorMemory:
             "content": content,
             "tags": tags,
             "confidence": confidence,
-            "timestamp": datetime.utcnow().isoformat() + 'Z'
+            "timestamp": datetime.now(timezone.utc).isoformat() + 'Z'
         }
 
         if metadata:
@@ -319,7 +319,7 @@ class VectorMemory:
             "to": to_id,
             "relationship": relationship,
             "strength": strength,
-            "timestamp": datetime.utcnow().isoformat() + 'Z'
+            "timestamp": datetime.now(timezone.utc).isoformat() + 'Z'
         }
 
         # Check for existing edge

@@ -12,7 +12,7 @@ import math
 import os
 import random
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -75,7 +75,7 @@ class BayesianWeightOptimizer:
         Returns the number of observations loaded.
         """
         self.param_ids = [p["id"] for p in self.registry.get_all_params()]
-        cutoff = datetime.utcnow() - timedelta(days=lookback_days)
+        cutoff = datetime.now(timezone.utc) - timedelta(days=lookback_days)
 
         self.X = []
         self.Y = []
@@ -98,7 +98,7 @@ class BayesianWeightOptimizer:
                     entry_time = datetime.fromisoformat(ts.replace("Z", "+00:00").replace("+00:00", ""))
                 except (ValueError, AttributeError):
                     # If timestamp is unparseable, include it anyway
-                    entry_time = datetime.utcnow()
+                    entry_time = datetime.now(timezone.utc)
 
                 if entry_time < cutoff:
                     continue
@@ -262,7 +262,7 @@ class BayesianWeightOptimizer:
             except (json.JSONDecodeError, OSError):
                 state = {}
         state["boEvaluationActive"] = active
-        state["lastUpdated"] = datetime.utcnow().isoformat() + "Z"
+        state["lastUpdated"] = datetime.now(timezone.utc).isoformat() + "Z"
         self.bo_state_path.write_text(json.dumps(state, indent=2) + "\n")
 
     def validate(
@@ -348,7 +348,7 @@ class BayesianWeightOptimizer:
         latency = self.pareto.get_latency_score(model_used)
         pareto_config = {
             "config_id": str(uuid.uuid4()),
-            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
             "weights": config,
             "objectives": {
                 "quality": quality,
@@ -369,7 +369,7 @@ class BayesianWeightOptimizer:
         Returns the path to the written report file.
         """
         if month is None:
-            month = datetime.utcnow().strftime("%Y-%m")
+            month = datetime.now(timezone.utc).strftime("%Y-%m")
 
         self.report_dir.mkdir(parents=True, exist_ok=True)
         report_path = self.report_dir / f"{month}.json"
@@ -389,7 +389,7 @@ class BayesianWeightOptimizer:
 
         report = {
             "month": month,
-            "generated_at": datetime.utcnow().isoformat() + "Z",
+            "generated_at": datetime.now(timezone.utc).isoformat() + "Z",
             "observations": n_obs,
             "baseline_mean": (
                 sum(self.Y) / len(self.Y) if self.Y else None

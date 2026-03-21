@@ -7,10 +7,18 @@ Self-improving routing engine. Routes queries to optimal AI providers via DQ sco
 ## Architecture
 
 ```
-Query → DQ Scorer + HSRGS → Model Selection → Telemetry → Co-evolution Loop
+Query → DQ Scorer + HSRGS → Active Inference → Model Selection → Telemetry → Co-evolution Loop
 ```
 
-**Kernel:** `kernel/dq-scorer.js` (DQ scoring), `kernel/pattern-detector.js` (8 session types), `kernel/cognitive-os.py` (energy-aware routing), `kernel/hsrgs.py` (emergent routing), `kernel/bandit-engine.js` (Thompson Sampling weight learning), `kernel/param-registry.js` (19 learnable params), `kernel/weight-safety.py` (drift clamping + rollback), `kernel/lrf-clustering.py` (contextual LRF)
+**Kernel (JS):** `dq-scorer.js` (DQ scoring), `pattern-detector.js` (8 session types), `bandit-engine.js` (Thompson Sampling), `param-registry.js` (48 learnable params)
+
+**Kernel (Python):** `cognitive-os.py` (energy routing), `hsrgs.py` (emergent routing), `weight-safety.py` (drift clamp + rollback), `lrf-clustering.py` (contextual LRF), `bayesian_optimizer.py` (monthly BO), `active-inference.py` (free energy model selection), `pareto.py` (multi-objective Pareto front), `behavioral-outcome.py`, `dq-calibrator.py`, `graph-confidence-daemon.py`
+
+**Daemons:** `weight-snapshot-daemon.py` (daily), `lrf-update-daemon.py` (weekly), `bo-monthly-daemon.py` (1st of month) — scheduled via macOS LaunchAgent (`daemons/`)
+
+**Automation:** `preflight.py` (activation gate), `bootstrap.py` (warm-start), `daemon-health.py` (health monitor), `ab-runner.py` (A/B pipeline), `coevo-update.py` (self-documentation), `session-volume-gate.py`, `stability-monitor.py`
+
+**Dashboard:** `kernel/dashboard/serve.py` — localhost:8420, 4 tabs (Overview, Weights, Clusters, Timeline), Canvas charts, JSON API
 
 **Coordination:** `coordinator/orchestrator.py` — parallel_research, parallel_implement, review_build, full strategies
 
@@ -24,15 +32,23 @@ coord research|implement|review|full|team "task"
 cos state|flow|fate|route "task"
 obs N                    # N-day report
 ccc                      # Command Center dashboard
+python3 kernel/dashboard/serve.py   # Observatory dashboard on :8420
+python3 kernel/preflight.py         # Activation gate check
+python3 kernel/daemon-health.py     # Daemon health report
 ```
 
 ## Testing
 
 ```bash
-pytest kernel/tests/test_learning_loop.py        # Learning loop (bandit + safety + LRF)
+pytest kernel/tests/ -v                           # All 105 tests (< 1s)
+pytest kernel/tests/test_learning_loop.py         # Sprint 2: bandit + safety + LRF
+pytest kernel/tests/test_prometheus.py            # Sprint 3: 12 end-to-end assertions
+pytest kernel/tests/test_athena.py                # Sprint 4: 12 end-to-end assertions
 pytest scripts/observatory/qa-test-suite.py       # Observatory
 python3 scripts/ab-test-analyzer.py --detailed    # A/B test analysis
 ```
+
+**Note:** `kernel/tests/test_dq_calibrator.py` uses `sys.exit()` at module level — run standalone (`python3 kernel/tests/test_dq_calibrator.py`), not via pytest.
 
 ## Design Principles
 
@@ -42,9 +58,29 @@ python3 scripts/ab-test-analyzer.py --detailed    # A/B test analysis
 4. Append-only telemetry — JSONL never overwritten
 5. Model ID sovereignty — `config/pricing.json` is canonical, never inline model strings
 
-## Learnable Weight System (Sprint 2)
+## Learnable Weight System
 
-19 params in `config/learnable-params.json` across 5 groups. Thompson Sampling bandit perturbs weights, outcome reward function (DQ accuracy 40% + cost efficiency 30% + behavioral 30%) updates beliefs. Safety: max 5% drift/epoch, 8% reward drop triggers rollback. Feature-flagged via `banditEnabled`.
+48 params in `config/learnable-params.json` across 9 groups. Thompson Sampling bandit perturbs weights, outcome reward function (learnable DQ/cost/behavioral split) updates beliefs. Safety: max 5% drift/epoch, 8% reward drop triggers rollback. `banditEnabled: true`.
+
+| Group | Params | Constraint |
+|-------|--------|------------|
+| Graph Signal | 4 | sumMustEqual 1.0 |
+| DQ Weights | 3 | sumMustEqual 1.0 |
+| Agent Thresholds | 5 | monotonic ascending |
+| Free-MAD | 3 | independent |
+| Behavioral | 4 | sumMustEqual 0.9 (implicit remainder) |
+| Reward Composition | 3 | sumMustEqual 1.0 |
+| LRF Topology | 1 | independent (integer) |
+| Exploration Schedule | 1 | independent |
+| Session Multipliers | 24 | independent (8 types x 3, volume-gated) |
+
+## Sprint History
+
+**Sprint 2 — Optimas LRF Auto-Optimization** (72687d4): 19 initial params, Thompson Sampling bandit, weight safety, LRF clustering, Bayesian optimizer. Feature-flagged `banditEnabled`.
+
+**Sprint 3 — Prometheus: Self-Activating Loop** (proposals/sprint-3-prometheus.md): Activation gate (preflight.py), 3 LaunchAgent daemons, warm-start bootstrap, meta-learnable reward weights, learnable cluster count (k) with silhouette validation, per-cluster exploration annealing, session-type reward multipliers, A/B test pipeline (Welch's t-test), rollback dashboard, co-evolution self-documentation. 12/12 US, `test_prometheus.py` passes.
+
+**Sprint 4 — Athena: Adaptive Intelligence Dashboard** (proposals/sprint-4-athena.md): Observatory dashboard (localhost:8420, Canvas charts, 4 tabs), session multipliers promoted to bandit-learned (24 new params → 48 total), volume gate (100 decisions/type), convergence monitor, active inference router (free energy model selection, feature-flagged `activeInferenceEnabled`), multi-objective Pareto front (quality/cost/latency), preference-aware BO with time-of-day scheduling. 12/12 US, `test_athena.py` passes.
 
 <!-- COEVO-START -->
 ### Live Weight State (auto-updated by coevo-update.py)

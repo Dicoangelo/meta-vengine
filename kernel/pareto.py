@@ -21,7 +21,7 @@ Config format:
 """
 
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -149,7 +149,7 @@ class ParetoTracker:
         """
         # Ensure on_front is initially unset — will be set by recompute
         config = dict(config)  # shallow copy
-        config.setdefault("timestamp", datetime.utcnow().isoformat() + "Z")
+        config.setdefault("timestamp", datetime.now(timezone.utc).isoformat() + "Z")
 
         self._all_evaluated.append(config)
 
@@ -195,7 +195,7 @@ class ParetoTracker:
             "front": self._front,
             "all_evaluated_count": len(self._all_evaluated),
             "front_size": len(self._front),
-            "last_updated": datetime.utcnow().isoformat() + "Z",
+            "last_updated": datetime.now(timezone.utc).isoformat() + "Z",
         }
 
     # ------------------------------------------------------------------
@@ -209,7 +209,7 @@ class ParetoTracker:
             "objectives": self.objectives,
             "front": self._front,
             "all_evaluated": self._all_evaluated,
-            "last_updated": datetime.utcnow().isoformat() + "Z",
+            "last_updated": datetime.now(timezone.utc).isoformat() + "Z",
         }
         self.front_path.write_text(json.dumps(data, indent=2) + "\n")
 
