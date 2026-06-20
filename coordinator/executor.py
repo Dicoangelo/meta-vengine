@@ -70,7 +70,7 @@ class AgentExecutor:
     MODEL_MAP = {
         "haiku": "claude-3-5-haiku-latest",
         "sonnet": "claude-sonnet-4-6",
-        "opus": "claude-opus-4-6"
+        "opus": "claude-opus-4-8"
     }
 
     # Default timeouts by model

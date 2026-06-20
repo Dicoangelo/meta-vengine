@@ -28,7 +28,7 @@ STATS_CACHE = HOME / ".claude/stats-cache.json"
 
 # Build PRICING dict from centralized config (keyed by model ID for compatibility)
 PRICING = {
-    "claude-opus-4-6": {
+    "claude-opus-4-8": {
         "input": _PRICING["opus"]["input"],
         "output": _PRICING["opus"]["output"],
         "cache_read": _PRICING["opus"]["cache_read"],
@@ -81,13 +81,13 @@ def calculate_session_cost(session_file: Path) -> Optional[Dict]:
                 tokens['cache_create'] += usage.get('cache_creation_input_tokens', 0)
 
                 if not model:
-                    model = line.get('message', {}).get('model', 'claude-opus-4-6')
+                    model = line.get('message', {}).get('model', 'claude-opus-4-8')
 
     if not model or sum(tokens.values()) == 0:
         return None
 
     # Calculate cost
-    pricing = PRICING.get(model, PRICING['claude-opus-4-6'])
+    pricing = PRICING.get(model, PRICING['claude-opus-4-8'])
     cost = (
         (tokens['input'] / 1_000_000) * pricing['input'] +
         (tokens['output'] / 1_000_000) * pricing['output'] +

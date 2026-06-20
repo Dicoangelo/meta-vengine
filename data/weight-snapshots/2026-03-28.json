@@ -1,0 +1,404 @@
+{
+  "date": "2026-03-28",
+  "version": "1.0.0",
+  "param_count": 48,
+  "params": {
+    "graph_entropy_weight": {
+      "value": 0.3,
+      "min": 0.05,
+      "max": 0.6,
+      "group": "graph_signal"
+    },
+    "graph_gini_weight": {
+      "value": 0.25,
+      "min": 0.05,
+      "max": 0.6,
+      "group": "graph_signal"
+    },
+    "graph_subgraph_density_weight": {
+      "value": 0.25,
+      "min": 0.05,
+      "max": 0.6,
+      "group": "graph_signal"
+    },
+    "graph_irt_difficulty_weight": {
+      "value": 0.2,
+      "min": 0.05,
+      "max": 0.6,
+      "group": "graph_signal"
+    },
+    "dq_validity_weight": {
+      "value": 0.3912,
+      "min": 0.1,
+      "max": 0.6,
+      "group": "dq_weights"
+    },
+    "dq_specificity_weight": {
+      "value": 0.2853,
+      "min": 0.1,
+      "max": 0.6,
+      "group": "dq_weights"
+    },
+    "dq_correctness_weight": {
+      "value": 0.3235,
+      "min": 0.1,
+      "max": 0.6,
+      "group": "dq_weights"
+    },
+    "agent_trivial_threshold": {
+      "value": 0.25,
+      "min": 0.1,
+      "max": 0.4,
+      "group": "agent_thresholds"
+    },
+    "agent_simple_threshold": {
+      "value": 0.45,
+      "min": 0.3,
+      "max": 0.6,
+      "group": "agent_thresholds"
+    },
+    "agent_moderate_threshold": {
+      "value": 0.65,
+      "min": 0.5,
+      "max": 0.8,
+      "group": "agent_thresholds"
+    },
+    "agent_complex_threshold": {
+      "value": 0.85,
+      "min": 0.7,
+      "max": 0.95,
+      "group": "agent_thresholds"
+    },
+    "agent_expert_threshold": {
+      "value": 1.0,
+      "min": 0.9,
+      "max": 1.0,
+      "group": "agent_thresholds"
+    },
+    "freemad_stability_decay_rate": {
+      "value": 5.0,
+      "min": 1.0,
+      "max": 20.0,
+      "group": "free_mad"
+    },
+    "freemad_sycophancy_threshold": {
+      "value": 0.05,
+      "min": 0.01,
+      "max": 0.2,
+      "group": "free_mad"
+    },
+    "freemad_disagreement_threshold": {
+      "value": 0.15,
+      "min": 0.05,
+      "max": 0.4,
+      "group": "free_mad"
+    },
+    "behavioral_completion_weight": {
+      "value": 0.3,
+      "min": 0.1,
+      "max": 0.5,
+      "group": "behavioral"
+    },
+    "behavioral_tool_success_weight": {
+      "value": 0.25,
+      "min": 0.05,
+      "max": 0.5,
+      "group": "behavioral"
+    },
+    "behavioral_efficiency_weight": {
+      "value": 0.2,
+      "min": 0.05,
+      "max": 0.4,
+      "group": "behavioral"
+    },
+    "behavioral_no_override_weight": {
+      "value": 0.15,
+      "min": 0.05,
+      "max": 0.4,
+      "group": "behavioral"
+    },
+    "rewardWeightDQ": {
+      "value": 0.4,
+      "min": 0.2,
+      "max": 0.6,
+      "group": "reward_composition"
+    },
+    "rewardWeightCost": {
+      "value": 0.3,
+      "min": 0.1,
+      "max": 0.5,
+      "group": "reward_composition"
+    },
+    "rewardWeightBehavioral": {
+      "value": 0.3,
+      "min": 0.1,
+      "max": 0.5,
+      "group": "reward_composition"
+    },
+    "kClusters": {
+      "value": 5,
+      "min": 3,
+      "max": 10,
+      "group": "lrf_topology"
+    },
+    "explorationFloorGlobal": {
+      "value": 0.05,
+      "min": 0.01,
+      "max": 0.15,
+      "group": "exploration_schedule"
+    },
+    "session_debugging_dq": {
+      "value": 0.8,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_debugging_cost": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_debugging_behavioral": {
+      "value": 1.2,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_research_dq": {
+      "value": 1.2,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_research_cost": {
+      "value": 0.8,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_research_behavioral": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_architecture_dq": {
+      "value": 1.3,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_architecture_cost": {
+      "value": 0.7,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_architecture_behavioral": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_refactoring_dq": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_refactoring_cost": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_refactoring_behavioral": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_testing_dq": {
+      "value": 0.9,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_testing_cost": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_testing_behavioral": {
+      "value": 1.1,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_docs_dq": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_docs_cost": {
+      "value": 1.2,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_docs_behavioral": {
+      "value": 0.8,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_exploration_dq": {
+      "value": 1.1,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_exploration_cost": {
+      "value": 0.9,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_exploration_behavioral": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_creative_dq": {
+      "value": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_creative_cost": {
+      "value": 0.8,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    },
+    "session_creative_behavioral": {
+      "value": 1.2,
+      "min": 0.5,
+      "max": 2.0,
+      "group": "session_multipliers"
+    }
+  },
+  "bandit_beliefs": {
+    "graph_entropy_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "graph_gini_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "graph_subgraph_density_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "graph_irt_difficulty_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "dq_validity_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "dq_specificity_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "dq_correctness_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_trivial_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_simple_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_moderate_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_complex_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "agent_expert_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "freemad_stability_decay_rate": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "freemad_sycophancy_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "freemad_disagreement_threshold": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "behavioral_completion_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "behavioral_tool_success_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "behavioral_efficiency_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "behavioral_no_override_weight": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "rewardWeightDQ": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "rewardWeightCost": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "rewardWeightBehavioral": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "kClusters": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    },
+    "explorationFloorGlobal": {
+      "alpha": 5.3593,
+      "beta": 3.579
+    }
+  },
+  "bandit_enabled": true,
+  "epoch_metrics": {
+    "avg_reward": 0.0,
+    "reward_variance": 0.0,
+    "exploration_rate": 0.0,
+    "drift_from_baseline": 0.0,
+    "history_entries": 0,
+    "reward_samples": 0
+  },
+  "promoted": false,
+  "created_at": "2026-03-28T03:00:03.180985"
+}

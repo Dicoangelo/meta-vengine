@@ -1,0 +1,85 @@
+{
+  "weekLabel": "2026-W12",
+  "timestamp": "2026-03-29T08:00:04.901779+00:00",
+  "status": "completed",
+  "totalDecisions": 382,
+  "clusterCount": 5,
+  "clusters": [
+    {
+      "id": 0,
+      "size": 127,
+      "centroid": [
+        0.416142,
+        0.857143,
+        0.25,
+        0.5,
+        0.714929
+      ],
+      "avgReward": 0.5,
+      "bestWeights": {},
+      "trusted": true
+    },
+    {
+      "id": 1,
+      "size": 94,
+      "centroid": [
+        0.731074,
+        0.857143,
+        0.25,
+        0.5,
+        0.825957
+      ],
+      "avgReward": 0.5,
+      "bestWeights": {},
+      "trusted": true
+    },
+    {
+      "id": 2,
+      "size": 113,
+      "centroid": [
+        0.584619,
+        0.857143,
+        0.25,
+        0.5,
+        0.779832
+      ],
+      "avgReward": 0.5,
+      "bestWeights": {},
+      "trusted": true
+    },
+    {
+      "id": 3,
+      "size": 30,
+      "centroid": [
+        0.9733,
+        0.857143,
+        0.25,
+        0.5,
+        0.877633
+      ],
+      "avgReward": 0.5,
+      "bestWeights": {},
+      "trusted": false
+    },
+    {
+      "id": 4,
+      "size": 18,
+      "centroid": [
+        0.324056,
+        0.857143,
+        0.25,
+        0.5,
+        0.571111
+      ],
+      "avgReward": 0.5,
+      "bestWeights": {},
+      "trusted": false
+    }
+  ],
+  "promotions": [],
+  "summary": {
+    "trustedClusters": 3,
+    "promotionCount": 0,
+    "avgRewardOverall": 0.5
+  }
+}

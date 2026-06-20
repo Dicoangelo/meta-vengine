@@ -1,7 +1,7 @@
 {
   "description": "Latency proxy by model tier. Higher = faster. Normalized 0-1.",
   "tiers": {
-    "claude-opus-4-6": 0.3,
+    "claude-opus-4-8": 0.3,
     "claude-sonnet-4-6": 0.6,
     "claude-haiku-4-5": 1.0,
     "gpt-4o": 0.5,

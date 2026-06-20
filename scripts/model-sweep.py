@@ -137,7 +137,7 @@ def classify_model_id(model_id, registry):
     if model_id in registry["deprecated"]:
         return "deprecated", registry["deprecated"][model_id]
 
-    # Check if it's a short alias (e.g., "claude-opus-4" resolves to "claude-opus-4-6")
+    # Check if it's a short alias (e.g., "claude-opus-4" resolves to "claude-opus-4-8")
     for current_id in registry["current"]:
         if current_id.startswith(model_id):
             return "alias", f"Resolves to {current_id}"
@@ -213,7 +213,7 @@ def get_fix_mapping(registry):
     """Build a mapping from deprecated IDs to their replacements."""
     mapping = {}
     for dep_id, note in registry["deprecated"].items():
-        # Extract the replacement from the note (e.g., "Use claude-opus-4-6" or "Use gpt-4o")
+        # Extract the replacement from the note (e.g., "Use claude-opus-4-8" or "Use gpt-4o")
         match = re.search(r'Use ([\w.-]+)', note)
         if match:
             mapping[dep_id] = match.group(1)

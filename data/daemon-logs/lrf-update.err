@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/dicoangelo/projects/core/meta-vengine/kernel/lrf-update-daemon.py", line 582, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dicoangelo/projects/core/meta-vengine/kernel/lrf-update-daemon.py", line 578, in main
+    run_update(dry_run=args.dry_run, k=args.k)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dicoangelo/projects/core/meta-vengine/kernel/lrf-update-daemon.py", line 361, in run_update
+    features_list = [extract_features(d) for d in decisions]
+                     ~~~~~~~~~~~~~~~~^^^
+  File "/Users/dicoangelo/projects/core/meta-vengine/kernel/lrf-update-daemon.py", line 108, in extract_features
+    complexity = float(decision.get("complexity", 0.5))
+TypeError: float() argument must be a string or a real number, not 'NoneType'
