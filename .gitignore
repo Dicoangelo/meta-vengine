@@ -52,3 +52,6 @@ mcp-servers/
 */__pycache__/
 *.pyc
 .claude/
+
+# Local AI context — kept on disk, not published
+CLAUDE.md
